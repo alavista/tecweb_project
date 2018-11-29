@@ -1,0 +1,11 @@
+Specifica dei requisiti
+Si vuole realizzare un sistema che consenta di ordinare del cibo. All'interno del sistema ci sono tre tipologie di utenti: l'amministratore e gli utenti clienti e fornitori.
+- Utente cliente: può ricercare i prodotti e i fornitori sulla base di alcuni criteri e ordina del cibo inserendo nel proprio carrello una lista di prodotti (anche di fornitori diversi); per procedere al pagamento deve essere registrato, poi sceglie la modalità (carta di credito o contrassegno) e l'orario (a patto che il fornitore sia aperto e disponga di almeno 45 minuti lavorativi per effetuare la consegna). Per ogni 10€ di spesa guadagna un credito pari a 0,50€ che può essere cumulato e speso senza alcun vincolo. Può altresì scrivere delle recensioni sui fornitori (composte da un voto da 1 a 5 e un commento testuale).
+- Utente fornitore: una volta registrato, fornisce un proprio listino nel quale deve indicare le proprietà dei prodotti: categoria (primi, secondi, pizze, piade, panini, sushi, dolci, bibita) e se hanno determinate caratteristiche: vegano, senza glutine, surgelato. Indica i costi della spedizione, che può essere gratuita per gli ordini con un costo superiore a una certa soglia, a sua discrezione. Il listino può essere modificato in qualsiasi momento.
+- Amministratore: accetta le registrazioni dei fornitori, può visualizzare e cancellare i prodotti e le recensioni presenti e bloccare un utente.
+Il sistema di notifiche prevede notifiche:
+- agli utenti appena registrati
+- al cliente che effettua un ordine
+- al fornitore quando riceve un ordine
+- al cliente in cui si indica l'orario previsto di consegna
+- al cliente quando il fornitore fa partire la consegna (aggiornando l'orario previsto di consegna)
