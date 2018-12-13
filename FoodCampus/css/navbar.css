@@ -1,0 +1,23 @@
+.navbar-custom {
+    background-color: #F83442;
+}
+
+.navbar-custom ul  li a {
+    color: white !important;
+}
+
+.navbar-custom .form-inline .input-group .form-control .input-group-prepend .btn {
+    background-color: white;
+}
+
+.navbar-custom .form-inline .abs-center-x .input-group-prepend .btn {
+    background-color: white;
+}
+
+@media (min-width: 768px) {
+    .navbar-custom .abs-center-x {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
