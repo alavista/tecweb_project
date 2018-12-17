@@ -7,7 +7,7 @@
             <li class="nav-item"><a class="nav-link" href="home.php">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Ricerca prodotti</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Ricerca fornitori</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
         </ul>
     </div>
     <form class="form-inline" action="#">
