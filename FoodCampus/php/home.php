@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="it-IT">
     <head>
-        <title>Esercitazione HTML</title>
+        <title>FOOD CAMPUS</title>
          <metacharset="UTF-8">
          <meta name="viewport" content="width=device-width, initial-scale=1">
          <!-- Latest compiled and minified CSS -->
@@ -19,47 +19,53 @@
     </head>
     <body>
           <?php require_once 'navbar.php';?>
-          <div id="foodCategories" class="carousel slide" data-ride="carousel">
-          <!-- Indicators -->
-          <ul class="carousel-indicators">
-              <li data-target="#foodCategories" data-slide-to="0" class="active"></li>
-              <li data-target="#foodCategories" data-slide-to="1"></li>
-              <li data-target="#foodCategories" data-slide-to="2"></li>
-              <li data-target="#foodCategories" data-slide-to="3"></li>
-          </ul>
-          <!-- The slideshow -->
-          <div class="carousel-inner">
-              <div class="carousel-item active">
-                  <a href="#"><img src="../res/pizza.jpg" alt="Pizza"></a>
-                  <div class="carousel-caption">
-                      <h3>Pizze</h3>
-                  </div>
+          <div class="container-fluid">
+              <h1>DA CANCELLARE</h1>
+              <div class = "text-center">
+                  <h1>FOOD CAMPUS</h1>
               </div>
-              <div class="carousel-item">
-                  <a href="#"><img src="../res/panino.jpg" alt="Panini"></a>
-                  <div class="carousel-caption">
-                      <h3>Panini</h3>
+              <div id="foodCategories" class="carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+              <ul class="carousel-indicators">
+                  <li data-target="#foodCategories" data-slide-to="0" class="active"></li>
+                  <li data-target="#foodCategories" data-slide-to="1"></li>
+                  <li data-target="#foodCategories" data-slide-to="2"></li>
+                  <li data-target="#foodCategories" data-slide-to="3"></li>
+              </ul>
+              <!-- The slideshow -->
+              <div class="carousel-inner">
+                  <div class="carousel-item active">
+                      <a href="#"><img src="../res/pizza.jpg" alt="Pizza"></a>
+                      <div class="carousel-caption">
+                          <h3>Pizze</h3>
+                      </div>
                   </div>
-              </div>
-              <div class="carousel-item">
-                  <a href="#"><img src="../res/primo.jpg" alt="Primi"></a>
-                  <div class="carousel-caption">
-                      <h3>Primi</h3>
+                  <div class="carousel-item">
+                      <a href="#"><img src="../res/panino.jpg" alt="Panini"></a>
+                      <div class="carousel-caption">
+                          <h3>Panini</h3>
+                      </div>
                   </div>
-              </div>
-              <div class="carousel-item">
-                  <a href="#"><img src="../res/secondo.jpg" alt="Secondi"></a>
-                  <div class="carousel-caption">
-                      <h3>Secondi</h3>
+                  <div class="carousel-item">
+                      <a href="#"><img src="../res/primo.jpg" alt="Primi"></a>
+                      <div class="carousel-caption">
+                          <h3>Primi</h3>
+                      </div>
                   </div>
+                  <div class="carousel-item">
+                      <a href="#"><img src="../res/secondo.jpg" alt="Secondi"></a>
+                      <div class="carousel-caption">
+                          <h3>Secondi</h3>
+                      </div>
+                  </div>
+                  <!-- Left and right controls -->
+                  <a class="carousel-control-prev" href="#foodCategories" data-slide="prev">
+                      <span class="carousel-control-prev-icon"></span>
+                  </a>
+                  <a class="carousel-control-next" href="#foodCategories" data-slide="next">
+                      <span class="carousel-control-next-icon"></span>
+                  </a>
               </div>
-              <!-- Left and right controls -->
-              <a class="carousel-control-prev" href="#foodCategories" data-slide="prev">
-                  <span class="carousel-control-prev-icon"></span>
-              </a>
-              <a class="carousel-control-next" href="#foodCategories" data-slide="next">
-                  <span class="carousel-control-next-icon"></span>
-              </a>
           </div>
       </body>
 </html>
