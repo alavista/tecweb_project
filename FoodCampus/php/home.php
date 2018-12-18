@@ -18,8 +18,8 @@
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/home.css">
     </head>
     <body>
-          <?php require_once 'navbar.php';?>
           <div class="container-fluid">
+              <?php require_once 'navbar.php';?>
               <h1>DA CANCELLARE</h1>
               <div class = "text-center">
                   <h1>FOOD CAMPUS</h1>
