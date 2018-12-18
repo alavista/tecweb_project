@@ -20,8 +20,7 @@
     <body>
           <div class="container-fluid">
               <?php require_once 'navbar.php';?>
-              <h1>DA CANCELLARE</h1>
-              <div class = "text-center">
+              <div class = "text-center" id="siteTitle">
                   <h1>FOOD CAMPUS</h1>
               </div>
               <div id="foodCategories" class="carousel slide" data-ride="carousel">
