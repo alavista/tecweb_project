@@ -34,25 +34,25 @@
               <!-- The slideshow -->
               <div class="carousel-inner">
                   <div class="carousel-item active">
-                      <a href="#"><img src="../res/pizza.jpg" alt="Pizza"></a>
+                      <a href="#"><img src="../res/home/slideshow/pizza.jpg" alt="Pizza"></a>
                       <div class="carousel-caption">
                           <h3>Pizze</h3>
                       </div>
                   </div>
                   <div class="carousel-item">
-                      <a href="#"><img src="../res/panino.jpg" alt="Panini"></a>
+                      <a href="#"><img src="../res/home/slideshow/panino.jpg" alt="Panini"></a>
                       <div class="carousel-caption">
                           <h3>Panini</h3>
                       </div>
                   </div>
                   <div class="carousel-item">
-                      <a href="#"><img src="../res/primo.jpg" alt="Primi"></a>
+                      <a href="#"><img src="../res/home/slideshow/primo.jpg" alt="Primi"></a>
                       <div class="carousel-caption">
                           <h3>Primi</h3>
                       </div>
                   </div>
                   <div class="carousel-item">
-                      <a href="#"><img src="../res/secondo.jpg" alt="Secondi"></a>
+                      <a href="#"><img src="../res/home/slideshow/secondo.jpg" alt="Secondi"></a>
                       <div class="carousel-caption">
                           <h3>Secondi</h3>
                       </div>
