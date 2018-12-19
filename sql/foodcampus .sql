@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 19, 2018 alle 15:10
+-- Creato il: Dic 19, 2018 alle 16:41
 -- Versione del server: 10.1.37-MariaDB
 -- Versione PHP: 7.2.12
 
@@ -86,7 +86,7 @@ CREATE TABLE `fornitore` (
   `email` varchar(30) NOT NULL,
   `sito_web` varchar(60) DEFAULT NULL,
   `partita_iva` varchar(11) NOT NULL,
-  `immagine` blob
+  `immagine` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -96,7 +96,7 @@ CREATE TABLE `fornitore` (
 INSERT INTO `fornitore` (`IDFornitore`, `nome`, `città`, `indirizzo_via`, `indirizzo_numero_civico`, `costi_spedizione`, `soglia_spedizione_gratuita`, `abilitato`, `email`, `sito_web`, `partita_iva`, `immagine`) VALUES
 (1, 'La Malaghiotta', 'Cesena', 'piazza Fabbri', 5, '0.99', NULL, 1, 'lamalaghiotta@gmail.com', 'www.lamaghiotta.it', '01786610897', NULL),
 (2, 'C\'entro', 'Cesena', 'contrada Uberti', 3, '0.99', '0.99', 1, 'centro@gmail.com', 'www.centro-cesena.it', '01993190741', NULL),
-(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', 185, '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.i', '05359681003', NULL);
+(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', 185, '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.i', '05359681003', 'pizza.jpg');
 
 -- --------------------------------------------------------
 
