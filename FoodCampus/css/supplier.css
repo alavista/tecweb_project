@@ -1,0 +1,16 @@
+#supplierName {
+    margin-top: 60px;
+}
+
+.container .jumbotron {
+    margin-top: 2%;
+}
+
+.container .jumbotron .product {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.container .jumbotron .btn {
+    background-color: #F83442;
+}
