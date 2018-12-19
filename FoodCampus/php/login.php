@@ -8,6 +8,10 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<!--Font awesome-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../css/navbar.css">
@@ -15,25 +19,23 @@
 </head>
 
 <body>
-	<?php include 'navbar.php';?>
+	<?php require_once 'navbar.php';?>
 	<div class="container">
 		<div class="row">
 			<div class="col"></div>
 			<div class="col-6 jumbotron mx-auto" id="loginform">
-				<h1>Login</h1>
-				<br/><br/>
+				<h1 class="form-title">Login</h1>
 				<form action="/action_page.php" method="post">
 					<div class="form-group">
 						<label for="email">Indirizzo Email:</label>
-						<input type="email" class="form-control" id="email" placeholder="Inserisci email" name="email">
+						<input type="email" class="form-control" id="email" required placeholder="Inserisci email" name="email">
 					</div>
 					<div class="form-group">
 						<label for="pwd">Password:</label>
-						<input type="password" class="form-control" id="pwd" placeholder="Inserisci password" name="pswd">
+						<input type="password" class="form-control" id="pwd" required placeholder="Inserisci password" name="pswd">
 					</div>
 					<a href="#">Password dimenticata?</a>
-					<br/><br/>
-					<div class="form-group form-check">
+					<div id="remember_me" class="form-group form-check">
 						<label class="form-check-label">
 						<input class="form-check-input" type="checkbox" name="remember"> Rimani collegato
 						</label>
