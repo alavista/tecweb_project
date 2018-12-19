@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 14, 2018 alle 10:36
--- Versione del server: 10.1.36-MariaDB
--- Versione PHP: 7.2.10
+-- Creato il: Dic 19, 2018 alle 15:10
+-- Versione del server: 10.1.37-MariaDB
+-- Versione PHP: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -77,23 +77,26 @@ INSERT INTO `cliente` (`IDCliente`, `nome`, `cognome`, `email`, `password`) VALU
 CREATE TABLE `fornitore` (
   `IDFornitore` int(11) NOT NULL,
   `nome` varchar(30) NOT NULL,
-  `sito_web` varchar(40) NOT NULL,
   `città` char(30) NOT NULL,
   `indirizzo_via` varchar(30) NOT NULL,
   `indirizzo_numero_civico` int(11) NOT NULL,
   `costi_spedizione` decimal(4,2) NOT NULL,
   `soglia_spedizione_gratuita` decimal(4,2) DEFAULT NULL,
-  `abilitato` tinyint(1) NOT NULL
+  `abilitato` tinyint(1) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `sito_web` varchar(60) DEFAULT NULL,
+  `partita_iva` varchar(11) NOT NULL,
+  `immagine` blob
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `fornitore`
 --
 
-INSERT INTO `fornitore` (`IDFornitore`, `nome`, `sito_web`, `città`, `indirizzo_via`, `indirizzo_numero_civico`, `costi_spedizione`, `soglia_spedizione_gratuita`, `abilitato`) VALUES
-(1, 'La Malaghiotta', 'www.lamalaghiotta.it', 'Cesena', 'piazza Fabbri', 5, '0.99', NULL, 1),
-(2, 'C\'entro', 'www.centro-cesena.it', 'Cesena', 'contrada Uberti', 3, '0.99', '0.99', 1),
-(3, 'Buttterfly', 'http://www.japaneserestaurantbutterfly.i', 'Cesena', 'via Cesare Battisti', 185, '0.99', '0.99', 1);
+INSERT INTO `fornitore` (`IDFornitore`, `nome`, `città`, `indirizzo_via`, `indirizzo_numero_civico`, `costi_spedizione`, `soglia_spedizione_gratuita`, `abilitato`, `email`, `sito_web`, `partita_iva`, `immagine`) VALUES
+(1, 'La Malaghiotta', 'Cesena', 'piazza Fabbri', 5, '0.99', NULL, 1, 'lamalaghiotta@gmail.com', 'www.lamaghiotta.it', '01786610897', NULL),
+(2, 'C\'entro', 'Cesena', 'contrada Uberti', 3, '0.99', '0.99', 1, 'centro@gmail.com', 'www.centro-cesena.it', '01993190741', NULL),
+(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', 185, '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.i', '05359681003', NULL);
 
 -- --------------------------------------------------------
 
