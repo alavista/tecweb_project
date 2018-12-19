@@ -2,7 +2,7 @@ $(document).ready(function() {
     setCheckInputsHandler();
     checkPasswords();
     setAccountSelectHandler();
-    $("#form-fornitore, #form-fornitore > *").hide();
+    checkAccountSelect($("#sel").val());
 });
 
 function setCheckInputsHandler(){
@@ -35,23 +35,29 @@ function setCheckInputsHandler(){
 }
 
 function setAccountSelectHandler(){
-    var inputElements = $("#form-fornitore, #form-fornitore > *");
-
     $('#sel').on('change', function() {
+		checkAccountSelect(this.value);
+	});
+}
 
-        if (this.value == "Cliente") {
-            $("#form-fornitore input").each(function(){
-                $(this).prop("required", false);
-            });
-            inputElements.fadeOut();
-        }
-        else{
-            $("#form-fornitore  input").each(function(){
-                $(this).prop("required", true);
-            });
-            inputElements.fadeIn();
-        }
-    });
+function checkAccountSelect(option){
+	var inputElements = $("#form-fornitore, #form-fornitore > *");
+
+	if (option == "Cliente") {
+		$("#form-fornitore input").each(function(){
+			$(this).prop("required", false);
+		});
+		
+		inputElements.fadeOut();
+	}
+	else {
+		$("#form-fornitore  input").each(function(){
+			$(this).prop("required", true);
+		});
+		
+		$("#sitoweb").prop("required", false);		
+		inputElements.fadeIn();
+	}   
 }
 
 function checkPasswords() {
