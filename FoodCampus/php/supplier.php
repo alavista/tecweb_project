@@ -112,15 +112,15 @@
                     <?php
                     if (!$isSupplier) {
                         ?>
-                        <form action="#">
+                        <form action="#" method="POST">
                             <div class="form-group">
                                 <div class="pt-2">
-                            		<input id="input-4" name="input-4" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" value="4" data-size="lg" required>
+                            		<input name="stars" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" value="4" data-size="lg" required>
                             	</div>
                                 <label for="commentReview" class="font-weight-bold">Scrivi la tua recensione</label>
-                                <textarea class="form-control" rows="5" id="commentReview" name="text" placeholder="Che cosa ti è piaciuto e cosa non ti è piaciuto?" required></textarea>
+                                <textarea class="form-control" rows="5" id="commentReview" name="comment" placeholder="Che cosa ti è piaciuto e cosa non ti è piaciuto?" required></textarea>
                                 <label for="titleReview" class="font-weight-bold" id="addTitleReview">Aggiungi un titolo</label>
-                                <input type="text" class="form-control" id="titleReview" placeholder="Quali sono le cose più importanti da sapere?" required>
+                                <input type="text" class="form-control" id="titleReview" name="title" placeholder="Quali sono le cose più importanti da sapere?" required>
                                 <button type="submit" class="btn btn-primary">Invia</button>
                             </div>
                         </form>
