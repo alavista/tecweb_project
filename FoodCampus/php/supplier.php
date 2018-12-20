@@ -23,8 +23,7 @@
         <?php
             require_once 'navbar.php';
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $supplier_name = $_GET["nome"];
-                $query_sql="SELECT * from fornitore where nome = '$supplier_name'";
+                $query_sql = "SELECT * FROM fornitore WHERE nome = '".$_GET['nome']."'";
                 $result = $conn->query($query_sql);
                	if ($result !== false && $result->num_rows > 0) {
                     $supplier = $result->fetch_assoc();
@@ -43,7 +42,6 @@
                                     ?>
                         </h1>
                         <img src="../res/suppliers/<?php echo $supplier["immagine"] != NULL ? $supplier["immagine"] : 'default.jpg'?>" class="img-fluid img-thumbnail" alt="Logo fornitore">
-
                     <?php
                 }
                     ?>
@@ -64,7 +62,7 @@
                         <h3>Listino<i class="fas fa-utensils"></i></h3>
                         <?php
                         $idSupplier = $supplier["IDFornitore"];
-                        $query_sql="SELECT DISTINCT IDCategoria from prodotto where IDFornitore =  '$idSupplier'";
+                        $query_sql="SELECT DISTINCT IDCategoria FROM prodotto WHERE IDFornitore =  '$idSupplier'";
                         $result = $conn->query($query_sql);
                         if ($result !== false && $result->num_rows > 0) {
                             while($category = $result->fetch_assoc()) {
