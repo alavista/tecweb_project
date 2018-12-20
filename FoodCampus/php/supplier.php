@@ -13,8 +13,12 @@
          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
          <!-- Latest compiled JavaScript -->
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+         <!--JavaScript-->
+         <script src="../js/supplier.js" type="text/javascript"></script>
          <!--Font awesome-->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+         <!--CSS-->
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/navbar.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/supplier.css">
     </head>
@@ -61,6 +65,12 @@
                         <span class="text-center"><h2>Menù</h2></span>
                         <h3>Listino<i class="fas fa-utensils"></i></h3>
                         <?php
+                        $isSupplier = false;
+                        if (isset($_COOKIE["user_email"])) {
+                            $query_sql="SELECT DISTINCT * FROM fornitore WHERE email = '".$_COOKIE['user_email']."'";
+                            $result = $conn->query($query_sql);
+                            $isSupplier = ($result !== false && $result->num_rows > 0) ? true : false;
+                        }
                         $idSupplier = $supplier["IDFornitore"];
                         $query_sql="SELECT DISTINCT IDCategoria FROM prodotto WHERE IDFornitore =  '$idSupplier'";
                         $result = $conn->query($query_sql);
@@ -82,7 +92,9 @@
                                                 <span class="float-left"><?php echo $product["nome"]; ?></span>
                                                 <span class="float-right">
                                                     <span><?php echo $product["costo"]; ?> €</span>
-                                                    <button type="button" class="btn btn-deafult"><i class="fas fa-cart-plus"></i></button>
+                                                    <span <?php if ($isSupplier) { echo "data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'"; } ?>>
+                                                        <button type="button" class="btn btn-deafult" <?php if ($isSupplier) { echo "style='pointer-events: none;' disabled"; } ?>><i class="fas fa-cart-plus"></i></button>
+                                                    </span>
                                                 </span>
                                                 <br/>
                                             </div>
@@ -94,6 +106,27 @@
                         }
                         ?>
                     </div>
+                </section>
+                <section>
+                    <span class="text-center"><h2>Recensioni</h2></span>
+                    <?php
+                    if (!$isSupplier) {
+                        ?>
+                        <form action="#">
+                            <div class="form-group">
+                                <div class="pt-2">
+                            		<input id="input-4" name="input-4" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" value="4" data-size="lg" required>
+                            	</div>
+                                <label for="commentReview" class="font-weight-bold">Scrivi la tua recensione</label>
+                                <textarea class="form-control" rows="5" id="commentReview" name="text" placeholder="Che cosa ti è piaciuto e cosa non ti è piaciuto?" required></textarea>
+                                <label for="titleReview" class="font-weight-bold" id="addTitleReview">Aggiungi un titolo</label>
+                                <input type="text" class="form-control" id="titleReview" placeholder="Quali sono le cose più importanti da sapere?" required>
+                                <button type="submit" class="btn btn-primary">Invia</button>
+                            </div>
+                        </form>
+                        <?php
+                    }
+                    ?>
                 </section>
                 <?php
             }

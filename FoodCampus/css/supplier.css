@@ -14,3 +14,141 @@
 .container .jumbotron .btn {
     background-color: #F83442;
 }
+
+.container .form-group .btn {
+    margin-top: 10px;
+}
+
+#addTitleReview {
+    margin-top: 3px;
+}
+
+.container .rating-loading {
+    width:25px;
+    height:25px;
+    font-size:0;
+    color:#fff;
+}
+
+.container .rating-container .rating-stars {
+    position:relative;
+    cursor:pointer;
+    vertical-align:middle;
+    display:inline-block;
+    overflow:hidden;
+    white-space:nowrap;
+    line-height: 1.5em !important;
+}
+
+.container .rating-container .rating-input {
+    position:absolute;
+    cursor:pointer;
+    width:100%;
+    height:1px;
+    bottom:0;left:0;
+    font-size:1px;
+    border:none;
+    background:0 0;
+    padding:0;
+    margin:0;
+}
+
+.container .rating-disabled .rating-input,.rating-disabled .rating-stars {
+    cursor: default;
+}
+
+.container .rating-container .star {
+    display:inline-block;
+    margin:0 3px;
+    text-align:center;
+}
+
+.container .rating-container .star .far {
+    line-height: 1.5;
+}
+
+.container .rating-container .star .fas {
+    line-height: 1.5;
+}
+
+.container .rating-container .empty-stars {
+    color:#aaa;
+}
+
+.container .rating-container .filled-stars {
+    position:absolute;
+    left:0;
+    top:0;
+    margin:auto;
+    color:#fde16d;
+    white-space:nowrap;
+    overflow:hidden;
+    -webkit-text-stroke:1px #777;
+    text-shadow:1px 1px #999;
+}
+
+.container .rating-rtl {
+    float:right;
+}
+
+.container .rating-animate .filled-stars {
+    transition:width .25s ease;
+    -o-transition:width .25s ease;
+    -moz-transition:width .25s ease;-webkit-transition:width .25s ease;
+}
+
+.container .rating-rtl .filled-stars {
+    left:auto;right:0;-moz-transform:matrix(-1,0,0,1,0,0) translate3d(0,0,0);-webkit-transform:matrix(-1,0,0,1,0,0) translate3d(0,0,0);-o-transform:matrix(-1,0,0,1,0,0) translate3d(0,0,0);
+    transform:matrix(-1,0,0,1,0,0) translate3d(0,0,0);
+}
+
+.rating-rtl.is-star .filled-stars {
+    right:.06em;
+}
+
+.container .rating-rtl.is-heart .empty-stars {
+    margin-right:.07em;
+}
+
+.container .rating-lg{
+    font-size:2.0em;
+}
+
+.container .rating-container .clear-rating {
+    display: none;
+    color:#aaa;
+    cursor: default;
+    vertical-align:middle;
+    font-size:60%;
+    padding-right:5px;
+}
+
+.container .clear-rating-active {
+    cursor:pointer!important;
+    display:inline-block !important;
+}
+
+.container .clear-rating-active:hover {
+    color:#843534;
+}
+
+.container .rating-container .caption {
+    color:#999;
+    display:inline-block;
+    vertical-align:middle;
+    font-size:60%;
+    margin-top:-.6em;
+    margin-left:5px;
+    margin-right:0;
+}
+
+.container .rating-rtl .caption {
+    margin-right:5px;
+    margin-left:0;
+}
+
+@media print {
+    .container .rating-container .clear-rating {
+        display:none;
+    }
+}
