@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 21, 2018 alle 16:02
+-- Creato il: Dic 21, 2018 alle 19:07
 -- Versione del server: 10.1.37-MariaDB
 -- Versione PHP: 7.2.12
 
@@ -56,17 +56,18 @@ CREATE TABLE `cliente` (
   `nome` char(30) NOT NULL,
   `cognome` char(30) NOT NULL,
   `email` char(30) NOT NULL,
-  `password` char(20) NOT NULL
+  `password` char(20) NOT NULL,
+  `immagine` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `cliente`
 --
 
-INSERT INTO `cliente` (`IDCliente`, `nome`, `cognome`, `email`, `password`) VALUES
-(1, 'Andrea', 'Lavista', 'andrea.lavista@foodcampus.it', 'andrea'),
-(2, 'Ivan', 'Mazzanti', 'ivan.mazzanti@foodcampus.it', 'ivan'),
-(3, 'Davide', 'Conti', 'davide.conti@foodcampus.it', 'davide');
+INSERT INTO `cliente` (`IDCliente`, `nome`, `cognome`, `email`, `password`, `immagine`) VALUES
+(1, 'Andrea', 'Lavista', 'andrea.lavista@foodcampus.it', 'andrea', NULL),
+(2, 'Ivan', 'Mazzanti', 'ivan.mazzanti@foodcampus.it', 'ivan', NULL),
+(3, 'Davide', 'Conti', 'davide.conti@foodcampus.it', 'davide', NULL);
 
 -- --------------------------------------------------------
 
@@ -187,7 +188,7 @@ CREATE TABLE `prodotto_in_ordine` (
 
 CREATE TABLE `recensione` (
   `IDRecensione` int(11) NOT NULL,
-  `commento` char(100) NOT NULL,
+  `commento` char(100) CHARACTER SET utf8 COLLATE utf8_lithuanian_ci NOT NULL,
   `valutazione` float NOT NULL,
   `IDCliente` int(11) NOT NULL,
   `IDFornitore` int(11) NOT NULL,
@@ -199,9 +200,9 @@ CREATE TABLE `recensione` (
 --
 
 INSERT INTO `recensione` (`IDRecensione`, `commento`, `valutazione`, `IDCliente`, `IDFornitore`, `titolo`) VALUES
-(1, 'Servizio ottimo!', 5, 1, 1, 'Consiglio!'),
-(2, 'Buoni i secondi piatti, i primi dipende dai giorni', 4, 1, 2, 'Consiglio per i primi piatti!'),
-(3, 'Buon rapporto qualità prezzo, buoni primi e secondi, sconsiglio i dolci', 4, 3, 2, 'Buon rapporto qualità/prezzo');
+(1, 'Servizio ottimo!', 5, 1, 3, 'Consiglio!'),
+(2, 'Buoni i secondi piatti, i primi dipende dai giorni', 4, 1, 3, 'Consiglio per i primi piatti!'),
+(3, 'Buon rapporto qualit? prezzo, buoni primi e secondi, sconsiglio i dolci', 4, 3, 3, 'Buon rapporto qualità/prezzo');
 
 --
 -- Indici per le tabelle scaricate
