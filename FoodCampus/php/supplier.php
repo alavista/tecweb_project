@@ -3,7 +3,7 @@
 <html lang="it-IT">
     <head>
         <title>FOOD CAMPUS</title>
-         <metacharset="UTF-8">
+         <meta charset="UTF-8">
          <meta name="viewport" content="width=device-width, initial-scale=1">
          <!-- Latest compiled and minified CSS -->
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -27,7 +27,7 @@
         <?php
             require_once 'navbar.php';
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $query_sql = "SELECT * FROM fornitore WHERE nome = '".$_GET['nome']."'";
+                $query_sql = "SELECT * FROM fornitore WHERE IDFornitore = '".$_GET['id']."'";
                 $result = $conn->query($query_sql);
                	if ($result !== false && $result->num_rows > 0) {
                     $supplier = $result->fetch_assoc();
@@ -45,7 +45,7 @@
                             }
                                     ?>
                         </h1>
-                        <img src="../res/suppliers/<?php echo $supplier["immagine"] != NULL ? $supplier["immagine"] : 'default.jpg'?>" class="img-fluid img-thumbnail" alt="Logo fornitore">
+                        <img src="../res/suppliers/<?php echo $supplier["immagine"] != NULL ? $supplier["immagine"] : 'default.jpg';?>" class="img-fluid img-thumbnail" alt="Logo fornitore">
                     <?php
                 }
                     ?>
@@ -124,6 +124,45 @@
                                 <button type="submit" class="btn btn-primary">Invia</button>
                             </div>
                         </form>
+                        <?php
+                    }
+                    ?>
+                    <div class="col"><hr></div>
+                    <?php
+                    $query_sql = "SELECT COUNT(*) AS numberReview, AVG(valutazione) AS averageRating FROM recensione WHERE IDFornitore = '$supplier[IDFornitore]'";
+                    $result = $conn->query($query_sql);
+                    if ($result !== false && $result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        ?>
+                        <p class="font-weight-bold"><h3><?php echo $row["numberReview"];?> recensioni clienti</h3></p>
+                        <input class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="<?php echo $row['averageRating'];?>" data-size="lg" data-showcaption=false disabled/>
+                        <?php echo number_format($row['averageRating'], 1);?> su 5 stelle
+                        <?php
+                    }
+                    ?>
+                    <?php
+                    $query_sql = "SELECT nome, cognome, immagine, titolo, commento, valutazione FROM recensione R, cliente C WHERE R.IDCliente = C.IDCliente AND R.IDFornitore = '$supplier[IDFornitore]'";
+                    $result = $conn->query($query_sql);
+                    if ($result !== false && $result->num_rows > 0) {
+                        ?>
+                        <div class="col"><hr></div>
+                        <div class="mediasReviews">
+                            <?php
+                            while($row = $result->fetch_assoc()) {
+                                ?>
+                                <div class="media border p-3">
+                                    <img src="../res/clients/<?php echo $row["immagine"] != NULL ? $row["immagine"] : "default.png";?>" alt="<?php echo $row['nome'];?>" id="imageClient" class="mr-3 mt-3 rounded-circle">
+                                    <div class="media-body">
+                                        <input class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="<?php echo $row['valutazione'];?>" data-size="md" data-showcaption=false disabled>
+                                        <span><?php echo $row['nome'];?></span>
+                                        <span class="font-weight-bold"><?php echo $row["titolo"];?></span>
+                                        <p><?php echo $row["commento"];?></p>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        ?>
+                        </div>
                         <?php
                     }
                     ?>
