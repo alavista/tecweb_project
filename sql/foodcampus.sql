@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 19, 2018 alle 17:17
+-- Creato il: Dic 21, 2018 alle 15:45
 -- Versione del server: 10.1.37-MariaDB
 -- Versione PHP: 7.2.12
 
@@ -38,11 +38,11 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`IDCategoria`, `nome`) VALUES
-(1, 'pizza'),
+(5, 'dolce'),
 (2, 'piada'),
+(1, 'pizza'),
 (3, 'primo'),
 (4, 'secondo'),
-(5, 'dolce'),
 (6, 'sushi');
 
 -- --------------------------------------------------------
@@ -96,7 +96,7 @@ CREATE TABLE `fornitore` (
 INSERT INTO `fornitore` (`IDFornitore`, `nome`, `citta`, `indirizzo_via`, `indirizzo_numero_civico`, `costi_spedizione`, `soglia_spedizione_gratuita`, `abilitato`, `email`, `sito_web`, `partita_iva`, `immagine`) VALUES
 (1, 'La Malaghiotta', 'Cesena', 'piazza Fabbri', 5, '0.99', NULL, 1, 'lamalaghiotta@gmail.com', 'www.lamaghiotta.it', '01786610897', NULL),
 (2, 'C\'entro', 'Cesena', 'contrada Uberti', 3, '0.99', '0.99', 1, 'centro@gmail.com', 'www.centro-cesena.it', '01993190741', NULL),
-(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', 185, '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.i', '05359681003', '');
+(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', 185, '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.it', '05359681003', '');
 
 -- --------------------------------------------------------
 
@@ -146,14 +146,14 @@ CREATE TABLE `prodotto` (
 --
 
 INSERT INTO `prodotto` (`IDProdotto`, `nome`, `costo`, `IDCategoria`, `IDFornitore`) VALUES
-(1, 'Crescione erbe e salsiccia', '3.50', 2, 1),
-(2, 'Crescione vegetariano', '3.50', 2, 1),
-(3, 'Piada crudo squacquerone e rucola', '4.50', 2, 1),
-(4, 'Crescione erbe e salsiccia', '3.50', 2, 1),
-(5, 'Crescione erbe e salsiccia', '3.50', 2, 1),
-(6, 'Spaghetti alla carbonara', '4.50', 3, 1),
-(7, 'Pollo al curry', '5.00', 4, 1),
-(8, 'Zuppa inglese', '2.50', 5, 1);
+(1, 'Crescione erbe e salsiccia', '3.50', 2, 3),
+(2, 'Crescione vegetariano', '3.50', 2, 3),
+(3, 'Piada crudo squacquerone e rucola', '4.50', 2, 3),
+(4, 'Crescione erbe e salsiccia', '3.50', 2, 3),
+(5, 'Crescione erbe e salsiccia', '3.50', 2, 3),
+(6, 'Spaghetti alla carbonara', '4.50', 3, 3),
+(7, 'Pollo al curry', '5.00', 4, 3),
+(8, 'Zuppa inglese', '2.50', 5, 3);
 
 -- --------------------------------------------------------
 
@@ -188,19 +188,20 @@ CREATE TABLE `prodotto_in_ordine` (
 CREATE TABLE `recensione` (
   `IDRecensione` int(11) NOT NULL,
   `commento` char(100) NOT NULL,
-  `valutazione` int(11) NOT NULL,
+  `valutazione` float NOT NULL,
   `IDCliente` int(11) NOT NULL,
-  `IDFornitore` int(11) NOT NULL
+  `IDFornitore` int(11) NOT NULL,
+  `titolo` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `recensione`
 --
 
-INSERT INTO `recensione` (`IDRecensione`, `commento`, `valutazione`, `IDCliente`, `IDFornitore`) VALUES
-(1, 'Servizio ottimo!', 5, 1, 1),
-(2, 'Buoni i secondi piatti, i primi dipende dai giorni', 4, 1, 2),
-(3, 'Buon rapporto qualità prezzo, buoni primi e secondi, sconsiglio i dolci', 4, 3, 2);
+INSERT INTO `recensione` (`IDRecensione`, `commento`, `valutazione`, `IDCliente`, `IDFornitore`, `titolo`) VALUES
+(1, 'Servizio ottimo!', 5, 1, 1, 'Consiglio!'),
+(2, 'Buoni i secondi piatti, i primi dipende dai giorni', 4, 1, 2, 'Consiglio per i primi piatti!'),
+(3, 'Buon rapporto qualità prezzo, buoni primi e secondi, sconsiglio i dolci', 4, 3, 2, 'Buon rapporto qualità/prezzo');
 
 --
 -- Indici per le tabelle scaricate
@@ -210,7 +211,8 @@ INSERT INTO `recensione` (`IDRecensione`, `commento`, `valutazione`, `IDCliente`
 -- Indici per le tabelle `categoria`
 --
 ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`IDCategoria`);
+  ADD PRIMARY KEY (`IDCategoria`),
+  ADD UNIQUE KEY `nome` (`nome`);
 
 --
 -- Indici per le tabelle `cliente`
@@ -222,7 +224,8 @@ ALTER TABLE `cliente`
 -- Indici per le tabelle `fornitore`
 --
 ALTER TABLE `fornitore`
-  ADD PRIMARY KEY (`IDFornitore`);
+  ADD PRIMARY KEY (`IDFornitore`),
+  ADD UNIQUE KEY `nome` (`nome`);
 
 --
 -- Indici per le tabelle `notifica`
