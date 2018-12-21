@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 21, 2018 alle 15:45
+-- Creato il: Dic 21, 2018 alle 16:02
 -- Versione del server: 10.1.37-MariaDB
 -- Versione PHP: 7.2.12
 
@@ -224,8 +224,7 @@ ALTER TABLE `cliente`
 -- Indici per le tabelle `fornitore`
 --
 ALTER TABLE `fornitore`
-  ADD PRIMARY KEY (`IDFornitore`),
-  ADD UNIQUE KEY `nome` (`nome`);
+  ADD PRIMARY KEY (`IDFornitore`);
 
 --
 -- Indici per le tabelle `notifica`
