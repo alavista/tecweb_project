@@ -2,6 +2,10 @@
     margin-top: 60px;
 }
 
+#numberReview {
+    font-size: 25px;
+}
+
 .container .jumbotron {
     margin-top: 2%;
 }

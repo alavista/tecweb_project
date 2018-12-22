@@ -13,6 +13,8 @@
          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
          <!-- Latest compiled JavaScript -->
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+         <!-- Plugin JQuery for cookies-->
+         <script src="../jquery/jquery.cookie.js"></script>
          <!--JavaScript-->
          <script src="../js/supplier.js" type="text/javascript"></script>
          <!--Font awesome-->
@@ -112,18 +114,18 @@
                     <?php
                     if (!$isSupplier) {
                         ?>
-                        <form action="#" method="POST">
+                        <div>
                             <div class="form-group">
                                 <div class="pt-2">
-                            		<input name="stars" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" value="4" data-size="lg" required>
+                            		<input name="stars" id="valutationReview" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" value="4" data-size="lg" required>
                             	</div>
                                 <label for="commentReview" class="font-weight-bold">Scrivi la tua recensione</label>
                                 <textarea class="form-control" rows="5" id="commentReview" name="comment" placeholder="Che cosa ti è piaciuto e cosa non ti è piaciuto?" required></textarea>
                                 <label for="titleReview" class="font-weight-bold" id="addTitleReview">Aggiungi un titolo</label>
                                 <input type="text" class="form-control" id="titleReview" name="title" placeholder="Quali sono le cose più importanti da sapere?" required>
-                                <button type="submit" class="btn btn-primary">Invia</button>
+                                <button type="submit" id="submitReview" class="btn btn-primary">Invia</button>
                             </div>
-                        </form>
+                        </div>
                         <?php
                     }
                     ?>
@@ -134,9 +136,9 @@
                     if ($result !== false && $result->num_rows > 0) {
                         $row = $result->fetch_assoc();
                         ?>
-                        <p class="font-weight-bold"><h3><?php echo $row["numberReview"];?> recensioni clienti</h3></p>
+                        <p id="numberReview" class="font-weight-bold"><?php echo $row["numberReview"];?> recensioni clienti</p>
                         <input class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="<?php echo $row['averageRating'];?>" data-size="lg" data-showcaption=false disabled/>
-                        <?php echo number_format($row['averageRating'], 1);?> su 5 stelle
+                        <p id="averageRating"><?php echo number_format($row['averageRating'], 1);?> su 5 stelle</p>
                         <?php
                     }
                     ?>
