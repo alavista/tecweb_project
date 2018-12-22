@@ -22,7 +22,7 @@
                     $numberReview = $averageRatingAndNumberReview['numberReview'];
                     $averageRating = number_format($averageRatingAndNumberReview['averageRating'], 1);
                     $image = $client["immagine"] != NULL ? $client["immagine"] : "default.png";
-                    $arr = array('newReview' => "
+                    $informationToSendClient = array('newReview' => "
                         <div class='media border p-3'>
                             <img src='../res/clients/$image' alt='".$client["nome"]."' id='imageClient' class='mr-3 mt-3 rounded-circle'>
                             <div class='media-body'>
@@ -35,7 +35,7 @@
                         'numberReview' => "$numberReview recensioni clienti",
                         'averageRating' => "$averageRating su 5 stelle"
                     );
-                    echo json_encode($arr);
+                    echo json_encode($informationToSendClient);
                 }
             }
             $conn->close();
