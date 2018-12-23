@@ -6,9 +6,32 @@ $passwordError="";
 $user_email = "user_email";
 $user_password = "user_password";
 
-if(isset($_COOKIE[$user_email]) && isset($_COOKIE[$user_password])) {
+// Start the session
+session_start();
+
+//Redirect to home page
+function redirect() {
 	header("Location: home.php");
 	exit();
+}
+
+//If cookies variables or session variables are valid, proceed with direct login
+function directLogin($email, $user_password) {
+	require_once "database.php";
+
+	$sql = "SELECT IDCliente FROM cliente WHERE email = '$email' AND password = '$user_password'";
+	$result = $GLOBALS["conn"]->query($sql);
+
+	if (mysqli_num_rows($result) > 0) {
+		redirect();
+	} else {
+		$sql = "SELECT IDFornitore FROM fornitore WHERE email = '$email' AND password = '$user_password'";
+		$result = $GLOBALS["conn"]->query($sql);
+
+		if (mysqli_num_rows($result) > 0) {
+			redirect();
+		}
+	}
 }
 
 function emailExists($email) {
@@ -47,19 +70,29 @@ function login($user_email, $user_password) {
 	if (isset($_POST["keepmelogged"]) && !empty($_POST["keepmelogged"])) {
 		setcookie($user_email, $_POST["email"], time() + (86400 * 365 * 5), "/"); // 5 years
 		setcookie($user_password, $_POST["password"], time() + (86400 * 365 * 5), "/"); // 5 years
+	} else {
+		// Set session variables
+		$_SESSION["user_email"] = $_POST["email"];
+		$_SESSION["user_password"] = $_POST["password"];
 	}
 
-	header("Location: home.php");
+	redirect();
+}
 
-	exit();
+//Check if user has currently cookies or session variables set
+if (isset($_COOKIE[$user_email]) && isset($_COOKIE[$user_password])) {
+	directLogin($_COOKIE[$user_email], $_COOKIE[$user_password]);
+
+} else if (isset($_SESSION["user_email"]) && isset($_SESSION["user_password"])) {
+	directLogin($_SESSION["user_email"], $_SESSION["user_password"]);
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	if (isset($_POST["email"]) && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-		
+
 		require_once "database.php";
-		
+
 		if (emailExists($_POST["email"])) {
 			if (checkCredentials($_POST["email"], $_POST["password"])) {
 				login($user_email, $user_password);
