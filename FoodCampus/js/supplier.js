@@ -20,7 +20,7 @@ $(document).ready(function() {
         $(":input[required]").each(function() {
             var elem = $(this);
             if (elem.val() === "" && elem.next(".validation").length == 0) {
-                elem.after("<div class='text-danger validation'>Questo campo è obbligatorio</div>");
+                elem.after("<div class='text-danger validation'><i class='fas fa-times'> Questo campo è obbligatorio</i></div>");
             } else if (elem.val() != "" && elem.next(".validation").length != 0) {
                 elem.next(".validation").remove();
             }
