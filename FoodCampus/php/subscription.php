@@ -15,17 +15,18 @@
 	<!--Font awesome-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 	<script src="../jquery/jquery-3.2.1.min.js"> </script>
-	<script src="../js/iscrizione.js"> </script>
+	<script src="../js/subscription_account_selection.js"> </script>
+	<script src="../js/subscription_input_checker.js"> </script>
 
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../css/navbar.css">
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="../css/iscrizione.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="../css/subscription.css">
 </head>
 
 <body>
 	<?php require_once 'navbar.php';?>
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-6 jumbotron mx-auto" id="loginform">
+			<div class="col-6 jumbotron mx-auto">
 				<h1 id="first_title">Crea un Account</h1>
 				<form action="/action_page.php" method="post">
 					<div class="form-input-group">
@@ -53,6 +54,10 @@
 							<label for="confirm-pwd">Conferma Password:</label>
 							<input type="password" class="form-control" id="confirm-pwd" required placeholder="Conferma password" name="confirm-pwd">
 						</div>
+						<div class="form-group">
+							<label for="myFile">Immagine del profilo (facoltativo):</label>
+							<input type="file" id="myFile" name="filename" class="border" accept="image/*">
+						</div>
 					</div>
 					<div class="form-input-group">
 						<h3 class="form-title">Tipo di Account</h3>
@@ -66,7 +71,6 @@
 					</div>
 					<div class="form-input-group" id="form-fornitore">
 						<h3 class="form-title">Dati Fornitore</h3>
-						<div class="form-group">
 							<div class="form-group">
 								<label for="indirizzo">Indirizzo:</label>
 								<input type="text" class="form-control" id="indirizzo" placeholder="Inserisci il tuo indirizzo" name="indirizzo">
@@ -88,12 +92,28 @@
 								<input type="text" class="form-control" id="nomefornitore" placeholder="Inserisci il nome della tua attivit&agrave;" name="nomefornitore">
 							</div>
 							<div class="form-group">
+								<label for="costo-spedizione">Costo spedizione:</label>
+								<div class="input-group mb-3">
+							      <div class="input-group-prepend">
+							        <span class="input-group-text">€</span>
+							      </div>
+							      <input type="number" value="0.00" max= "10.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="costo-spedizione">
+							    </div>
+							</div>
+							<div class="form-group">
+								<label for="soglia-spedizione">Soglia spedizione gratuita:</label>
+								<div class="input-group mb-3">
+							      <div class="input-group-prepend">
+							        <span class="input-group-text">€</span>
+							      </div>
+							      <input type="number" value="0.00" max= "10.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="soglia-spedizione">
+							    </div>
+							</div>
+							<div class="form-group">
 								<label for="sitoweb">Sito Web (facoltativo):</label>
 								<input type="text" class="form-control" id="sitoweb" placeholder="Inserisci la URL del tuo sito Web" name="sitoweb">
 							</div>
 						</div>
-					</div>
-
 
 
 

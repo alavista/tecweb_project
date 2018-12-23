@@ -22,3 +22,7 @@
 label {
     font-weight: bold;
 }
+
+input[type="file"]{
+    width: 100%;
+}
