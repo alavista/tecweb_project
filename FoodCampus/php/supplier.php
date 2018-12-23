@@ -1,4 +1,7 @@
-<?php require_once 'database.php';?>
+<?php require_once 'database.php';
+setcookie("user_email", "davide.conti@foodcampus.it", time() + (86400 * 30)); //30 giorni
+
+?>
 <!DOCTYPE html>
 <html lang="it-IT">
     <head>
@@ -117,8 +120,8 @@
                         <div>
                             <div class="form-group">
                                 <div class="pt-2">
-                            		<input name="stars" id="valutationReview" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" value="4" data-size="lg" required>
-                            	</div>
+                            		<input name="stars" id="valutationReview" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" value="4" data-size="lg">
+                                </div>
                                 <label for="commentReview" class="font-weight-bold">Scrivi la tua recensione</label>
                                 <textarea class="form-control" rows="5" id="commentReview" name="comment" placeholder="Che cosa ti è piaciuto e cosa non ti è piaciuto?" required></textarea>
                                 <label for="titleReview" class="font-weight-bold" id="addTitleReview">Aggiungi un titolo</label>
