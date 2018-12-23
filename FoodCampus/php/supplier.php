@@ -1,4 +1,6 @@
-<?php require_once 'database.php';?>
+<?php require_once 'database.php';
+setcookie("user_email", "butterfly@gmail.com", time() + (86400 * 30)); //30 giorni
+?>
 <!DOCTYPE html>
 <html lang="it-IT">
     <head>
@@ -34,24 +36,29 @@
                	if ($result !== false && $result->num_rows > 0) {
                     $supplier = $result->fetch_assoc();
                     ?>
-                    <div class = "text-center" id = "supplierName">
+                    <div class="text-center" id="supplierName">
                         <h1>
-                        <?php
-                            echo strtoupper($supplier["nome"]);
+                            <span id="name"><?php echo strtoupper($supplier['nome']);?></span>
+                            <?php
                             if (isset($_COOKIE["user_email"])) {
                                 if ($supplier["email"] == $_COOKIE["user_email"]) {
                                 ?>
-                                    <a class="btn btn-secondary" href="#" role="button">Modifica</a>
+                                    <button type="button" class="btn btn-secondary" id="changeName">Modifica nome</button>
                                     <?php
                                 }
                             }
                                     ?>
                         </h1>
-                        <img src="../res/suppliers/<?php echo $supplier["immagine"] != NULL ? $supplier["immagine"] : 'default.jpg';?>" class="img-fluid img-thumbnail" alt="Logo fornitore">
+                    </div>
+                    <div class="form-group text-center" id="supplierName2">
+                        <input type="text" id="newName" class='form-control' value="<?php echo strtoupper($supplier['nome']);?>"/>
+                        <button type='button' id="saveName" class='btn btn-success'>Salva</button>
+                        <button type='button' id="cancelChangeName" class='btn btn-danger'>Annulla</button>
+                    </div>
+                    <img src="../res/suppliers/<?php echo $supplier["immagine"] != NULL ? $supplier["immagine"] : 'default.jpg';?>" class="img-fluid img-thumbnail" alt="Logo fornitore">
                     <?php
                 }
                     ?>
-                    </div>
                 <section>
                     <div class="jumbotron">
                         <span class="text-center"><h2>Informazioni</h2></span>
