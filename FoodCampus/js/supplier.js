@@ -17,7 +17,7 @@ $(document).ready(function() {
             idSupplier = urlParameters[1];
         }
         var inputWithfocus = false;
-        $(":input[required]:visible").each(function() {
+        $(":input[required]").each(function() {
             var elem = $(this);
             if (elem.val() === "" && elem.next(".validation").length == 0) {
                 elem.after("<div class='text-danger validation'>Questo campo è obbligatorio</div>");

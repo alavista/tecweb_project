@@ -1,7 +1,4 @@
-<?php require_once 'database.php';
-setcookie("user_email", "davide.conti@foodcampus.it", time() + (86400 * 30)); //30 giorni
-
-?>
+<?php require_once 'database.php';?>
 <!DOCTYPE html>
 <html lang="it-IT">
     <head>
@@ -174,6 +171,7 @@ setcookie("user_email", "davide.conti@foodcampus.it", time() + (86400 * 30)); //
                 </section>
                 <?php
             }
+            $conn->close();
                 ?>
         </div>
     </body>
