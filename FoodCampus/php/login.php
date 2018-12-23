@@ -11,21 +11,6 @@ if(isset($_COOKIE[$user_email]) && isset($_COOKIE[$user_password])) {
 	exit();
 }
 
-function connectToDatabse() {
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "foodcampus";
-
-	// Create connection
-	$GLOBALS["conn"] = new mysqli($servername, $username, $password, $dbname);
-
-	// Check connection
-	if ($GLOBALS["conn"]->connect_error) {
-		die("Connessione fallita: " . $GLOBALS["conn"]->connect_error);
-	}
-}
-
 function emailExists($email) {
 	$sql = "SELECT IDCliente FROM cliente WHERE email = '$email'";
 	$result = $GLOBALS["conn"]->query($sql);
@@ -72,7 +57,9 @@ function login($user_email, $user_password) {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	if (isset($_POST["email"]) && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-		connectToDatabse();
+		
+		require_once "database.php";
+		
 		if (emailExists($_POST["email"])) {
 			if (checkCredentials($_POST["email"], $_POST["password"])) {
 				login($user_email, $user_password);
