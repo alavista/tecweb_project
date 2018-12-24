@@ -1,6 +1,4 @@
-<?php require_once 'database.php';
-setcookie("user_email", "butterfly@gmail.com", time() + (86400 * 30)); //30 giorni
-?>
+<?php require_once 'database.php';?>
 <!DOCTYPE html>
 <html lang="it-IT">
     <head>
@@ -40,6 +38,7 @@ setcookie("user_email", "butterfly@gmail.com", time() + (86400 * 30)); //30 gior
                         <h1>
                             <span id="name"><?php echo strtoupper($supplier['nome']);?></span>
                             <?php
+                            $supplierPage = false;
                             if (isset($_COOKIE["user_email"])) {
                                 $supplierPage = $supplier["email"] == $_COOKIE["user_email"] ? true : false;
                                 if ($supplierPage) {
