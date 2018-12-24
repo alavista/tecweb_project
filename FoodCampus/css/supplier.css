@@ -1,4 +1,4 @@
-#supplierName, #supplierName2 {
+#supplierName1, #supplierName2 {
     margin-top: 60px;
 }
 
@@ -6,8 +6,35 @@
     font-size: 25px;
 }
 
+.notVisible {
+    display: none;
+}
+
+.validation {
+    font-size: 20px;
+}
+
 .container .jumbotron {
     margin-top: 2%;
+}
+
+.container .jumbotron .row .col-sm-7 .btn, .container .jumbotron .form-group .btn-success,.container .jumbotron .form-group .btn-danger, #changeName, #saveName, #cancelChangeName {
+    width: 230px;
+}
+.container .jumbotron .row .col-sm-7 .btn:hover, #changeName:hover {
+    background-color: #cc0000;
+}
+
+.container .jumbotron .row .col-sm-7 .btn-secondary, #changeName {
+    background-color: #F83442;
+}
+
+
+
+@media screen and (max-width: 576px) {
+    .container .jumbotron .row .col-sm-7 .btn {
+        margin-bottom: 15px;
+    }
 }
 
 .container .jumbotron .product {
@@ -15,7 +42,7 @@
     margin-top: 20px;
 }
 
-.container .jumbotron .btn {
+#menu .btn {
     background-color: #F83442;
 }
 

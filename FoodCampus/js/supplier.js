@@ -1,34 +1,121 @@
+const STANDARD_ERROR_MESSAGGE = "Questo campo è obbligatorio";
+
 $(document).ready(function() {
     loadStars();
 
     $('[data-toggle="popover"]').popover();
 
     $("#supplierName2").hide();
+    $("#supplierCity2").hide();
+    $("#supplierAddress2").hide();
+    $("#supplierHouseNumber2").hide();
+    $("#supplierShippingCosts2").hide();
+    $("#supplierWebSite2").hide();
 
     $("#changeName").click(function() {
-        switchFromDivToDiv("supplierName", "supplierName2");
+        switchFromDivToDivAndSetValueTextbox("newName", "name", "supplierName1", "supplierName2");
     });
 
     $("#saveName").click(function() {
-        var newName = $("#newName").val();
-        if (newName.trim()) {
-            $.post("changeSupplierName.php", {
-                idSupplier: getIdSupplier(),
-                newName: newName
-            }, function(data, status) {
-                data = JSON.parse(data);
-                removeError($("#newName"));
-                $("#name").html(data.name);
-                switchFromDivToDiv("supplierName2", "supplierName");
-            });
-        } else {
-            showError($("#newName"));
-            $("#newName").focus();
-        }
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newName", "name", "nome", "supplierName2", "supplierName1", function(inf) {
+            $("#name").html(inf.toUpperCase());
+        });
     });
 
     $("#cancelChangeName").click(function() {
-        switchFromDivToDiv("supplierName2", "supplierName");
+        switchFromDivToDivAndRemoveError("newName", "supplierName2", "supplierName1");
+    });
+
+    $("#changeCity").click(function() {
+        switchFromDivToDivAndSetValueTextbox("newCity", "city", "supplierCity1", "supplierCity2");
+    });
+
+    $("#saveCity").click(function() {
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newCity", "city","citta", "supplierCity2", "supplierCity1", function(inf) {
+            $("#city").html(inf);
+        });
+    });
+
+    $("#cancelChangeCity").click(function() {
+        switchFromDivToDivAndRemoveError("newCity", "supplierCity2", "supplierCity1");
+    });
+
+    $("#changeAddress").click(function() {
+        switchFromDivToDivAndSetValueTextbox("newAddress", "address", "supplierAddress1", "supplierAddress2");
+    })
+
+    $("#saveAddress").click(function() {
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newAddress", "address","indirizzo_via", "supplierAddress2", "supplierAddress1", function(inf) {
+            $("#address").html(inf);
+        });
+    });
+
+    $("#cancelChangeAddress").click(function() {
+        switchFromDivToDivAndRemoveError("newAddress", "supplierAddress2", "supplierAddress1");
+    });
+
+    $("#changeHouseNumber").click(function() {
+        switchFromDivToDivAndSetValueTextbox("newHouseNumber", "houseNumber", "supplierHouseNumber1", "supplierHouseNumber2");
+    })
+
+    $("#saveHouseNumber").click(function() {
+        var houseNumber = $("#newHouseNumber").val();
+        var error = true;
+        if ($.isNumeric(houseNumber)) {
+            houseNumber = parseFloat(houseNumber);
+            if (Number.isInteger(houseNumber) && houseNumber >= 0) {
+                error = false;
+                updateSupplierInformationAndSwitchFromDivToDiv("newHouseNumber", "houseNumber", "indirizzo_numero_civico", houseNumber, "supplierHouseNumber2", "supplierHouseNumber1", function(inf) {
+                    $("#houseNumber").html(inf);
+                });
+            }
+        }
+        if (error) {
+            showError($("#newHouseNumber"), "Devi inserire un numero civico maggiore o uguale a 0");
+            $("#newHouseNumber").focus();
+        }
+    });
+
+    $("#cancelChangeHouseNumber").click(function() {
+        switchFromDivToDivAndRemoveError("newHouseNumber", "supplierHouseNumber2", "supplierHouseNumber1");
+    });
+
+    $("#changeShippingCosts").click(function() {
+        var shippingCosts = $("#shippingCosts").html();
+        //Rimuovo lo spazio ed il simbolo "€"
+        shippingCosts = shippingCosts.substring(0, shippingCosts.length - 2);
+        $("#newShippingCosts").val(shippingCosts);
+        switchFromDivToDiv("supplierShippingCosts1", "supplierShippingCosts2");
+    })
+
+    $("#saveShippingCosts").click(function() {
+        var shippingCosts = $("#newShippingCosts").val().replace(/,/,".");
+        if ($.isNumeric(shippingCosts) && shippingCosts >= 0) {
+            updateSupplierInformationAndSwitchFromDivToDiv("newShippingCosts", "shippingCosts", "costi_spedizione", shippingCosts, "supplierShippingCosts2", "supplierShippingCosts1", function(inf) {
+                $("#shippingCosts").html(parseFloat(inf).toFixed(2) + " €");
+            });
+        } else {
+            showError($("#newShippingCosts"), "Devi inserire un costo di spedizione maggiore o uguale a 0");
+            $("#newShippingCosts").focus();
+        }
+    });
+
+    $("#cancelChangeShippingCosts").click(function() {
+        switchFromDivToDivAndRemoveError("newShippingCosts", "supplierShippingCosts2", "supplierShippingCosts1");
+    });
+
+    $("#changeWebSite").click(function() {
+        switchFromDivToDivAndSetValueTextbox("newWebSite", "webSite", "supplierWebSite1", "supplierWebSite2");
+    })
+
+    $("#saveWebSite").click(function() {
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newWebSite", "webSite", "sito_web", "supplierWebSite2", "supplierWebSite1", function(inf) {
+            $("#webSite").html(inf);
+        });
+    });
+
+    $("#cancelChangeWebSite").click(function() {
+        switchFromDivToDivAndRemoveError("newWebSite", "supplierWebSite2", "supplierWebSite1");
     });
 
     $("#submitReview").click(function() {
@@ -43,7 +130,7 @@ $(document).ready(function() {
         var inputWithfocus = false;
         $(":input[required]").each(function() {
             var elem = $(this);
-            showOrRemoveError(elem);
+            showOrRemoveError(elem, STANDARD_ERROR_MESSAGGE);
             if (((elem.val() === "" && elem.next(".validation").length != 0) ||
                     (elem.val() === "" && elem.next(".validation").length == 0)) && !inputWithfocus) {
                 elem.focus();
@@ -87,7 +174,17 @@ function switchFromDivToDiv(hideDiv, showDiv) {
     });
 }
 
-function showOrRemoveError(elem) {
+function switchFromDivToDivAndSetValueTextbox(idTextbox, idValue, hideDiv, showDiv) {
+    $("#" + idTextbox).val($("#" + idValue).html())
+    switchFromDivToDiv(hideDiv, showDiv);
+}
+
+function switchFromDivToDivAndRemoveError(idTextbox, hideDiv, showDiv) {
+    removeError($("#" + idTextbox));
+    switchFromDivToDiv(hideDiv, showDiv);
+}
+
+function showOrRemoveError(elem, message) {
     if (elem.val() === "" && elem.next(".validation").length == 0) {
         elem.after("<div class='text-danger validation'><i class='fas fa-times'> Questo campo è obbligatorio</i></div>");
     } else if (elem.val() != "" && elem.next(".validation").length != 0) {
@@ -95,15 +192,36 @@ function showOrRemoveError(elem) {
     }
 }
 
-function showError(elem) {
-    if (elem.val() === "" && elem.next(".validation").length == 0) {
-        elem.after("<div class='text-danger validation'><i class='fas fa-times'> Questo campo è obbligatorio</i></div>");
+function showError(elem, message) {
+    if (elem.next(".validation").length == 0) {
+        elem.after("<div class='text-danger validation'><i class='fas fa-times'> " + message + "</i></div>");
     }
 }
 
 function removeError(elem) {
-    if (elem.val() != "" && elem.next(".validation").length != 0) {
-        elem.next(".validation").remove();
+    elem.next(".validation").remove();
+}
+
+function updateSupplierInformationAndSwitchFromDivToDiv(newElem, elem, attribute, information, fromDiv, toDiv, callback) {
+    $.post("changeSupplierInformation.php", {
+        idSupplier: getIdSupplier(),
+        attribute: attribute,
+        information: information
+    }, function(data, status) {
+        data = JSON.parse(data);
+        removeError($("#" + newElem));
+        callback(data.inf);
+        switchFromDivToDiv(fromDiv, toDiv);
+    });
+}
+
+function checkTextUpdateSupplierInformationAndSwitchFromDivToDiv(newElem, elem, attribute, fromDiv, toDiv, callback) {
+    var information = $("#" + newElem).val();
+    if (information.trim()) {
+        updateSupplierInformationAndSwitchFromDivToDiv(newElem, elem, attribute, information, fromDiv, toDiv, callback);
+    } else {
+        showError($("#" + newElem), STANDARD_ERROR_MESSAGGE);
+        $("#" + newElem).focus();
     }
 }
 

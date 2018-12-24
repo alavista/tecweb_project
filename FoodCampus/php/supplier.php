@@ -36,22 +36,21 @@ setcookie("user_email", "butterfly@gmail.com", time() + (86400 * 30)); //30 gior
                	if ($result !== false && $result->num_rows > 0) {
                     $supplier = $result->fetch_assoc();
                     ?>
-                    <div class="text-center" id="supplierName">
+                    <div class="text-center" id="supplierName1">
                         <h1>
                             <span id="name"><?php echo strtoupper($supplier['nome']);?></span>
                             <?php
                             if (isset($_COOKIE["user_email"])) {
-                                if ($supplier["email"] == $_COOKIE["user_email"]) {
-                                ?>
-                                    <button type="button" class="btn btn-secondary" id="changeName">Modifica nome</button>
-                                    <?php
+                                $supplierPage = $supplier["email"] == $_COOKIE["user_email"] ? true : false;
+                                if ($supplierPage) {
+                                    echo "<button type='button' class='btn btn-secondary' id='changeName'>Modifica nome</button>";
                                 }
                             }
-                                    ?>
+                            ?>
                         </h1>
                     </div>
                     <div class="form-group text-center" id="supplierName2">
-                        <input type="text" id="newName" class='form-control' value="<?php echo strtoupper($supplier['nome']);?>"/>
+                        <label class="notVisible" for="newName">Nuovo nome</label><input type="text" id="newName" class='form-control' placeholder="Nuovo nome"/>
                         <button type='button' id="saveName" class='btn btn-success'>Salva</button>
                         <button type='button' id="cancelChangeName" class='btn btn-danger'>Annulla</button>
                     </div>
@@ -62,15 +61,110 @@ setcookie("user_email", "butterfly@gmail.com", time() + (86400 * 30)); //30 gior
                 <section>
                     <div class="jumbotron">
                         <span class="text-center"><h2>Informazioni</h2></span>
-                        <span class="font-weight-bold">Città:</span><p><?php echo $supplier["citta"];?></p>
-                        <span class="font-weight-bold">Indirizzo:</span><p><?php echo $supplier["indirizzo_via"];?></p>
-                        <span class="font-weight-bold">Numero civico:</span><p><?php echo $supplier["indirizzo_numero_civico"];?></p>
-                        <span class="font-weight-bold">Costi di spedizione:</span><p><?php echo $supplier["costi_spedizione"];?> €</p>
-                        <span class="font-weight-bold">Sito web:</span><br/><a href="<?php echo $supplier["sito_web"];?>"><?php echo $supplier["sito_web"];?></a></p>
+                        <div id="supplierCity1">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <span class="font-weight-bold">Città:</span>
+                                    <p id="city"><?php echo $supplier["citta"];?></p>
+                                </div>
+                                <?php
+                                if ($supplierPage) {
+                                    echo "<div class='col-sm-7'>
+                                              <button type='button' class='btn btn-secondary' id='changeCity'>Modifica città</button>
+                                          </div>";
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <div class="form-group text-center" id="supplierCity2">
+                            <label class="notVisible" for="newCity">Nuova città</label><input type="text" id="newCity" class='form-control' placeholder="Nuova città"/>
+                            <button type='button' id="saveCity" class='btn btn-success'>Salva</button>
+                            <button type='button' id="cancelChangeCity" class='btn btn-danger'>Annulla</button>
+                        </div>
+                        <div id="supplierAddress1">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <span class="font-weight-bold">Indirizzo:</span>
+                                    <p id="address"><?php echo $supplier["indirizzo_via"];?></p>
+                                </div>
+                                <?php
+                                if ($supplierPage) {
+                                    echo "<div class='col-sm-7'>
+                                              <button type='button' class='btn btn-secondary' id='changeAddress'>Modifica indirizzo</button>
+                                          </div>";
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <div class="form-group text-center" id="supplierAddress2">
+                            <label class="notVisible" for="newAddress">Nuovo indirizzo</label><input type="text" id="newAddress" class='form-control' placeholder="Nuovo indirizzo"/>
+                            <button type='button' id="saveAddress" class='btn btn-success'>Salva</button>
+                            <button type='button' id="cancelChangeAddress" class='btn btn-danger'>Annulla</button>
+                        </div>
+                        <div id="supplierHouseNumber1">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <span class="font-weight-bold">Numero civico:</span>
+                                    <p id="houseNumber"><?php echo $supplier["indirizzo_numero_civico"];?></p>
+                                </div>
+                                <?php
+                                if ($supplierPage) {
+                                    echo "<div class='col-sm-7'>
+                                              <button type='button' class='btn btn-secondary' id='changeHouseNumber'>Modifica numero civico</button>
+                                          </div>";
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <div class="form-group text-center" id="supplierHouseNumber2">
+                            <label class="notVisible" for="newHouseNumber">Nuovo numero civico</label><input type="text" id="newHouseNumber" class='form-control' placeholder="Nuovo numero civico"/>
+                            <button type='button' id="saveHouseNumber" class='btn btn-success'>Salva</button>
+                            <button type='button' id="cancelChangeHouseNumber" class='btn btn-danger'>Annulla</button>
+                        </div>
+                        <div id="supplierShippingCosts1">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <span class="font-weight-bold">Costi di spedizione:</span>
+                                    <p id="shippingCosts"><?php echo $supplier["costi_spedizione"];?> €</p>
+                                </div>
+                                <?php
+                                if ($supplierPage) {
+                                    echo "<div class='col-sm-7'>
+                                              <button type='button' class='btn btn-secondary' id='changeShippingCosts'>Modifica costi di spedizione</button>
+                                          </div>";
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <div class="form-group text-center" id="supplierShippingCosts2">
+                            <label class="notVisible" for="newShippingCosts">Nuovi costi spedizione</label><input type="text" id="newShippingCosts" class='form-control' placeholder="Nuovi costi spedizione"/>
+                            <button type='button' id="saveShippingCosts" class='btn btn-success'>Salva</button>
+                            <button type='button' id="cancelChangeShippingCosts" class='btn btn-danger'>Annulla</button>
+                        </div>
+                        <div id="supplierWebSite1">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <span class="font-weight-bold">Sito web:</span><br/>
+                                    <a id="webSite" href="<?php echo $supplier["sito_web"];?>"><?php echo $supplier["sito_web"];?></a></p>
+                                </div>
+                                <?php
+                                if ($supplierPage) {
+                                    echo "<div class='col-sm-7'>
+                                              <button type='button' class='btn btn-secondary' id='changeWebSite'>Modifica sito web</button>
+                                          </div>";
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <div class="form-group text-center" id="supplierWebSite2">
+                            <label class="notVisible" for="newWebSite">Nuovo sito web</label><input type="text" id="newWebSite" class='form-control' placeholder="Nuovo sito web"/>
+                            <button type='button' id="saveWebSite" class='btn btn-success'>Salva</button>
+                            <button type='button' id="cancelChangeWebSite" class='btn btn-danger'>Annulla</button>
+                        </div>
                     </div>
                 </section>
                 <section>
-                    <div class="jumbotron">
+                    <div class="jumbotron" id="menu">
                         <span class="text-center"><h2>Menù</h2></span>
                         <h3>Listino<i class="fas fa-utensils"></i></h3>
                         <?php
