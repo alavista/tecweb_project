@@ -12,6 +12,7 @@ session_start();
 //Redirect to home page
 function redirect() {
 	header("Location: home.php");
+	mysqli_close($GLOBALS["conn"]);
 	exit();
 }
 
@@ -32,6 +33,7 @@ function directLogin($email, $user_password) {
 			redirect();
 		}
 	}
+	mysqli_close($GLOBALS["conn"]);
 }
 
 function emailExists($email) {
