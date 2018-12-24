@@ -1,0 +1,7 @@
+.container > nav {
+	padding: 2% 0;
+}
+
+.enable-supplier, .blocked-user {
+	display: none;
+}

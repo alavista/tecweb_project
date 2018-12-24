@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 21, 2018 alle 19:07
--- Versione del server: 10.1.37-MariaDB
--- Versione PHP: 7.2.12
+-- Creato il: Dic 24, 2018 alle 01:44
+-- Versione del server: 10.1.36-MariaDB
+-- Versione PHP: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -57,17 +57,18 @@ CREATE TABLE `cliente` (
   `cognome` char(30) NOT NULL,
   `email` char(30) NOT NULL,
   `password` char(20) NOT NULL,
-  `immagine` varchar(30) DEFAULT NULL
+  `immagine` varchar(30) DEFAULT NULL,
+  `bloccato` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `cliente`
 --
 
-INSERT INTO `cliente` (`IDCliente`, `nome`, `cognome`, `email`, `password`, `immagine`) VALUES
-(1, 'Andrea', 'Lavista', 'andrea.lavista@foodcampus.it', 'andrea', NULL),
-(2, 'Ivan', 'Mazzanti', 'ivan.mazzanti@foodcampus.it', 'ivan', NULL),
-(3, 'Davide', 'Conti', 'davide.conti@foodcampus.it', 'davide', NULL);
+INSERT INTO `cliente` (`IDCliente`, `nome`, `cognome`, `email`, `password`, `immagine`, `bloccato`) VALUES
+(1, 'Andrea', 'Lavista', 'andrea.lavista@foodcampus.it', 'andrea', NULL, 0),
+(2, 'Ivan', 'Mazzanti', 'ivan.mazzanti@foodcampus.it', 'ivan', NULL, 0),
+(3, 'Davide', 'Conti', 'davide.conti@foodcampus.it', 'davide', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -87,17 +88,19 @@ CREATE TABLE `fornitore` (
   `email` varchar(30) NOT NULL,
   `sito_web` varchar(60) DEFAULT NULL,
   `partita_iva` varchar(11) NOT NULL,
-  `immagine` varchar(30) DEFAULT NULL
+  `immagine` varchar(30) DEFAULT NULL,
+  `password` char(20) NOT NULL,
+  `bloccato` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `fornitore`
 --
 
-INSERT INTO `fornitore` (`IDFornitore`, `nome`, `citta`, `indirizzo_via`, `indirizzo_numero_civico`, `costi_spedizione`, `soglia_spedizione_gratuita`, `abilitato`, `email`, `sito_web`, `partita_iva`, `immagine`) VALUES
-(1, 'La Malaghiotta', 'Cesena', 'piazza Fabbri', 5, '0.99', NULL, 1, 'lamalaghiotta@gmail.com', 'www.lamaghiotta.it', '01786610897', NULL),
-(2, 'C\'entro', 'Cesena', 'contrada Uberti', 3, '0.99', '0.99', 1, 'centro@gmail.com', 'www.centro-cesena.it', '01993190741', NULL),
-(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', 185, '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.it', '05359681003', '');
+INSERT INTO `fornitore` (`IDFornitore`, `nome`, `citta`, `indirizzo_via`, `indirizzo_numero_civico`, `costi_spedizione`, `soglia_spedizione_gratuita`, `abilitato`, `email`, `sito_web`, `partita_iva`, `immagine`, `password`, `bloccato`) VALUES
+(1, 'La Malaghiotta', 'Cesena', 'piazza Fabbri', 5, '0.99', NULL, 1, 'lamalaghiotta@gmail.com', 'www.lamaghiotta.it', '01786610897', NULL, 'fornitore', 0),
+(2, 'C\'entro', 'Cesena', 'contrada Uberti', 3, '0.99', '0.99', 1, 'centro@gmail.com', 'www.centro-cesena.it', '01993190741', NULL, 'fornitore', 0),
+(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', 185, '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.it', '05359681003', '', 'fornitore', 0);
 
 -- --------------------------------------------------------
 
