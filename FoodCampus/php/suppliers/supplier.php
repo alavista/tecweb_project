@@ -1,4 +1,4 @@
-<?php require_once 'database.php';?>
+<?php require_once '../database.php';?>
 <!DOCTYPE html>
 <html lang="it-IT">
     <head>
@@ -14,20 +14,20 @@
          <!-- Latest compiled JavaScript -->
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
          <!-- Plugin JQuery for cookies-->
-         <script src="../jquery/jquery.cookie.js"></script>
+         <script src="/tecweb_project/FoodCampus/jquery/jquery.cookie.js"></script>
          <!--JavaScript-->
-         <script src="../js/supplier.js" type="text/javascript"></script>
+         <script src="supplier.js" type="text/javascript"></script>
          <!--Font awesome-->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
          <!--CSS-->
-         <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/navbar.css">
-         <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/supplier.css">
+         <link rel="stylesheet" type="text/css" title="stylesheet" href="../..css/navbar.css">
+         <link rel="stylesheet" type="text/css" title="stylesheet" href="supplier.css">
     </head>
     <body>
         <div class="container">
         <?php
-            require_once 'navbar.php';
+            require_once '../navbar.php';
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $query_sql = "SELECT * FROM fornitore WHERE IDFornitore = '".$_GET['id']."'";
                 $result = $conn->query($query_sql);
@@ -53,7 +53,7 @@
                         <button type='button' id="saveName" class='btn btn-success'>Salva</button>
                         <button type='button' id="cancelChangeName" class='btn btn-danger'>Annulla</button>
                     </div>
-                    <img src="../res/suppliers/<?php echo $supplier["immagine"] != NULL ? $supplier["immagine"] : 'default.jpg';?>" class="img-fluid img-thumbnail" alt="Logo fornitore">
+                    <img src="../../res/suppliers/<?php echo $supplier["immagine"] != NULL ? $supplier["immagine"] : 'default.jpg';?>" class="img-fluid img-thumbnail" alt="Logo fornitore">
                     <?php
                 }
                     ?>
@@ -253,7 +253,7 @@
                             while($row = $result->fetch_assoc()) {
                                 ?>
                                 <div class="media border p-3">
-                                    <img src="../res/clients/<?php echo $row["immagine"] != NULL ? $row["immagine"] : "default.png";?>" alt="<?php echo $row['nome'];?>" id="imageClient" class="mr-3 mt-3 rounded-circle">
+                                    <img src="../../res/clients/<?php echo $row["immagine"] != NULL ? $row["immagine"] : "default.png";?>" alt="<?php echo $row['nome'];?>" id="imageClient" class="mr-3 mt-3 rounded-circle">
                                     <div class="media-body">
                                         <input class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="<?php echo $row['valutazione'];?>" data-size="md" data-showcaption=false disabled>
                                         <span><?php echo $row['nome'];?></span>
