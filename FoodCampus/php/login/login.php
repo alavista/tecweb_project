@@ -1,7 +1,5 @@
 <?php
 
-$GLOBALS["user_type"] = "Cliente";
-
 $emailError = "";
 $passwordError = "";
 
@@ -153,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						<label for="email">Indirizzo Email:</label>
 						<input type="email" class="form-control" id="email"  placeholder="Inserisci email" name="email">
 						<?php
-							if(strlen($emailError) != 0) {
+							if(strlen($emailError) !== 0) {
 								echo("<div class='alert alert-danger' style='margin-top: 8px;'>$emailError</div>");
 							}
 						?>
@@ -162,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						<label for="password">Password:</label>
 						<input type="password" class="form-control" id="password"  placeholder="Inserisci password" name="password">
 						<?php
-							if(strlen($passwordError) != 0) {
+							if(strlen($passwordError) !== 0) {
 								echo("<div class='alert alert-danger' style='margin-top: 8px;'>$passwordError</div>");
 							}
 						?>

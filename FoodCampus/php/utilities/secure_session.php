@@ -14,13 +14,13 @@ function sec_session_start() {
 function login_check($mysqli) {
 
    // Verifica che tutte le variabili di sessione siano impostate correttamente
-   if(isset($_SESSION['user_id'], $_SESSION['email'], $_SESSION['login_string'])) {
+   if(isset($_SESSION['user_id'], $_SESSION['email'], $_SESSION['login_string'], $_SESSION['user_type'])) {
      $user_id = $_SESSION['user_id'];
      $login_string = $_SESSION['login_string'];
      $email = $_SESSION['email'];
      $user_browser = $_SERVER['HTTP_USER_AGENT']; // reperisce la stringa 'user-agent' dell'utente.
 
-	 if ($GLOBALS["user_type"] === "Cliente") {
+	 if ($_SESSION["user_type"] === "Cliente") {
 		 $query = "SELECT password FROM cliente WHERE IDCliente = ? LIMIT 1";
 	 } else {
 		 $query = "SELECT password FROM fornitore WHERE IDFornitore = ? LIMIT 1";

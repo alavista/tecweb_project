@@ -39,6 +39,8 @@ function do_login($user_id, $email, $password, $db_password, $mysqli) {
 			$_SESSION['user_id'] = $user_id;
 			$email = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $email); // ci proteggiamo da un attacco XSS
 			$_SESSION['email'] = $email;
+            $user_type = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $GLOBALS["user_type"]); // ci proteggiamo da un attacco XSS
+			$_SESSION['user_type'] = $user_type;
 			$_SESSION['login_string'] = hash('sha512', $password.$user_browser);
 
 			// Login eseguito con successo.
@@ -47,7 +49,7 @@ function do_login($user_id, $email, $password, $db_password, $mysqli) {
 			// Password incorretta.
 			// Registriamo il tentativo fallito nel database.
 			$now = time();
-			$mysqli->query("INSERT INTO clients_login_attempts (user_id, time) VALUES ('$user_id', '$now')");
+			$mysqli->query("INSERT INTO login_attempts (email, time) VALUES ('$email', '$now')");
 
 			return -1;
 		}
@@ -55,9 +57,11 @@ function do_login($user_id, $email, $password, $db_password, $mysqli) {
 }
 
 function login($email, $password, $mysqli) {
+    $sentEmail = $email;
+    $sentPassword = $password;
     // Usando statement sql 'prepared' non sarà possibile attuare un attacco di tipo SQL injection.
     if ($stmt = $mysqli->prepare("SELECT IDCliente, email, password, salt FROM cliente WHERE email = ? LIMIT 1")) {
-        $stmt->bind_param('s', $email); // esegue il bind del parametro '$email'.
+        $stmt->bind_param('s', $sentEmail); // esegue il bind del parametro '$email'.
         $stmt->execute(); // esegue la query appena creata.
         $stmt->store_result();
         $stmt->bind_result($user_id, $email, $db_password, $salt); // recupera il risultato della query e lo memorizza nelle relative variabili.
@@ -68,13 +72,13 @@ function login($email, $password, $mysqli) {
 			$GLOBALS["user_type"] = "Cliente";
 			return do_login($user_id, $email, $password, $db_password, $mysqli);
 
-		} else if ($stmt = $mysqli->prepare("SELECT IDCliente, email, password, salt FROM cliente WHERE email = ? LIMIT 1")) {
-				$stmt->bind_param('s', $email); // esegue il bind del parametro '$email'.
+		} else if ($stmt = $mysqli->prepare("SELECT IDFornitore, email, password, salt FROM fornitore WHERE email = ? LIMIT 1")) {
+				$stmt->bind_param('s', $sentEmail); // esegue il bind del parametro '$email'.
 				$stmt->execute(); // esegue la query appena creata.
 				$stmt->store_result();
 				$stmt->bind_result($user_id, $email, $db_password, $salt); // recupera il risultato della query e lo memorizza nelle relative variabili.
 				$stmt->fetch();
-				$password = hash('sha512', $password.$salt); // codifica la password usando una chiave univoca.
+				$password = hash('sha512', $sentPassword.$salt); // codifica la password usando una chiave univoca.
 
 				if($stmt->num_rows == 1) {
 					$GLOBALS["user_type"] = "Fornitore";

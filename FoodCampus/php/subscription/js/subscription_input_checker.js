@@ -1,5 +1,3 @@
-var formValid = false;
-
 function focusOnField(field) {
     $("html, body").animate({
         scrollTop: field.offset().top - 200
@@ -57,7 +55,7 @@ function checkPasswords() {
     return true;
 }
 
-function checkInputs(){
+function checkInputs() {
     var inputFields = new Array();
     var valid = true;
 
@@ -104,15 +102,13 @@ function checkInputs(){
 
     if(!valid) {
         focusOnField(inputFields[0]);
-        formValid = false;
-        event.preventDefault();
-    } else {
-        formValid = true;
+        return false;
     }
+
+    return true;
 }
 
 function checkShippingCost(currentCost) {
-    console.log(currentCost);
     if (currentCost > 10) {
         return 10;
     } else if (currentCost < 0 || currentCost == "") {
@@ -125,9 +121,19 @@ function checkShippingCost(currentCost) {
 
 $(document).ready(function() {
     $("#submitbtn").on("click", function() {
-        checkInputs();
-        if (formValid) {
+
+        if (checkInputs()) {
+            var p = document.createElement("input");
+            $("form").append(p);
+            p.name = "c-p";
+            p.type = "hidden"
+            p.value = hex_sha512($("#confirm-pwd").val());
+            // Assicurati che la password non venga inviata in chiaro.
+            $("#confirm-pwd").val("");
+
             formhash($("form"), $("#pwd"));
+        } else {
+            event.preventDefault();
         }
     });
 
