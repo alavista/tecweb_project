@@ -1,44 +1,28 @@
 <?php
 
-$emailError="";
-$passwordError="";
+$GLOBALS["user_type"] = "Cliente";
 
-$user_email = "user_email";
-$user_password = "user_password";
+$emailError = "";
+$passwordError = "";
 
-// Start the session
-session_start();
+$cookie_user_email = "user_email";
+$cookie_user_password = "user_password";
+
+require_once "../database.php";
+require_once "login_functions.php";
+
+sec_session_start(); // usiamo la nostra funzione per avviare una sessione php sicura
 
 //Redirect to home page
-function redirect() {
-	header("Location: home.php");
-	mysqli_close($GLOBALS["conn"]);
+function redirect($conn) {
+	header("Location: /Foodcampus/php/home.php");
+	mysqli_close($conn);
 	exit();
 }
 
-//If cookies variables or session variables are valid, proceed with direct login
-function directLogin($email, $user_password) {
-	require_once "database.php";
-
-	$sql = "SELECT IDCliente FROM cliente WHERE email = '$email' AND password = '$user_password'";
-	$result = $GLOBALS["conn"]->query($sql);
-
-	if (mysqli_num_rows($result) > 0) {
-		redirect();
-	} else {
-		$sql = "SELECT IDFornitore FROM fornitore WHERE email = '$email' AND password = '$user_password'";
-		$result = $GLOBALS["conn"]->query($sql);
-
-		if (mysqli_num_rows($result) > 0) {
-			redirect();
-		}
-	}
-	mysqli_close($GLOBALS["conn"]);
-}
-
-function emailExists($email) {
+function emailExists($email, $conn) {
 	$sql = "SELECT IDCliente FROM cliente WHERE email = '$email'";
-	$result = $GLOBALS["conn"]->query($sql);
+	$result = $conn->query($sql);
 
 	if (mysqli_num_rows($result) > 0) {
 		$GLOBALS["user_type"] = "Cliente";
@@ -46,7 +30,7 @@ function emailExists($email) {
 	}
 
 	$sql = "SELECT IDFornitore FROM fornitore WHERE email = '$email'";
-	$result = $GLOBALS["conn"]->query($sql);
+	$result = $conn->query($sql);
 
 	if (mysqli_num_rows($result) > 0) {
 		$GLOBALS["user_type"] = "Fornitore";
@@ -56,9 +40,9 @@ function emailExists($email) {
 	return false;
 }
 
-function checkCredentials($email, $password) {
+function checkCredentials($email, $password, $conn) {
 	$sql = "SELECT ID" .$GLOBALS['user_type']. " FROM " .$GLOBALS['user_type']. " WHERE email = '$email' AND password = '$password'";
-	$result = $GLOBALS["conn"]->query($sql);
+	$result = $conn->query($sql);
 
 	if (mysqli_num_rows($result) > 0) {
 		return true;
@@ -67,51 +51,67 @@ function checkCredentials($email, $password) {
 	return false;
 }
 
-function login($user_email, $user_password) {
+function directLogin($email, $user_password, $conn) {
+	$sql = "SELECT IDCliente FROM cliente WHERE email = '$email'";
+	$result = $conn->query($sql);
 
-	if (isset($_POST["keepmelogged"]) && !empty($_POST["keepmelogged"])) {
-		setcookie($user_email, $_POST["email"], time() + (86400 * 365 * 5), "/"); // 5 years
-		setcookie($user_password, $_POST["password"], time() + (86400 * 365 * 5), "/"); // 5 years
+	if (mysqli_num_rows($result) > 0) {
+		redirect($conn);
 	} else {
-		// Set session variables
-		$_SESSION["user_email"] = $_POST["email"];
-		$_SESSION["user_password"] = $_POST["password"];
-	}
+		$sql = "SELECT IDFornitore FROM fornitore WHERE email = '$email'";
+		$result = $conn->query($sql);
 
-	redirect();
+		if (mysqli_num_rows($result) > 0) {
+			redirect($conn);
+		}
+	}
 }
 
 //Check if user has currently cookies or session variables set
-if (isset($_COOKIE[$user_email]) && isset($_COOKIE[$user_password])) {
-	directLogin($_COOKIE[$user_email], $_COOKIE[$user_password]);
-
-} else if (isset($_SESSION["user_email"]) && isset($_SESSION["user_password"])) {
-	directLogin($_SESSION["user_email"], $_SESSION["user_password"]);
+if (isset($_COOKIE[$cookie_user_email]) && isset($_COOKIE[$cookie_user_password])) {
+	directLogin($_COOKIE[$cookie_user_email], $_COOKIE[$cookie_user_password], $conn);
+} else if (login_check($conn)) {
+	redirect($conn);
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
+	if (!isset($_POST["p"]) || empty($_POST["p"])) {
+		$passwordError = "Inserire una password";
+	}
+
 	if (isset($_POST["email"]) && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 
-		require_once "database.php";
+		if (isset($_POST["p"]) && !empty($_POST["p"])) {
+			switch (login($_POST["email"], $_POST["p"], $conn)) {
 
-		if (emailExists($_POST["email"])) {
-			if (checkCredentials($_POST["email"], $_POST["password"])) {
-				login($user_email, $user_password);
-			} else  {
-				$emailError = "Indirizzo email o password non corretti";
+				case -2:
+					// user blocked due to its many accesses
+				break;
+
+				case -1:
+					$emailError = "Indirizzo email o password non corretti";
+				break;
+
+				case 0:
+					$emailError = "Nessun utente registrato con questo indirizzo email";
+				break;
+
+				case 1:
+					// login successfull
+					if (isset($_POST["keepmelogged"]) && !empty($_POST["keepmelogged"])) {
+						setcookie($cookie_user_email, $_POST["email"], time() + (86400 * 365 * 5), "/"); // 5 years
+						setcookie($cookie_user_password, $_POST["p"], time() + (86400 * 365 * 5), "/"); // 5 years
+					}
+
+					redirect($conn);
+
+				break;
 			}
-		}
-		else {
-			$emailError = "Nessun utente registrato con questo indirizzo email";
 		}
 
 	} else {
 		$emailError = "Inserire un indirizzo email valido";
-	}
-
-	if (!isset($_POST["password"]) || empty($_POST["password"])) {
-		$passwordError = "Inserire una password";
 	}
 
 }
@@ -132,14 +132,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<!--Font awesome-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-	<script src="../js/login.js"> </script>
 
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="../css/navbar.css">
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="../css/login.css">
+	<script src="/FoodCampus/js/utilities/sha512.js"></script>
+	<script src="/FoodCampus/js/utilities/form_password_encoder.js"></script>
+	<script src="login.js"></script>
+
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="../../css/navbar.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="login.css">
 </head>
 
 <body>
-	<?php require_once 'navbar.php';?>
+	<?php require_once '../navbar.php';?>
 	<div class="container">
 		<div class="row">
 			<div class="col"></div>
@@ -177,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				</form>
 				<br/>
 				<div class="d-flex justify-content-center">
-					<a class="align-middle" href="subscription.php">Non hai un account? Clicca qui per iscriverti!</a>
+					<a class="align-middle" href="/FoodCampus/php/subscription/php/subscription.php">Non hai un account? Clicca qui per iscriverti!</a>
 				</div>
 			</div>
 			<div class="col"></div>

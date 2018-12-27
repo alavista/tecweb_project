@@ -1,3 +1,33 @@
+<?php
+
+require_once "../../database.php";
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+	// Recupero la password criptata dal form di inserimento.
+	$name = $_POST['name'];
+	$surname = $_POST['surname'];
+	$email = $_POST['email'];
+	$password = $_POST['p'];
+
+	// Crea una chiave casuale
+	$random_salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
+	// Crea una password usando la chiave appena creata.
+	$password = hash('sha512', $password.$random_salt);
+	// Inserisci a questo punto il codice SQL per eseguire la INSERT nel tuo database
+	// Assicurati di usare statement SQL 'prepared'.
+	if ($insert_stmt = $mysqli->prepare("INSERT INTO cliente (nome, cognome, email, password, salt) VALUES (?, ?, ?, ?, ?)")) {
+	   $insert_stmt->bind_param('sssss', $name, $surname, $email, $password, $random_salt);
+	   // Esegui la query ottenuta.
+	   $insert_stmt->execute();
+	}
+
+	if (!isset($_POST["p"]) || empty($_POST["p"])) {
+		$passwordError = "Inserire una password";
+	}
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="it-IT">
 <head>
@@ -14,30 +44,33 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<!--Font awesome-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-	<script src="../jquery/jquery-3.2.1.min.js"> </script>
+	<script src="/FoodCampus/jquery/jquery-3.2.1.min.js"> </script>
+
 	<script src="../js/subscription_account_selection.js"> </script>
 	<script src="../js/subscription_input_checker.js"> </script>
+	<script src="/FoodCampus/js/utilities/sha512.js"></script>
+	<script src="/FoodCampus/js/utilities/form_password_encoder.js"></script>
 
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="../css/navbar.css">
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="../css/subscription.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="/FoodCampus/css/navbar.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="/FoodCampus/php/subscription/css/subscription.css">
 </head>
 
 <body>
-	<?php require_once 'navbar.php';?>
+	<?php require_once '../../navbar.php';?>
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-6 jumbotron mx-auto">
+			<div class="col-6 jumbotron mx-auto" id="loginform">
 				<h1 id="first_title">Crea un Account</h1>
-				<form action="/action_page.php" method="post">
+				<form action="subscription.php" method="post">
 					<div class="form-input-group">
 						<h3 class="form-title">Dati personali</h3>
 						<div class="form-group">
 							<label for="nome">Nome:</label>
-							<input type="text" class="form-control" id="nome" required placeholder="Inserisci il nome" name="nome">
+							<input type="text" class="form-control" id="nome" required placeholder="Inserisci il nome" name="name">
 						</div>
 						<div class="form-group">
 							<label for="cognome">Cognome:</label>
-							<input type="text" class="form-control" id="cognome" required placeholder="Inserisci il cognome" name="cognome">
+							<input type="text" class="form-control" id="cognome" required placeholder="Inserisci il cognome" name="surname">
 						</div>
 					</div>
 					<div class="form-input-group">
@@ -114,9 +147,6 @@
 								<input type="text" class="form-control" id="sitoweb" placeholder="Inserisci la URL del tuo sito Web" name="sitoweb">
 							</div>
 						</div>
-
-
-
 
 					<div class="d-flex justify-content-center">
 						<button type="submit" class="btn btn-primary btn-lg" id="submitbtn">Iscriviti</button>
