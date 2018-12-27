@@ -1,3 +1,5 @@
+var formValid = false;
+
 function focusOnField(field) {
     $("html, body").animate({
         scrollTop: field.offset().top - 200
@@ -102,7 +104,10 @@ function checkInputs(){
 
     if(!valid) {
         focusOnField(inputFields[0]);
+        formValid = false;
         event.preventDefault();
+    } else {
+        formValid = true;
     }
 }
 
@@ -121,6 +126,9 @@ function checkShippingCost(currentCost) {
 $(document).ready(function() {
     $("#submitbtn").on("click", function() {
         checkInputs();
+        if (formValid) {
+            formhash($("form"), $("#pwd"));
+        }
     });
 
     $("#costo-spedizione").on("input", function() {

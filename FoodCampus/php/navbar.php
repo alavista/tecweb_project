@@ -4,10 +4,10 @@
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="home.php">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="/FoodCampus/php/home.php">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Ricerca prodotti</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Ricerca fornitori</a></li>
-            <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="/FoodCampus/php/login/login.php">Login</a></li>
         </ul>
     </div>
     <form class="form-inline" action="#">

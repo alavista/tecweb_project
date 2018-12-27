@@ -15,7 +15,9 @@ function checkEmail() {
 
     if (regex.test((emailTag).val()) === false && $("#" + errorTagId).val() !== "") {
         showError(emailTag, errorTagId, "Indirizzo Email non valido");
+        return false;
     }
+    return true;
 }
 
 function checkPasswordValidity() {
@@ -23,19 +25,19 @@ function checkPasswordValidity() {
     var errorTagId = "alertpwd";
 
     $("#" + errorTagId).remove();
-	
-	
-	console.log(pwd.val().length);
 
     if (pwd.val() === "") {
-        message = "Inserire una password";
+        message = "Inserire una password negra";
         showError(pwd, errorTagId, message);
+        return false;
     }
+    return true;
 }
 
 $(document).ready(function() {
     $("#loginbtn").on("click", function() {
-        checkEmail();
-        checkPasswordValidity();
+        if (checkEmail() && checkPasswordValidity()) {
+            formhash($("form"), $("#password"));
+        }
     });
 });

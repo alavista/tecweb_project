@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 24, 2018 alle 01:44
--- Versione del server: 10.1.36-MariaDB
--- Versione PHP: 7.2.10
+-- Creato il: Dic 27, 2018 alle 02:42
+-- Versione del server: 10.1.37-MariaDB
+-- Versione PHP: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -56,19 +56,44 @@ CREATE TABLE `cliente` (
   `nome` char(30) NOT NULL,
   `cognome` char(30) NOT NULL,
   `email` char(30) NOT NULL,
-  `password` char(20) NOT NULL,
-  `immagine` varchar(30) DEFAULT NULL,
-  `bloccato` tinyint(1) NOT NULL DEFAULT '0'
+  `password` char(128) NOT NULL,
+  `salt` char(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `cliente`
 --
 
-INSERT INTO `cliente` (`IDCliente`, `nome`, `cognome`, `email`, `password`, `immagine`, `bloccato`) VALUES
-(1, 'Andrea', 'Lavista', 'andrea.lavista@foodcampus.it', 'andrea', NULL, 0),
-(2, 'Ivan', 'Mazzanti', 'ivan.mazzanti@foodcampus.it', 'ivan', NULL, 0),
-(3, 'Davide', 'Conti', 'davide.conti@foodcampus.it', 'davide', NULL, 0);
+INSERT INTO `cliente` (`IDCliente`, `nome`, `cognome`, `email`, `password`, `salt`) VALUES
+(1, 'Andrea', 'Lavista', 'andrea.lavista@foodcampus.it', '72531aa0b0c1013b040cf3096a6a1fab3871ad7cf056978178c214d526c60ad4a11cf04aef2c3a25d6c8918f0c9826351238022b2aa191e27f8c152cbbfc7443', 'c69d48dcdd2cf8470fe5d591a43de56f83afa8f40a94be3ac4ba56be309374ac7ebb5f55f594e8fb58ac0538f93e4e487db11f07dd8fa66adf834acc1188ab80'),
+(2, 'Ivan', 'Mazzanti', 'ivan.mazzanti@foodcampus.it', 'dc5cc79d08a9d9a9aff7a8479a369d0d115c0cad60c6e37fc3d09045e149bba2ebaba6634d7138bb078a4c52835259636fa2320bd051200091f2c49afe8184e3', '80244477758499b2f497c27a5230469555cee54485bddd0953a53d01b8a8b19bf678c5eed10860c02870a73e72c4c379d1620ac3f9c2b82960beafa62cb0f9ce'),
+(3, 'Davide', 'Conti', 'davide.conti@foodcampus.it', 'b6b0961c00ab90e110b032b2ae5fee1201e15bab1c1d966c71e9bfe6f314b49bbb8fa471c621dec8b6af403a35307fc29baf4f0a44b8bf2c8d8e94564582aa1a', 'd56fd21aa39d58f9903f2acb37db2bfb33500ca5d8a1b7db980b3e7f0f94bcb4ee9676b106717e049c9144d775f92702064c8a2da7591b495119a935c7333a44');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `clients_login_attempts`
+--
+
+CREATE TABLE `clients_login_attempts` (
+  `user_id` int(11) NOT NULL,
+  `time` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `clients_login_attempts`
+--
+
+INSERT INTO `clients_login_attempts` (`user_id`, `time`) VALUES
+(2, '1545855736'),
+(2, '1545855787'),
+(2, '1545855941'),
+(2, '1545856938'),
+(2, '1545856985'),
+(2, '1545868789'),
+(5, '1545872592'),
+(6, '1545873298'),
+(2, '1545874818');
 
 -- --------------------------------------------------------
 
@@ -89,18 +114,18 @@ CREATE TABLE `fornitore` (
   `sito_web` varchar(60) DEFAULT NULL,
   `partita_iva` varchar(11) NOT NULL,
   `immagine` varchar(30) DEFAULT NULL,
-  `password` char(20) NOT NULL,
-  `bloccato` tinyint(1) NOT NULL DEFAULT '0'
+  `password` varchar(128) NOT NULL,
+  `salt` char(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `fornitore`
 --
 
-INSERT INTO `fornitore` (`IDFornitore`, `nome`, `citta`, `indirizzo_via`, `indirizzo_numero_civico`, `costi_spedizione`, `soglia_spedizione_gratuita`, `abilitato`, `email`, `sito_web`, `partita_iva`, `immagine`, `password`, `bloccato`) VALUES
-(1, 'La Malaghiotta', 'Cesena', 'piazza Fabbri', 5, '0.99', NULL, 1, 'lamalaghiotta@gmail.com', 'www.lamaghiotta.it', '01786610897', NULL, 'fornitore', 0),
-(2, 'C\'entro', 'Cesena', 'contrada Uberti', 3, '0.99', '0.99', 1, 'centro@gmail.com', 'www.centro-cesena.it', '01993190741', NULL, 'fornitore', 0),
-(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', 185, '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.it', '05359681003', '', 'fornitore', 0);
+INSERT INTO `fornitore` (`IDFornitore`, `nome`, `citta`, `indirizzo_via`, `indirizzo_numero_civico`, `costi_spedizione`, `soglia_spedizione_gratuita`, `abilitato`, `email`, `sito_web`, `partita_iva`, `immagine`, `password`, `salt`) VALUES
+(1, 'La Malaghiotta', 'Cesena', 'piazza Fabbri', 5, '0.99', NULL, 1, 'lamalaghiotta@gmail.com', 'www.lamaghiotta.it', '01786610897', NULL, 'a', ''),
+(2, 'C\'entro', 'Cesena', 'contrada Uberti', 3, '0.99', '0.99', 1, 'centro@gmail.com', 'www.centro-cesena.it', '01993190741', NULL, 'b', ''),
+(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', 185, '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.it', '05359681003', '', 'c', '');
 
 -- --------------------------------------------------------
 
@@ -191,7 +216,7 @@ CREATE TABLE `prodotto_in_ordine` (
 
 CREATE TABLE `recensione` (
   `IDRecensione` int(11) NOT NULL,
-  `commento` char(100) CHARACTER SET utf8 COLLATE utf8_lithuanian_ci NOT NULL,
+  `commento` char(100) NOT NULL,
   `valutazione` float NOT NULL,
   `IDCliente` int(11) NOT NULL,
   `IDFornitore` int(11) NOT NULL,
@@ -203,9 +228,9 @@ CREATE TABLE `recensione` (
 --
 
 INSERT INTO `recensione` (`IDRecensione`, `commento`, `valutazione`, `IDCliente`, `IDFornitore`, `titolo`) VALUES
-(1, 'Servizio ottimo!', 5, 1, 3, 'Consiglio!'),
-(2, 'Buoni i secondi piatti, i primi dipende dai giorni', 4, 1, 3, 'Consiglio per i primi piatti!'),
-(3, 'Buon rapporto qualit? prezzo, buoni primi e secondi, sconsiglio i dolci', 4, 3, 3, 'Buon rapporto qualità/prezzo');
+(1, 'Servizio ottimo!', 5, 1, 1, 'Consiglio!'),
+(2, 'Buoni i secondi piatti, i primi dipende dai giorni', 4, 3, 2, 'Consiglio per i primi piatti!'),
+(3, 'Buon rapporto qualità prezzo, buoni primi e secondi, sconsiglio i dolci', 4, 3, 2, 'Buon rapporto qualità/prezzo');
 
 --
 -- Indici per le tabelle scaricate
@@ -288,7 +313,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT per la tabella `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `IDCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IDCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT per la tabella `fornitore`
