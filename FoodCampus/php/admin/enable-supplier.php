@@ -67,7 +67,7 @@
 						}
 
 					?>
-					<div id=esito></div>
+					<div id="result"></div>
 		        </div>
 
 			</div>

@@ -34,23 +34,20 @@
 		
 			<?php include_once("navtab.php") ?>
 
-			<div class="row">
+			<div id="manager-db" class="row">
 
-			<div id="manager-db">
-				<nav class="col-md-2 d-none d-md-block bg-light sidebar">
-		          <div class="sidebar-sticky">
-		            <ul class="nav flex-column">
-		            <?php
-		            	foreach($db_table as $key => $value) {
-		            		echo "<li class='nav-item'>"
-			                ."<a class='nav-link active' href='#manage-database_".$value."'>"
-			                .$key
-			                ."</a></li>";
-		            	}
-		            ?>
-		            </ul>
-		          </div>
-		        </nav>
+				<div class="hidden-sm-down col-md-2">
+					<div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+					  	<div class="btn-group-vertical" role="group" aria-label="First group">
+				            <?php
+				            	foreach($db_table as $key => $value) {
+					                echo "<button type='button' class='btn btn-primary table-request-button' value='".$value."'/>".$key."</button>";
+				            	}
+				            ?>
+			        	</div>
+			    	</div>
+			    </div>
+		        <div id="result" class="col-sm-12 col-md-10"></div>
 	        </div>
 
 			</div>
