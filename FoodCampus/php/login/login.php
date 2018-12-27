@@ -15,7 +15,7 @@ sec_session_start(); // usiamo la nostra funzione per avviare una sessione php s
 
 //Redirect to home page
 function redirect($conn) {
-	header("Location: /Foodcampus/php/home.php");
+	header("Location: ../home.php");
 	mysqli_close($conn);
 	exit();
 }
@@ -133,8 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	<!--Font awesome-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
-	<script src="/FoodCampus/js/utilities/sha512.js"></script>
-	<script src="/FoodCampus/js/utilities/form_password_encoder.js"></script>
+	<script src="../../js/utilities/sha512.js"></script>
+	<script src="../../js/utilities/form_password_encoder.js"></script>
 	<script src="login.js"></script>
 
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../../css/navbar.css">
@@ -180,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				</form>
 				<br/>
 				<div class="d-flex justify-content-center">
-					<a class="align-middle" href="/FoodCampus/php/subscription/php/subscription.php">Non hai un account? Clicca qui per iscriverti!</a>
+					<a class="align-middle" href="../subscription/php/subscription.php">Non hai un account? Clicca qui per iscriverti!</a>
 				</div>
 			</div>
 			<div class="col"></div>
