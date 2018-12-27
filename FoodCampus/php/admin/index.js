@@ -2,7 +2,6 @@ $(document).ready(function(){
 
     var url = window.location.href;
     if(url.search("manage-database") != -1) {
-        console.log(url.search("manage-database"));
         $("#managerDB a").addClass("active");
     } else {
         if(url.search("enable-supplier") != -1) {
@@ -18,24 +17,45 @@ $(document).ready(function(){
         }
     }
 
-	$("#managerDB").click(function(){
+	$(".table-request-button").click(function(){
+        $(".table-request-button").removeClass("active");
+        $(this).addClass("active");
+        console.log("db-table-request.php?table=" + $(this).val());
+        ajaxGetRequestTable("result", "db-table-request.php?table=" + $(this).val());
 	});
 
 	$(".enable-button").click(function(){
-		ajaxGetRequest("esito", "enable-request.php?supplier=" + $(this).val(), $(this).val());
+		ajaxGetRequestAdminOperation("result", "enable-request.php?supplier=" + $(this).val(), $(this).val());
 	});
 
 	$(".unlock-customer-button").click(function(){
-		ajaxGetRequest("esito", "unlock-customer-request.php?customer=" + $(this).val(), $(this).val());
+		ajaxGetRequestAdminOperation("result", "unlock-customer-request.php?customer=" + $(this).val(), $(this).val());
 	});
 
     $(".unlock-supplier-button").click(function(){
-        ajaxGetRequest("esito", "unlock-supplier-request.php?supplier=" + $(this).val(), $(this).val());
+        ajaxGetRequestAdminOperation("result", "unlock-supplier-request.php?supplier=" + $(this).val(), $(this).val());
     });
 
 });
 
-function ajaxGetRequest(elementName, url, id) {
+function ajaxGetRequestTable(elementName, url) {
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById(elementName).innerHTML = this.responseText;
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+}
+
+function ajaxGetRequestAdminOperation(elementName, url, id) {
 	if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
@@ -46,6 +66,8 @@ function ajaxGetRequest(elementName, url, id) {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && (this.status == 200 || this.status == 400)) {
             document.getElementById(elementName).innerHTML = this.responseText;
+        }
+        if(this.status == 200) {
             var s = "#" + id;
             $(s).hide();
         }
