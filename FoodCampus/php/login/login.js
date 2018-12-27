@@ -27,7 +27,7 @@ function checkPasswordValidity() {
     $("#" + errorTagId).remove();
 
     if (pwd.val() === "") {
-        message = "Inserire una password negra";
+        message = "Inserire una password";
         showError(pwd, errorTagId, message);
         return false;
     }
