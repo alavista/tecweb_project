@@ -73,7 +73,7 @@ function subscript($conn) {
 			   $queryError = "Errore durante l'invio dei dati";
 		   } else {
 			   // Subscription successfull
-			   $query = "SELECT IDCliente FROM cliente WHERE email = ?";
+			   $query = "SELECT IDFornitore FROM fornitore WHERE email = ?";
 			   if ($stmt = $conn->prepare($query)) {
 
 				   $stmt->bind_param("s", $email);
