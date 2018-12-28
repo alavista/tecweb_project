@@ -50,12 +50,13 @@
                                 <span id="name"><?php echo strtoupper($supplier['nome']);?></span>
                                 <?php
                                 $supplierPage = false;
-                                if (isset($_COOKIE["user_email"]) || (!empty($_SESSION["email"]))) {
-                                    $supplierPage = (isset($_COOKIE["user_email"])) && $supplier["email"] == $_COOKIE["user_email"] ? true :
-                                            $supplier["email"] == $_SESSION["email"] ? true : false;
-                                    if ($supplierPage) {
-                                        echo "<button type='button' class='btn btn-secondary' id='changeName'>Modifica nome</button>";
-                                    }
+                                if ((isset($_COOKIE["user_email"]) && ($_COOKIE["user_email"] == $supplier["email"])) ||
+                                        ((!empty($_SESSION["user_type"])) && (!empty($_SESSION["user_id"])) &&
+                                        ($_SESSION["user_type"] == "Fornitore") && ($_SESSION["user_id"] == $idSupplier))) {
+                                    $supplierPage = true;
+                                }
+                                if ($supplierPage) {
+                                    echo "<button type='button' class='btn btn-secondary' id='changeName'>Modifica nome</button>";
                                 }
                                 ?>
                             </h1>
@@ -149,7 +150,13 @@
                             </div>
                         </div>
                         <div class="form-group text-center" id="supplierShippingCosts2">
-                            <label class="notVisible" for="newShippingCosts">Nuovi costi spedizione</label><input type="text" id="newShippingCosts" class='form-control' placeholder="Nuovi costi spedizione"/>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">€</span>
+                                </div>
+                                <label class="notVisible" for="newShippingCosts">Nuovi costi spedizione</label><input type="number" value="0.00" max= "10.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="newShippingCosts" placeholder="Nuovi costi spedizione"/>
+                            </div>
+                            <div id="costError"></div>
                             <button type='button' id="saveShippingCosts" class='btn btn-success'>Salva</button>
                             <button type='button' id="cancelChangeShippingCosts" class='btn btn-danger'>Annulla</button>
                         </div>
@@ -181,15 +188,16 @@
                         <h3>Listino<i class="fas fa-utensils"></i></h3>
                         <?php
                         $isSupplier = false;
-                        if (isset($_COOKIE["user_email"]) || (!empty($_SESSION["email"]))) {
+                        if (isset($_COOKIE["user_email"])) {
                             $query="SELECT * FROM fornitore WHERE email = ?";
                             if ($stmt = $conn->prepare($query)) {
-                                $emailSupplier = isset($_COOKIE["user_email"]) ? $_COOKIE["user_email"] : $_SESSION["email"];
-                                $stmt->bind_param("s", $emailSupplier);
+                                $stmt->bind_param("s", $_COOKIE["user_email"]);
                                 $stmt->execute();
                                 $stmt->store_result();
                                 $isSupplier = ($stmt->num_rows > 0) ? true : false;
                             }
+                        } else if ((!empty($_SESSION["user_type"])) && $_SESSION["user_type"] == "Fornitore") {
+                            $isSupplier = true;
                         }
                         $query="SELECT DISTINCT IDCategoria FROM prodotto WHERE IDFornitore = ?";
                         if ($stmt = $conn->prepare($query)) {
