@@ -2,8 +2,6 @@
 
 $emailError = "";
 $passwordError = "";
-$GLOBALS["sqlError"] = "";
-$GLOBALS["sqlWarning"] = "";
 
 require_once "../database.php";
 require_once "login_functions.php";
@@ -29,33 +27,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	if (isset($_POST["email"]) && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 
 		if (isset($_POST["p"]) && !empty($_POST["p"])) {
-			switch (login($_POST["email"], $_POST["p"], $conn)) {
 
-				case -2:
-					// user blocked due to its many accesses
-				break;
+			if (login($conn, $_POST["email"], $_POST["p"], $emailError)) {
+				// login successfull
+				if (isset($_POST["keepmelogged"]) && !empty($_POST["keepmelogged"])) {
+					setcookie($GLOBALS["cookie_user_email"], $_POST["email"], time() + (86400 * 365 * 5), "/"); // 5 years
+					setcookie($GLOBALS["cookie_user_password"], $_POST["p"], time() + (86400 * 365 * 5), "/"); // 5 years
+				}
 
-				case -1:
-					$emailError = "Indirizzo email o password non corretti";
-				break;
-
-				case 0:
-					$emailError = "Nessun utente registrato con questo indirizzo email";
-				break;
-
-				case 1:
-					// login successfull
-					if (isset($_POST["keepmelogged"]) && !empty($_POST["keepmelogged"])) {
-						setcookie($GLOBALS["cookie_user_email"], $_POST["email"], time() + (86400 * 365 * 5), "/"); // 5 years
-						setcookie($GLOBALS["cookie_user_password"], $_POST["p"], time() + (86400 * 365 * 5), "/"); // 5 years
-					}
-
-					redirect($conn);
-
-				break;
+				redirect($conn);
 			}
 		}
-
 	} else {
 		$emailError = "Inserire un indirizzo email valido";
 	}
@@ -88,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 
 <body>
-	<?php require_once '../navbar.php';?>
+	<?php //require_once '../navbar.php';?>
 	<div class="container">
 		<div class="row">
 			<div class="col"></div>

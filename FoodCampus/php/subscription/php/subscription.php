@@ -16,27 +16,60 @@ $supplierNameError = "";
 $shippingError = "";
 $shippingLimitError = "";
 
-$queryError = "";
+$slqError = "";
+$queryErrors = array();
 
 require_once "../../database.php";
 require_once "../../utilities/create_session.php";
 require_once "../../utilities/direct_login.php";
 
-//Redirect to home page
+// Redirect to home page
 function redirect($conn, $page) {
 	header("Location: $page");
 	mysqli_close($conn);
 	exit();
 }
 
+// If user is already logged in, redirect
 if (isUserLogged($conn)) {
 	redirect($conn, "../../home.php");
 }
 
-function subscript($conn) {
+// Starts a session
+function start_session($conn, $isSupplier, $email, $password) {
+	// Creo le variabili di sessione
+	if ($isSupplier) {
+		$query = "SELECT IDFornitore FROM fornitore WHERE email = ?";
+	} else {
+		$query = "SELECT IDCliente FROM cliente WHERE email = ?";
+	}
+
+	if ($stmt = $conn->prepare($query)) {
+
+		$stmt->bind_param("s", $email);
+
+		if ($stmt->execute()) {
+			$stmt->store_result();
+			$stmt->bind_result($user_id);
+			$stmt->fetch();
+			// Create session and redirect
+			create_Session($user_id , $email, $password, $_POST["account_selection"]);
+			redirect($conn, "subscription_success.php");
+		} else {
+			array_push($queryErrors, "Errore durante l'invio dei dati");
+		}
+	} else {
+		array_push($queryErrors, $conn->error);
+	}
+}
+
+// Subscripts the user
+function do_Subscription($conn, $query, &$queryErrors, $isSupplier) {
+
 	$name = $_POST['name'];
 	$surname = $_POST['surname'];
 	$email = $_POST['email'];
+
 	if (isset($_POST['filename']) && !empty($_POST['filename'])) {
 		$image = $_POST['filename'];
 	} else {
@@ -50,88 +83,55 @@ function subscript($conn) {
 	$password = hash('sha512', $password.$random_salt);
 	$blocked = 0;
 
-	if ($_POST["account_selection"] === "Fornitore") {
-		$address = $_POST['indirizzo'];
-		$crossNumber = $_POST['ncivico'];
-		$piva = $_POST['piva'];
-		$city = $_POST['citta'];
-		$supplierName = $_POST['nomefornitore'];
-		$shipping = $_POST['shippingcost'];
-		$shippingLimit = $_POST['shippinglimit'];
-		if (isset($_POST['sitoweb']) && !empty($_POST['filename'])) {
-			$web_site = $_POST['sitoweb'];
+	if ($insert_stmt = $conn->prepare($query)) {
+
+		if ($isSupplier) {
+
+			$address = $_POST['indirizzo'];
+			$crossNumber = $_POST['ncivico'];
+			$piva = $_POST['piva'];
+			$city = $_POST['citta'];
+			$supplierName = $_POST['nomefornitore'];
+			$shipping = $_POST['shippingcost'];
+			$shippingLimit = $_POST['shippinglimit'];
+
+			if (isset($_POST['sitoweb']) && !empty($_POST['filename'])) {
+				$web_site = $_POST['sitoweb'];
+			} else {
+				$web_site = NULL;
+			}
+
+			$enabled = 0;
+
+			$insert_stmt->bind_param('ssssiiissssssi', $name, $city, $address, $crossNumber, $shipping, $shippingLimit, $enabled, $email, $web_site, $piva, $image, $password, $random_salt, $blocked);
 		} else {
-			$web_site = NULL;
+			$insert_stmt->bind_param('ssssssi', $name, $surname, $email, $image, $password, $random_salt, $blocked);
 		}
-		$enabled = 0;
 
+	   // Esegui la query ottenuta.
+	   if (!$insert_stmt->execute()) {
+		   array_push($queryErrors, $insert_stmt->error);
+	   } else {
+		   // Subscription successfull
+		   start_session($conn, $isSupplier, $email, $password);
+	   }
+	} else {
+	   array_push($queryErrors, $conn->error);
+   }
+}
+
+// Prepares queries for subscription
+function subscript($conn, &$queryErrors) {
+
+	if ($_POST["account_selection"] === "Fornitore") {
 		$query = "INSERT INTO fornitore (nome, citta, indirizzo_via, indirizzo_numero_civico, costi_spedizione, soglia_spedizione_gratuita, abilitato, email, sito_web, partita_iva, immagine, password, salt, bloccato) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		if ($insert_stmt = $conn->prepare($query)) {
-		   $insert_stmt->bind_param('ssssiiissssssi', $name, $city, $address, $crossNumber, $shipping, $shippingLimit, $enabled, $email, $web_site, $piva, $image, $password, $random_salt, $blocked);
-		   // Esegui la query ottenuta.
-		   if (!$insert_stmt->execute()) {
-			   $queryError = "Errore durante l'invio dei dati";
-		   } else {
-			   // Subscription successfull
-			   $query = "SELECT IDFornitore FROM fornitore WHERE email = ?";
-			   if ($stmt = $conn->prepare($query)) {
+		do_Subscription($conn, $query, $queryErrors, true);
 
-				   $stmt->bind_param("s", $email);
-
-				   if ($stmt->execute()) {
-					   $stmt->store_result();
-					   $stmt->bind_result($user_id);
-					   $stmt->fetch();
-					   create_Session($user_id , $email, $password, $_POST["account_selection"]);
-					   redirect($conn, "subscription_success.php");
-				   } else {
-					   $queryError = "Errore durante l'invio dei dati";
-				   }
-			   } else {
-				   $queryError = $conn->error;
-			   }
-		   }
-
-		} else {
- 		   $queryError = $conn->error;
- 	   }
 	} else {
 		$query = "INSERT INTO cliente (nome, cognome, email, immagine, password, salt, bloccato) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-	   if ($insert_stmt = $conn->prepare($query)) {
-	       $insert_stmt->bind_param('ssssssi', $name, $surname, $email, $image, $password, $random_salt, $blocked);
-	      // Esegui la query ottenuta.
-	      if (!$insert_stmt->execute()) {
-	   	   $queryError = "Errore durante l'invio dei dati";
-	      } else {
-	   	   // Subscription successfull
-	   	   $query = "SELECT IDCliente FROM cliente WHERE email = ?";
-	   	   if ($stmt = $conn->prepare($query)) {
-
-	   		   $stmt->bind_param("s", $email);
-
-	   		   if ($stmt->execute()) {
-	   			   $stmt->store_result();
-	   			   $stmt->bind_result($user_id);
-	   			   $stmt->fetch();
-	   			   create_Session($user_id , $email, $password, $_POST["account_selection"]);
-	   			   redirect($conn, "subscription_success.php");
-	   		   } else {
-	   			   $queryError = "Errore durante l'invio dei dati";
-	   		   }
-	   	   } else {
-	   		   $queryError = $conn->error;
-	   	   }
-	      }
-
-	   } else {
-	      $queryError = $conn->error;
-	   }
-
-
-
-
+		do_Subscription($conn, $query, $queryErrors, false);
 	}
+
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -213,25 +213,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	}
 
-	function checkUserAlreadyExists($conn, $query, &$queryError, &$emailError) {
+	function checkUserAlreadyExists($conn, $query, &$queryErrors, &$slqError, &$emailError) {
 
 		if ($stmt = $conn->prepare($query)) {
 
 			$stmt->bind_param('s', $_POST["email"]);
 
 			if (!$stmt->execute()) {
-				$queryError = "Errore durante l'invio dei dati";
+				array_push($queryErrors, "Errore durante l'invio dei dati");
+				$slqError = "Errore durante l'invio dei dati";
 				return false;
 			} else {
 				$stmt->store_result();
 
 				if($stmt->num_rows > 0) {
 					$emailError = "Un utente è già registrato con questo indirizzo email";
+					$slqError = "Un utente è già registrato con questo indirizzo email";
 					return true;
 				}
 			}
 		}  else {
-		   $queryError = $conn->error;
+			array_push($queryErrors, $conn->error);
 		   return false;
 	   }
 	   return false;
@@ -239,22 +241,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	}
 
 	if (!$errors) {
-		$queryError = "";
-		$emailError = "";
 		$query = "SELECT IDCliente FROM cliente WHERE email = ?";
 
-		if (!checkUserAlreadyExists($conn, $query, $queryError, $emailError) && strlen($queryError) === 0) {
+		if (!checkUserAlreadyExists($conn, $query, $queryErrors, $slqError, $emailError) && strlen($slqError) === 0) {
 
 			$query = "SELECT IDFornitore FROM fornitore WHERE email = ?";
 
-			if (!checkUserAlreadyExists($conn, $query, $queryError, $emailError) && strlen($queryError) === 0) {
+			if (!checkUserAlreadyExists($conn, $query, $queryErrors, $slqError, $emailError) && strlen($slqError) === 0) {
 				// Proceed with subscription
-				subscript($conn);
+				subscript($conn, $queryErrors);
 			}
 		}
 
 	}
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -285,7 +286,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 
 <body>
-	<?php require_once '../../navbar.php';?>
+	<?php //require_once '../../navbar.php';?>
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-6 jumbotron mx-auto" id="loginform">
@@ -451,8 +452,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 								Dati del fornitore non inseriti correttamente.<br/>Selezionare tipo di Account: Fornitore per vedere gli errori
 							</div>");
 						}
-						if(strlen($queryError) !== 0) {
-							echo("<div class='alert alert-danger' style='margin-top: 8px;'>$queryError</div>");
+						if(count($queryErrors) > 0) {
+							foreach ($queryErrors as &$value) {
+							    echo("<div class='alert alert-danger text-center' style='margin-top: 8px;'>$value</div>");
+							}
 						}
 					?>
 				</form>
