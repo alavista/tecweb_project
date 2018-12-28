@@ -2,6 +2,8 @@
 
 $emailError = "";
 $passwordError = "";
+$GLOBALS["sqlError"] = "";
+$GLOBALS["sqlWarning"] = "";
 
 $cookie_user_email = "user_email";
 $cookie_user_password = "user_password";
@@ -18,56 +20,75 @@ function redirect($conn) {
 	exit();
 }
 
-function emailExists($email, $conn) {
-	$sql = "SELECT IDCliente FROM cliente WHERE email = '$email'";
-	$result = $conn->query($sql);
+function cookieDirectLogin($email, $user_password, $conn) {
 
-	if (mysqli_num_rows($result) > 0) {
-		$GLOBALS["user_type"] = "Cliente";
-		return true;
-	}
+	$query = "SELECT IDCliente, password, salt, bloccato FROM cliente WHERE email = ?";
 
-	$sql = "SELECT IDFornitore FROM fornitore WHERE email = '$email'";
-	$result = $conn->query($sql);
+	if ($stmt = $conn->prepare($query)) {
+	   $stmt->bind_param('s', $email);
+	   // Esegui la query ottenuta.
+	   if (!$stmt->execute()) {
+		   $GLOBALS["sqlError"] = "Errore durante l'invio dei dati";
+		   return;
+	   }
 
-	if (mysqli_num_rows($result) > 0) {
-		$GLOBALS["user_type"] = "Fornitore";
-		return true;
-	}
+   } else {
+	   $GLOBALS["sqlError"] = $conn->error;
+	   return;
+   }
 
-	return false;
-}
+   $stmt->store_result();
+   $stmt->bind_result($user_id, $db_password, $salt, $blocked);
+   $stmt->fetch();
 
-function checkCredentials($email, $password, $conn) {
-	$sql = "SELECT ID" .$GLOBALS['user_type']. " FROM " .$GLOBALS['user_type']. " WHERE email = '$email' AND password = '$password'";
-	$result = $conn->query($sql);
+   if (isset($blocked) && $blocked !== 0) {
+	   $GLOBALS["sqlError"] = "Questo utente è stato bloccato, impossibile accedere.";
+	   return;
+   }
 
-	if (mysqli_num_rows($result) > 0) {
-		return true;
-	}
-
-	return false;
-}
-
-function directLogin($email, $user_password, $conn) {
-	$sql = "SELECT IDCliente FROM cliente WHERE email = '$email'";
-	$result = $conn->query($sql);
-
-	if (mysqli_num_rows($result) > 0) {
-		redirect($conn);
-	} else {
-		$sql = "SELECT IDFornitore FROM fornitore WHERE email = '$email'";
-		$result = $conn->query($sql);
-
-		if (mysqli_num_rows($result) > 0) {
+	if ($stmt->num_rows > 0) {
+		$user_password = hash('sha512', $user_password.$salt); // codifica la password usando una chiave univoca.
+		if ($user_password == $db_password) {
 			redirect($conn);
+		}
+	} else {
+
+		$query = "SELECT IDFornitore, password, salt, bloccato FROM fornitore WHERE email = ?";
+
+		if ($stmt = $conn->prepare($query)) {
+		   $stmt->bind_param('s', $email);
+		   // Esegui la query ottenuta.
+		   if (!$stmt->execute()) {
+			   $GLOBALS["sqlError"] = "Errore durante l'invio dei dati";
+			   return;
+		   }
+
+	   } else {
+		   $GLOBALS["sqlError"] = $conn->error;
+		   return;
+	   }
+
+	   $stmt->store_result();
+	   $stmt->bind_result($user_id, $db_password, $salt, $blocked);
+	   $stmt->fetch();
+
+	   if (isset($blocked) && $blocked !== 0) {
+		   $GLOBALS["sqlError"] = "Questo utente è stato bloccato, impossibile accedere.";
+		   return;
+	   }
+
+		if ($stmt->num_rows > 0) {
+			$user_password = hash('sha512', $user_password.$salt); // codifica la password usando una chiave univoca.
+			if ($user_password == $db_password) {
+				redirect($conn);
+			}
 		}
 	}
 }
 
 //Check if user has currently cookies or session variables set
 if (isset($_COOKIE[$cookie_user_email]) && isset($_COOKIE[$cookie_user_password])) {
-	directLogin($_COOKIE[$cookie_user_email], $_COOKIE[$cookie_user_password], $conn);
+	cookieDirectLogin($_COOKIE[$cookie_user_email], $_COOKIE[$cookie_user_password], $conn);
 } else if (login_check($conn)) {
 	redirect($conn);
 }
@@ -175,6 +196,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					<div class="d-flex justify-content-center">
 						<button type="submit" id="loginbtn" class="btn btn-primary btn-lg">Accedi</button>
 					</div>
+					<?php
+						if(strlen($GLOBALS["sqlError"]) !== 0) {
+							echo("<div class='alert alert-danger' style='margin-top: 8px;'>".$GLOBALS["sqlError"]."</div>");
+						}
+						if(strlen($GLOBALS["sqlWarning"]) !== 0) {
+							echo("<div class='alert alert-warning' style='margin-top: 8px;'>".$GLOBALS["sqlWarning"]."</div>");
+						}
+					?>
 				</form>
 				<br/>
 				<div class="d-flex justify-content-center">

@@ -1,5 +1,6 @@
 <?php
 $errors = false;
+$supplierErrors = false;
 
 $nameError = "";
 $surnameError = "";
@@ -15,10 +16,28 @@ $supplierNameError = "";
 $shippingError = "";
 $shippingLimitError = "";
 
+$queryError = "";
+
 require_once "../../database.php";
+require_once "../../utilities/secure_session.php";
+
+sec_session_start(); // usiamo la nostra funzione per avviare una sessione php sicura
+
+//Redirect to home page
+function redirect($conn) {
+	header("Location: subscription_success.php");
+	mysqli_close($conn);
+	exit();
+}
+
+//Check if user has currently cookies or session variables set
+/*if (isset($_COOKIE[$cookie_user_email]) && isset($_COOKIE[$cookie_user_password])) {
+	cookieDirectLogin($_COOKIE[$cookie_user_email], $_COOKIE[$cookie_user_password], $conn);
+} else if (login_check($conn)) {
+	redirect($conn);
+}*/
 
 function subscript($conn) {
-
 	$name = $_POST['name'];
 	$surname = $_POST['surname'];
 	$email = $_POST['email'];
@@ -54,16 +73,31 @@ function subscript($conn) {
 		if ($insert_stmt = $conn->prepare($query)) {
 		   $insert_stmt->bind_param('ssssiiissssssi', $name, $city, $address, $crossNumber, $shipping, $shippingLimit, $enabled, $email, $web_site, $piva, $image, $password, $random_salt, $blocked);
 		   // Esegui la query ottenuta.
-		   $insert_stmt->execute();
-		}
+		   if (!$insert_stmt->execute()) {
+			   $queryError = "Errore durante l'invio dei dati";
+		   } else {
+			   // Subscription successfull
+			   redirect($conn);
+		   }
+
+		} else {
+ 		   $queryError = $conn->error;
+ 	   }
 	} else {
 		$query = "INSERT INTO cliente (nome, cognome, email, immagine, password, salt, bloccato) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		if ($insert_stmt = $conn->prepare($query)) {
 		   $insert_stmt->bind_param('ssssssi', $name, $surname, $email, $image, $password, $random_salt, $blocked);
 		   // Esegui la query ottenuta.
-		   $insert_stmt->execute();
-		}
+		   if (!$insert_stmt->execute()) {
+			   $queryError = "Errore durante l'invio dei dati";
+		   } else {
+			   // Subscription successfull
+			   redirect($conn);
+		   }
+	   } else {
+		   $queryError = $conn->error;
+	   }
 	}
 }
 
@@ -105,64 +139,85 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		if (!isset($_POST["indirizzo"]) || empty($_POST["indirizzo"])) {
 			$addressError = "Inserire un indirizzo";
 			$errors = true;
+			$supplierErrors = true;
 		}
 
 		if (!isset($_POST["ncivico"]) || empty($_POST["ncivico"])) {
 			$crossNumberError = "Inserire un numero civico";
 			$errors = true;
+			$supplierErrors = true;
 		}
 
 		if (!isset($_POST["piva"]) || empty($_POST["piva"])) {
 			$pivaError = "Inserire una partita IVA";
 			$errors = true;
+			$supplierErrors = true;
 		}
 
 		if (!isset($_POST["citta"]) || empty($_POST["citta"])) {
 			$cityError = "Inserire una citt&agrave;";
 			$errors = true;
+			$supplierErrors = true;
 		}
 
 		if (!isset($_POST["nomefornitore"]) || empty($_POST["nomefornitore"])) {
 			$supplierNameError = "Inserire il vostro nome fornitore";
 			$errors = true;
+			$supplierErrors = true;
 		}
 
-		if (!isset($_POST["shippingcost"]) || empty($_POST["shippingcost"]) || $_POST["shippingcost"] < 0 || $_POST["shippingcost"] > 10 || !is_numeric($_POST["shippingcost"])) {
+		if (!isset($_POST["shippingcost"]) || is_null($_POST["shippingcost"]) || $_POST["shippingcost"] < 0 || $_POST["shippingcost"] > 10 || !is_numeric($_POST["shippingcost"])) {
 			$shippingError = "Inserire un costo di spedizione compreso tra 0 e 10";
 			$errors = true;
+			$supplierErrors = true;
 		}
 
-		if (!isset($_POST["shippinglimit"]) || empty($_POST["shippinglimit"]) || $_POST["shippinglimit"] < 0 || $_POST["shippinglimit"] > 10 || !is_numeric($_POST["shippinglimit"])) {
+		if (!isset($_POST["shippinglimit"]) || is_null($_POST["shippinglimit"]) || $_POST["shippinglimit"] < 0 || $_POST["shippinglimit"] > 10 || !is_numeric($_POST["shippinglimit"])) {
 			$shippingLimitError = "Inserire un limite di spedizione gratuita compreso tra 0 e 10";
 			$errors = true;
+			$supplierErrors = true;
 		}
 
 	}
 
-	if (!$errors) {
+	function checkUserAlreadyExists($conn, $query, &$queryError, &$emailError) {
 
-		$query = "SELECT IDCliente FROM cliente WHERE email = ?";
 		if ($stmt = $conn->prepare($query)) {
+
 			$stmt->bind_param('s', $_POST["email"]);
-			$stmt->execute();
-	        $stmt->store_result();
 
-	        if($stmt->num_rows > 0) {
-	           $emailError = "Un utente è già registrato con questo indirizzo email";
-	        } else {
-				$query = "SELECT IDFornitore FROM fornitore WHERE email = ?";
-	    		if ($stmt = $conn->prepare($query)) {
-					$stmt->bind_param('s', $_POST["email"]);
-		    		$stmt->execute();
-		            $stmt->store_result();
+			if (!$stmt->execute()) {
+				$queryError = "Errore durante l'invio dei dati";
+				return false;
+			} else {
+				$stmt->store_result();
 
-					if($stmt->num_rows > 0) {
-						$emailError = "Un utente è già registrato con questo indirizzo email";
-					} else {
-						subscript($conn);
-					}
+				if($stmt->num_rows > 0) {
+					$emailError = "Un utente è già registrato con questo indirizzo email";
+					return true;
 				}
-	        }
+			}
+		}  else {
+		   $queryError = $conn->error;
+		   return false;
+	   }
+	   return false;
+
+	}
+
+	if (!$errors) {
+		$queryError = "";
+		$emailError = "";
+		$query = "SELECT IDCliente FROM cliente WHERE email = ?";
+
+		if (!checkUserAlreadyExists($conn, $query, $queryError, $emailError) && strlen($queryError) === 0) {
+
+			$query = "SELECT IDFornitore FROM fornitore WHERE email = ?";
+
+			if (!checkUserAlreadyExists($conn, $query, $queryError, $emailError) && strlen($queryError) === 0) {
+				// Proceed with subscription
+				subscript($conn);
+			}
 		}
 
 	}
@@ -197,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 
 <body>
-	<?php require_once '../../navbar.php';?>
+	<?php// require_once '../../navbar.php';?>
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-6 jumbotron mx-auto" id="loginform">
@@ -357,6 +412,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					<div class="d-flex justify-content-center">
 						<button type="submit" class="btn btn-primary btn-lg" id="submitbtn">Iscriviti</button>
 					</div>
+					<?php
+						if(strlen($supplierErrors) !== 0) {
+							echo("<div class='alert alert-danger' style='margin-top: 8px;'>
+								Dati del fornitore non inseriti correttamente.<br/>Selezionare tipo di Account: Fornitore per vedere gli errori
+							</div>");
+						}
+						if(strlen($queryError) !== 0) {
+							echo("<div class='alert alert-danger' style='margin-top: 8px;'>$queryError</div>");
+						}
+					?>
 				</form>
 			</div>
 		</div>

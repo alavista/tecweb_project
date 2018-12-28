@@ -28,7 +28,10 @@ function login_check($mysqli) {
 
      if ($stmt = $mysqli->prepare($query)) {
         $stmt->bind_param('i', $user_id); // esegue il bind del parametro '$user_id'.
-        $stmt->execute(); // Esegue la query creata.
+        if (!$stmt->execute()) { // Esegue la query creata.
+            $GLOBALS["sqlError"] = $mysqli->error;
+            return false;
+        }
         $stmt->store_result();
 
         if($stmt->num_rows == 1) { // se l'utente esiste
@@ -48,6 +51,7 @@ function login_check($mysqli) {
         }
      } else {
         // Login non eseguito
+        $GLOBALS["sqlError"] = $mysqli->error;
         return false;
      }
    } else {
