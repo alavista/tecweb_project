@@ -140,7 +140,7 @@ $(document).ready(function() {
 
         //commentReview.trim() check that the string is not empty or contains only withspace
         if (valutationReview >= 0 && commentReview.trim() && titleReview.trim() && idSupplier >= 0) {
-            $.post("review.php", {
+            $.post("addReview.php", {
                 idSupplier: idSupplier,
                 clientEmail: clientEmail,
                 title: titleReview,
@@ -152,7 +152,7 @@ $(document).ready(function() {
                 $("#titleReview").val("");
                 $("#numberReview").html(data.numberReview);
                 $("#averageRating").html(data.averageRating);
-                $(".mediasReviews").prepend(data.newReview);
+                $(".mediasReviews").append(data.newReview);
                 loadStars();
             });
         }
