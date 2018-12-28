@@ -1,6 +1,6 @@
 <?php
     require_once '../database.php';
-    require_once "../utilities/secure_session.php";
+    require_once "../utilities/direct_login.php";
 
     setcookie("user_email", "butterfly@gmail.com", time() + (86400 * 30)); //30 giorni
 ?>
