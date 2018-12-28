@@ -190,6 +190,7 @@ INSERT INTO `prodotto` (`IDProdotto`, `nome`, `costo`, `IDCategoria`, `IDFornito
 --
 
 CREATE TABLE `prodotto_in_carrello` (
+  `IDProdottoInCarrello` int(11) NOT NULL,
   `IDProdotto` int(11) NOT NULL,
   `IDCliente` int(11) NOT NULL,
   `quantità` int(11) NOT NULL
@@ -202,6 +203,7 @@ CREATE TABLE `prodotto_in_carrello` (
 --
 
 CREATE TABLE `prodotto_in_ordine` (
+  `IDProdottoInOrdine` int(11) NOT NULL,
   `IDProdotto` int(11) NOT NULL,
   `IDOrdine` int(11) NOT NULL,
   `quantità` int(11) NOT NULL
@@ -285,7 +287,7 @@ ALTER TABLE `prodotto`
 -- Indici per le tabelle `prodotto_in_carrello`
 --
 ALTER TABLE `prodotto_in_carrello`
-  ADD PRIMARY KEY (`IDProdotto`),
+  ADD PRIMARY KEY (`IDProdottoInCarrello`),
   ADD KEY `FKcar_PRO` (`IDProdotto`),
   ADD KEY `FKcar_CLI` (`IDCliente`);
 
@@ -293,7 +295,8 @@ ALTER TABLE `prodotto_in_carrello`
 -- Indici per le tabelle `prodotto_in_ordine`
 --
 ALTER TABLE `prodotto_in_ordine`
-  ADD PRIMARY KEY (`IDProdotto`),
+  ADD PRIMARY KEY (`IDProdottoInOrdine`),
+  ADD KEY `FKcon_PRO` (`IDProdotto`),
   ADD KEY `FKcon_ORD` (`IDOrdine`);
 
 --
@@ -354,13 +357,13 @@ ALTER TABLE `prodotto`
 -- AUTO_INCREMENT per la tabella `prodotto_in_carrello`
 --
 ALTER TABLE `prodotto_in_carrello`
-  MODIFY `IDProdotto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDProdottoInCarrello` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `prodotto_in_ordine`
 --
 ALTER TABLE `prodotto_in_ordine`
-  MODIFY `IDProdotto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDProdottoInOrdine` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `recensione`
