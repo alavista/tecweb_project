@@ -96,10 +96,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						?>
 					</div>
 					<a href="#">Password dimenticata?</a>
-					<div id="remember_me" name="remember_me" class="form-group form-check">
-						<label class="form-check-label">
-							<input class="form-check-input" type="checkbox" name="keepmelogged"> Rimani collegato
-						</label>
+					<div id="remember_me" class="form-group form-check">
+						<input class="form-check-input" type="checkbox" id="rimanicollegato" name="rimanicollegato">
+						<label for="rimanicollegato">Rimani collegato</label>
 					</div>
 					<br/>
 					<div class="d-flex justify-content-center">

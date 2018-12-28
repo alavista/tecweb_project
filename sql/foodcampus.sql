@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 27, 2018 alle 19:15
+-- Creato il: Dic 29, 2018 alle 00:33
 -- Versione del server: 10.1.37-MariaDB
 -- Versione PHP: 7.3.0
 
@@ -90,7 +90,7 @@ CREATE TABLE `fornitore` (
   `email` varchar(30) NOT NULL,
   `sito_web` varchar(60) DEFAULT NULL,
   `partita_iva` varchar(11) NOT NULL,
-  `immagine` varchar(30) DEFAULT NULL,
+  `immagine` varchar(128) DEFAULT NULL,
   `password` varchar(128) NOT NULL,
   `salt` char(128) NOT NULL,
   `bloccato` bit(1) NOT NULL DEFAULT b'0'

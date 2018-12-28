@@ -318,7 +318,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				<h1 id="first_title">Crea un Account</h1>
 				<form action="subscription.php" method="post" enctype="multipart/form-data">
 					<div class="form-input-group">
-						<h3 class="form-title">Dati personali</h3>
+						<h2 class="form-title">Dati personali</h2>
 						<div class="form-group">
 							<label for="nome">Nome:</label>
 							<input type="text" class="form-control" id="nome" required placeholder="Inserisci il nome" name="name">
@@ -339,7 +339,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						</div>
 					</div>
 					<div class="form-input-group">
-						<h3 class="form-title">Email & Password</h3>
+						<h2 class="form-title">Email & Password</h2>
 						<div class="form-group">
 							<label for="email">Indirizzo Email:</label>
 							<input type="email" class="form-control" id="email" required placeholder="Inserisci email" name="email">
@@ -378,7 +378,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						</div>
 					</div>
 					<div class="form-input-group">
-						<h3 class="form-title">Tipo di Account</h3>
+						<h2 class="form-title">Tipo di Account</h2>
 						<div class="form-group">
 							<label for="sel">Scegli il tipo di account che vuoi creare:</label>
 							<select class="form-control" id="sel" name="account_selection">
@@ -393,7 +393,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						</div>
 					</div>
 					<div class="form-input-group" id="form-fornitore">
-						<h3 class="form-title">Dati Fornitore</h3>
+						<h2 class="form-title">Dati Fornitore</h2>
 							<div class="form-group">
 								<label for="indirizzo">Indirizzo:</label>
 								<input type="text" class="form-control" id="indirizzo" placeholder="Inserisci il tuo indirizzo" name="indirizzo">

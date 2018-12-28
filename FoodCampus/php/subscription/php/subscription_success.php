@@ -1,7 +1,3 @@
-<?php
-
-
-?>
 <!DOCTYPE html>
 <html lang="it-IT">
 <head>
@@ -21,22 +17,24 @@
 	<script src="../../../jquery/jquery-3.2.1.min.js"> </script>
 
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/css/navbar.css">
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/php/subscription/css/subscription.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/php/subscription/css/subscription_success.css">
 </head>
 
 <body>
 	<?php require_once '../../navbar.php';?>
 	<div class="container">
 		<div class="row">
-			<div class="col"></div>
-			<div class="col-6 jumbotron mx-auto" id="loginform">
-				<h1 class="form-title">Account creato!</h1>
-                <h2 class="form-title">Congratulazioni, account creato correttamente!</h2>
-    				<div class="d-flex justify-content-center">
-    					<button type="submit" id="loginbtn" class="btn btn-primary btn-lg" onclick="location.href = '../../home.php';">Continua su Food Campus</button>
-    				</div>
+			<div class="container col-6 jumbotron mx-auto" id="maindiv">
+				<div class="col-10 mx-auto">
+				<h1 class="text-primary" id="first_title">Account creato!</h1>
+				<p class="info">Congratulazioni, account creato correttamente!</p>
+				<p class="info">Ora puoi effettuare acquisti e scrivere recensioni!</p>
+				<p class="info">Puoi modificare le tue informazioni personali in qualsiasi momento nella pagina del tuo profilo.</p>
+				<div class="row justify-content-center">
+					<button type="submit" id="continuebtn" class="btn btn-primary btn-lg" onclick="location.href = '../../home.php';">Continua</button>
+				</div>
 			</div>
-			<div class="col"></div>
+			</div>
 		</div>
 	</div>
 </body>
