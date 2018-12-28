@@ -1,6 +1,6 @@
 <?php
 
-require_once "../utilities/secure_session.php";
+require_once "../utilities/create_session.php";
 
 function checkbrute($user_id, $mysqli) {
    // Recupero il timestamp
@@ -38,16 +38,7 @@ function do_login($user_id, $email, $password, $db_password, $mysqli) {
             if($db_password == $password) {
                 // Verifica che la password memorizzata nel database corrisponda alla password fornita dall'utente.
                 // Password corretta!
-                $user_browser = $_SERVER['HTTP_USER_AGENT']; // Recupero il parametro 'user-agent' relativo all'utente corrente.
-
-                $user_id = preg_replace("/[^0-9]+/", "", $user_id); // ci proteggiamo da un attacco XSS
-                $_SESSION['user_id'] = $user_id;
-                $email = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $email); // ci proteggiamo da un attacco XSS
-                $_SESSION['email'] = $email;
-                $user_type = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $GLOBALS["user_type"]); // ci proteggiamo da un attacco XSS
-                $_SESSION['user_type'] = $user_type;
-                $_SESSION['login_string'] = hash('sha512', $password.$user_browser);
-
+                create_Session($user_id, $email, $password, $GLOBALS["user_type"]);
                 // Login eseguito con successo.
                 return 1;
             } else {

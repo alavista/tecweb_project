@@ -59,4 +59,6 @@ function login_check($mysqli) {
      return false;
    }
 }
+
+sec_session_start(); // usiamo la nostra funzione per avviare una sessione php sicura
 ?>

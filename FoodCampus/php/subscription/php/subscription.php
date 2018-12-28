@@ -19,23 +19,19 @@ $shippingLimitError = "";
 $queryError = "";
 
 require_once "../../database.php";
-require_once "../../utilities/secure_session.php";
-
-sec_session_start(); // usiamo la nostra funzione per avviare una sessione php sicura
+require_once "../../utilities/create_session.php";
+require_once "../../utilities/direct_login.php";
 
 //Redirect to home page
-function redirect($conn) {
-	header("Location: subscription_success.php");
+function redirect($conn, $page) {
+	header("Location: $page");
 	mysqli_close($conn);
 	exit();
 }
 
-//Check if user has currently cookies or session variables set
-/*if (isset($_COOKIE[$cookie_user_email]) && isset($_COOKIE[$cookie_user_password])) {
-	cookieDirectLogin($_COOKIE[$cookie_user_email], $_COOKIE[$cookie_user_password], $conn);
-} else if (login_check($conn)) {
-	redirect($conn);
-}*/
+if (isUserLogged($conn)) {
+	redirect($conn, "../../home.php");
+}
 
 function subscript($conn) {
 	$name = $_POST['name'];
@@ -77,7 +73,23 @@ function subscript($conn) {
 			   $queryError = "Errore durante l'invio dei dati";
 		   } else {
 			   // Subscription successfull
-			   redirect($conn);
+			   $query = "SELECT IDCliente FROM cliente WHERE email = ?";
+			   if ($stmt = $conn->prepare($query)) {
+
+				   $stmt->bind_param("s", $email);
+
+				   if ($stmt->execute()) {
+					   $stmt->store_result();
+					   $stmt->bind_result($user_id);
+					   $stmt->fetch();
+					   create_Session($user_id , $email, $password, $_POST["account_selection"]);
+					   redirect($conn, "subscription_success.php");
+				   } else {
+					   $queryError = "Errore durante l'invio dei dati";
+				   }
+			   } else {
+				   $queryError = $conn->error;
+			   }
 		   }
 
 		} else {
@@ -86,18 +98,39 @@ function subscript($conn) {
 	} else {
 		$query = "INSERT INTO cliente (nome, cognome, email, immagine, password, salt, bloccato) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-		if ($insert_stmt = $conn->prepare($query)) {
-		   $insert_stmt->bind_param('ssssssi', $name, $surname, $email, $image, $password, $random_salt, $blocked);
-		   // Esegui la query ottenuta.
-		   if (!$insert_stmt->execute()) {
-			   $queryError = "Errore durante l'invio dei dati";
-		   } else {
-			   // Subscription successfull
-			   redirect($conn);
-		   }
+	   if ($insert_stmt = $conn->prepare($query)) {
+	       $insert_stmt->bind_param('ssssssi', $name, $surname, $email, $image, $password, $random_salt, $blocked);
+	      // Esegui la query ottenuta.
+	      if (!$insert_stmt->execute()) {
+	   	   $queryError = "Errore durante l'invio dei dati";
+	      } else {
+	   	   // Subscription successfull
+	   	   $query = "SELECT IDCliente FROM cliente WHERE email = ?";
+	   	   if ($stmt = $conn->prepare($query)) {
+
+	   		   $stmt->bind_param("s", $email);
+
+	   		   if ($stmt->execute()) {
+	   			   $stmt->store_result();
+	   			   $stmt->bind_result($user_id);
+	   			   $stmt->fetch();
+	   			   create_Session($user_id , $email, $password, $_POST["account_selection"]);
+	   			   redirect($conn, "subscription_success.php");
+	   		   } else {
+	   			   $queryError = "Errore durante l'invio dei dati";
+	   		   }
+	   	   } else {
+	   		   $queryError = $conn->error;
+	   	   }
+	      }
+
 	   } else {
-		   $queryError = $conn->error;
+	      $queryError = $conn->error;
 	   }
+
+
+
+
 	}
 }
 
@@ -252,7 +285,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 
 <body>
-	<?php// require_once '../../navbar.php';?>
+	<?php require_once '../../navbar.php';?>
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-6 jumbotron mx-auto" id="loginform">

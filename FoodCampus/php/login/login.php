@@ -5,13 +5,9 @@ $passwordError = "";
 $GLOBALS["sqlError"] = "";
 $GLOBALS["sqlWarning"] = "";
 
-$cookie_user_email = "user_email";
-$cookie_user_password = "user_password";
-
 require_once "../database.php";
 require_once "login_functions.php";
-
-sec_session_start(); // usiamo la nostra funzione per avviare una sessione php sicura
+require_once "../utilities/direct_login.php";
 
 //Redirect to home page
 function redirect($conn) {
@@ -20,76 +16,7 @@ function redirect($conn) {
 	exit();
 }
 
-function cookieDirectLogin($email, $user_password, $conn) {
-
-	$query = "SELECT IDCliente, password, salt, bloccato FROM cliente WHERE email = ?";
-
-	if ($stmt = $conn->prepare($query)) {
-	   $stmt->bind_param('s', $email);
-	   // Esegui la query ottenuta.
-	   if (!$stmt->execute()) {
-		   $GLOBALS["sqlError"] = "Errore durante l'invio dei dati";
-		   return;
-	   }
-
-   } else {
-	   $GLOBALS["sqlError"] = $conn->error;
-	   return;
-   }
-
-   $stmt->store_result();
-   $stmt->bind_result($user_id, $db_password, $salt, $blocked);
-   $stmt->fetch();
-
-   if (isset($blocked) && $blocked !== 0) {
-	   $GLOBALS["sqlError"] = "Questo utente è stato bloccato, impossibile accedere.";
-	   return;
-   }
-
-	if ($stmt->num_rows > 0) {
-		$user_password = hash('sha512', $user_password.$salt); // codifica la password usando una chiave univoca.
-		if ($user_password == $db_password) {
-			redirect($conn);
-		}
-	} else {
-
-		$query = "SELECT IDFornitore, password, salt, bloccato FROM fornitore WHERE email = ?";
-
-		if ($stmt = $conn->prepare($query)) {
-		   $stmt->bind_param('s', $email);
-		   // Esegui la query ottenuta.
-		   if (!$stmt->execute()) {
-			   $GLOBALS["sqlError"] = "Errore durante l'invio dei dati";
-			   return;
-		   }
-
-	   } else {
-		   $GLOBALS["sqlError"] = $conn->error;
-		   return;
-	   }
-
-	   $stmt->store_result();
-	   $stmt->bind_result($user_id, $db_password, $salt, $blocked);
-	   $stmt->fetch();
-
-	   if (isset($blocked) && $blocked !== 0) {
-		   $GLOBALS["sqlError"] = "Questo utente è stato bloccato, impossibile accedere.";
-		   return;
-	   }
-
-		if ($stmt->num_rows > 0) {
-			$user_password = hash('sha512', $user_password.$salt); // codifica la password usando una chiave univoca.
-			if ($user_password == $db_password) {
-				redirect($conn);
-			}
-		}
-	}
-}
-
-//Check if user has currently cookies or session variables set
-if (isset($_COOKIE[$cookie_user_email]) && isset($_COOKIE[$cookie_user_password])) {
-	cookieDirectLogin($_COOKIE[$cookie_user_email], $_COOKIE[$cookie_user_password], $conn);
-} else if (login_check($conn)) {
+if (isUserLogged($conn)) {
 	redirect($conn);
 }
 
@@ -119,8 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				case 1:
 					// login successfull
 					if (isset($_POST["keepmelogged"]) && !empty($_POST["keepmelogged"])) {
-						setcookie($cookie_user_email, $_POST["email"], time() + (86400 * 365 * 5), "/"); // 5 years
-						setcookie($cookie_user_password, $_POST["p"], time() + (86400 * 365 * 5), "/"); // 5 years
+						setcookie($GLOBALS["cookie_user_email"], $_POST["email"], time() + (86400 * 365 * 5), "/"); // 5 years
+						setcookie($GLOBALS["cookie_user_password"], $_POST["p"], time() + (86400 * 365 * 5), "/"); // 5 years
 					}
 
 					redirect($conn);
