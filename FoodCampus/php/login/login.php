@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 			if (login($conn, $_POST["email"], $_POST["p"], $emailError)) {
 				// login successfull
-				if (isset($_POST["keepmelogged"]) && !empty($_POST["keepmelogged"])) {
+				if (isset($_POST["rimanicollegato"]) && !empty($_POST["rimanicollegato"])) {
 					setcookie($GLOBALS["cookie_user_email"], $_POST["email"], time() + (86400 * 365 * 5), "/"); // 5 years
 					setcookie($GLOBALS["cookie_user_password"], $_POST["p"], time() + (86400 * 365 * 5), "/"); // 5 years
 				}
