@@ -59,21 +59,9 @@ $(document).ready(function() {
     })
 
     $("#saveHouseNumber").click(function() {
-        var houseNumber = $("#newHouseNumber").val();
-        var error = true;
-        if ($.isNumeric(houseNumber)) {
-            houseNumber = parseFloat(houseNumber);
-            if (Number.isInteger(houseNumber) && houseNumber >= 0) {
-                error = false;
-                updateSupplierInformationAndSwitchFromDivToDiv("newHouseNumber", "houseNumber", "indirizzo_numero_civico", houseNumber, "supplierHouseNumber2", "supplierHouseNumber1", function(inf) {
-                    $("#houseNumber").html(inf);
-                });
-            }
-        }
-        if (error) {
-            showError($("#newHouseNumber"), "Devi inserire un numero civico maggiore o uguale a 0");
-            $("#newHouseNumber").focus();
-        }
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newHouseNumber", "houseNumber","indirizzo_numero_civico", "supplierHouseNumber2", "supplierHouseNumber1", function(inf) {
+            $("#houseNumber").html(inf);
+        });
     });
 
     $("#cancelChangeHouseNumber").click(function() {
@@ -90,18 +78,20 @@ $(document).ready(function() {
 
     $("#saveShippingCosts").click(function() {
         var shippingCosts = $("#newShippingCosts").val().replace(/,/,".");
-        if ($.isNumeric(shippingCosts) && shippingCosts >= 0) {
+        if ($.isNumeric(shippingCosts) && shippingCosts >= 0 && shippingCosts <= 10) {
             updateSupplierInformationAndSwitchFromDivToDiv("newShippingCosts", "shippingCosts", "costi_spedizione", shippingCosts, "supplierShippingCosts2", "supplierShippingCosts1", function(inf) {
+                $("#costError").html();
                 $("#shippingCosts").html(parseFloat(inf).toFixed(2) + " €");
             });
         } else {
-            showError($("#newShippingCosts"), "Devi inserire un costo di spedizione maggiore o uguale a 0");
+            $("#costError").html("<div class='text-danger validation'><i class='fas fa-times'> Devi inserire un costo di spedizione compreso tra 0 e 10 €</i></div>");
             $("#newShippingCosts").focus();
         }
     });
 
     $("#cancelChangeShippingCosts").click(function() {
-        switchFromDivToDivAndRemoveError("newShippingCosts", "supplierShippingCosts2", "supplierShippingCosts1");
+        $("#costError").html("");
+        switchFromDivToDiv("supplierShippingCosts2", "supplierShippingCosts1");
     });
 
     $("#changeWebSite").click(function() {

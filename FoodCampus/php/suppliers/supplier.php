@@ -3,6 +3,9 @@
     require_once "../utilities/secure_session.php";
 
     sec_session_start(); // usiamo la nostra funzione per avviare una sessione php sicura
+
+    setcookie("user_email", "butterfly@gmail.com", time() + (86400 * 30)); //30 giorni
+
 ?>
 
 <!DOCTYPE html>
@@ -149,7 +152,13 @@
                             </div>
                         </div>
                         <div class="form-group text-center" id="supplierShippingCosts2">
-                            <label class="notVisible" for="newShippingCosts">Nuovi costi spedizione</label><input type="text" id="newShippingCosts" class='form-control' placeholder="Nuovi costi spedizione"/>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">€</span>
+                                </div>
+                                <label class="notVisible" for="newShippingCosts">Nuovi costi spedizione</label><input type="number" value="0.00" max= "10.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="newShippingCosts" placeholder="Nuovi costi spedizione"/>
+                            </div>
+                            <div id="costError"></div>
                             <button type='button' id="saveShippingCosts" class='btn btn-success'>Salva</button>
                             <button type='button' id="cancelChangeShippingCosts" class='btn btn-danger'>Annulla</button>
                         </div>
