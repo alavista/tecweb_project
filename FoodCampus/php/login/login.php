@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 
 <body>
-	<?php //require_once '../navbar.php';?>
+	<?php require_once '../navbar.php';?>
 	<div class="container">
 		<div class="row">
 			<div class="col"></div>

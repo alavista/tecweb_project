@@ -9,13 +9,14 @@ $GLOBALS["db_password"] = "";
 $GLOBALS["sqlError"] = "";
 $GLOBALS["sqlWarning"] = "";
 
-function checkbrute($user_id, $mysqli) {
+function checkbrute($email, $mysqli) {
+
    // Recupero il timestamp
    $now = time();
-   // Vengono analizzati tutti i tentativi di login a partire dalle ultime due ore.
-   $valid_attempts = $now - (2 * 60 * 60);
-   if ($stmt = $mysqli->prepare("SELECT time FROM clients_login_attempts WHERE user_id = ? AND time > '$valid_attempts'")) {
-      $stmt->bind_param('i', $user_id);
+   // Vengono analizzati tutti i tentativi di login a partire dagli ultimi 5 minuti
+   $valid_attempts = $now - (60 * 5);
+   if ($stmt = $mysqli->prepare("SELECT time FROM login_attempts WHERE email = ? AND time > '$valid_attempts'")) {
+      $stmt->bind_param('i', $email);
       // Eseguo la query creata.
       if (!$stmt->execute()) {
           $GLOBALS["sqlWarning"] = $mysqli->error;
@@ -36,7 +37,7 @@ function do_login($user_id, $email, $password, $db_password, $mysqli, &$emailErr
     if($db_password == $password) {
         // Verifica che la password memorizzata nel database corrisponda alla password fornita dall'utente.
         // Password corretta!
-        
+
         create_Session($user_id, $email, $password, $GLOBALS["user_type"]);
         // Login eseguito con successo.
         return true;
@@ -122,7 +123,10 @@ function login($mysqli, $email, $password, &$emailError) {
         $GLOBALS["user_type"] = "Cliente";
     }
 
-    checkbrute($GLOBALS["user_id"], $mysqli);
+    if (checkbrute($email, $mysqli)) {
+        $emailError = "Questo utente è stato bloccato temporaneamente a causa dei troppi tentativi di accesso.<br/>Riprovare pi&ugrave; tardi.";
+        return false;
+    }
 
     return do_login($GLOBALS["user_id"], $email, $GLOBALS["password"], $GLOBALS["db_password"], $mysqli, $emailError);
 }
