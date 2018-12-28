@@ -2,7 +2,7 @@
     require_once '../database.php';
     require_once "../utilities/secure_session.php";
 
-    sec_session_start(); // usiamo la nostra funzione per avviare una sessione php sicura
+    setcookie("user_email", "butterfly@gmail.com", time() + (86400 * 30)); //30 giorni
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +45,7 @@
                     if ($res->num_rows == 1) {
                         $supplier = $res->fetch_assoc();
                         ?>
-                        <div class="text-center" id="supplierName1">
+                        <div class="text-center" id="supplierName">
                             <h1>
                                 <span id="name"><?php echo strtoupper($supplier['nome']);?></span>
                                 <?php
@@ -56,16 +56,35 @@
                                     $supplierPage = true;
                                 }
                                 if ($supplierPage) {
-                                    echo "<button type='button' class='btn btn-secondary' id='changeName'>Modifica nome</button>";
+                                    ?>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-4"><button type="button" class="btn btn-secondary changePlus" id="changeName">Modifica nome</button></div>
+                                        <div class="col-md-4"><button type="button" class="btn btn-secondary changePlus" id="changeEmail">Modifica email</button></div>
+                                        <div class="col-md-4"><button type='button' class='btn btn-secondary changePlus' id='changePassword'>Modifica password</button></div>
+                                    </div>
+                                    <?php
                                 }
                                 ?>
                             </h1>
                         </div>
-                        <div class="form-group text-center" id="supplierName2">
-                            <label class="notVisible" for="newName">Nuovo nome</label><input type="text" id="newName" class='form-control' placeholder="Nuovo nome"/>
-                            <button type='button' id="saveName" class='btn btn-success'>Salva</button>
-                            <button type='button' id="cancelChangeName" class='btn btn-danger'>Annulla</button>
-                        </div>
+                        <?php
+                        if ($supplierPage) {
+                            ?>
+                            <span id="email" class="notVisible"><?php echo $supplier["email"]; ?></span>
+                            <div class="form-group text-center" id="newSupplierName">
+                                <label class="notVisible" for="newName">Nuovo nome</label><input type="text" id="newName" class='form-control' placeholder="Nuovo nome"/>
+                                <button type='button' id="saveName" class='btn btn-success change'>Salva</button>
+                                <button type='button' id="cancelChangeName" class='btn btn-danger change'>Annulla</button>
+                            </div>
+                            <div class="form-group text-center" id="newSupplierEmail">
+                                <label class="notVisible" for="newEmail">Nuova email</label><input type="email" id="newEmail" class='form-control' placeholder="Nuova email"/>
+                                <button type='button' id="saveEmail" class='btn btn-success change'>Salva</button>
+                                <button type='button' id="cancelChangeEmail" class='btn btn-danger change'>Annulla</button>
+                            </div>
+                            <?php
+                        }
+                        ?>
                         <img src="../../res/suppliers/<?php echo $supplier["immagine"] != NULL ? $supplier["immagine"] : 'default.jpg';?>" class="img-fluid img-thumbnail" alt="Logo fornitore">
                         <?php
                     }
@@ -74,7 +93,7 @@
                 <section>
                     <div class="jumbotron">
                         <span class="text-center"><h2>Informazioni</h2></span>
-                        <div id="supplierCity1">
+                        <div id="supplierCity">
                             <div class="row">
                                 <div class="col-sm-5">
                                     <span class="font-weight-bold">Città:</span>
@@ -83,18 +102,18 @@
                                 <?php
                                 if ($supplierPage) {
                                     echo "<div class='col-sm-7'>
-                                              <button type='button' class='btn btn-secondary' id='changeCity'>Modifica città</button>
+                                              <button type='button' class='btn btn-secondary changePlus' id='changeCity'>Modifica città</button>
                                           </div>";
                                 }
                                 ?>
                             </div>
                         </div>
-                        <div class="form-group text-center" id="supplierCity2">
+                        <div class="form-group text-center" id="newSupplierCity">
                             <label class="notVisible" for="newCity">Nuova città</label><input type="text" id="newCity" class='form-control' placeholder="Nuova città"/>
-                            <button type='button' id="saveCity" class='btn btn-success'>Salva</button>
-                            <button type='button' id="cancelChangeCity" class='btn btn-danger'>Annulla</button>
+                            <button type='button' id="saveCity" class='btn btn-success change'>Salva</button>
+                            <button type='button' id="cancelChangeCity" class='btn btn-danger change'>Annulla</button>
                         </div>
-                        <div id="supplierAddress1">
+                        <div id="supplierAddress">
                             <div class="row">
                                 <div class="col-sm-5">
                                     <span class="font-weight-bold">Indirizzo:</span>
@@ -103,18 +122,18 @@
                                 <?php
                                 if ($supplierPage) {
                                     echo "<div class='col-sm-7'>
-                                              <button type='button' class='btn btn-secondary' id='changeAddress'>Modifica indirizzo</button>
+                                              <button type='button' class='btn btn-secondary changePlus' id='changeAddress'>Modifica indirizzo</button>
                                           </div>";
                                 }
                                 ?>
                             </div>
                         </div>
-                        <div class="form-group text-center" id="supplierAddress2">
+                        <div class="form-group text-center" id="newSupplierAddress">
                             <label class="notVisible" for="newAddress">Nuovo indirizzo</label><input type="text" id="newAddress" class='form-control' placeholder="Nuovo indirizzo"/>
-                            <button type='button' id="saveAddress" class='btn btn-success'>Salva</button>
-                            <button type='button' id="cancelChangeAddress" class='btn btn-danger'>Annulla</button>
+                            <button type='button' id="saveAddress" class='btn btn-success change'>Salva</button>
+                            <button type='button' id="cancelChangeAddress" class='btn btn-danger change'>Annulla</button>
                         </div>
-                        <div id="supplierHouseNumber1">
+                        <div id="supplierHouseNumber">
                             <div class="row">
                                 <div class="col-sm-5">
                                     <span class="font-weight-bold">Numero civico:</span>
@@ -123,18 +142,18 @@
                                 <?php
                                 if ($supplierPage) {
                                     echo "<div class='col-sm-7'>
-                                              <button type='button' class='btn btn-secondary' id='changeHouseNumber'>Modifica numero civico</button>
+                                              <button type='button' class='btn btn-secondary changePlus' id='changeHouseNumber'>Modifica numero civico</button>
                                           </div>";
                                 }
                                 ?>
                             </div>
                         </div>
-                        <div class="form-group text-center" id="supplierHouseNumber2">
+                        <div class="form-group text-center" id="newSupplierHouseNumber">
                             <label class="notVisible" for="newHouseNumber">Nuovo numero civico</label><input type="text" id="newHouseNumber" class='form-control' placeholder="Nuovo numero civico"/>
-                            <button type='button' id="saveHouseNumber" class='btn btn-success'>Salva</button>
-                            <button type='button' id="cancelChangeHouseNumber" class='btn btn-danger'>Annulla</button>
+                            <button type='button' id="saveHouseNumber" class='btn btn-success change'>Salva</button>
+                            <button type='button' id="cancelChangeHouseNumber" class='btn btn-danger change'>Annulla</button>
                         </div>
-                        <div id="supplierShippingCosts1">
+                        <div id="supplierShippingCosts">
                             <div class="row">
                                 <div class="col-sm-5">
                                     <span class="font-weight-bold">Costi di spedizione:</span>
@@ -143,13 +162,13 @@
                                 <?php
                                 if ($supplierPage) {
                                     echo "<div class='col-sm-7'>
-                                              <button type='button' class='btn btn-secondary' id='changeShippingCosts'>Modifica costi di spedizione</button>
+                                              <button type='button' class='btn btn-secondary changePlus' id='changeShippingCosts'>Modifica costi di spedizione</button>
                                           </div>";
                                 }
                                 ?>
                             </div>
                         </div>
-                        <div class="form-group text-center" id="supplierShippingCosts2">
+                        <div class="form-group text-center" id="newSupplierShippingCosts">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">€</span>
@@ -157,10 +176,10 @@
                                 <label class="notVisible" for="newShippingCosts">Nuovi costi spedizione</label><input type="number" value="0.00" max= "10.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="newShippingCosts" placeholder="Nuovi costi spedizione"/>
                             </div>
                             <div id="costError"></div>
-                            <button type='button' id="saveShippingCosts" class='btn btn-success'>Salva</button>
-                            <button type='button' id="cancelChangeShippingCosts" class='btn btn-danger'>Annulla</button>
+                            <button type='button' id="saveShippingCosts" class='btn btn-success change'>Salva</button>
+                            <button type='button' id="cancelChangeShippingCosts" class='btn btn-danger change'>Annulla</button>
                         </div>
-                        <div id="supplierWebSite1">
+                        <div id="supplierWebSite">
                             <div class="row">
                                 <div class="col-sm-5">
                                     <span class="font-weight-bold">Sito web:</span><br/>
@@ -169,16 +188,16 @@
                                 <?php
                                 if ($supplierPage) {
                                     echo "<div class='col-sm-7'>
-                                              <button type='button' class='btn btn-secondary' id='changeWebSite'>Modifica sito web</button>
+                                              <button type='button' class='btn btn-secondary changePlus' id='changeWebSite'>Modifica sito web</button>
                                           </div>";
                                 }
                                 ?>
                             </div>
                         </div>
-                        <div class="form-group text-center" id="supplierWebSite2">
+                        <div class="form-group text-center" id="newSupplierWebSite">
                             <label class="notVisible" for="newWebSite">Nuovo sito web</label><input type="text" id="newWebSite" class='form-control' placeholder="Nuovo sito web"/>
-                            <button type='button' id="saveWebSite" class='btn btn-success'>Salva</button>
-                            <button type='button' id="cancelChangeWebSite" class='btn btn-danger'>Annulla</button>
+                            <button type='button' id="saveWebSite" class='btn btn-success change'>Salva</button>
+                            <button type='button' id="cancelChangeWebSite" class='btn btn-danger change'>Annulla</button>
                         </div>
                     </div>
                 </section>
