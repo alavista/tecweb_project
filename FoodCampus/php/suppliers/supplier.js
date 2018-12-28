@@ -5,67 +5,91 @@ $(document).ready(function() {
 
     $('[data-toggle="popover"]').popover();
 
-    $("#supplierName2").hide();
-    $("#supplierCity2").hide();
-    $("#supplierAddress2").hide();
-    $("#supplierHouseNumber2").hide();
-    $("#supplierShippingCosts2").hide();
-    $("#supplierWebSite2").hide();
+    $("#newSupplierName").hide();
+    $("#newSupplierEmail").hide();
+    $("#newSupplierCity").hide();
+    $("#newSupplierAddress").hide();
+    $("#newSupplierHouseNumber").hide();
+    $("#newSupplierShippingCosts").hide();
+    $("#newSupplierWebSite").hide();
 
     $("#changeName").click(function() {
-        switchFromDivToDivAndSetValueTextbox("newName", "name", "supplierName1", "supplierName2");
+        switchFromDivToDivAndSetValueTextbox("newName", "name", "supplierName", "newSupplierName");
     });
 
     $("#saveName").click(function() {
-        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newName", "name", "nome", "supplierName2", "supplierName1", function(inf) {
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newName", "name", "nome", "newSupplierName", "supplierName", function(inf) {
             $("#name").html(inf.toUpperCase());
         });
     });
 
     $("#cancelChangeName").click(function() {
-        switchFromDivToDivAndRemoveError("newName", "supplierName2", "supplierName1");
+        switchFromDivToDivAndRemoveError("newName", "newSupplierName", "supplierName");
+    });
+
+    $("#changeEmail").click(function() {
+        switchFromDivToDivAndSetValueTextbox("newEmail", "email", "supplierName", "newSupplierEmail");
+    });
+
+    $("#saveEmail").click(function() {
+        var regex = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
+        var emailTag = $("#newEmail");
+        var errorTagId = "alertemail";
+        $("#" + errorTagId).remove();
+        if (regex.test((emailTag).val()) === false && $("#" + errorTagId).val() !== "") {
+            showError(emailTag, "Indirizzo Email non valido");
+            emailTag.focus();
+        } else {
+            updateSupplierInformationAndSwitchFromDivToDiv("newEmail", "email", "email", emailTag.val(), "newSupplierEmail", "supplierName", function(inf) {
+                $("#email").html(emailTag.val());
+            });
+        }
+    });
+
+    $("#cancelChangeEmail").click(function() {
+        switchFromDivToDivAndRemoveError("newEmail", "newSupplierEmail", "supplierName");
     });
 
     $("#changeCity").click(function() {
-        switchFromDivToDivAndSetValueTextbox("newCity", "city", "supplierCity1", "supplierCity2");
+        switchFromDivToDivAndSetValueTextbox("newCity", "city", "supplierCity", "newSupplierCity");
     });
 
     $("#saveCity").click(function() {
-        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newCity", "city","citta", "supplierCity2", "supplierCity1", function(inf) {
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newCity", "city","citta", "newSupplierCity", "supplierCity", function(inf) {
             $("#city").html(inf);
         });
     });
 
     $("#cancelChangeCity").click(function() {
-        switchFromDivToDivAndRemoveError("newCity", "supplierCity2", "supplierCity1");
+        switchFromDivToDivAndRemoveError("newCity", "newSupplierCity", "supplierCity");
     });
 
     $("#changeAddress").click(function() {
-        switchFromDivToDivAndSetValueTextbox("newAddress", "address", "supplierAddress1", "supplierAddress2");
+        switchFromDivToDivAndSetValueTextbox("newAddress", "address", "supplierAddress", "newSupplierAddress");
     })
 
     $("#saveAddress").click(function() {
-        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newAddress", "address","indirizzo_via", "supplierAddress2", "supplierAddress1", function(inf) {
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newAddress", "address","indirizzo_via", "newSupplierAddress", "supplierAddress", function(inf) {
             $("#address").html(inf);
         });
     });
 
     $("#cancelChangeAddress").click(function() {
-        switchFromDivToDivAndRemoveError("newAddress", "supplierAddress2", "supplierAddress1");
+        switchFromDivToDivAndRemoveError("newAddress", "newSupplierAddress", "supplierAddress");
     });
 
     $("#changeHouseNumber").click(function() {
-        switchFromDivToDivAndSetValueTextbox("newHouseNumber", "houseNumber", "supplierHouseNumber1", "supplierHouseNumber2");
+        switchFromDivToDivAndSetValueTextbox("newHouseNumber", "houseNumber", "supplierHouseNumber", "newSupplierHouseNumber");
     })
 
     $("#saveHouseNumber").click(function() {
-        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newHouseNumber", "houseNumber","indirizzo_numero_civico", "supplierHouseNumber2", "supplierHouseNumber1", function(inf) {
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newHouseNumber", "houseNumber","indirizzo_numero_civico", "newSupplierHouseNumber", "supplierHouseNumber", function(inf) {
             $("#houseNumber").html(inf);
         });
     });
 
     $("#cancelChangeHouseNumber").click(function() {
-        switchFromDivToDivAndRemoveError("newHouseNumber", "supplierHouseNumber2", "supplierHouseNumber1");
+        switchFromDivToDivAndRemoveError("newHouseNumber", "newSupplierHouseNumber", "supplierHouseNumber");
     });
 
     $("#changeShippingCosts").click(function() {
@@ -73,13 +97,13 @@ $(document).ready(function() {
         //Rimuovo lo spazio ed il simbolo "€"
         shippingCosts = shippingCosts.substring(0, shippingCosts.length - 2);
         $("#newShippingCosts").val(shippingCosts);
-        switchFromDivToDiv("supplierShippingCosts1", "supplierShippingCosts2");
+        switchFromDivToDiv("supplierShippingCosts", "newSupplierShippingCosts");
     })
 
     $("#saveShippingCosts").click(function() {
         var shippingCosts = $("#newShippingCosts").val().replace(/,/,".");
         if ($.isNumeric(shippingCosts) && shippingCosts >= 0 && shippingCosts <= 10) {
-            updateSupplierInformationAndSwitchFromDivToDiv("newShippingCosts", "shippingCosts", "costi_spedizione", shippingCosts, "supplierShippingCosts2", "supplierShippingCosts1", function(inf) {
+            updateSupplierInformationAndSwitchFromDivToDiv("newShippingCosts", "shippingCosts", "costi_spedizione", shippingCosts, "newSupplierShippingCosts", "supplierShippingCosts", function(inf) {
                 $("#costError").html();
                 $("#shippingCosts").html(parseFloat(inf).toFixed(2) + " €");
             });
@@ -91,21 +115,21 @@ $(document).ready(function() {
 
     $("#cancelChangeShippingCosts").click(function() {
         $("#costError").html("");
-        switchFromDivToDiv("supplierShippingCosts2", "supplierShippingCosts1");
+        switchFromDivToDiv("newSupplierShippingCosts", "supplierShippingCosts");
     });
 
     $("#changeWebSite").click(function() {
-        switchFromDivToDivAndSetValueTextbox("newWebSite", "webSite", "supplierWebSite1", "supplierWebSite2");
+        switchFromDivToDivAndSetValueTextbox("newWebSite", "webSite", "supplierWebSite", "newSupplierWebSite");
     })
 
     $("#saveWebSite").click(function() {
-        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newWebSite", "webSite", "sito_web", "supplierWebSite2", "supplierWebSite1", function(inf) {
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newWebSite", "webSite", "sito_web", "newSupplierWebSite", "supplierWebSite", function(inf) {
             $("#webSite").html(inf);
         });
     });
 
     $("#cancelChangeWebSite").click(function() {
-        switchFromDivToDivAndRemoveError("newWebSite", "supplierWebSite2", "supplierWebSite1");
+        switchFromDivToDivAndRemoveError("newWebSite", "newSupplierWebSite", "supplierWebSite");
     });
 
     $("#submitReview").click(function() {
