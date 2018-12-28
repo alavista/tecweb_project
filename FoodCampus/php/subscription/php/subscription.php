@@ -1,4 +1,5 @@
 <?php
+
 $errors = false;
 $supplierErrors = false;
 
@@ -15,6 +16,9 @@ $cityError = "";
 $supplierNameError = "";
 $shippingError = "";
 $shippingLimitError = "";
+$fileError = "";
+
+$GLOBALS["newFileName"] = "";
 
 $slqError = "";
 $queryErrors = array();
@@ -22,6 +26,7 @@ $queryErrors = array();
 require_once "../../database.php";
 require_once "../../utilities/create_session.php";
 require_once "../../utilities/direct_login.php";
+require_once "../../utilities/file_uploader.php";
 
 // Redirect to home page
 function redirect($conn, $page) {
@@ -70,8 +75,8 @@ function do_Subscription($conn, $query, &$queryErrors, $isSupplier) {
 	$surname = $_POST['surname'];
 	$email = $_POST['email'];
 
-	if (isset($_POST['filename']) && !empty($_POST['filename'])) {
-		$image = $_POST['filename'];
+	if (isset($GLOBALS["newFileName"]) && !empty($GLOBALS["newFileName"])) {
+		$image = $GLOBALS["newFileName"];
 	} else {
 		$image = NULL;
 	}
@@ -166,6 +171,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	if (!isset($_POST["account_selection"]) || empty($_POST["account_selection"]) || ($_POST["account_selection"] !== "Cliente" && $_POST["account_selection"] !== "Fornitore")) {
 		$selectAccountError = "Scegliere il tipo di account tra i due presenti";
 		$errors = true;
+	}
+
+	if (isset($_FILES["filename"]["name"]) && !empty($_FILES["filename"]["name"])) {
+
+		if (isset($_POST["account_selection"]) && !empty($_POST["account_selection"])) {
+
+			if ($_POST["account_selection"] === "Cliente") {
+				$filePath = "../../../res/clients/";
+			} else {
+				$filePath = "../../../res/suppliers/";
+			}
+
+			$fileName = basename($_FILES["filename"]["name"]);
+			$tempArrayName = explode(".", $fileName);
+			$GLOBALS["newFileName"] = $tempArrayName[0].uniqid(mt_rand(1, mt_getrandmax()), false).".".$tempArrayName[1];
+
+			if (!uploadFile($filePath, $GLOBALS["newFileName"], "filename", $fileError)) {
+				//$errors = true;
+			}
+		}
 	}
 
 	if ($_POST["account_selection"] === "Fornitore") {
@@ -291,7 +316,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		<div class="row justify-content-center">
 			<div class="col-6 jumbotron mx-auto" id="loginform">
 				<h1 id="first_title">Crea un Account</h1>
-				<form action="subscription.php" method="post">
+				<form action="subscription.php" method="post" enctype="multipart/form-data">
 					<div class="form-input-group">
 						<h3 class="form-title">Dati personali</h3>
 						<div class="form-group">
@@ -345,6 +370,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						<div class="form-group">
 							<label for="myFile">Immagine del profilo (facoltativo):</label>
 							<input type="file" id="myFile" name="filename" class="border" accept="image/*">
+							<?php
+								if(strlen($fileError) !== 0) {
+									echo("<div class='alert alert-warning' style='margin-top: 8px;'>$fileError</div>");
+								}
+							?>
 						</div>
 					</div>
 					<div class="form-input-group">
