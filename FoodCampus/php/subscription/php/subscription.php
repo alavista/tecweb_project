@@ -476,6 +476,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					<div class="d-flex justify-content-center">
 						<button type="submit" class="btn btn-primary btn-lg" id="submitbtn">Iscriviti</button>
 					</div>
+					<noscript>
+						<div class='alert alert-danger' style='margin-top: 8px;'>
+							<strong>ATTENZIONE:</strong> Questa pagina non funziona correttamente senza JavaScript.
+							Per favore, riabilita JavaScript nel tuo Browser.
+						</div>
+					</noscript>
 					<?php
 						if(strlen($supplierErrors) !== 0) {
 							echo("<div class='alert alert-danger' style='margin-top: 8px;'>
