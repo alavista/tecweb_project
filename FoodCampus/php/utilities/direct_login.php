@@ -2,6 +2,7 @@
 
 require_once "secure_session.php";
 
+$GLOBALS["cookie_user_id"] = "user_id";
 $GLOBALS["cookie_user_email"] = "user_email";
 $GLOBALS["cookie_user_password"] = "user_password";
 
