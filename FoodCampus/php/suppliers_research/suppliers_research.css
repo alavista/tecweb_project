@@ -1,0 +1,25 @@
+#loginform{
+    margin-top: 165px;
+}
+
+#remember_me{
+    margin-top: 25px;
+}
+
+.jumbotron{
+    padding: 1rem 2rem;
+}
+
+.form-title{
+    margin-bottom: 35px;
+    color: #F83442;
+}
+
+.big-checkbox {
+    width: 15px;
+    height: 15px;
+}
+
+label {
+    font-weight: bold;
+}
