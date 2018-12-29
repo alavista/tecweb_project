@@ -23,6 +23,7 @@
          <script src="/tecweb_project/FoodCampus/jquery/jquery.cookie.js"></script>
          <!--JavaScript-->
          <script src="supplier.js" type="text/javascript"></script>
+         <script src="../../js/utilities/sha512.js" type="text/javascript"></script>
          <!--Font awesome-->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
@@ -72,21 +73,52 @@
                         if ($supplierPage) {
                             ?>
                             <span id="email" class="notVisible"><?php echo $supplier["email"]; ?></span>
-                            <div class="form-group text-center" id="newSupplierName">
-                                <label class="notVisible" for="newName">Nuovo nome</label><input type="text" id="newName" class='form-control' placeholder="Nuovo nome"/>
-                                <button type='button' id="saveName" class='btn btn-success change'>Salva</button>
-                                <button type='button' id="cancelChangeName" class='btn btn-danger change'>Annulla</button>
-                            </div>
-                            <div class="form-group text-center" id="newSupplierEmail">
-                                <label class="notVisible" for="newEmail">Nuova email</label><input type="email" id="newEmail" class='form-control' placeholder="Nuova email"/>
-                                <button type='button' id="saveEmail" class='btn btn-success change'>Salva</button>
-                                <button type='button' id="cancelChangeEmail" class='btn btn-danger change'>Annulla</button>
-                            </div>
+                            <form id="newSupplierName" class="text-center">
+                                <div class="form-group">
+                                    <label class="notVisible" for="newName">Nuovo nome</label>
+                                    <input type="text" id="newName" class='form-control' placeholder="Nuovo nome"/>
+                                    <button type='button' id="saveName" class='btn btn-success change'>Salva</button>
+                                    <button type='button' id="cancelChangeName" class='btn btn-danger change'>Annulla</button>
+                                </div>
+                            </form>
+                            <form id="newSupplierEmail" class="text-center">
+                                <div class="form-group">
+                                    <label class="notVisible" for="newEmail">Nuova email</label>
+                                    <input type="email" id="newEmail" class='form-control' placeholder="Nuova email"/>
+                                    <button type='button' id="saveEmail" class='btn btn-success change'>Salva</button>
+                                    <button type='button' id="cancelChangeEmail" class='btn btn-danger change'>Annulla</button>
+                                </div>
+                            </form>
+                            <form id="newSupplierPassword" class="text-center">
+                                <div class="form-group">
+                                    <label class="notVisible" for="oldPassword">Vecchia password</label>
+        							<input type="password" id="oldPassword" class='form-control' placeholder="Vecchia password"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="notVisible" for="newPassword">Nuova password</label>
+        							<input type="password" id="newPassword" class='form-control' placeholder="Nuova password"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="notVisible" for="oldPassword">Ripeti nuova password</label>
+        							<input type="password" id="repetNewPassword" class='form-control' placeholder="Ripeti nuova password"/>
+                                </div>
+                                <div class="form-group">
+                                    <button type='button' id="savePassword" class='btn btn-success change'>Salva</button>
+                                    <button type='button' id="cancelChangePassword" class='btn btn-danger change'>Annulla</button>
+                                </div>
+                            </form>
                             <?php
                         }
                         ?>
                         <img src="../../res/suppliers/<?php echo $supplier["immagine"] != NULL ? $supplier["immagine"] : 'default.jpg';?>" class="img-fluid img-thumbnail" alt="Logo fornitore">
                         <?php
+                        if ($supplierPage) {
+                            ?>
+                            <div class="text-center">
+                                <button type='button' class='btn btn-secondary changePlus' id='changeImage'>Modifica immagine</button>
+                            </div>
+                            <?php
+                        }
                     }
                 }
                 ?>
@@ -111,11 +143,14 @@
                         <?php
                         if ($supplierPage) {
                             ?>
-                            <div class="form-group text-center" id="newSupplierCity">
-                                <label class="notVisible" for="newCity">Nuova città</label><input type="text" id="newCity" class='form-control' placeholder="Nuova città"/>
-                                <button type='button' id="saveCity" class='btn btn-success change'>Salva</button>
-                                <button type='button' id="cancelChangeCity" class='btn btn-danger change'>Annulla</button>
-                            </div>
+                            <form id="newSupplierCity" class="text-center">
+                                <div class="form-group">
+                                    <label class="notVisible" for="newCity">Nuova città</label>
+                                    <input type="text" id="newCity" class='form-control' placeholder="Nuova città"/>
+                                    <button type='button' id="saveCity" class='btn btn-success change'>Salva</button>
+                                    <button type='button' id="cancelChangeCity" class='btn btn-danger change'>Annulla</button>
+                                </div>
+                            </form>
                             <?php
                         }
                         ?>
@@ -137,11 +172,14 @@
                         <?php
                         if ($supplierPage) {
                             ?>
-                            <div class="form-group text-center" id="newSupplierAddress">
-                                <label class="notVisible" for="newAddress">Nuovo indirizzo</label><input type="text" id="newAddress" class='form-control' placeholder="Nuovo indirizzo"/>
-                                <button type='button' id="saveAddress" class='btn btn-success change'>Salva</button>
-                                <button type='button' id="cancelChangeAddress" class='btn btn-danger change'>Annulla</button>
-                            </div>
+                            <form id="newSupplierAddress" class="text-center">
+                                <div class="form-group">
+                                    <label class="notVisible" for="newAddress">Nuovo indirizzo</label>
+                                    <input type="text" id="newAddress" class='form-control' placeholder="Nuovo indirizzo"/>
+                                    <button type='button' id="saveAddress" class='btn btn-success change'>Salva</button>
+                                    <button type='button' id="cancelChangeAddress" class='btn btn-danger change'>Annulla</button>
+                                </div>
+                            </form>
                             <?php
                         }
                         ?>
@@ -163,11 +201,13 @@
                         <?php
                         if ($supplierPage) {
                             ?>
-                            <div class="form-group text-center" id="newSupplierHouseNumber">
-                                <label class="notVisible" for="newHouseNumber">Nuovo numero civico</label><input type="text" id="newHouseNumber" class='form-control' placeholder="Nuovo numero civico"/>
-                                <button type='button' id="saveHouseNumber" class='btn btn-success change'>Salva</button>
-                                <button type='button' id="cancelChangeHouseNumber" class='btn btn-danger change'>Annulla</button>
-                            </div>
+                            <form id="newSupplierHouseNumber" class="text-center">
+                                <div class="form-group">
+                                    <label class="notVisible" for="newHouseNumber">Nuovo numero civico</label><input type="text" id="newHouseNumber" class='form-control' placeholder="Nuovo numero civico"/>
+                                    <button type='button' id="saveHouseNumber" class='btn btn-success change'>Salva</button>
+                                    <button type='button' id="cancelChangeHouseNumber" class='btn btn-danger change'>Annulla</button>
+                                </div>
+                            </form>
                             <?php
                         }
                         ?>
@@ -189,17 +229,19 @@
                         <?php
                         if ($supplierPage) {
                             ?>
-                            <div class="form-group text-center" id="newSupplierShippingCosts">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">€</span>
+                            <form id="newSupplierShippingCosts" class="text-center">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">€</span>
+                                        </div>
+                                        <label class="notVisible" for="newShippingCosts">Nuovi costi spedizione</label><input type="number" value="0.00" max= "10.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="newShippingCosts" placeholder="Nuovi costi spedizione"/>
                                     </div>
-                                    <label class="notVisible" for="newShippingCosts">Nuovi costi spedizione</label><input type="number" value="0.00" max= "10.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="newShippingCosts" placeholder="Nuovi costi spedizione"/>
+                                    <div id="costError"></div>
+                                    <button type='button' id="saveShippingCosts" class='btn btn-success change'>Salva</button>
+                                    <button type='button' id="cancelChangeShippingCosts" class='btn btn-danger change'>Annulla</button>
                                 </div>
-                                <div id="costError"></div>
-                                <button type='button' id="saveShippingCosts" class='btn btn-success change'>Salva</button>
-                                <button type='button' id="cancelChangeShippingCosts" class='btn btn-danger change'>Annulla</button>
-                            </div>
+                            </form>
                             <?php
                         }
                         ?>
@@ -221,11 +263,14 @@
                         <?php
                         if ($supplierPage) {
                             ?>
-                            <div class="form-group text-center" id="newSupplierWebSite">
-                                <label class="notVisible" for="newWebSite">Nuovo sito web</label><input type="text" id="newWebSite" class='form-control' placeholder="Nuovo sito web"/>
-                                <button type='button' id="saveWebSite" class='btn btn-success change'>Salva</button>
-                                <button type='button' id="cancelChangeWebSite" class='btn btn-danger change'>Annulla</button>
-                            </div>
+                            <form id="newSupplierWebSite" class="text-center">
+                                <div class="form-group">
+                                    <label class="notVisible" for="newWebSite">Nuovo sito web</label>
+                                    <input type="text" id="newWebSite" class='form-control' placeholder="Nuovo sito web"/>
+                                    <button type='button' id="saveWebSite" class='btn btn-success change'>Salva</button>
+                                    <button type='button' id="cancelChangeWebSite" class='btn btn-danger change'>Annulla</button>
+                                </div>
+                            </form>
                             <?php
                         }
                         ?>

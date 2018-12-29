@@ -7,6 +7,8 @@ $(document).ready(function() {
 
     $("#newSupplierName").hide();
     $("#newSupplierEmail").hide();
+    $("#newSupplierPassword").hide();
+    $("#newSupplierImage").hide();
     $("#newSupplierCity").hide();
     $("#newSupplierAddress").hide();
     $("#newSupplierHouseNumber").hide();
@@ -18,8 +20,10 @@ $(document).ready(function() {
     });
 
     $("#saveName").click(function() {
-        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newName", "name", "nome", "newSupplierName", "supplierName", function(inf) {
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newName", "name", "nome", "newSupplierName", "supplierName", "changeSupplierInformation.php", function(inf) {
             $("#name").html(inf.toUpperCase());
+        }, function(inf) {
+            managmentGeneralError($("#newName"), inf);
         });
     });
 
@@ -34,14 +38,14 @@ $(document).ready(function() {
     $("#saveEmail").click(function() {
         var regex = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
         var emailTag = $("#newEmail");
-        var errorTagId = "alertemail";
-        $("#" + errorTagId).remove();
-        if (regex.test((emailTag).val()) === false && $("#" + errorTagId).val() !== "") {
-            showError(emailTag, "Indirizzo Email non valido");
-            emailTag.focus();
+        removeError(emailTag);
+        if (regex.test((emailTag).val()) === false) {
+            managmentEmailError(emailTag, "emailNonValida");
         } else {
-            updateSupplierInformationAndSwitchFromDivToDiv("newEmail", "email", "email", emailTag.val(), "newSupplierEmail", "supplierName", function(inf) {
+            updateSupplierInformationAndSwitchFromDivToDiv("newEmail", "email", "email", emailTag.val(), "newSupplierEmail", "supplierName", "changeEmail.php", function(inf) {
                 $("#email").html(emailTag.val());
+            }, function(inf) {
+                managmentEmailError(emailTag, inf);
             });
         }
     });
@@ -50,13 +54,59 @@ $(document).ready(function() {
         switchFromDivToDivAndRemoveError("newEmail", "newSupplierEmail", "supplierName");
     });
 
+    $("#changePassword").click(function() {
+        switchFromDivToDiv("supplierName", "newSupplierPassword");
+    });
+
+    $("#savePassword").click(function() {
+        var oldPassword = $("#oldPassword");
+        var newPassword = $("#newPassword");
+        var repetNewPassword = $("#repetNewPassword");
+        removeError(repetNewPassword);
+        if (oldPassword.val().length >= 6) {
+            if (newPassword.val().length >= 6) {
+                if (newPassword.val().localeCompare(repetNewPassword.val()) == 0) {
+                    var oldEncryptedPassword = hex_sha512($("#oldPassword").val());
+                    var newEncryptedPassword = hex_sha512(newPassword.val());
+                    var repetNewEncryptedPassword = hex_sha512(repetNewPassword.val());
+                    $.post("changePassword.php", {
+                        idSupplier: getIdSupplier(),
+                        oldEncryptedPassword: oldEncryptedPassword,
+                        newEncryptedPassword: newEncryptedPassword,
+                        repetNewEncryptedPassword: repetNewEncryptedPassword
+                    }, function(data, status) {
+                        data = JSON.parse(data);
+                        if (data.status.localeCompare("ERROR") == 0) {
+                            managmentPasswordError(data.inf, oldPassword, newPassword, repetNewPassword);
+                        } else if (data.status.localeCompare("OK") == 0) {
+                            removeError(repetNewPassword);
+                            switchFromDivToDiv("newSupplierPassword", "supplierName");
+                        }
+                    });
+                } else {
+                    managmentPasswordError("passwordsNotMatch", oldPassword, newPassword, repetNewPassword);
+                }
+            } else {
+                managmentPasswordError("newPasswordNotOk", oldPassword, newPassword, repetNewPassword);
+            }
+        } else {
+            managmentPasswordError("oldPasswordNotOk", oldPassword, newPassword, repetNewPassword);
+        }
+    });
+
+    $("#cancelChangePassword").click(function() {
+        switchFromDivToDivAndRemoveError("repetNewPassword", "newSupplierPassword", "supplierName");
+    });
+
     $("#changeCity").click(function() {
         switchFromDivToDivAndSetValueTextbox("newCity", "city", "supplierCity", "newSupplierCity");
     });
 
     $("#saveCity").click(function() {
-        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newCity", "city","citta", "newSupplierCity", "supplierCity", function(inf) {
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newCity", "city","citta", "newSupplierCity", "supplierCity", "changeSupplierInformation.php", function(inf) {
             $("#city").html(inf);
+        }, function(inf) {
+            managmentGeneralError($("#newCity"), inf);
         });
     });
 
@@ -69,8 +119,10 @@ $(document).ready(function() {
     })
 
     $("#saveAddress").click(function() {
-        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newAddress", "address","indirizzo_via", "newSupplierAddress", "supplierAddress", function(inf) {
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newAddress", "address","indirizzo_via", "newSupplierAddress", "supplierAddress", "changeSupplierInformation.php", function(inf) {
             $("#address").html(inf);
+        }, function(inf) {
+            managmentGeneralError($("#newAddress"), inf);
         });
     });
 
@@ -83,8 +135,10 @@ $(document).ready(function() {
     })
 
     $("#saveHouseNumber").click(function() {
-        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newHouseNumber", "houseNumber","indirizzo_numero_civico", "newSupplierHouseNumber", "supplierHouseNumber", function(inf) {
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newHouseNumber", "houseNumber","indirizzo_numero_civico", "newSupplierHouseNumber", "supplierHouseNumber", "changeSupplierInformation.php", function(inf) {
             $("#houseNumber").html(inf);
+        }, function(inf) {
+            managmentGeneralError($("#newHouseNumber"), inf);
         });
     });
 
@@ -103,9 +157,11 @@ $(document).ready(function() {
     $("#saveShippingCosts").click(function() {
         var shippingCosts = $("#newShippingCosts").val().replace(/,/,".");
         if ($.isNumeric(shippingCosts) && shippingCosts >= 0 && shippingCosts <= 10) {
-            updateSupplierInformationAndSwitchFromDivToDiv("newShippingCosts", "shippingCosts", "costi_spedizione", shippingCosts, "newSupplierShippingCosts", "supplierShippingCosts", function(inf) {
+            updateSupplierInformationAndSwitchFromDivToDiv("newShippingCosts", "shippingCosts", "costi_spedizione", shippingCosts, "newSupplierShippingCosts", "supplierShippingCosts", "changeSupplierInformation.php", function(inf) {
                 $("#costError").html();
                 $("#shippingCosts").html(parseFloat(inf).toFixed(2) + " €");
+            }, function(inf) {
+                managmentGeneralError($("#newShippingCosts"), inf);
             });
         } else {
             $("#costError").html("<div class='text-danger validation'><i class='fas fa-times'> Devi inserire un costo di spedizione compreso tra 0 e 10 €</i></div>");
@@ -123,8 +179,10 @@ $(document).ready(function() {
     })
 
     $("#saveWebSite").click(function() {
-        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newWebSite", "webSite", "sito_web", "newSupplierWebSite", "supplierWebSite", function(inf) {
+        checkTextUpdateSupplierInformationAndSwitchFromDivToDiv("newWebSite", "webSite", "sito_web", "newSupplierWebSite", "supplierWebSite", "changeSupplierInformation.php", function(inf) {
             $("#webSite").html(inf);
+        }, function(inf) {
+            managmentGeneralError($("#newWebSite"), inf);
         });
     });
 
@@ -216,26 +274,92 @@ function removeError(elem) {
     elem.next(".validation").remove();
 }
 
-function updateSupplierInformationAndSwitchFromDivToDiv(newElem, elem, attribute, information, fromDiv, toDiv, callback) {
-    $.post("changeSupplierInformation.php", {
+function updateSupplierInformationAndSwitchFromDivToDiv(newElem, elem, attribute, information, fromDiv, toDiv, filePhp, callbackSuccess, callbackError) {
+    $.post(filePhp, {
         idSupplier: getIdSupplier(),
         attribute: attribute,
         information: information
     }, function(data, status) {
         data = JSON.parse(data);
-        removeError($("#" + newElem));
-        callback(data.inf);
-        switchFromDivToDiv(fromDiv, toDiv);
+        if (data.status.localeCompare("ERROR") == 0) {
+            callbackError(data.inf);
+        } else if (data.status.localeCompare("OK") == 0) {
+            removeError($("#" + newElem));
+            callbackSuccess(data.inf);
+            switchFromDivToDiv(fromDiv, toDiv);
+        }
     });
 }
 
-function checkTextUpdateSupplierInformationAndSwitchFromDivToDiv(newElem, elem, attribute, fromDiv, toDiv, callback) {
+function checkTextUpdateSupplierInformationAndSwitchFromDivToDiv(newElem, elem, attribute, fromDiv, toDiv, filePhp, callbackSuccess, callbackError) {
     var information = $("#" + newElem).val();
     if (information.trim()) {
-        updateSupplierInformationAndSwitchFromDivToDiv(newElem, elem, attribute, information, fromDiv, toDiv, callback);
+        updateSupplierInformationAndSwitchFromDivToDiv(newElem, elem, attribute, information, fromDiv, toDiv, filePhp, callbackSuccess, callbackError);
     } else {
         showError($("#" + newElem), STANDARD_ERROR_MESSAGGE);
         $("#" + newElem).focus();
+    }
+}
+
+function managmentGeneralError(elem, error) {
+    switch (error) {
+        case "parametriNonCorretti":
+            showError(elem, "Parametri non corretti!");
+            break;
+        case "errore":
+            showError(elem, "Errore. Riprova più tardi!");
+            break;
+        default:
+            showError(elem, "Errore. Riprova più tardi!");
+            break;
+    }
+}
+
+function managmentEmailError(elem, error) {
+    switch (error) {
+        case "emailNonValida":
+            showError(elem, "Indirizzo Email non valido!");
+            elem.focus();
+            break;
+        case "emailEsistente":
+            showError(elem, "Questa email esiste già!");
+            elem.focus();
+            break;
+        case "parametriNonCorretti":
+            showError(elem, "Parametri non corretti!");
+            break;
+        case "errore":
+            showError(elem, "Errore. Riprova più tardi!");
+            break;
+        break;
+        default:
+            showError(elem, "Errore. Riprova più tardi!");
+            break;
+    }
+}
+
+function managmentPasswordError(error, oldPassword, newPassword, repetNewPassword) {
+    switch(error) {
+        case "oldPasswordNotOk":
+            showError(repetNewPassword, "La vecchia password non è corretta!");
+            oldPassword.focus();
+            break;
+        case "newPasswordNotOk":
+            showError(repetNewPassword, "La nuova password deve essere almeno lunga 6 caratteri!");
+            newPassword.focus();
+            break;
+        case "passwordsNotMatch":
+            showError(repetNewPassword, "Le due password non coincidono!");
+            repetNewPassword.focus();
+            break;
+        case "parametriNonCorretti":
+            showError(repetNewPassword, "Parametri non corretti!");
+            break;
+        case "errore":
+            showError(repetNewPassword, "Errore. Riprova più tardi");
+            break;
+        default:
+            showError(repetNewPassword, "Errore. Riprova più tardi");
     }
 }
 

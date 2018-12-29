@@ -1,9 +1,9 @@
-#supplierName, #newSupplierName, #newSupplierEmail {
+#supplierName, #newSupplierName, #newSupplierEmail, #newSupplierPassword {
     margin-top: 60px;
 }
 
 @media screen and (max-width: 384px) {
-    #supplierName, #newSupplierName, #newSupplierEmail {
+    #supplierName, #newSupplierName, #newSupplierEmail, #newSupplierPassword {
         margin-top: 90px;
     }
 }
@@ -40,6 +40,10 @@
     .container .jumbotron .row .col-sm-7 .btn {
         margin-bottom: 15px;
     }
+}
+
+#changeImage {
+    margin-top: 5px;
 }
 
 .container .jumbotron .product {
