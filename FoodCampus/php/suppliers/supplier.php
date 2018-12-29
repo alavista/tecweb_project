@@ -2,7 +2,7 @@
     require_once '../database.php';
     require_once "../utilities/direct_login.php";
 
-    setcookie("user_email", "butterfly@gmail.com", time() + (86400 * 30)); //30 giorni
+    setcookie("user_email", "davide.conti@foodcampus.it", time() + (86400 * 30)); //30 giorni
 ?>
 
 <!DOCTYPE html>
@@ -346,7 +346,7 @@
                     if (!$isSupplier) {
                         ?>
                         <div>
-                            <div class="form-group">
+                            <div id="newReview" class="form-group">
                                 <div class="pt-2">
                             		<input name="stars" id="valutationReview" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" value="4" data-size="lg">
                                 </div>
@@ -371,7 +371,9 @@
                             $row = $res->fetch_assoc();
                             ?>
                             <p id="numberReview" class="font-weight-bold"><?php echo $row["numberReview"];?> recensioni clienti</p>
-                            <input class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="<?php echo $row['averageRating'];?>" data-size="lg" data-showcaption=false disabled/>
+                            <div id="starAverageRating">
+                                <input class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="<?php echo $row['averageRating'];?>" data-size="lg" data-showcaption=false disabled/>
+                            </div>
                             <p id="averageRating"><?php echo number_format($row['averageRating'], 1);?> su 5 stelle</p>
                             <?php
                         }
@@ -383,11 +385,11 @@
                         $stmt->bind_param("s", $idSupplier);
                         $stmt->execute();
                         $res = $stmt->get_result();
-                        if ($res->num_rows > 0) {
-                            ?>
-                            <div class="col"><hr></div>
-                            <div class="mediasReviews">
-                                <?php
+                        ?>
+                        <div id="dividerFromReviews" class="col <?php if ($res->num_rows == 0) { echo 'notVisible'; } ?>"><hr></div>
+                        <div id="mediasReviews">
+                            <?php
+                            if ($res->num_rows > 0) {
                                 while($row = $res->fetch_assoc()) {
                                     ?>
                                     <div class="media border p-3">
@@ -401,10 +403,10 @@
                                     </div>
                                     <?php
                                 }
+                            }
                             ?>
-                            </div>
-                            <?php
-                        }
+                        </div>
+                        <?php
                     }
                     ?>
                 </section>

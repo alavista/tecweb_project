@@ -43,7 +43,7 @@
         }
     } else {
         $informationToSendClient["status"] = "ERROR";
-        $informationToSendClient["inf"] = "ParametriNonCorretti";
+        $informationToSendClient["inf"] = "parametriNonCorretti";
     }
     if ($queryError) {
         $informationToSendClient["status"] = "ERROR";

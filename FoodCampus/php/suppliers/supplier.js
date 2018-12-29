@@ -220,12 +220,21 @@ $(document).ready(function() {
                 valutation: valutationReview
             }, function(data, status) {
                 data = JSON.parse(data);
-                $("#commentReview").val("");
-                $("#titleReview").val("");
-                $("#numberReview").html(data.numberReview);
-                $("#averageRating").html(data.averageRating);
-                $(".mediasReviews").append(data.newReview);
-                loadStars();
+                if (data.status.localeCompare("ERROR") == 0) {
+                    managmentGeneralError($("#newReview"), data.inf);
+                } else if (data.status.localeCompare("OK") == 0) {
+                    $("#commentReview").val("");
+                    $("#titleReview").val("");
+                    $("#numberReview").html(data.numberReview);
+                    $("#starAverageRating").html("");
+                    $("#starAverageRating").html("<input class='rating rating-loading' data-min='0' data-max='5' data-step='1' value='" + data.averageRating + "' data-size='lg' data-showcaption=false disabled/>");
+                    $("#averageRating").html(data.averageRating + " su 5 stelle");
+                    if ($("#dividerFromReviews").hasClass("notVisible")) {
+                        $("#dividerFromReviews").removeClass("notVisible");
+                    }
+                    $("#mediasReviews").append(data.newReview);
+                    loadStars();
+                }
             });
         }
     });

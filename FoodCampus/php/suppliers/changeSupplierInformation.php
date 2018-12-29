@@ -1,5 +1,6 @@
 <?php
     require_once '../database.php';
+
     $queryError = false;
     $informationToSendClient = array('status' => "", "inf" => "");
     if (isset($_POST["idSupplier"]) && isset($_POST["information"]) && isset($_POST["attribute"]) && (!empty($_POST["information"]) &&
@@ -21,7 +22,7 @@
         }
     } else {
         $informationToSendClient["status"] = "ERROR";
-        $informationToSendClient["inf"] = "ParametriNonCorretti";
+        $informationToSendClient["inf"] = "parametriNonCorretti";
     }
     if ($queryError) {
         $informationToSendClient["status"] = "ERROR";

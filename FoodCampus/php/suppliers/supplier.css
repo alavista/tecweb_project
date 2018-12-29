@@ -67,11 +67,11 @@
     width: 60px;
 }
 
-.container .mediasReviews .media:not(:first-child) {
+#mediasReviews .media:not(:first-child) {
     margin-top: 15px;
 }
 
-.container .mediasReviews .media:last-child {
+#mediasReviews .media:last-child {
     margin-bottom: 20px;
 }
 
