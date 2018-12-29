@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			if (login($conn, $_POST["email"], $_POST["p"], $emailError)) {
 				// login successfull
 				if (isset($_POST["rimanicollegato"]) && !empty($_POST["rimanicollegato"])) {
+					setcookie($GLOBALS["cookie_user_id"], $GLOBALS["user_id"], time() + (86400 * 365 * 5), "/"); // 5 years
 					setcookie($GLOBALS["cookie_user_email"], $_POST["email"], time() + (86400 * 365 * 5), "/"); // 5 years
 					setcookie($GLOBALS["cookie_user_password"], $_POST["p"], time() + (86400 * 365 * 5), "/"); // 5 years
 				}
@@ -105,9 +106,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						<button type="submit" id="loginbtn" class="btn btn-primary btn-lg">Accedi</button>
 					</div>
 					<noscript>
-						<div class='alert alert-danger' style='margin-top: 8px;'>
-							<strong>ATTENZIONE:</strong> Questa pagina non funziona correttamente senza JavaScript.
-							Per favore, riabilita JavaScript nel tuo Browser.
+						<div class='alert alert-warning' style='margin-top: 8px;'>
+							<strong>ATTENZIONE:</strong> Questa pagina potrebbe non funzionare correttamente senza JavaScript.
+							Per favore, riabilita JavaScript nel tuo Browser e ricarica la pagina.
 						</div>
 					</noscript>
 					<?php
