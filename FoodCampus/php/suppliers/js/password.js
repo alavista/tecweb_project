@@ -2,6 +2,9 @@ $(function() {
     $("#newSupplierPassword").hide();
 
     $("#changePassword").click(function() {
+        $("#oldPassword").val("");
+        $("#newPassword").val("");
+        $("#repetNewPassword").val("");
         switchFromDivToDiv("supplierName", "newSupplierPassword");
     });
 
