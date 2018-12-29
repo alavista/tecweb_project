@@ -1,5 +1,5 @@
 <?php
-    require_once '../database.php';
+    require_once '../../database.php';
 
     $queryError = false;
     $informationToSendClient = array('status' => "", "inf" => "");

@@ -1,8 +1,8 @@
 <?php
-    require_once '../database.php';
-    require_once "../utilities/direct_login.php";
+    require_once '../../database.php';
+    require_once "../../utilities/direct_login.php";
 
-    setcookie("user_email", "davide.conti@foodcampus.it", time() + (86400 * 30)); //30 giorni
+    setcookie("user_email", "butterfly@gmail.com", time() + (86400 * 30)); //30 giorni
 ?>
 
 <!DOCTYPE html>
@@ -20,21 +20,31 @@
          <!-- Latest compiled JavaScript -->
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
          <!-- Plugin JQuery for cookies-->
-         <script src="/tecweb_project/FoodCampus/jquery/jquery.cookie.js"></script>
+         <script src="../../../jquery/jquery.cookie.js"></script>
          <!--JavaScript-->
-         <script src="supplier.js" type="text/javascript"></script>
-         <script src="../../js/utilities/sha512.js" type="text/javascript"></script>
+         <script src="../js/supplierFunctions.js" type="text/javascript"></script>
+         <script src="../js/supplier.js" type="text/javascript"></script>
+         <script src="../../../js/utilities/sha512.js" type="text/javascript"></script>
+         <script src="../js/name.js" type="text/javascript"></script>
+         <script src="../js/email.js" type="text/javascript"></script>
+         <script src="../js/password.js" type="text/javascript"></script>
+         <script src="../js/city.js" type="text/javascript"></script>
+         <script src="../js/addressVia.js" type="text/javascript"></script>
+         <script src="../js/addressHouseNumber.js" type="text/javascript"></script>
+         <script src="../js/shippingCosts.js" type="text/javascript"></script>
+         <script src="../js/webSite.js" type="text/javascript"></script>
+         <script src="../js/review.js" type="text/javascript"></script>
          <!--Font awesome-->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
          <!--CSS-->
-         <link rel="stylesheet" type="text/css" title="stylesheet" href="../../css/navbar.css">
-         <link rel="stylesheet" type="text/css" title="stylesheet" href="supplier.css">
+         <link rel="stylesheet" type="text/css" title="stylesheet" href="../../../css/navbar.css">
+         <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/supplier.css">
     </head>
     <body>
         <div class="container">
         <?php
-            require_once '../navbar.php';
+            require_once '../../navbar.php';
             if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
                     is_numeric($_GET["id"]) && ctype_digit($_GET["id"]) && $_GET["id"] >= 0) {
                 $idSupplier = $_GET['id'];
@@ -110,7 +120,7 @@
                             <?php
                         }
                         ?>
-                        <img src="../../res/suppliers/<?php echo $supplier["immagine"] != NULL ? $supplier["immagine"] : 'default.jpg';?>" class="img-fluid img-thumbnail" alt="Logo fornitore">
+                        <img src="../../../res/suppliers/<?php echo $supplier["immagine"] != NULL ? $supplier["immagine"] : 'default.jpg';?>" class="img-fluid img-thumbnail" alt="Logo fornitore">
                         <?php
                         if ($supplierPage) {
                             ?>
@@ -393,7 +403,7 @@
                                 while($row = $res->fetch_assoc()) {
                                     ?>
                                     <div class="media border p-3">
-                                        <img src="../../res/clients/<?php echo $row["immagine"] != NULL ? $row["immagine"] : "default.png";?>" alt="<?php echo $row['nome'];?>" id="imageClient" class="mr-3 mt-3 rounded-circle">
+                                        <img src="../../../res/clients/<?php echo $row["immagine"] != NULL ? $row["immagine"] : "default.png";?>" alt="<?php echo $row['nome'];?>" id="imageClient" class="mr-3 mt-3 rounded-circle">
                                         <div class="media-body">
                                             <input class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="<?php echo $row['valutazione'];?>" data-size="md" data-showcaption=false disabled>
                                             <span><?php echo $row['nome'];?></span>

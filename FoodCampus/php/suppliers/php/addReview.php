@@ -1,5 +1,5 @@
 <?php
-    require_once '../database.php';
+    require_once '../../database.php';
 
     $queryError = false;
     $informationToSendClient = array('status' => "", "inf" => "", "newReview" => "", "numberReview" => "", "averageRating" => "");
@@ -32,7 +32,7 @@
                                         $informationToSendClient["status"] = "OK";
                                         $informationToSendClient['newReview'] = "
                                             <div class='media border p-3'>
-                                                <img src='../../res/clients/$image' alt='".$client["nome"]."' id='imageClient' class='mr-3 mt-3 rounded-circle'>
+                                                <img src='../../../res/clients/$image' alt='".$client["nome"]."' id='imageClient' class='mr-3 mt-3 rounded-circle'>
                                                 <div class='media-body'>
                                                     <input class='rating rating-loading' data-min='0' data-max='5' data-step='1' value='".$_POST["valutation"]."' data-size='md' data-showcaption=false disabled>
                                                     <span>".$client["nome"]."</span>
