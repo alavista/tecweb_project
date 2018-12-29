@@ -1,10 +1,13 @@
 const STANDARD_ERROR_MESSAGGE = "Questo campo è obbligatorio";
 
 function getIdSupplier() {
+    var cookieIdclient = $.cookie("user_id");
+    var sessionIdClient = $.session.get("user_id");
     var idSupplier = -1;
-    var urlParameters = window.location.search.substring(1).split('=');
-    if (urlParameters[0] == "id") {
-        idSupplier = urlParameters[1];
+    if (cookieIdclient) {
+        idSupplier = cookieIdclient;
+    } else if (sessionIdClient) {
+        idSupplier = sessionIdClient;
     }
     return idSupplier;
 }

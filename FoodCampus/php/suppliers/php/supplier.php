@@ -2,7 +2,7 @@
     require_once '../../database.php';
     require_once "../../utilities/direct_login.php";
 
-    setcookie("user_email", "butterfly@gmail.com", time() + (86400 * 30)); //30 giorni
+    //setcookie("user_email", "butterfly@gmail.com", time() + (86400 * 30)); //30 giorni
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +21,8 @@
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
          <!-- Plugin JQuery for cookies-->
          <script src="../../../jquery/jquery.cookie.js"></script>
+         <!-- Plugin JQuery for sessions-->
+         <script src="../../../jquery/jquery.session.js"></script>
          <!--JavaScript-->
          <script src="../js/supplierFunctions.js" type="text/javascript"></script>
          <script src="../js/supplier.js" type="text/javascript"></script>
