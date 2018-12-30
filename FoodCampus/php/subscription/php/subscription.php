@@ -81,7 +81,14 @@ function do_Subscription($conn, $query, &$queryErrors, $isSupplier) {
 		$image = NULL;
 	}
 	// Recupero la password criptata dal form di inserimento.
-	$password = $_POST['p'];
+	if (!isset($_POST["p"]) || empty($_POST["p"])) {
+		if (isset($_POST["pswd"]) && !empty($_POST["pswd"])) {
+			$password = $_POST["pswd"];
+		}
+	} else {
+		$password = $_POST["p"];
+	}
+
 	// Crea una chiave casuale
 	$random_salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
 	// Crea una password usando la chiave appena creata.
@@ -156,13 +163,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	}
 
 	if (!isset($_POST["p"]) || empty($_POST["p"])) {
-		$passwordError = "Inserire una password";
-		$errors = true;
+		if (!isset($_POST["pswd"]) || empty($_POST["pswd"])) {
+			$errors = true;
+			$passwordError = "Inserire una password";
+		}
 	}
 
 	if (!isset($_POST["c-p"]) || empty($_POST["c-p"])) {
-		$confirmPasswordError = "Reinserisci qui la password";
-		$errors = true;
+		if (!isset($_POST["confirm-pwd"]) || empty($_POST["confirm-pwd"])) {
+			$confirmPasswordError = "Reinserisci qui la password";
+			$errors = true;
+		} else if (!isset($_POST["pswd"]) || !isset($_POST["confirm-pwd"]) || $_POST["pswd"] != $_POST["confirm-pwd"]) {
+			$confirmPasswordError = "Le due password non corrispondono";
+			$errors = true;
+		}
 	} else if (!isset($_POST["p"]) || !isset($_POST["c-p"]) || $_POST["p"] != $_POST["c-p"]) {
 		$confirmPasswordError = "Le due password non corrispondono";
 		$errors = true;
@@ -446,12 +460,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							        <span class="input-group-text">€</span>
 							      </div>
 							      <input type="number" value="0.00" max= "10.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="costo-spedizione" name="shippingcost">
-								  <?php
-  									if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($shippingError) !== 0) {
-  										echo("<div class='alert alert-danger' style='margin-top: 8px;'>$shippingError</div>");
-  									}
-  								?>
 							    </div>
+								<?php
+								  if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($shippingError) !== 0) {
+									  echo("<div class='alert alert-danger' style='margin-top: 8px;'>$shippingError</div>");
+								  }
+							  ?>
 							</div>
 							<div class="form-group">
 								<label for="soglia-spedizione">Soglia spedizione gratuita:</label>
@@ -460,12 +474,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							        <span class="input-group-text">€</span>
 							      </div>
 							      <input type="number" value="0.00" max= "10.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="soglia-spedizione" name="shippinglimit">
-								  <?php
-  									if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($shippingLimitError) !== 0) {
-  										echo("<div class='alert alert-danger' style='margin-top: 8px;'>$shippingLimitError</div>");
-  									}
-  								?>
 							    </div>
+								<?php
+								  if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($shippingLimitError) !== 0) {
+									  echo("<div class='alert alert-danger' style='margin-top: 8px;'>$shippingLimitError</div>");
+								  }
+							  ?>
 							</div>
 							<div class="form-group">
 								<label for="sitoweb">Sito Web (facoltativo):</label>

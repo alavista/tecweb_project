@@ -8,8 +8,8 @@ function formhash(form, password) {
    p.type = "hidden"
    p.value = hex_sha512(password.val());
    // Assicurati che la password non venga inviata in chiaro.
+   password.removeAttr("required");
    password.val("");
-   password.removeAttr('required');
    // Come ultimo passaggio, esegui il 'submit' del form.
    form.submit();
 }

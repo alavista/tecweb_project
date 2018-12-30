@@ -21,19 +21,25 @@ if (isUserLogged($conn)) {
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	if (!isset($_POST["p"]) || empty($_POST["p"])) {
-		$passwordError = "Inserire una password";
+		if (!isset($_POST["password"]) || empty($_POST["password"])) {
+			$passwordError = "Inserire una password";
+		} else {
+			$password = $_POST["password"];
+		}
+	} else {
+		$password = $_POST["p"];
 	}
 
 	if (isset($_POST["email"]) && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 
-		if (isset($_POST["p"]) && !empty($_POST["p"])) {
+		if (isset($password) && !empty($password)) {
 
-			if (login($conn, $_POST["email"], $_POST["p"], $emailError)) {
+			if (login($conn, $_POST["email"], $password, $emailError)) {
 				// login successfull
 				if (isset($_POST["rimanicollegato"]) && !empty($_POST["rimanicollegato"])) {
 					setcookie($GLOBALS["cookie_user_id"], $GLOBALS["user_id"], time() + (86400 * 365 * 5), "/"); // 5 years
 					setcookie($GLOBALS["cookie_user_email"], $_POST["email"], time() + (86400 * 365 * 5), "/"); // 5 years
-					setcookie($GLOBALS["cookie_user_password"], $_POST["p"], time() + (86400 * 365 * 5), "/"); // 5 years
+					setcookie($GLOBALS["cookie_user_password"], $password, time() + (86400 * 365 * 5), "/"); // 5 years
 				}
 
 				redirect($conn);
@@ -80,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				<form action="login.php" method="post">
 					<div class="form-group">
 						<label for="email">Indirizzo Email:</label>
-						<input type="email" class="form-control" id="email"  placeholder="Inserisci email" name="email">
+						<input type="email" required class="form-control" id="email"  placeholder="Inserisci email" name="email">
 						<?php
 							if(strlen($emailError) !== 0) {
 								echo("<div class='alert alert-danger' style='margin-top: 8px;'>$emailError</div>");
@@ -89,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					</div>
 					<div class="form-group">
 						<label for="password">Password:</label>
-						<input type="password" class="form-control" id="password"  placeholder="Inserisci password" name="password">
+						<input type="password" class="form-control" required id="password"  placeholder="Inserisci password" name="password">
 						<?php
 							if(strlen($passwordError) !== 0) {
 								echo("<div class='alert alert-danger' style='margin-top: 8px;'>$passwordError</div>");

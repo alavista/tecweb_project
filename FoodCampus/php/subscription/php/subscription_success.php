@@ -33,6 +33,10 @@
 				<div class="row justify-content-center">
 					<button type="submit" id="continuebtn" class="btn btn-primary btn-lg" onclick="location.href = '../../home.php';">Continua</button>
 				</div>
+				<div class='alert alert-warning' style='margin-top: 8px;'>
+					<strong>ATTENZIONE:</strong> Questa pagina potrebbe non funzionare correttamente senza JavaScript.
+					Per favore, riabilita JavaScript nel tuo Browser e ricarica la pagina.
+				</div>
 			</div>
 			</div>
 		</div>

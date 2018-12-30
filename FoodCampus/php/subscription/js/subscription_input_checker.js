@@ -129,6 +129,7 @@ $(document).ready(function() {
             p.type = "hidden"
             p.value = hex_sha512($("#confirm-pwd").val());
             // Assicurati che la password non venga inviata in chiaro.
+            $("#confirm-pwd").removeAttr("required");
             $("#confirm-pwd").val("");
 
             formhash($("form"), $("#pwd"));
