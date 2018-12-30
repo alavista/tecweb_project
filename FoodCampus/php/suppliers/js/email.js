@@ -24,3 +24,26 @@ $(function() {
         switchFromDivToDivAndRemoveError("newEmail", "newSupplierEmail", "supplierName");
     });
 });
+
+function managmentEmailError(elem, error) {
+    switch (error) {
+        case "emailNonValida":
+            showError(elem, "Indirizzo Email non valido!");
+            elem.focus();
+            break;
+        case "emailEsistente":
+            showError(elem, "Questa email esiste già!");
+            elem.focus();
+            break;
+        case "parametriNonCorretti":
+            showError(elem, "Parametri non corretti!");
+            break;
+        case "errore":
+            showError(elem, "Errore. Riprova più tardi!");
+            break;
+        break;
+        default:
+            showError(elem, "Errore. Riprova più tardi!");
+            break;
+    }
+}
