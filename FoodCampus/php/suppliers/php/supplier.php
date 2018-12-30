@@ -30,6 +30,7 @@
          <script src="../js/name.js" type="text/javascript"></script>
          <script src="../js/email.js" type="text/javascript"></script>
          <script src="../js/password.js" type="text/javascript"></script>
+         <script src="../js/image.js" type="text/javascript"></script>
          <script src="../js/city.js" type="text/javascript"></script>
          <script src="../js/addressVia.js" type="text/javascript"></script>
          <script src="../js/addressHouseNumber.js" type="text/javascript"></script>
@@ -42,6 +43,7 @@
          <!--CSS-->
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../../../css/navbar.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/supplier.css">
+         <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/starReview.css">
     </head>
     <body>
         <div class="container">
