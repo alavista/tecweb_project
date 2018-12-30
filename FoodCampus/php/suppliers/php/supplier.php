@@ -52,7 +52,7 @@
                 require_once 'notehead.php';
                 ?>
                 <section>
-                    <?php require_once 'information.php'; ?>
+                    <?php require_once 'informations.php'; ?>
                 </section>
                 <section>
                     <?php require_once 'menu.php'; ?>
