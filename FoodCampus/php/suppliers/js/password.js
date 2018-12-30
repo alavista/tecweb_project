@@ -48,3 +48,28 @@ $(function() {
         switchFromDivToDivAndRemoveError("repetNewPassword", "newSupplierPassword", "supplierName");
     });
 });
+
+function managmentPasswordError(error, oldPassword, newPassword, repetNewPassword) {
+    switch(error) {
+        case "oldPasswordNotOk":
+            showError(repetNewPassword, "La vecchia password non è corretta!");
+            oldPassword.focus();
+            break;
+        case "newPasswordNotOk":
+            showError(repetNewPassword, "La nuova password deve essere almeno lunga 6 caratteri!");
+            newPassword.focus();
+            break;
+        case "passwordsNotMatch":
+            showError(repetNewPassword, "Le due password non coincidono!");
+            repetNewPassword.focus();
+            break;
+        case "parametriNonCorretti":
+            showError(repetNewPassword, "Parametri non corretti!");
+            break;
+        case "errore":
+            showError(repetNewPassword, "Errore. Riprova più tardi");
+            break;
+        default:
+            showError(repetNewPassword, "Errore. Riprova più tardi");
+    }
+}
