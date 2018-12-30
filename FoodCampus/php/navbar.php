@@ -5,8 +5,8 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" href="/tecweb_project/FoodCampus/php/home.php">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Ricerca prodotti</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Ricerca fornitori</a></li>
+            <li class="nav-item"><a class="nav-link" href="/tecweb_project/FoodCampus/php/products_research/products_research.php">Ricerca prodotti</a></li>
+            <li class="nav-item"><a class="nav-link" href="/tecweb_project/FoodCampus/php/suppliers_research/suppliers_research.php">Ricerca fornitori</a></li>
             <li class="nav-item"><a class="nav-link" href="/tecweb_project/FoodCampus/php/login/login.php">Login</a></li>
         </ul>
     </div>

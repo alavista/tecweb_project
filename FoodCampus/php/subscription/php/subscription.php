@@ -328,7 +328,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	<?php require_once '../../navbar.php';?>
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-6 jumbotron mx-auto" id="loginform">
+			<div class="col-xl-6 jumbotron" id="loginform">
 				<h1 id="first_title">Crea un Account</h1>
 				<form action="subscription.php" method="post" enctype="multipart/form-data">
 					<div class="form-input-group">

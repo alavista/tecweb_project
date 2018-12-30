@@ -79,9 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <body>
 	<?php require_once '../navbar.php';?>
 	<div class="container">
-		<div class="row">
-			<div class="col"></div>
-			<div class="col-6 jumbotron mx-auto" id="loginform">
+		<div class="row justify-content-center">
+			<div class="col-lg-6 jumbotron" id="loginform">
 				<h1 class="form-title">Login</h1>
 				<form action="login.php" method="post">
 					<div class="form-group">
@@ -108,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						<label for="rimanicollegato">Rimani collegato</label>
 					</div>
 					<br/>
-					<div class="d-flex justify-content-center">
+					<div class="d-flex justify-content-center form-group">
 						<button type="submit" id="loginbtn" class="btn btn-primary btn-lg">Accedi</button>
 					</div>
 					<noscript>
@@ -131,7 +130,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					<a class="align-middle" href="../subscription/php/subscription.php">Non hai un account? Clicca qui per iscriverti!</a>
 				</div>
 			</div>
-			<div class="col"></div>
 		</div>
 	</div>
 </body>
