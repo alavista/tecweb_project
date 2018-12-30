@@ -10,7 +10,7 @@
         if($check !== false) {
             //echo "File is an image - " . $check["mime"] . ".";
         } else {
-            $fileError =  "File is not an image.";
+            $fileError = "File is not an image.";
             return false;
         }
 
@@ -35,7 +35,7 @@
                 //$fileError =  "The file ". basename( $_FILES[$inputName]["name"]). " has been uploaded.";
 				return true;
 		} else {
-			$fileError =  "Sorry, there was an error uploading your file.";
+			$fileError = "Sorry, there was an error uploading your file.";
 			return false;
 		}
 

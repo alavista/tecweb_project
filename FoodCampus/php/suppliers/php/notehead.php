@@ -72,13 +72,21 @@ if ($stmt = $conn->prepare($query)) {
                 <?php
             }
             ?>
-            <img src="../../../res/suppliers/<?php echo $supplier["immagine"] != NULL ? $supplier["immagine"] : 'default.jpg';?>" class="img-fluid img-thumbnail" alt="Logo fornitore">
+            <img id="image" src="../../../res/suppliers/<?php echo $supplier["immagine"] != NULL ? $supplier["immagine"] : 'default.jpg';?>" class="img-fluid img-thumbnail" alt="Logo fornitore">
             <?php
             if ($supplierPage) {
                 ?>
-                <div class="text-center">
+                <div id="supplierImage" class="text-center">
                     <button type='button' class='btn btn-secondary changePlus' id='changeImage'>Modifica immagine</button>
                 </div>
+                <form id="newSupplierImage" class="text-center">
+                    <div class="form-group">
+                        <label class="notVisible" for="newImage">Immagine del profilo</label>
+                        <input type="file" id="newImage" class="form-control-file" accept="image/*">
+                        <button type='button' id="saveImage" class='btn btn-success change'>Salva</button>
+                        <button type='button' id="cancelChangeImage" class='btn btn-danger change'>Annulla</button>
+                    </div>
+                </form>
                 <?php
             }
         }

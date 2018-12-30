@@ -67,9 +67,9 @@ function managmentPasswordError(error, oldPassword, newPassword, repetNewPasswor
             showError(repetNewPassword, "Parametri non corretti!");
             break;
         case "errore":
-            showError(repetNewPassword, "Errore. Riprova più tardi");
+            showError(repetNewPassword, "Errore. Riprova più tardi!");
             break;
         default:
-            showError(repetNewPassword, "Errore. Riprova più tardi");
+            showError(repetNewPassword, "Errore. Riprova più tardi!");
     }
 }
