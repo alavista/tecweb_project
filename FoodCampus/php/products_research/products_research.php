@@ -1,66 +1,88 @@
 <?php
-
 require_once "../database.php";
 require_once "../utilities/direct_login.php";
 
+$GLOBALS["response"] = array("status" => "", "data" => "");
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
+function getCategories($conn) {
+    if (!($stmt = $conn->prepare("SELECT nome FROM categoria ORDER BY IDCategoria"))) {
+        return $smt->error;
+    }
 
-	if (!isset($_POST["request"]) || empty($_POST["request"])) {
-		die("patata");
-	} else {
-		die("fanculo");
+    if (!$stmt->execute()) {
+        return $smt->error;
+    }
+
+    if (!($result = $stmt->get_result())) {
+        return $smt->error;
+    }
+
+    $output = array();
+
+	while ($row = $result->fetch_assoc()) {
+		$output[] = $row;
 	}
-	die("zsdkasld");
 
+	$stmt->close();
+
+    return $output;
 }
 
+function getProducts($conn) {
+    if (!($stmt = $conn->prepare("SELECT p.nome, p.costo, c.nome, f.nome
+                                    FROM categoria as c, prodotto as p, fornitore as f
+                                    WHERE c.IDCategoria = p.IDCategoria AND p.IDFornitore = f.IDFornitore
+                                    GROUP BY f.IDFornitore
+                                    ORDER BY f.nome"))) {
+
+        $GLOBALS["response"]["status"] = "error";
+        $GLOBALS["response"]["data"] = $smt->error;
+
+        return ($GLOBALS["response"]);
+    }
+
+    if (!$stmt->execute()) {
+        $GLOBALS["response"]["status"] = "error";
+        $GLOBALS["response"]["data"] = $smt->error;
+        return ($GLOBALS["response"]);
+    }
+
+    if (!($result = $stmt->get_result())) {
+        $GLOBALS["response"]["status"] = "error";
+        $GLOBALS["response"]["data"] = $smt->error;
+        return ($GLOBALS["response"]);
+    }
+
+    $output = array();
+
+	while ($row = $result->fetch_assoc()) {
+		$output[] = $row;
+	}
+
+	$stmt->close();
+
+    $GLOBALS["response"]["status"] = "ok";
+    $GLOBALS["response"]["data"] = $output;
+    return $output;
+}
+
+
+if (isset($_POST["reqest"]) && !empty($_POST["reqest"])) {
+    switch ($_POST["reqest"]) {
+        case "categories":
+            print json_encode(getCategories($conn));
+        break;
+
+        case "products":
+            if (isset($_POST["value"]) && !empty($_POST["value"])) {
+                getProducts($conn, $_POST["value"]);
+                print json_encode($GLOBALS["response"]);
+            } else {
+                $GLOBALS["response"]["status"] = "error";
+                $GLOBALS["response"]["data"] = "Error on product request";
+                print json_encode($GLOBALS["response"]);
+            }
+        break;
+    }
+}
 ?>
-<!DOCTYPE html>
-<html lang="it-IT">
-<head>
-	<title>Ricerca Prodotti</title>
-	<metacharset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<!-- Popper JS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	<!--Font awesome-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-
-	<script src="products_research.js"></script>
-
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="../../css/navbar.css">
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="products_research.css">
-</head>
-
-<body>
-	<?php require_once '../navbar.php';?>
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-lg-6">
-				<div id="mainForm">
-					<h1>RICERCA PRODOTTI</h1>
-					<noscript>
-						<div class='alert alert-danger' style='margin-top: 8px;'>
-							<strong>ATTENZIONE:</strong> Questa pagina NON funziona senza JavaScript.
-							Per favore, riabilita JavaScript nel tuo Browser e ricarica la pagina.
-						</div>
-					</noscript>
-					<div class="row">
-						<div class="col">
-							<div id="categoryField">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</body>
-</html>
