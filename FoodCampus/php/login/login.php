@@ -1,5 +1,6 @@
 <?php
 
+$checkClientError="";
 $emailError = "";
 $passwordError = "";
 
@@ -7,15 +8,32 @@ require_once "../database.php";
 require_once "login_functions.php";
 require_once "../utilities/direct_login.php";
 
+if (isSessionForReview()) {
+	if (strcmp($_SESSION["validReview"], "yes") == 0) {
+		$_SESSION["validReview"] = "nearly";
+	} else if (strcmp($_SESSION["validReview"], "nearly") == 0) {
+		$_SESSION["validReview"] = "no";
+	} else if (strcmp($_SESSION["validReview"], "no") == 0) {
+		unsetSessionForReview();
+	}
+}
+
+function redirectToSupplier($conn, $idSupplier) {
+	header("Location: /tecweb_project/FoodCampus/php/suppliers/php/supplier.php?id=".$idSupplier);
+	mysqli_close($conn);
+	exit();
+}
+
 //Redirect to home page
-function redirect($conn) {
+function redirectToHome($conn) {
 	header("Location: ../home.php");
 	mysqli_close($conn);
 	exit();
 }
 
+
 if (isUserLogged($conn)) {
-	redirect($conn);
+	redirectToHome($conn);
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -41,14 +59,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					setcookie($GLOBALS["cookie_user_email"], $_POST["email"], time() + (86400 * 365 * 5), "/"); // 5 years
 					setcookie($GLOBALS["cookie_user_password"], $password, time() + (86400 * 365 * 5), "/"); // 5 years
 				}
-
-				redirect($conn);
+				if (isSessionForReview()) {
+					$idSupplier = $_SESSION["idSupplierForReview"];
+					unsetSessionForReview();
+					redirectToSupplier($conn, $idSupplier);
+				} else {
+					redirectToHome($conn);
+				}
 			}
 		}
 	} else {
 		$emailError = "Inserire un indirizzo email valido";
 	}
-
 }
 ?>
 <!DOCTYPE html>
@@ -65,6 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<!-- Plugin JQuery for sessions-->
+	<script src="../../jquery/jquery.session.js"></script>
 	<!--Font awesome-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
@@ -77,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 
 <body>
-	<?php require_once '../navbar.php';?>
+	<?php //require_once '../navbar.php';?>
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-lg-6 jumbotron" id="loginform">

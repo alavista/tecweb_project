@@ -7,7 +7,7 @@ $(function() {
 
     $("#saveImage").click(function() {
         var newImage= $("#newImage");
-        var idSupplier = getIdSupplier();
+        var idSupplier = getId();
         var fd = new FormData();
         var files = $('#newImage')[0].files[0];
         fd.append('file',files);

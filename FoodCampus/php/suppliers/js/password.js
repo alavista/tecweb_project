@@ -20,7 +20,7 @@ $(function() {
                     var newEncryptedPassword = hex_sha512(newPassword.val());
                     var repetNewEncryptedPassword = hex_sha512(repetNewPassword.val());
                     $.post("../php/changePassword.php", {
-                        idSupplier: getIdSupplier(),
+                        idSupplier: getId(),
                         oldEncryptedPassword: oldEncryptedPassword,
                         newEncryptedPassword: newEncryptedPassword,
                         repetNewEncryptedPassword: repetNewEncryptedPassword

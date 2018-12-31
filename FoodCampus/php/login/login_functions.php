@@ -1,6 +1,7 @@
 <?php
 
 require_once "../utilities/create_session.php";
+require_once "../suppliers/php/reviewFunction.php";
 
 $GLOBALS["user_id"] = "";
 $GLOBALS["password"] = "";
@@ -8,6 +9,20 @@ $GLOBALS["db_password"] = "";
 
 $GLOBALS["sqlError"] = "";
 $GLOBALS["sqlWarning"] = "";
+
+function isSessionForReview() {
+	return !empty($_SESSION["validReview"]) && !empty($_SESSION["idSupplierForReview"]) &&
+			!empty($_SESSION["titleReview"]) && !empty($_SESSION["commentReview"]) &&
+			!empty($_SESSION["valutationReview"]) ? true : false;
+}
+
+function unsetSessionForReview() {
+	unset($_SESSION['validReview']);
+	unset($_SESSION['idSupplierForReview']);
+	unset($_SESSION['titleReview']);
+	unset($_SESSION['commentReview']);
+	unset($_SESSION['valutationReview']);
+}
 
 function checkbrute($email, $mysqli) {
 
@@ -55,7 +70,6 @@ function do_login($user_id, $email, $password, $db_password, $mysqli, &$emailErr
             return false;
         }
     }
-
     return false;
 }
 
@@ -130,7 +144,19 @@ function login($mysqli, $email, $password, &$emailError) {
         $emailError = "Questo utente è stato bloccato temporaneamente a causa dei troppi tentativi di accesso.<br/>Riprovare pi&ugrave; tardi.";
         return false;
     }
-
+    if (isSessionForReview()) {
+        if ($GLOBALS["user_type"] == "Cliente" && !(addReview($mysqli, $GLOBALS["user_id"], $_SESSION["idSupplierForReview"],
+                $_SESSION["titleReview"], $_SESSION["commentReview"],
+                $_SESSION["valutationReview"]))) {
+            $emailError = "C'è stato un errore con l'inserimento della nuova recensione. Riprova più tardi!";
+            $_SESSION["validReview"] = "yes";
+            return false;
+        } else if ($GLOBALS["user_type"] == "Fornitore") {
+            $emailError = "Utente cliente non trovato!!";
+            $_SESSION["validReview"] = "yes";
+            return false;
+        }
+    }
     return do_login($GLOBALS["user_id"], $email, $GLOBALS["password"], $GLOBALS["db_password"], $mysqli, $emailError);
 }
 
