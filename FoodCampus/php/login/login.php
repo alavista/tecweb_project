@@ -18,6 +18,7 @@ if (isSessionForReview()) {
 	}
 }
 
+//Redirect to supplier page
 function redirectToSupplier($conn, $idSupplier) {
 	header("Location: /tecweb_project/FoodCampus/php/suppliers/php/supplier.php?id=".$idSupplier);
 	mysqli_close($conn);
@@ -101,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 
 <body>
-	<?php //require_once '../navbar.php';?>
+	<?php require_once '../navbar.php';?>
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-lg-6 jumbotron" id="loginform">
