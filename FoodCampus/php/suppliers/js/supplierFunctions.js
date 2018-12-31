@@ -1,13 +1,22 @@
 const STANDARD_ERROR_MESSAGGE = "Questo campo è obbligatorio";
 
+function getId() {
+    var cookieId = $.cookie("user_id");
+    var sessionId = $.session.get("user_id");
+    var id = -1;
+    if (cookieId) {
+        idSupplier = cookieId;
+    } else if (sessionId) {
+        id = sessionId;
+    }
+    return id;
+}
+
 function getIdSupplier() {
-    var cookieIdclient = $.cookie("user_id");
-    var sessionIdClient = $.session.get("user_id");
     var idSupplier = -1;
-    if (cookieIdclient) {
-        idSupplier = cookieIdclient;
-    } else if (sessionIdClient) {
-        idSupplier = sessionIdClient;
+    var urlParameters = window.location.search.substring(1).split('=');
+    if (urlParameters[0] == "id") {
+        idSupplier = urlParameters[1];
     }
     return idSupplier;
 }
@@ -48,7 +57,7 @@ function removeError(elem) {
 
 function updateSupplierInformationAndSwitchFromDivToDiv(newElem, elem, attribute, information, fromDiv, toDiv, filePhp, callbackSuccess, callbackError) {
     $.post(filePhp, {
-        idSupplier: getIdSupplier(),
+        idSupplier: getId(),
         attribute: attribute,
         information: information
     }, function(data, status) {
