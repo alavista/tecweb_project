@@ -2,11 +2,30 @@
     margin-top: 100px;
 }
 
-h1{
+h1, h2 {
     color: #F83442;
+    margin-bottom: 50px;
     text-align: center;
+}
+
+h2 {
+    margin-bottom: 15px;
 }
 
 label {
     font-weight: bold;
+}
+
+table {
+    text-align: center;
+}
+
+.noresult {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.category-btn {
+    margin-bottom: 50px;
 }
