@@ -40,7 +40,7 @@
 							<div id="resultsField">
 								<div class="container-fluid">
 									<h2 hidden>RISULTATI RICERCA</h2>
-									<table hidden class="table table-hover table-sm">
+									<table hidden class="table table-hover table-sm table-responsive-sm">
 										<thead>
 											<tr>
 												<th scope="col">Prodotto</th>
