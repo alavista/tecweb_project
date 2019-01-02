@@ -28,12 +28,29 @@
     width: 230px;
 }
 
-.changePlus, .btn-kart {
+.changePlus {
+    background-color: #3399ff;
+}
+
+.btn-kart {
     background-color: #F83442;
 }
 
-.changePlus:hover, .btn-kart:hover:hover {
+.addNewProduct {
+    background-color: #00cc66;
+    margin-bottom: 20px;
+}
+
+.changePlus:hover {
+    background-color: #007acc;
+}
+
+.btn-kart:hover {
     background-color: #cc0000;
+}
+
+.addNewProduct:hover {
+    background-color: #00994d;
 }
 
 @media screen and (max-width: 576px) {
@@ -49,10 +66,6 @@
 .container .jumbotron .product {
     margin-bottom: 20px;
     margin-top: 20px;
-}
-
-.addProduct {
-    margin-bottom: 20px;
 }
 
 .container .form-group .btn {

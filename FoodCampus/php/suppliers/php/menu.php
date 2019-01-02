@@ -70,7 +70,7 @@
                                         }
                                         ?>
                                     </div>
-                                    <button type='button' id="addProductInCategory_<?php echo $category['IDCategoria']; ?>" class='btn btn-secondary changePlus addNewProduct'>Aggiungi nuovo prodotto</button>
+                                    <button type='button' id="addProductInCategory_<?php echo $category['IDCategoria']; ?>" class='btn btn-secondary change addNewProduct'>Aggiungi nuovo prodotto</button>
                                     <form id="appendProductInCategory_<?php echo $category['IDCategoria']; ?>" class="text-center products">
                                         <div class="form-group">
                                             <label class="notVisible" for="newProductNameInCategory_<?php echo $category['IDCategoria']; ?>">Nome nuovo prodotto</label>
