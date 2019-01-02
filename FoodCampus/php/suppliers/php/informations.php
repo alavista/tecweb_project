@@ -22,6 +22,8 @@
             <div class="form-group">
                 <label class="notVisible" for="newCity">Nuova città</label>
                 <input type="text" id="newCity" class='form-control' placeholder="Nuova città"/>
+            </div>
+            <div class="form-group">
                 <button type='button' id="saveCity" class='btn btn-success change'>Salva</button>
                 <button type='button' id="cancelChangeCity" class='btn btn-danger change'>Annulla</button>
             </div>
@@ -51,6 +53,8 @@
             <div class="form-group">
                 <label class="notVisible" for="newAddress">Nuovo indirizzo</label>
                 <input type="text" id="newAddress" class='form-control' placeholder="Nuovo indirizzo"/>
+            </div>
+            <div class="form-group">
                 <button type='button' id="saveAddress" class='btn btn-success change'>Salva</button>
                 <button type='button' id="cancelChangeAddress" class='btn btn-danger change'>Annulla</button>
             </div>
@@ -78,7 +82,10 @@
         ?>
         <form id="newSupplierHouseNumber" class="text-center">
             <div class="form-group">
-                <label class="notVisible" for="newHouseNumber">Nuovo numero civico</label><input type="text" id="newHouseNumber" class='form-control' placeholder="Nuovo numero civico"/>
+                <label class="notVisible" for="newHouseNumber">Nuovo numero civico</label>
+                <input type="text" id="newHouseNumber" class='form-control' placeholder="Nuovo numero civico"/>
+            </div>
+            <div class="form-group">
                 <button type='button' id="saveHouseNumber" class='btn btn-success change'>Salva</button>
                 <button type='button' id="cancelChangeHouseNumber" class='btn btn-danger change'>Annulla</button>
             </div>
@@ -113,6 +120,8 @@
                     <label class="notVisible" for="newShippingCosts">Nuovi costi spedizione</label><input type="number" value="0.00" max= "10.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="newShippingCosts" placeholder="Nuovi costi spedizione"/>
                 </div>
                 <div id="costError"></div>
+            </div>
+            <div class="form-group">
                 <button type='button' id="saveShippingCosts" class='btn btn-success change'>Salva</button>
                 <button type='button' id="cancelChangeShippingCosts" class='btn btn-danger change'>Annulla</button>
             </div>
@@ -142,6 +151,8 @@
             <div class="form-group">
                 <label class="notVisible" for="newWebSite">Nuovo sito web</label>
                 <input type="text" id="newWebSite" class='form-control' placeholder="Nuovo sito web"/>
+            </div>
+            <div class="form-group">
                 <button type='button' id="saveWebSite" class='btn btn-success change'>Salva</button>
                 <button type='button' id="cancelChangeWebSite" class='btn btn-danger change'>Annulla</button>
             </div>
