@@ -31,40 +31,67 @@
                             if ($stmt->execute()) {
                                 $res1 = $stmt->get_result();
                                 if ($res->num_rows > 0) {
-                                    while ($product = $res1->fetch_assoc()) {
-                                        ?>
-                                        <div class="product" id="product_<?php echo $product['IDProdotto']; ?>">
-                                            <div class="row">
-                                                <div class="col-sm-5">
-                                                    <span id="productName_<?php echo $product['IDProdotto']; ?>"><?php echo $product['nome']; ?></span>: <span id="productCost_<?php echo $product['IDProdotto']; ?>"><?php echo $product["costo"]; ?></span> €
-                                                </div>
-                                                <div class='col-sm-7'>
-                                                    <button type='button' id='changeProduct_<?php echo $product['IDProdotto']; ?>' class='btn btn-secondary changePlus changeProduct'>Modifica prodotto</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <form id="modificationProduct_<?php echo $product['IDProdotto']; ?>" class="text-center products">
-                                            <div class="form-group">
-                                                <label class="notVisible" for="newProductName_<?php echo $product['IDProdotto']; ?>">Nome prodotto</label>
-                                                <input type="text" id="newProductName_<?php echo $product['IDProdotto']; ?>" class='form-control' placeholder="Nome prodotto"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">€</span>
-                                                    </div>
-                                                    <label class="notVisible" for="newProductCost_<?php echo $product['IDProdotto']; ?>">Costo prodotto</label>
-                                                    <input type="number" value="0.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="newProductCost_<?php echo $product['IDProdotto']; ?>" placeholder="Costo prodotto"/>
-                                                </div>
-                                                <div id="productError_<?php echo $product['IDProdotto']; ?>"></div>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type='button' id="saveProduct_<?php echo $product['IDProdotto']; ?>" class='btn btn-success change saveProduct'>Salva</button>
-                                                <button type='button' id="cancelChangeProduct_<?php echo $product['IDProdotto']; ?>" class='btn btn-danger change cancelChangeProduct'>Annulla</button>
-                                            </div>
-                                        </form>
+                                    ?>
+                                    <div id="ProductsOfCategory_<?php echo $category['IDCategoria']; ?>">
                                         <?php
-                                    }
+                                        while ($product = $res1->fetch_assoc()) {
+                                            ?>
+                                            <div class="product" id="product_<?php echo $product['IDProdotto']; ?>">
+                                                <div class="row">
+                                                    <div class="col-sm-5">
+                                                        <span id="productName_<?php echo $product['IDProdotto']; ?>"><?php echo $product['nome']; ?></span>: <span id="productCost_<?php echo $product['IDProdotto']; ?>"><?php echo $product["costo"]; ?></span> €
+                                                    </div>
+                                                    <div class='col-sm-7'>
+                                                        <button type='button' id='changeProduct_<?php echo $product['IDProdotto']; ?>' class='btn btn-secondary changePlus changeProduct'>Modifica prodotto</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <form id="modificationProduct_<?php echo $product['IDProdotto']; ?>" class="text-center products">
+                                                <div class="form-group">
+                                                    <label class="notVisible" for="newProductName_<?php echo $product['IDProdotto']; ?>">Nome prodotto</label>
+                                                    <input type="text" id="newProductName_<?php echo $product['IDProdotto']; ?>" class='form-control' placeholder="Nome prodotto"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">€</span>
+                                                        </div>
+                                                        <label class="notVisible" for="newProductCost_<?php echo $product['IDProdotto']; ?>">Costo prodotto</label>
+                                                        <input type="number" value="0.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="newProductCost_<?php echo $product['IDProdotto']; ?>" placeholder="Costo prodotto"/>
+                                                    </div>
+                                                    <div id="productError_<?php echo $product['IDProdotto']; ?>"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type='button' id="saveProduct_<?php echo $product['IDProdotto']; ?>" class='btn btn-success change saveProduct'>Salva</button>
+                                                    <button type='button' id="cancelChangeProduct_<?php echo $product['IDProdotto']; ?>" class='btn btn-danger change cancelChangeProduct'>Annulla</button>
+                                                </div>
+                                            </form>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                    <button type='button' id="addProductInCategory_<?php echo $category['IDCategoria']; ?>" class='btn btn-secondary changePlus addNewProduct'>Aggiungi nuovo prodotto</button>
+                                    <form id="appendProductInCategory_<?php echo $category['IDCategoria']; ?>" class="text-center products">
+                                        <div class="form-group">
+                                            <label class="notVisible" for="newProductNameInCategory_<?php echo $category['IDCategoria']; ?>">Nome nuovo prodotto</label>
+                                            <input type="text" id="newProductNameInCategory_<?php echo $category['IDCategoria']; ?>" class='form-control' placeholder="Nome nuovo prodotto"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">€</span>
+                                                </div>
+                                                <label class="notVisible" for="newProductCostInCategory_<?php echo $category['IDCategoria']; ?>">Costo nuovo prodotto</label>
+                                                <input type="number" value="0.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="newProductCostInCategory_<?php echo $category['IDCategoria']; ?>" placeholder="Costo nuovo prodotto"/>
+                                            </div>
+                                            <div id="productErrorInCategory_<?php echo $category['IDCategoria']; ?>"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type='button' id="saveNewProductInCategory_<?php echo $category['IDCategoria']; ?>" class='btn btn-success change saveNewProduct'>Salva</button>
+                                            <button type='button' id="cancelNewProductInCategory_<?php echo $category['IDCategoria']; ?>" class='btn btn-danger change cancelNewProduct'>Annulla</button>
+                                        </div>
+                                    </form>
+                                    <?php
                                 }
                             }
                         }
