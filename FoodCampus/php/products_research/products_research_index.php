@@ -38,6 +38,23 @@
 							<div id="categoryField">
 							</div>
 							<div id="resultsField">
+								<div class="container-fluid">
+									<h2 hidden>RISULTATI RICERCA</h2>
+									<table hidden class="table table-hover table-sm">
+										<thead>
+											<tr>
+												<th scope="col">Prodotto</th>
+												<th scope="col">Categoria</th>
+												<th scope="col">Prezzo</th>
+												<th scope="col">Fornitore</th>
+												<th scope="col">Voto fornitore</th>
+												<th scope="col">N. recensioni</th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>

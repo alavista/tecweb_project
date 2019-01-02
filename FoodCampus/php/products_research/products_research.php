@@ -6,50 +6,20 @@ $GLOBALS["response"] = array("status" => "", "data" => "");
 
 function getCategories($conn) {
     if (!($stmt = $conn->prepare("SELECT nome FROM categoria ORDER BY IDCategoria"))) {
-        return $smt->error;
-    }
-
-    if (!$stmt->execute()) {
-        return $smt->error;
-    }
-
-    if (!($result = $stmt->get_result())) {
-        return $smt->error;
-    }
-
-    $output = array();
-
-	while ($row = $result->fetch_assoc()) {
-		$output[] = $row;
-	}
-
-	$stmt->close();
-
-    return $output;
-}
-
-function getProducts($conn) {
-    if (!($stmt = $conn->prepare("SELECT p.nome, p.costo, c.nome, f.nome
-                                    FROM categoria as c, prodotto as p, fornitore as f
-                                    WHERE c.IDCategoria = p.IDCategoria AND p.IDFornitore = f.IDFornitore
-                                    GROUP BY f.IDFornitore
-                                    ORDER BY f.nome"))) {
-
         $GLOBALS["response"]["status"] = "error";
-        $GLOBALS["response"]["data"] = $smt->error;
-
+        $GLOBALS["response"]["data"] = $conn->error;
         return ($GLOBALS["response"]);
     }
 
     if (!$stmt->execute()) {
         $GLOBALS["response"]["status"] = "error";
-        $GLOBALS["response"]["data"] = $smt->error;
+        $GLOBALS["response"]["data"] = $conn->error;
         return ($GLOBALS["response"]);
     }
 
     if (!($result = $stmt->get_result())) {
         $GLOBALS["response"]["status"] = "error";
-        $GLOBALS["response"]["data"] = $smt->error;
+        $GLOBALS["response"]["data"] = $conn->error;
         return ($GLOBALS["response"]);
     }
 
@@ -63,7 +33,49 @@ function getProducts($conn) {
 
     $GLOBALS["response"]["status"] = "ok";
     $GLOBALS["response"]["data"] = $output;
-    return $output;
+
+    return $GLOBALS["response"];
+}
+
+function getProducts($conn, $category) {
+    if (!($stmt = $conn->prepare("SELECT p.nome as pnome, p.costo, c.nome as cnome, f.nome as fnome, AVG(r.valutazione) as valutazione_media, COUNT(r.IDRecensione) as nrec
+                                    FROM categoria as c, prodotto as p, fornitore as f
+                                    LEFT OUTER JOIN recensione r ON (r.IDFornitore = f.IDFornitore)
+                                    WHERE c.IDCategoria = p.IDCategoria AND p.IDFornitore = f.IDFornitore
+                                    AND c.nome = '$category'
+                                    GROUP BY f.IDFornitore, p.IDProdotto
+                                    ORDER BY valutazione_media  DESC"))) {
+
+        $GLOBALS["response"]["status"] = "error";
+        $GLOBALS["response"]["data"] = $conn->error;
+
+        return ($GLOBALS["response"]);
+    }
+
+    if (!$stmt->execute()) {
+        $GLOBALS["response"]["status"] = "error";
+        $GLOBALS["response"]["data"] = $conn->error;
+        return ($GLOBALS["response"]);
+    }
+
+    if (!($result = $stmt->get_result())) {
+        $GLOBALS["response"]["status"] = "error";
+        $GLOBALS["response"]["data"] = $conn->error;
+        return ($GLOBALS["response"]);
+    }
+
+    $output = array();
+
+	while ($row = $result->fetch_assoc()) {
+		$output[] = $row;
+	}
+
+	$stmt->close();
+
+    $GLOBALS["response"]["status"] = "ok";
+    $GLOBALS["response"]["data"] = $output;
+
+    return $GLOBALS["response"];
 }
 
 
@@ -75,8 +87,7 @@ if (isset($_POST["reqest"]) && !empty($_POST["reqest"])) {
 
         case "products":
             if (isset($_POST["value"]) && !empty($_POST["value"])) {
-                getProducts($conn, $_POST["value"]);
-                print json_encode($GLOBALS["response"]);
+                print json_encode(getProducts($conn, $_POST["value"]));
             } else {
                 $GLOBALS["response"]["status"] = "error";
                 $GLOBALS["response"]["data"] = "Error on product request";
