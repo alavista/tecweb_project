@@ -39,6 +39,8 @@ if ($stmt = $conn->prepare($query)) {
                     <div class="form-group">
                         <label class="notVisible" for="newName">Nuovo nome</label>
                         <input type="text" id="newName" class='form-control' placeholder="Nuovo nome"/>
+                    </div>
+                    <div class="form-group">
                         <button type='button' id="saveName" class='btn btn-success change'>Salva</button>
                         <button type='button' id="cancelChangeName" class='btn btn-danger change'>Annulla</button>
                     </div>
@@ -47,6 +49,8 @@ if ($stmt = $conn->prepare($query)) {
                     <div class="form-group">
                         <label class="notVisible" for="newEmail">Nuova email</label>
                         <input type="email" id="newEmail" class='form-control' placeholder="Nuova email"/>
+                    </div>
+                    <div class="form-group">
                         <button type='button' id="saveEmail" class='btn btn-success change'>Salva</button>
                         <button type='button' id="cancelChangeEmail" class='btn btn-danger change'>Annulla</button>
                     </div>
@@ -83,6 +87,8 @@ if ($stmt = $conn->prepare($query)) {
                     <div class="form-group">
                         <label class="notVisible" for="newImage">Immagine del profilo</label>
                         <input type="file" id="newImage" class="form-control-file" accept="image/*">
+                    </div>
+                    <div class="form-group">
                         <button type='button' id="saveImage" class='btn btn-success change'>Salva</button>
                         <button type='button' id="cancelChangeImage" class='btn btn-danger change'>Annulla</button>
                     </div>

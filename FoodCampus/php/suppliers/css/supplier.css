@@ -28,11 +28,11 @@
     width: 230px;
 }
 
-.changePlus {
+.changePlus, .btn-kart {
     background-color: #F83442;
 }
 
-.changePlus:hover {
+.changePlus:hover, .btn-kart:hover:hover {
     background-color: #cc0000;
 }
 
@@ -49,10 +49,6 @@
 .container .jumbotron .product {
     margin-bottom: 20px;
     margin-top: 20px;
-}
-
-#menu .btn {
-    background-color: #F83442;
 }
 
 .container .form-group .btn {
