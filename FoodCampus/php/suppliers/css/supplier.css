@@ -55,7 +55,13 @@
 
 @media screen and (max-width: 576px) {
     .container .jumbotron .row .col-sm-7 .btn {
-        margin-bottom: 15px;
+        margin-bottom: 14px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .deleteProduct {
+        margin-top: 15px;
     }
 }
 

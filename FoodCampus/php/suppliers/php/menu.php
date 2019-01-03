@@ -38,11 +38,14 @@
                                             ?>
                                             <div class="product" id="product_<?php echo $product['IDProdotto']; ?>">
                                                 <div class="row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-lg-4">
                                                         <span id="productName_<?php echo $product['IDProdotto']; ?>"><?php echo $product['nome']; ?></span>: <span id="productCost_<?php echo $product['IDProdotto']; ?>"><?php echo $product["costo"]; ?></span> €
                                                     </div>
-                                                    <div class='col-sm-7'>
+                                                    <div class='col-lg-4'>
                                                         <button type='button' id='changeProduct_<?php echo $product['IDProdotto']; ?>' class='btn btn-secondary changePlus changeProduct'>Modifica prodotto</button>
+                                                    </div>
+                                                    <div class='col-lg-4'>
+                                                        <button type='button' id='deleteProduct_<?php echo $product['IDProdotto']; ?>' class='btn btn btn-danger change deleteProduct'>Cancella prodotto</button>
                                                     </div>
                                                 </div>
                                             </div>
