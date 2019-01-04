@@ -23,6 +23,9 @@
          <script src="../../../jquery/jquery.cookie.js"></script>
          <!-- Plugin JQuery for sessions-->
          <script src="../../../jquery/jquery.session.js"></script>
+         <!-- Plugin JQuery for alert-->
+         <script src="../../../jquery/jquery-confirm.min.js" type="text/javascript"></script>
+         <link rel="stylesheet" type="text/css" title="stylesheet" href="../../../css/jquery-confirm.min.css">
          <!--JavaScript-->
          <script src="../js/supplierFunctions.js" type="text/javascript"></script>
          <script src="../js/supplier.js" type="text/javascript"></script>
@@ -38,7 +41,7 @@
          <script src="../js/webSite.js" type="text/javascript"></script>
          <script src="../js/review.js" type="text/javascript"></script>
          <script src="../js/product.js" type="text/javascript"></script>
-         <script src="../../../jquery/jquery-confirm.min.js" type="text/javascript"></script>
+         <script src="../js/vatNumber.js" type="text/javascript"></script>
          <!--Font awesome-->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
@@ -46,7 +49,6 @@
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../../../css/navbar.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/supplier.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/starReview.css">
-         <link rel="stylesheet" type="text/css" title="stylesheet" href="../../../css/jquery-confirm.min.css">
     </head>
     <body>
         <div class="container">

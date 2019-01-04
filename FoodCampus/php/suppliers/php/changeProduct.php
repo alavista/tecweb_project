@@ -4,8 +4,8 @@
     $queryError = false;
     $informationToSendClient = array('status' => "", "inf" => "");
     if (isset($_POST["idProduct"]) && isset($_POST["productName"]) && isset($_POST["productCost"]) &&
-    (!empty($_POST["productName"]) && !strlen(trim($_POST["productName"])) == 0) &&
-    $_POST["productCost"] > 0 && $_POST["idProduct"] >= 0) {
+            (!empty($_POST["productName"]) && !strlen(trim($_POST["productName"])) == 0) &&
+            $_POST["productCost"] > 0 && $_POST["idProduct"] >= 0) {
         $query = "UPDATE prodotto SET nome = ?, costo = ? WHERE IDProdotto = ?";
         if ($stmt = $conn->prepare($query)) {
             $stmt->bind_param("sss", $_POST["productName"], $_POST["productCost"], $_POST["idProduct"]);

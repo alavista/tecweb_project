@@ -1,9 +1,9 @@
-#supplierName, #newSupplierName, #newSupplierEmail, #newSupplierPassword {
+#supplierName, #newSupplierName, #newSupplierEmail, #newSupplierPassword, #newSupplierVatNumber {
     margin-top: 60px;
 }
 
 @media screen and (max-width: 384px) {
-    #supplierName, #newSupplierName, #newSupplierEmail, #newSupplierPassword {
+    #supplierName, #newSupplierName, #newSupplierEmail, #newSupplierPassword, #newSupplierVatNumber {
         margin-top: 90px;
     }
 }

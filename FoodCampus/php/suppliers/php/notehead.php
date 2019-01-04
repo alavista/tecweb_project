@@ -22,9 +22,10 @@ if ($stmt = $conn->prepare($query)) {
                         ?>
                         <br/>
                         <div class="row">
-                            <div class="col-md-4"><button type="button" class="btn btn-secondary changePlus" id="changeName">Modifica nome</button></div>
-                            <div class="col-md-4"><button type="button" class="btn btn-secondary changePlus" id="changeEmail">Modifica email</button></div>
-                            <div class="col-md-4"><button type='button' class='btn btn-secondary changePlus' id='changePassword'>Modifica password</button></div>
+                            <div class="col-lg-3"><button type="button" class="btn btn-secondary changePlus" id="changeName">Modifica nome</button></div>
+                            <div class="col-lg-3"><button type="button" class="btn btn-secondary changePlus" id="changeEmail">Modifica email</button></div>
+                            <div class="col-lg-3"><button type='button' class='btn btn-secondary changePlus' id='changePassword'>Modifica password</button></div>
+                            <div class="col-lg-3"><button type='button' class='btn btn-secondary changePlus' id='changeVatNumber'>Modifica partita iva</button></div>
                         </div>
                         <?php
                     }
@@ -35,6 +36,7 @@ if ($stmt = $conn->prepare($query)) {
             if ($supplierPage) {
                 ?>
                 <span id="email" class="notVisible"><?php echo $supplier["email"]; ?></span>
+                <span id="vatNumber" class="notVisible"><?php echo $supplier["partita_iva"]; ?></span>
                 <form id="newSupplierName" class="text-center">
                     <div class="form-group">
                         <label class="notVisible" for="newName">Nuovo nome</label>
@@ -71,6 +73,17 @@ if ($stmt = $conn->prepare($query)) {
                     <div class="form-group">
                         <button type='button' id="savePassword" class='btn btn-success change'>Salva</button>
                         <button type='button' id="cancelChangePassword" class='btn btn-danger change'>Annulla</button>
+                    </div>
+                </form>
+                <form id="newSupplierVatNumber" class="text-center">
+                    <div class="form-group">
+                        <label class="notVisible" for="newVatNumber">Nuova partita iva</label>
+                        <input type="number" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="newVatNumber" placeholder="Nuova partita iva"/>
+                        <div id="vatNumberError"></div>
+                    </div>
+                    <div class="form-group">
+                        <button type='button' id="saveVatNumber" class='btn btn-success change'>Salva</button>
+                        <button type='button' id="cancelChangeVatNumber" class='btn btn-danger change'>Annulla</button>
                     </div>
                 </form>
                 <?php

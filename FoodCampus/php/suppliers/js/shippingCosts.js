@@ -7,7 +7,7 @@ $(function() {
         shippingCosts = shippingCosts.substring(0, shippingCosts.length - 2);
         $("#newShippingCosts").val(shippingCosts);
         switchFromDivToDiv("supplierShippingCosts", "newSupplierShippingCosts");
-    })
+    });
 
     $("#saveShippingCosts").click(function() {
         var shippingCosts = $("#newShippingCosts").val().replace(/,/,".");
