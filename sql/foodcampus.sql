@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 29, 2018 alle 00:33
+-- Creato il: Gen 04, 2019 alle 17:14
 -- Versione del server: 10.1.37-MariaDB
--- Versione PHP: 7.3.0
+-- Versione PHP: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -89,7 +89,7 @@ CREATE TABLE `fornitore` (
   `abilitato` tinyint(1) NOT NULL,
   `email` varchar(30) NOT NULL,
   `sito_web` varchar(60) DEFAULT NULL,
-  `partita_iva` varchar(11) NOT NULL,
+  `partita_iva` bigint(11) NOT NULL,
   `immagine` varchar(128) DEFAULT NULL,
   `password` varchar(128) NOT NULL,
   `salt` char(128) NOT NULL,
@@ -101,10 +101,11 @@ CREATE TABLE `fornitore` (
 --
 
 INSERT INTO `fornitore` (`IDFornitore`, `nome`, `citta`, `indirizzo_via`, `indirizzo_numero_civico`, `costi_spedizione`, `soglia_spedizione_gratuita`, `abilitato`, `email`, `sito_web`, `partita_iva`, `immagine`, `password`, `salt`, `bloccato`) VALUES
-(1, 'La Malaghiotta', 'Cesena', 'piazza Fabbri', '5', '0.99', NULL, 1, 'lamalaghiotta@gmail.com', 'www.lamaghiotta.it', '01786610897', NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
-(2, 'C\'entro', 'Cesena', 'contrada Uberti', '3', '0.99', '0.99', 1, 'centro@gmail.com', 'www.centro-cesena.it', '01993190741', NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
-(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', '185', '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.it', '05359681003', '', '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
-(7, 'asd', 'asd', 'asd', 'asd', '8.00', '10.00', 0, 'asd@asd.com', 'asdasda', 'asd', 'Immagine.png', '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0');
+(1, 'La Malaghiotta', 'Cesena', 'piazza Fabbri', '5', '0.99', NULL, 1, 'lamalaghiotta@gmail.com', 'www.lamaghiotta.it', 1786610897, NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
+(2, 'C\'entro', 'Cesena', 'contrada Uberti', '3', '0.99', '0.99', 1, 'centro@gmail.com', 'www.centro-cesena.it', 1993190741, NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
+(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', '185', '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.it', 2147483647, '', '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
+(7, 'asd', 'asd', 'asd', 'asd', '8.00', '10.00', 0, 'asd@asd.com', 'asdasda', 0, 'Immagine.png', '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
+(8, 'DAVIDE33', 'Misano Adriatico', 'via po 3', '12345', '0.00', '0.00', 0, 'suppliertest@test.it', NULL, 12345678335, NULL, '30125410d38ca3cecd0241e22f0c95c53d04aa20f51de01d03648c88c07e2fee10260155b6e68a3ed8dc6716309745ffd7e648af7d2107c3436b2e6c77fc85a8', '6f3861a59e7a7163e4dd7c92e5b0fa9fa8272aaf132dbaa928ce088135c53458fc85f345f35c40153550b031bc13ed985e61d4e01796ce73dda600cf4ae70ac4', b'0');
 
 -- --------------------------------------------------------
 
@@ -166,22 +167,25 @@ CREATE TABLE `prodotto` (
   `nome` char(50) NOT NULL,
   `costo` decimal(4,2) NOT NULL,
   `IDCategoria` int(11) NOT NULL,
-  `IDFornitore` int(11) NOT NULL
+  `IDFornitore` int(11) NOT NULL,
+  `vegano` tinyint(1) DEFAULT NULL,
+  `celiaco` tinyint(1) DEFAULT NULL,
+  `surgelato` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `prodotto`
 --
 
-INSERT INTO `prodotto` (`IDProdotto`, `nome`, `costo`, `IDCategoria`, `IDFornitore`) VALUES
-(1, 'Crescione erbe e salsiccia', '3.50', 2, 3),
-(2, 'Crescione vegetariano', '3.50', 2, 3),
-(3, 'Piada crudo squacquerone e rucola', '4.50', 2, 3),
-(4, 'Crescione erbe e salsiccia', '3.50', 2, 3),
-(5, 'Crescione erbe e salsiccia', '3.50', 2, 3),
-(6, 'Spaghetti alla carbonara', '4.50', 3, 3),
-(7, 'Pollo al curry', '5.00', 4, 3),
-(8, 'Zuppa inglese', '2.50', 5, 3);
+INSERT INTO `prodotto` (`IDProdotto`, `nome`, `costo`, `IDCategoria`, `IDFornitore`, `vegano`, `celiaco`, `surgelato`) VALUES
+(1, 'Crescione erbe e salsiccia', '3.50', 2, 3, NULL, NULL, NULL),
+(2, 'Crescione vegetariano', '3.50', 2, 3, NULL, NULL, NULL),
+(3, 'Piada crudo squacquerone e rucola', '4.50', 2, 3, NULL, NULL, NULL),
+(4, 'Crescione erbe e salsiccia', '3.50', 2, 3, NULL, NULL, NULL),
+(5, 'Crescione erbe e salsiccia', '3.50', 2, 3, NULL, NULL, NULL),
+(6, 'Spaghetti alla carbonara', '4.50', 3, 3, NULL, NULL, NULL),
+(7, 'Pollo al curry', '5.00', 4, 3, NULL, NULL, NULL),
+(8, 'Zuppa inglese', '2.50', 5, 3, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -327,7 +331,7 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT per la tabella `fornitore`
 --
 ALTER TABLE `fornitore`
-  MODIFY `IDFornitore` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `IDFornitore` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT per la tabella `login_attempts`
