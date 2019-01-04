@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 04, 2019 alle 17:14
+-- Creato il: Gen 04, 2019 alle 17:27
 -- Versione del server: 10.1.37-MariaDB
 -- Versione PHP: 7.2.12
 
@@ -168,9 +168,9 @@ CREATE TABLE `prodotto` (
   `costo` decimal(4,2) NOT NULL,
   `IDCategoria` int(11) NOT NULL,
   `IDFornitore` int(11) NOT NULL,
-  `vegano` tinyint(1) DEFAULT NULL,
-  `celiaco` tinyint(1) DEFAULT NULL,
-  `surgelato` tinyint(1) DEFAULT NULL
+  `vegano` tinyint(1) NOT NULL,
+  `celiaco` tinyint(1) NOT NULL,
+  `surgelato` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -178,14 +178,14 @@ CREATE TABLE `prodotto` (
 --
 
 INSERT INTO `prodotto` (`IDProdotto`, `nome`, `costo`, `IDCategoria`, `IDFornitore`, `vegano`, `celiaco`, `surgelato`) VALUES
-(1, 'Crescione erbe e salsiccia', '3.50', 2, 3, NULL, NULL, NULL),
-(2, 'Crescione vegetariano', '3.50', 2, 3, NULL, NULL, NULL),
-(3, 'Piada crudo squacquerone e rucola', '4.50', 2, 3, NULL, NULL, NULL),
-(4, 'Crescione erbe e salsiccia', '3.50', 2, 3, NULL, NULL, NULL),
-(5, 'Crescione erbe e salsiccia', '3.50', 2, 3, NULL, NULL, NULL),
-(6, 'Spaghetti alla carbonara', '4.50', 3, 3, NULL, NULL, NULL),
-(7, 'Pollo al curry', '5.00', 4, 3, NULL, NULL, NULL),
-(8, 'Zuppa inglese', '2.50', 5, 3, NULL, NULL, NULL);
+(1, 'Crescione erbe e salsiccia', '3.50', 2, 3, 0, 0, 0),
+(2, 'Crescione vegetariano', '3.50', 2, 3, 0, 0, 0),
+(3, 'Piada crudo squacquerone e rucola', '4.50', 2, 3, 0, 0, 0),
+(4, 'Crescione erbe e salsiccia', '3.50', 2, 3, 0, 0, 0),
+(5, 'Crescione erbe e salsiccia', '3.50', 2, 3, 0, 0, 0),
+(6, 'Spaghetti alla carbonara', '4.50', 3, 3, 0, 0, 0),
+(7, 'Pollo al curry', '5.00', 4, 3, 0, 0, 0),
+(8, 'Zuppa inglese', '2.50', 5, 3, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -355,7 +355,7 @@ ALTER TABLE `ordine`
 -- AUTO_INCREMENT per la tabella `prodotto`
 --
 ALTER TABLE `prodotto`
-  MODIFY `IDProdotto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `IDProdotto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT per la tabella `prodotto_in_carrello`
