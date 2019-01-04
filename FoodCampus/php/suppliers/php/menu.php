@@ -199,7 +199,7 @@
                                                 while ($product = $res2->fetch_assoc()) {
                                                 ?>
                                                     <div class="row product">
-                                                        <span class="col-lg-10">
+                                                        <span class="col-lg-9">
                                                             <?php
                                                             echo $product["nome"];
                                                             if ($product["vegano"] || $product["celiaco"] || $product["surgelato"]) {
@@ -221,7 +221,7 @@
                                                             }
                                                             ?>
                                                         </span>
-                                                        <span class="col-lg-2">
+                                                        <span class="col-lg-3">
                                                             <span><?php echo $product["costo"]; ?> €</span>
                                                             <span <?php if ($isSupplier) { echo "data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'"; } ?>>
                                                                 <button type="button" class="btn btn-deafult btn-kart" <?php if ($isSupplier) { echo "style='pointer-events: none;' disabled"; } ?>><i class="fas fa-cart-plus"></i></button>
