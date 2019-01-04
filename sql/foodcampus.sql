@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 04, 2019 alle 17:27
+-- Creato il: Gen 04, 2019 alle 19:59
 -- Versione del server: 10.1.37-MariaDB
--- Versione PHP: 7.2.12
+-- Versione PHP: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -105,7 +105,8 @@ INSERT INTO `fornitore` (`IDFornitore`, `nome`, `citta`, `indirizzo_via`, `indir
 (2, 'C\'entro', 'Cesena', 'contrada Uberti', '3', '0.99', '0.99', 1, 'centro@gmail.com', 'www.centro-cesena.it', 1993190741, NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
 (3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', '185', '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.it', 2147483647, '', '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
 (7, 'asd', 'asd', 'asd', 'asd', '8.00', '10.00', 0, 'asd@asd.com', 'asdasda', 0, 'Immagine.png', '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
-(8, 'DAVIDE33', 'Misano Adriatico', 'via po 3', '12345', '0.00', '0.00', 0, 'suppliertest@test.it', NULL, 12345678335, NULL, '30125410d38ca3cecd0241e22f0c95c53d04aa20f51de01d03648c88c07e2fee10260155b6e68a3ed8dc6716309745ffd7e648af7d2107c3436b2e6c77fc85a8', '6f3861a59e7a7163e4dd7c92e5b0fa9fa8272aaf132dbaa928ce088135c53458fc85f345f35c40153550b031bc13ed985e61d4e01796ce73dda600cf4ae70ac4', b'0');
+(8, 'DAVIDE33', 'Misano Adriatico', 'via po 3', '12345', '0.00', '0.00', 0, 'suppliertest@test.it', NULL, 12345678335, NULL, '30125410d38ca3cecd0241e22f0c95c53d04aa20f51de01d03648c88c07e2fee10260155b6e68a3ed8dc6716309745ffd7e648af7d2107c3436b2e6c77fc85a8', '6f3861a59e7a7163e4dd7c92e5b0fa9fa8272aaf132dbaa928ce088135c53458fc85f345f35c40153550b031bc13ed985e61d4e01796ce73dda600cf4ae70ac4', b'0'),
+(9, 'cacca', 'asd', 'asd', 'asd', '0.00', '0.00', 0, 'cacca@cacca.it', NULL, 0, NULL, '2f1ba791caa4b3595c593b0e1e962635b58855175beede207ee32a9d38c72fdb4ee5847bcb70ccc0108d99a942add0143f61690f9d620e6eec544bd35b5b9bd0', 'e75cef4a297e80dd2028e30c1046fa74b559e1c33791f17b6f00a3085fb0e16b259134aa8e3d3ce87dae7dd2a35a5f4870bc9138f1bcc53d87a11a0314d44b00', b'0');
 
 -- --------------------------------------------------------
 
@@ -125,7 +126,8 @@ CREATE TABLE `login_attempts` (
 
 INSERT INTO `login_attempts` (`id`, `email`, `time`) VALUES
 (1, 'ivan.mazzanti@foodcampus.it', '1545933977'),
-(2, 'centro@gmail.com', '1545934478');
+(2, 'centro@gmail.com', '1545934478'),
+(3, 'asd@asd.com', '1546626419');
 
 -- --------------------------------------------------------
 
@@ -179,12 +181,12 @@ CREATE TABLE `prodotto` (
 
 INSERT INTO `prodotto` (`IDProdotto`, `nome`, `costo`, `IDCategoria`, `IDFornitore`, `vegano`, `celiaco`, `surgelato`) VALUES
 (1, 'Crescione erbe e salsiccia', '3.50', 2, 3, 0, 0, 0),
-(2, 'Crescione vegetariano', '3.50', 2, 3, 0, 0, 0),
+(2, 'Crescione vegetariano', '3.50', 2, 3, 1, 1, 0),
 (3, 'Piada crudo squacquerone e rucola', '4.50', 2, 3, 0, 0, 0),
-(4, 'Crescione erbe e salsiccia', '3.50', 2, 3, 0, 0, 0),
-(5, 'Crescione erbe e salsiccia', '3.50', 2, 3, 0, 0, 0),
+(4, 'Crescione erbe e salsiccia', '3.50', 2, 1, 0, 0, 0),
+(5, 'Crescione erbe e salsiccia', '3.50', 2, 2, 0, 0, 0),
 (6, 'Spaghetti alla carbonara', '4.50', 3, 3, 0, 0, 0),
-(7, 'Pollo al curry', '5.00', 4, 3, 0, 0, 0),
+(7, 'Pollo al curry', '5.00', 4, 3, 0, 0, 1),
 (8, 'Zuppa inglese', '2.50', 5, 3, 0, 0, 0);
 
 -- --------------------------------------------------------
@@ -331,13 +333,13 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT per la tabella `fornitore`
 --
 ALTER TABLE `fornitore`
-  MODIFY `IDFornitore` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `IDFornitore` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT per la tabella `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la tabella `notifica`

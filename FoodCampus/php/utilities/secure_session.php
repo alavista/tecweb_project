@@ -21,9 +21,9 @@ function login_check($mysqli) {
      $user_browser = $_SERVER['HTTP_USER_AGENT']; // reperisce la stringa 'user-agent' dell'utente.
 
 	 if ($_SESSION["user_type"] === "Cliente") {
-		 $query = "SELECT password FROM cliente WHERE IDCliente = ? LIMIT 1";
+		 $query = "SELECT password, bloccato FROM cliente WHERE IDCliente = ? LIMIT 1";
 	 } else {
-		 $query = "SELECT password FROM fornitore WHERE IDFornitore = ? LIMIT 1";
+		 $query = "SELECT password, bloccato FROM fornitore WHERE IDFornitore = ? LIMIT 1";
 	 }
 
      if ($stmt = $mysqli->prepare($query)) {
@@ -35,8 +35,14 @@ function login_check($mysqli) {
         $stmt->store_result();
 
         if($stmt->num_rows == 1) { // se l'utente esiste
-           $stmt->bind_result($password); // recupera le variabili dal risultato ottenuto.
+           $stmt->bind_result($password, $bannato); // recupera le variabili dal risultato ottenuto.
            $stmt->fetch();
+
+           if ($bannato === 1) {
+               $GLOBALS["sqlError"] = "Questo utente è stato bloccato, impossibile accedere.";
+               return false;
+           }
+
            $login_check = hash('sha512', $password.$user_browser);
            if($login_check == $login_string) {
               // Login eseguito!!!!
