@@ -1,8 +1,6 @@
 <?php
     require_once '../../database.php';
     require_once "../../utilities/direct_login.php";
-
-    //setcookie("user_email", "butterfly@gmail.com", time() + (86400 * 30)); //30 giorni
 ?>
 
 <!DOCTYPE html>
@@ -53,21 +51,34 @@
     <body>
         <div class="container">
         <?php
-            require_once '../../navbar.php';
             if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
                     is_numeric($_GET["id"]) && ctype_digit($_GET["id"]) && $_GET["id"] >= 0) {
-                require_once 'notehead.php';
-                ?>
-                <section>
-                    <?php require_once 'informations.php'; ?>
-                </section>
-                <section>
-                    <?php require_once 'menu.php'; ?>
-                </section>
-                <section>
-                    <?php require_once 'reviews.php'; ?>
-                </section>
-                <?php
+                $query = "SELECT * FROM fornitore WHERE IDFornitore = ?";
+                if ($stmt = $conn->prepare($query)) {
+                    $stmt->bind_param("s", $_GET["id"]);
+                    if ($stmt->execute()) {
+                        $res = $stmt->get_result();
+                        if ($res->num_rows == 1) {
+                            require_once '../../navbar.php';
+                            require_once 'notehead.php';
+                            ?>
+                            <section>
+                                <?php require_once 'informations.php'; ?>
+                            </section>
+                            <section>
+                                <?php require_once 'menu.php'; ?>
+                            </section>
+                            <section>
+                                <?php require_once 'reviews.php'; ?>
+                            </section>
+                            <?php
+                        } else {
+                            header("Location: /tecweb_project/FoodCampus/php/pageNotFound.html");
+	                        $conn->close();
+                            exit();
+                        }
+                    }
+                }
             } else {
                 die("Supplier not found!");
             }

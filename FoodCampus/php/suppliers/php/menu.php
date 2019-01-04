@@ -39,7 +39,35 @@
                                             <div class="product" id="product_<?php echo $product['IDProdotto']; ?>">
                                                 <div class="row">
                                                     <div class="col-lg-4">
-                                                        <span id="productName_<?php echo $product['IDProdotto']; ?>"><?php echo $product['nome']; ?></span>: <span id="productCost_<?php echo $product['IDProdotto']; ?>"><?php echo $product["costo"]; ?></span> €
+                                                        <span id="productName_<?php echo $product['IDProdotto']; ?>"><?php echo $product['nome']; ?></span>
+                                                        <span id="productVegan_<?php echo $product['IDProdotto']; ?>">
+                                                            <?php
+                                                            if($product["vegano"]) {
+                                                                ?>
+                                                                <span class="font-italic"> (vegano)</span>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </span>
+                                                        <span id="productCeliac_<?php echo $product['IDProdotto']; ?>">
+                                                            <?php
+                                                            if($product["celiaco"]) {
+                                                                ?>
+                                                                <span class="font-italic"> (celiaco)</span>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </span>
+                                                        <span id="productFrozen_<?php echo $product['IDProdotto']; ?>">
+                                                            <?php
+                                                            if($product["surgelato"]) {
+                                                                ?>
+                                                                <span class="font-italic"> (surgelato)</span>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </span>
+                                                        : <span id="productCost_<?php echo $product['IDProdotto']; ?>"><?php echo $product["costo"]; ?></span> €
                                                     </div>
                                                     <div class='col-lg-4'>
                                                         <button type='button' id='changeProduct_<?php echo $product['IDProdotto']; ?>' class='btn btn-secondary changePlus changeProduct'>Modifica prodotto</button>
@@ -63,6 +91,27 @@
                                                         <input type="number" value="0.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="newProductCost_<?php echo $product['IDProdotto']; ?>" placeholder="Costo prodotto"/>
                                                     </div>
                                                     <div id="productError_<?php echo $product['IDProdotto']; ?>"></div>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label" for="newProductVegan_<?php echo $product['IDProdotto']; ?>">
+                                                            <input type="checkbox" class="form-check-input" id="newProductVegan_<?php echo $product['IDProdotto']; ?>" name="vegan" <?php if($product["vegano"]) { echo "checked"; } ?>>Vegano
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label" for="newProductCeliac_<?php echo $product['IDProdotto']; ?>">
+                                                            <input type="checkbox" class="form-check-input" id="newProductCeliac_<?php echo $product['IDProdotto']; ?>" name="celiac" <?php if($product["celiaco"]) { echo "checked"; } ?>>Celiaco
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label" for="newProductFrozen_<?php echo $product['IDProdotto']; ?>">
+                                                            <input type="checkbox" class="form-check-input" id="newProductFrozen_<?php echo $product['IDProdotto']; ?>" name="frozen" <?php if($product["surgelato"]) { echo "checked"; } ?>>Surgelato
+                                                        </label>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <button type='button' id="saveProduct_<?php echo $product['IDProdotto']; ?>" class='btn btn-success change saveProduct'>Salva</button>
@@ -88,6 +137,27 @@
                                                 <input type="number" value="0.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="newProductCostInCategory_<?php echo $category['IDCategoria']; ?>" placeholder="Costo nuovo prodotto"/>
                                             </div>
                                             <div id="productErrorInCategory_<?php echo $category['IDCategoria']; ?>"></div>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <div class="form-check">
+                                                <label class="form-check-label" for="newProductVeganInCategory_<?php echo $category['IDCategoria']; ?>">
+                                                    <input type="checkbox" class="form-check-input" id="newProductVeganInCategory_<?php echo $category['IDCategoria']; ?>" name="vegan" <?php if($product["vegano"]) { echo "checked"; } ?>>Vegano
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <div class="form-check">
+                                                <label class="form-check-label" for="newProductCeliacInCategory_<?php echo $category['IDCategoria']; ?>">
+                                                    <input type="checkbox" class="form-check-input" id="newProductCeliacInCategory_<?php echo $category['IDCategoria']; ?>" name="celiac" <?php if($product["celiaco"]) { echo "checked"; } ?>>Celiaco
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <div class="form-check">
+                                                <label class="form-check-label" for="newProductFrozenInCategory_<?php echo $category['IDCategoria']; ?>">
+                                                    <input type="checkbox" class="form-check-input" id="newProductFrozenInCategory_<?php echo $category['IDCategoria']; ?>" name="frozen" <?php if($product["surgelato"]) { echo "checked"; } ?>>Surgelato
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <button type='button' id="saveNewProductInCategory_<?php echo $category['IDCategoria']; ?>" class='btn btn-success change saveNewProduct'>Salva</button>
@@ -120,7 +190,7 @@
                                     ?>
                                     <h4><?php echo ucwords($res1->fetch_assoc()["nome"]); ?></h4>
                                     <?php
-                                    $query="SELECT nome, costo FROM prodotto WHERE IDFornitore = ? AND IDCategoria = ?";
+                                    $query="SELECT * FROM prodotto WHERE IDFornitore = ? AND IDCategoria = ?";
                                     if ($stmt = $conn->prepare($query)) {
                                         $stmt->bind_param("ss", $idSupplier, $idCategory);
                                         if ($stmt->execute()) {
@@ -128,9 +198,30 @@
                                             if ($res2->num_rows > 0) {
                                                 while ($product = $res2->fetch_assoc()) {
                                                 ?>
-                                                    <div class="product">
-                                                        <span class="float-left"><?php echo $product["nome"]; ?></span>
-                                                        <span class="float-right">
+                                                    <div class="row product">
+                                                        <span class="col-lg-9">
+                                                            <?php
+                                                            echo $product["nome"];
+                                                            if ($product["vegano"] || $product["celiaco"] || $product["surgelato"]) {
+                                                                ?>
+                                                                <span class="font-italic">
+                                                                    <?php
+                                                                    if ($product["vegano"]) {
+                                                                        echo " (vegano)";
+                                                                    }
+                                                                    if ($product["celiaco"]) {
+                                                                        echo " (celiaco)";
+                                                                    }
+                                                                    if ($product["surgelato"]) {
+                                                                        echo " (surgelato)";
+                                                                    }
+                                                                    ?>
+                                                                </span>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </span>
+                                                        <span class="col-lg-3">
                                                             <span><?php echo $product["costo"]; ?> €</span>
                                                             <span <?php if ($isSupplier) { echo "data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'"; } ?>>
                                                                 <button type="button" class="btn btn-deafult btn-kart" <?php if ($isSupplier) { echo "style='pointer-events: none;' disabled"; } ?>><i class="fas fa-cart-plus"></i></button>
