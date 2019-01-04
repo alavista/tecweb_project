@@ -23,8 +23,7 @@ function searchProducts(category) {
                     for(var i = 0; i < products.data.length; i++){
                     	html_code += '<tr><td>'+products.data[i]["pnome"]+'</td><td>'+products.data[i]["cnome"]
                                                             +'</td><td>'+"€ " + products.data[i]["costo"]+'</td><td>'+products.data[i]["fnome"]
-                                                            +'</td><td>'+((products.data[i]["valutazione_media"] === null) ? "/" : products.data[i]["valutazione_media"])
-                                                            +'</td><td>'+products.data[i]["nrec"]
+                                                            +"</td><td>"+((products.data[i]["valutazione_media"] === null) ? "/" : "<strong>"+products.data[i]["valutazione_media"]+"</strong><br/>"+" ("+products.data[i]["nrec"]+" voto/i)")
                                                             +'</td></tr>';
                     }
                     $("table tbody").html(html_code);

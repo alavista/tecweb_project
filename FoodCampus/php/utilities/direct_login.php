@@ -32,7 +32,7 @@ function checkUserBeforeCookieLogin($conn, $query, $email, $password) {
    }
 
     if ($stmt->num_rows > 0) {
-        $password = hash('sha512', $password.$salt); // codifica la password usando una chiave univoca.
+        //$password = hash('sha512', $password.$salt); // codifica la password usando una chiave univoca.
         if ($password == $db_password) {
             return true;
         }

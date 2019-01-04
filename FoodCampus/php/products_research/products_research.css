@@ -18,6 +18,11 @@ label {
 
 table {
     text-align: center;
+
+}
+
+table, td {
+    vertical-align: inherit !important;
 }
 
 .noresult {

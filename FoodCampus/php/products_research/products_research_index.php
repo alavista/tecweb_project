@@ -48,7 +48,6 @@
 												<th scope="col">Prezzo</th>
 												<th scope="col">Fornitore</th>
 												<th scope="col">Voto fornitore</th>
-												<th scope="col">N. recensioni</th>
 											</tr>
 										</thead>
 										<tbody>
