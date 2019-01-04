@@ -37,14 +37,64 @@ function getCategories($conn) {
     return $GLOBALS["response"];
 }
 
-function getProducts($conn, $category) {
-    if (!($stmt = $conn->prepare("SELECT p.nome as pnome, p.costo, c.nome as cnome, f.nome as fnome, AVG(r.valutazione) as valutazione_media, COUNT(r.IDRecensione) as nrec
+function getProductsSorting($sortQuery) {
+
+    switch ($sortQuery) {
+
+        case "Nome Prodotto (A-Z)":
+            return "ORDER BY p.nome ASC";
+        break;
+
+        case "Nome Prodotto (Z-A)":
+            return "ORDER BY p.nome DESC";
+        break;
+
+        case "Nome Fornitore (A-Z)":
+            return "ORDER BY f.nome ASC";
+        break;
+
+        case "Nome Fornitore (Z-A)":
+            return "ORDER BY f.nome DESC";
+        break;
+
+        case "Prezzo (crescente)":
+            return "ORDER BY p.costo ASC";
+        break;
+
+        case "Prezzo (decrescente)":
+            return "ORDER BY p.costo DESC";
+        break;
+
+        case "Voto Fornitore (crescente)":
+            return "ORDER BY valutazione_media ASC";
+        break;
+
+        case "Voto Fornitore (decrescente)":
+            return "ORDER BY valutazione_media DESC";
+        break;
+
+        default:
+            return "ORDER BY valutazione_media DESC";
+
+    }
+}
+
+function getProducts($conn, $category, $vegan, $celiac, $sorting) {
+
+    $sortingQuery = getProductsSorting($sorting);
+    $veganQuery = ($vegan === "true") ? "AND p.vegano = 1" : "";
+    $celiacQuery = ($celiac === "true") ? "AND p.celiaco = 1" : "";
+
+
+    if (!($stmt = $conn->prepare("SELECT p.nome as pnome, p.costo, c.nome as cnome, f.IDFornitore as IDFornitore, f.nome as fnome, AVG(r.valutazione) as valutazione_media, COUNT(r.IDRecensione) as nrec
                                     FROM categoria as c, prodotto as p, fornitore as f
                                     LEFT OUTER JOIN recensione r ON (r.IDFornitore = f.IDFornitore)
                                     WHERE c.IDCategoria = p.IDCategoria AND p.IDFornitore = f.IDFornitore
                                     AND c.nome = '$category'
+                                    $veganQuery
+                                    $celiacQuery
                                     GROUP BY f.IDFornitore, p.IDProdotto
-                                    ORDER BY valutazione_media  DESC"))) {
+                                    $sortingQuery"))) {
 
         $GLOBALS["response"]["status"] = "error";
         $GLOBALS["response"]["data"] = $conn->error;
@@ -86,8 +136,17 @@ if (isset($_POST["reqest"]) && !empty($_POST["reqest"])) {
         break;
 
         case "products":
-            if (isset($_POST["value"]) && !empty($_POST["value"])) {
-                print json_encode(getProducts($conn, $_POST["value"]));
+            if (isset($_POST["category"]) && !empty($_POST["category"])) {
+                if (!isset($_POST["vegan"]) || ($_POST["vegan"] !== "true" && $_POST["vegan"] !== "false")) {
+                    $GLOBALS["response"]["status"] = "error";
+                    $GLOBALS["response"]["data"] = "Error on vegan value";
+                    print json_encode($GLOBALS["response"]);
+                } else if (!isset($_POST["celiac"]) || ($_POST["celiac"] !== "true" && $_POST["celiac"] !== "false")) {
+                    $GLOBALS["response"]["status"] = "error";
+                    $GLOBALS["response"]["data"] = "Error on celiac value";
+                } else {
+                    print json_encode(getProducts($conn, $_POST["category"], $_POST["vegan"], $_POST["celiac"], $_POST["sort"]));
+                }
             } else {
                 $GLOBALS["response"]["status"] = "error";
                 $GLOBALS["response"]["data"] = "Error on product request";

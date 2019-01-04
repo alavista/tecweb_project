@@ -1,3 +1,18 @@
+<?php
+$isSupplier = false;
+if (isset($_COOKIE["user_email"])) {
+	$query="SELECT * FROM fornitore WHERE email = ?";
+	if ($stmt = $conn->prepare($query)) {
+		$stmt->bind_param("s", $_COOKIE["user_email"]);
+		if ($stmt->execute()) {
+			$stmt->store_result();
+			$isSupplier = ($stmt->num_rows > 0) ? true : false;
+		}
+	}
+} else if ((!empty($_SESSION["user_type"])) && $_SESSION["user_type"] == "Fornitore") {
+	$isSupplier = true;
+}
+?>
 <!DOCTYPE html>
 <html lang="it-IT">
 <head>
@@ -37,17 +52,38 @@
 						<div class="col">
 							<div id="categoryField">
 							</div>
-							<div id="resultsField">
-								<div class="container-fluid">
-									<h2 hidden>RISULTATI RICERCA</h2>
-									<table hidden class="table table-hover table-sm table-responsive-sm">
+							<div class="form-group form-check">
+								<input class="form-check-input" type="checkbox" id="vegan_checkbox" name="vegan_checkbox">
+								<label for="vegan_checkbox">Solo prodotti vegani</label>
+							</div>
+							<div class="form-group form-check">
+								<input class="form-check-input" type="checkbox" id="celiac_checkbox" name="celiac_checkbox">
+								<label for="celiac_checkbox">Solo prodotti per celiaci</label>
+							</div>
+							<div id="resultsField" class="container-fluid">
+								<h2 hidden>RISULTATI RICERCA</h2>
+								<div hidden class="form-group">
+									<label for="sort_selection">Ordina risultati per:</label>
+									<select class="form-control" id="sort_selection" name="sort_selection">
+										<option selected="selected">Voto Fornitore (decrescente)</option>
+										<option>Voto Fornitore (crescente)</option>
+										<option>Prezzo (decrescente)</option>
+										<option>Prezzo (crescente)</option>
+										<option>Nome Prodotto (A-Z)</option>
+										<option>Nome Prodotto (Z-A)</option>
+								        <option>Nome Fornitore (A-Z)</option>
+										<option>Nome Fornitore (Z-A)</option>
+									</select>
+								</div>
+								<div hidden id="result_content">
+									<table class="table table-hover table-sm table-responsive-sm">
 										<thead>
 											<tr>
 												<th scope="col">Prodotto</th>
-												<th scope="col">Categoria</th>
 												<th scope="col">Prezzo</th>
 												<th scope="col">Fornitore</th>
 												<th scope="col">Voto fornitore</th>
+												<th scope="col"<?php if ($isSupplier) {die("cacca");} else {}?>>Aggiungi al carrello</th>
 											</tr>
 										</thead>
 										<tbody>

@@ -21,7 +21,7 @@ table {
 
 }
 
-table, td {
+table, th, td {
     vertical-align: inherit !important;
 }
 
@@ -33,4 +33,11 @@ table, td {
 
 .category-btn {
     margin-bottom: 50px;
+}
+
+.btn-primary:focus{
+    background-color: rgb(0, 255, 0);
+    border-color:rgb(94, 79, 126);
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.075) inset, 0 0 8px rgba(114, 96, 153, 0.6);
+    outline: 0 none;
 }

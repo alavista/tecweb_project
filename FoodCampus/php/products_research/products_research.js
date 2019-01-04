@@ -1,33 +1,44 @@
-function searchProducts(category) {
-    $("#resultsField > div > h2").removeAttr("hidden");
-    $("#resultsField > div > h2~:not(table, table *)").remove();
-    $("table").hide();
+var sorting = "ORDER BY valutazione_media DESC";
+var currentCategory="";
+var sorting="";
 
-    $.post("products_research.php", {reqest:"products", value:category})
+function searchProducts(category) {
+
+    currentCategory = category;
+
+    $("#resultsField  h2, .form-group").removeAttr("hidden");
+    $(".noresult").remove();
+    $(".category_error").remove();
+    $("#result_content").hide();
+
+    $.post("products_research.php", {reqest:"products", category:category, vegan:$("#vegan_checkbox").is(':checked'), celiac:$("#celiac_checkbox").is(':checked'), sort:sorting})
         .done(function(data) {
+
             var products = JSON.parse(data);
 
             if (products.status.localeCompare("error") == 0) {
-                $("#categoryField").append("<div class='alert alert-danger' style='margin-top: 8px;text-align: center;'><strong>Errore: </strong>"
+                $("#categoryField").append("<div class='category_error alert alert-danger' style='margin-top: 8px;text-align: center;'><strong>Errore: </strong>"
                                                 +products.data+"</div>");
             } else if (products.status.localeCompare("ok") == 0) {
 
                 $("table").removeAttr("hidden");
+                $("#result_content").removeAttr("hidden");
 
                 if (products.data.length === 0) {
-                    $("#resultsField > div > :not(h2)").hide();
+                    $("#result_content").hide();
                     $("#resultsField > div").append("<div class='noresult'>Nessun prodotto trovato nella categoria " + category + "</div>");
                     $(".noresult").hide().fadeIn(250);
                 } else {
                     var html_code = "";
                     for(var i = 0; i < products.data.length; i++){
-                    	html_code += '<tr><td>'+products.data[i]["pnome"]+'</td><td>'+products.data[i]["cnome"]
-                                                            +'</td><td>'+"€ " + products.data[i]["costo"]+'</td><td>'+products.data[i]["fnome"]
-                                                            +"</td><td>"+((products.data[i]["valutazione_media"] === null) ? "/" : "<strong>"+products.data[i]["valutazione_media"]+"</strong><br/>"+" ("+products.data[i]["nrec"]+" voto/i)")
+                    	html_code += '<tr><td>'+products.data[i]["pnome"]
+                                                            +'</td><td>'+"€ " + products.data[i]["costo"]+'</td><td><a href=/tecweb_project/FoodCampus/php/suppliers/php/supplier.php?id='+products.data[i]["IDFornitore"]+'>'+products.data[i]["fnome"]
+                                                            +"</a></td><td>"+((products.data[i]["valutazione_media"] === null) ? "/" : "<strong>"+products.data[i]["valutazione_media"]+"</strong><br/>"+" ("+products.data[i]["nrec"]+" voto/i)")
+                                                            +"<td><button type='button' class='btn btn-deafult btn-kart'><i class='fas fa-cart-plus'></i></button>"
                                                             +'</td></tr>';
                     }
                     $("table tbody").html(html_code);
-                    $("#resultsField >  div :not(h2)").fadeIn(250);
+                    $("#result_content").fadeIn(250);
                 }
             }
         })
@@ -63,4 +74,13 @@ function loadCategories() {
 
 $(document).ready(function() {
     loadCategories();
+
+    $('#vegan_checkbox').on('change', function() {
+		searchProducts(currentCategory);
+	});
+
+    $('#celiac_checkbox').on('change', function() {
+		searchProducts(currentCategory);
+	});
+
 });
