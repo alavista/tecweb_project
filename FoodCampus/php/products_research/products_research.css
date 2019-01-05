@@ -2,14 +2,24 @@
     margin-top: 100px;
 }
 
-h1, h2 {
+#categoriesSection {
+    margin-bottom: 25px;
+}
+
+#resultsField {
+    padding: 0px;
+}
+
+h1 {
     color: #F83442;
-    margin-bottom: 50px;
+    margin-bottom: 35px;
     text-align: center;
 }
 
 h2 {
-    margin-bottom: 15px;
+    color: #F83442;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
 label {
@@ -17,6 +27,7 @@ label {
 }
 
 table {
+    margin-top: 30px;
     text-align: center;
 
 }
@@ -28,11 +39,12 @@ table, th, td {
 .noresult {
     text-align: center;
     font-weight: bold;
+    margin-top: 30px;
     font-size: 1.2rem;
 }
 
 .category-btn {
-    margin-bottom: 50px;
+    margin-bottom: 25px;
 }
 
 .changePlus {

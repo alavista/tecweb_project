@@ -1,6 +1,5 @@
-var sorting = "ORDER BY valutazione_media DESC";
+var sorting = "Voto Fornitore (decrescente)";
 var currentCategory="";
-var sorting="";
 
 function searchProducts(category) {
 
@@ -89,6 +88,11 @@ function loadCategories() {
 
 $(document).ready(function() {
     loadCategories();
+
+    $("#sort_selection").on('change', function() {
+        sorting = $(this).val();
+		searchProducts(currentCategory);
+	});
 
     $('#vegan_checkbox').on('change', function() {
 		searchProducts(currentCategory);
