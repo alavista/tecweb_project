@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					setcookie($GLOBALS["cookie_user_id"], $GLOBALS["user_id"], time() + (86400 * 365 * 5), "/"); // 5 years
 					setcookie($GLOBALS["cookie_user_email"], $_POST["email"], time() + (86400 * 365 * 5), "/"); // 5 years
 					setcookie($GLOBALS["cookie_user_password"], $password, time() + (86400 * 365 * 5), "/"); // 5 years
+					setcookie($GLOBALS["cookie_user_type"], $GLOBALS["user_type"], time() + (86400 * 365 * 5), "/"); // 5 years
 				}
 				if (isSessionForReview()) {
 					$idSupplier = $_SESSION["idSupplierForReview"];
