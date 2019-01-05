@@ -1,9 +1,6 @@
 $(function() {
     $(".products").hide();
 
-    //$("#newProductVegan_" + idProduct).is(":checked"));
-
-
     $(document).on("click", ".changeProduct", function() {
         var idProduct = getIdProduct($(this));
         $("#newProductCost_" + idProduct).val($("#productCost_" + idProduct).html());
@@ -33,7 +30,6 @@ $(function() {
                     celiac: celiac ? 1 : 0,
                     frozen: frozen ? 1 : 0
                 }, function(data, status) {
-                    console.log(data);
                     data = JSON.parse(data);
                     if (data.status.localeCompare("ERROR") == 0) {
                         managmentGeneralError(productError, data.inf);

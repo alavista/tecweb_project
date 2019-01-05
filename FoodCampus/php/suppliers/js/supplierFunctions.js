@@ -1,12 +1,13 @@
 const STANDARD_ERROR_MESSAGGE = "Questo campo è obbligatorio";
+const NOT_PRESENT = -1;
 
 function getId() {
     var cookieId = $.cookie("user_id");
     var sessionId = $.session.get("user_id");
-    var id = -1;
+    var id = NOT_PRESENT;
     if (cookieId) {
         idSupplier = cookieId;
-    } else if (sessionId) {
+    } else if (sessionId != NOT_PRESENT) {
         id = sessionId;
     }
     return id;

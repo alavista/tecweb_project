@@ -7,5 +7,4 @@ $(function() {
         data = JSON.parse(data);
         $.session.set("user_id", data);
     });
-
 });
