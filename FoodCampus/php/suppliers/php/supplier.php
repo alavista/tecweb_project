@@ -1,6 +1,12 @@
 <?php
     require_once '../../database.php';
     require_once "../../utilities/direct_login.php";
+
+    function redirectToPageNotFound($conn) {
+        header("Location: /tecweb_project/FoodCampus/php/pageNotFound.html");
+        $conn->close();
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -73,14 +79,12 @@
                             </section>
                             <?php
                         } else {
-                            header("Location: /tecweb_project/FoodCampus/php/pageNotFound.html");
-	                        $conn->close();
-                            exit();
+                            redirectToPageNotFound($conn);
                         }
                     }
                 }
             } else {
-                die("Supplier not found!");
+                redirectToPageNotFound($conn);
             }
             $conn->close();
             ?>
