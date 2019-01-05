@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 04, 2019 alle 19:59
+-- Creato il: Gen 05, 2019 alle 17:17
 -- Versione del server: 10.1.37-MariaDB
--- Versione PHP: 7.3.0
+-- Versione PHP: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -167,7 +167,7 @@ CREATE TABLE `ordine` (
 CREATE TABLE `prodotto` (
   `IDProdotto` int(11) NOT NULL,
   `nome` char(50) NOT NULL,
-  `costo` decimal(4,2) NOT NULL,
+  `costo` decimal(6,2) NOT NULL,
   `IDCategoria` int(11) NOT NULL,
   `IDFornitore` int(11) NOT NULL,
   `vegano` tinyint(1) NOT NULL,
