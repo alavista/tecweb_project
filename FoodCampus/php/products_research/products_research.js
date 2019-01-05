@@ -46,6 +46,10 @@ function searchProducts(category) {
                     }
 
                     $("#result_content").fadeIn(250);
+
+                    /*$("html, body").animate({
+                        scrollTop: $("table").offset().top
+                    }, 1000);*/
                 }
             }
         })

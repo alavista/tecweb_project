@@ -3,6 +3,10 @@
 }
 
 #categoriesSection {
+    margin-bottom: 15px;
+}
+
+#categoryField {
     margin-bottom: 25px;
 }
 
@@ -37,14 +41,14 @@ table, th, td {
 }
 
 .noresult {
-    text-align: center;
+    text-align: left;
     font-weight: bold;
     margin-top: 30px;
     font-size: 1.2rem;
 }
 
 .category-btn {
-    margin-bottom: 25px;
+    margin: 5px 5px 5px 5px;
 }
 
 .changePlus {
