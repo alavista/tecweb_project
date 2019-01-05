@@ -55,9 +55,16 @@ $(function() {
                         }
                         $("#mediasReviews").append(data.newReview);
                         loadStars();
+                        focusOnField($("#mediasReviews").last());
                     }
                 });
             }
         }
     });
 });
+
+function focusOnField(field) {
+    $("html, body").animate({
+        scrollTop: field.offset().top - 200
+    }, 750);
+}
