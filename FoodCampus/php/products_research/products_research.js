@@ -43,6 +43,7 @@ function searchProducts(category) {
                     if (products.isSupplier) {
                         $("span").popover({ trigger: "hover" }).data("I Fornitori non possono comprare");
                         $(".btn-kart").prop("disabled",true);
+                        $(".btn-kart").css("pointer-events", "none");
                     }
 
                     $("#result_content").fadeIn(250);
