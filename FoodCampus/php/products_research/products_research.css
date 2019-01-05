@@ -41,3 +41,11 @@ table, th, td {
     box-shadow: 0 1px 1px rgba(255, 255, 255, 0.075) inset, 0 0 8px rgba(114, 96, 153, 0.6);
     outline: 0 none;
 }
+
+.changePlus {
+    background-color: #3399ff;
+}
+
+.btn-kart {
+    background-color: #F83442;
+}

@@ -37,7 +37,14 @@ function searchProducts(category) {
                                                             +"<td><button type='button' class='btn btn-deafult btn-kart'><i class='fas fa-cart-plus'></i></button>"
                                                             +'</td></tr>';
                     }
+
                     $("table tbody").html(html_code);
+
+                    if (products.isSupplier) {
+                        $(".btn-kart").popover({ trigger: "hover" }).data("I Fornitori non possono comprare");
+                        $(".btn-kart").prop("disabled",true);
+                    }
+
                     $("#result_content").fadeIn(250);
                 }
             }

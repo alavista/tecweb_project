@@ -1,18 +1,3 @@
-<?php
-$isSupplier = false;
-if (isset($_COOKIE["user_email"])) {
-	$query="SELECT * FROM fornitore WHERE email = ?";
-	if ($stmt = $conn->prepare($query)) {
-		$stmt->bind_param("s", $_COOKIE["user_email"]);
-		if ($stmt->execute()) {
-			$stmt->store_result();
-			$isSupplier = ($stmt->num_rows > 0) ? true : false;
-		}
-	}
-} else if ((!empty($_SESSION["user_type"])) && $_SESSION["user_type"] == "Fornitore") {
-	$isSupplier = true;
-}
-?>
 <!DOCTYPE html>
 <html lang="it-IT">
 <head>
@@ -83,7 +68,7 @@ if (isset($_COOKIE["user_email"])) {
 												<th scope="col">Prezzo</th>
 												<th scope="col">Fornitore</th>
 												<th scope="col">Voto fornitore</th>
-												<th scope="col"<?php if ($isSupplier) {die("cacca");} else {}?>>Aggiungi al carrello</th>
+												<th scope="col">Aggiungi al carrello</th>
 											</tr>
 										</thead>
 										<tbody>

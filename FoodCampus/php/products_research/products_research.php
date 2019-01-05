@@ -2,7 +2,7 @@
 require_once "../database.php";
 require_once "../utilities/direct_login.php";
 
-$GLOBALS["response"] = array("status" => "", "data" => "");
+$GLOBALS["response"] = array("status" => "", "data" => "", "isSupplier" => "false");
 
 function getCategories($conn) {
     if (!($stmt = $conn->prepare("SELECT nome FROM categoria ORDER BY IDCategoria"))) {
@@ -122,8 +122,23 @@ function getProducts($conn, $category, $vegan, $celiac, $sorting) {
 
 	$stmt->close();
 
+    $isSupplier = false;
+    if (isset($_COOKIE["user_email"])) {
+        $query="SELECT * FROM fornitore WHERE email = ?";
+        if ($stmt = $conn->prepare($query)) {
+            $stmt->bind_param("s", $_COOKIE["user_email"]);
+            if ($stmt->execute()) {
+                $stmt->store_result();
+                $isSupplier = ($stmt->num_rows > 0) ? true : false;
+            }
+        }
+    } else if ((!empty($_SESSION["user_type"])) && $_SESSION["user_type"] == "Fornitore") {
+        $isSupplier = true;
+    }
+
     $GLOBALS["response"]["status"] = "ok";
     $GLOBALS["response"]["data"] = $output;
+    $GLOBALS["response"]["isSupplier"] = $isSupplier;
 
     return $GLOBALS["response"];
 }
