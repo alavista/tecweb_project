@@ -34,14 +34,14 @@ function searchProducts(category) {
                     	html_code += '<tr><td>'+products.data[i]["pnome"]
                                                             +'</td><td>'+"€ " + products.data[i]["costo"]+'</td><td><a href=/tecweb_project/FoodCampus/php/suppliers/php/supplier.php?id='+products.data[i]["IDFornitore"]+'>'+products.data[i]["fnome"]
                                                             +"</a></td><td>"+((products.data[i]["valutazione_media"] === null) ? "/" : "<strong>"+products.data[i]["valutazione_media"]+"</strong><br/>"+" ("+products.data[i]["nrec"]+" voto/i)")
-                                                            +"<td><button type='button' class='btn btn-deafult btn-kart'><i class='fas fa-cart-plus'></i></button>"
+                                                            +"<td><span data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' class='btn btn-deafult btn-kart'><i class='fas fa-cart-plus'></i></button></span>"
                                                             +'</td></tr>';
                     }
 
                     $("table tbody").html(html_code);
 
                     if (products.isSupplier) {
-                        $(".btn-kart").popover({ trigger: "hover" }).data("I Fornitori non possono comprare");
+                        $("span").popover({ trigger: "hover" }).data("I Fornitori non possono comprare");
                         $(".btn-kart").prop("disabled",true);
                     }
 
@@ -71,6 +71,13 @@ function loadCategories() {
                         searchProducts($("#" + categories.data[i].nome).text());
                     });
                 });
+
+                $(".category-btn").focus(function() {
+                    $(".category-btn").removeClass("btn-danger");
+                    $(".category-btn").addClass("btn-primary");
+                    $(this).removeClass("btn-primary");
+                    $(this).addClass("btn-danger");
+            	});
             }
         })
         .fail(function(xhr, textStatus, errorThrown) {
