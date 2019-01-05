@@ -55,7 +55,7 @@ $(function() {
                         }
                         $("#mediasReviews").append(data.newReview);
                         loadStars();
-                        focusOnField($("#mediasReviews").last());
+                        focusOnField($(".media").last());
                     }
                 });
             }
