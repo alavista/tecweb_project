@@ -14,12 +14,12 @@
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
          <!--Font awesome-->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-         <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/navbar.css">
+         <link rel="stylesheet" type="text/css" title="stylesheet" href="navbar/navbar.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/home.css">
     </head>
     <body>
           <div class="container-fluid">
-              <?php require_once 'navbar.php';?>
+              <?php require_once 'navbar/navbar.php';?>
               <div class = "text-center" id = "siteTitle">
                   <h1>FOOD CAMPUS</h1>
               </div>

@@ -18,3 +18,13 @@
         transform: translateX(-50%);
     }
 }
+
+#notification, #kart {
+    font-size: 20px;
+}
+
+@media (max-width: 1200px) {
+    #notification, #kart {
+        margin-left: 6px;
+    }
+}
