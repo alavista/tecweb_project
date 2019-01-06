@@ -18,3 +18,7 @@
         transform: translateX(-50%);
     }
 }
+
+#notification, #kart {
+    font-size: 20px;
+}

@@ -17,11 +17,11 @@
 
 	<script src="suppliers_research.js"></script>
 
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="../../css/navbar.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="../navbar/navbar.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="suppliers_research.css">
 </head>
 <body>
-	<?php require_once '../navbar.php';?>
+	<?php require_once '../navbar/navbar.php';?>
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-lg-6">

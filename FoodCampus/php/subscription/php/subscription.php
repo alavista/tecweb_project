@@ -320,12 +320,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	<script src="../../../js/utilities/sha512.js"></script>
 	<script src="../../../js/utilities/form_password_encoder.js"></script>
 
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/css/navbar.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/php/navbar/navbar.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/php/subscription/css/subscription.css">
 </head>
 
 <body>
-	<?php require_once '../../navbar.php';?>
+	<?php require_once '../../navbar/navbar.php';?>
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-xl-6 jumbotron" id="loginform">

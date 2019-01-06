@@ -50,7 +50,7 @@
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
          <!--CSS-->
-         <link rel="stylesheet" type="text/css" title="stylesheet" href="../../../css/navbar.css">
+         <link rel="stylesheet" type="text/css" title="stylesheet" href="../../navbar/navbar.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/supplier.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/starReview.css">
     </head>
@@ -65,7 +65,7 @@
                     if ($stmt->execute()) {
                         $res = $stmt->get_result();
                         if ($res->num_rows == 1) {
-                            require_once '../../navbar.php';
+                            require_once '../../navbar/navbar.php';
                             require_once 'notehead.php';
                             ?>
                             <section>
