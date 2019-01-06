@@ -88,7 +88,7 @@ function getProducts($conn, $category, $vegan, $celiac, $sorting) {
 
     if (!($stmt = $conn->prepare("SELECT p.nome as pnome, p.costo, c.nome as cnome, f.IDFornitore as IDFornitore, f.nome as fnome, AVG(r.valutazione) as valutazione_media, COUNT(r.IDRecensione) as nrec
                                     FROM categoria as c, prodotto as p, fornitore as f
-                                    LEFT OUTER JOIN recensione r ON (r.IDFornitore = f.IDFornitore)
+                                    RIGHT OUTER JOIN recensione r ON (r.IDFornitore = f.IDFornitore)
                                     WHERE c.IDCategoria = p.IDCategoria AND p.IDFornitore = f.IDFornitore
                                     AND c.nome = '$category'
                                     $veganQuery
@@ -144,8 +144,8 @@ function getProducts($conn, $category, $vegan, $celiac, $sorting) {
 }
 
 
-if (isset($_POST["reqest"]) && !empty($_POST["reqest"])) {
-    switch ($_POST["reqest"]) {
+if (isset($_POST["request"]) && !empty($_POST["request"])) {
+    switch ($_POST["request"]) {
         case "categories":
             print json_encode(getCategories($conn));
         break;
@@ -159,6 +159,7 @@ if (isset($_POST["reqest"]) && !empty($_POST["reqest"])) {
                 } else if (!isset($_POST["celiac"]) || ($_POST["celiac"] !== "true" && $_POST["celiac"] !== "false")) {
                     $GLOBALS["response"]["status"] = "error";
                     $GLOBALS["response"]["data"] = "Error on celiac value";
+                    print json_encode($GLOBALS["response"]);
                 } else {
                     print json_encode(getProducts($conn, $_POST["category"], $_POST["vegan"], $_POST["celiac"], $_POST["sort"]));
                 }
