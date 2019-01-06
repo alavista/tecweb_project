@@ -1,41 +1,29 @@
 $(document).ready(function(){
 
-    var url = window.location.href;
-    if(url.search("manage-database") != -1) {
-        $("#managerDB a").addClass("active");
-    } else {
-        if(url.search("enable-supplier") != -1) {
-            $("#enableSupplier a").addClass("active");
-        } else {
-            if(url.search("blocked-supplier") != -1) {
-                $("#blockedSupplier a").addClass("active");
-            } else {
-                if(url.search("blocked-customer") != -1) {
-                    $("#blockedCustomer a").addClass("active");
-                }
-            }   
-        }
-    }
-
 	$(".table-request-button").click(function(){
         $(".table-request-button").removeClass("active");
         $(this).addClass("active");
-        console.log("db-table-request.php?table=" + $(this).val());
-        ajaxGetRequestTable("result", "db-table-request.php?table=" + $(this).val());
+        $("#result").empty();
+        $("#result-op").empty();
+        ajaxGetRequestTable("result", "php/db-table-request.php?table=" + $(this).val());
 	});
 
-	$(".enable-button").click(function(){
-		ajaxGetRequestAdminOperation("result", "enable-request.php?supplier=" + $(this).val(), $(this).val());
+	$(".enable-supplier-button").click(function(){
+		ajaxGetRequestAdminOperation("result", "php/enable-supplier-request.php?supplier=" + $(this).val(), $(this).val());
 	});
 
 	$(".unlock-customer-button").click(function(){
-		ajaxGetRequestAdminOperation("result", "unlock-customer-request.php?customer=" + $(this).val(), $(this).val());
+		ajaxGetRequestAdminOperation("result", "php/unlock-customer-request.php?customer=" + $(this).val(), $(this).val());
 	});
 
     $(".unlock-supplier-button").click(function(){
-        ajaxGetRequestAdminOperation("result", "unlock-supplier-request.php?supplier=" + $(this).val(), $(this).val());
+        ajaxGetRequestAdminOperation("result", "php/unlock-supplier-request.php?supplier=" + $(this).val(), $(this).val());
     });
 
+});
+
+$(document).on("click", ".delete-row-button", function() {
+    ajaxGetRequestAdminOperation("result-op", "php/delete-table-row.php?table=" + $(".btn-group-vertical > .active").val() + "&id=" + $(this).val(), $(this).val());  
 });
 
 function ajaxGetRequestTable(elementName, url) {
@@ -48,7 +36,8 @@ function ajaxGetRequestTable(elementName, url) {
     }
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById(elementName).innerHTML = this.responseText;
+            $("#result").append(this.responseText);
+            //document.getElementById(elementName).innerHTML = this.responseText;
         }
     };
     xmlhttp.open("GET", url, true);

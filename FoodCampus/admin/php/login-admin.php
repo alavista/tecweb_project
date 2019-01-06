@@ -9,10 +9,9 @@
 			if($admin == ADMIN && $pwd == ADMIN_PASSWORD) {
 				session_start();
 				$_SESSION["admin"] = "OK";
-				header("Location: manage-database.php");
+				header("Location: ../manage-database.php");
 			} else {
-
-				header("Location: index.html");
+				header("Location: ../index.php");
 			}
 		}
 	}
