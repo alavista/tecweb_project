@@ -3,15 +3,48 @@ $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 require_once "$root/tecweb_project/FoodCampus/php/database.php";
 require_once "$root/tecweb_project/FoodCampus/php/utilities/direct_login.php";
 
+function computeNumberNotification($conn, $field, $userId) {
+    $query = "SELECT COUNT(*) as notificationNumber FROM notifica WHERE $field = ? AND visualizzata = ?";
+    if ($stmt = $conn->prepare($query)) {
+        $notificationDisplayes = false;
+        $stmt->bind_param("ii", $userId, $notificationDisplayes);
+        if ($stmt->execute()) {
+            $res = $stmt->get_result();
+            if ($res->num_rows > 0) {
+                return $res->fetch_assoc()["notificationNumber"];
+            }
+        }
+    }
+    return -1;
+}
+
+$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$_SESSION["page"] = $actual_link;
+
 $loggedInUser = isUserLogged($conn);
 $supplier = false;
 if ($loggedInUser) {
     if (!empty($_SESSION["user_id"]) && !empty($_SESSION["user_type"])) {
         $supplier = $_SESSION["user_type"] == "Fornitore" ? true : false;
-        $id = $_SESSION["user_id"];
+        $userId = $_SESSION["user_id"];
     } else if (isset($_COOKIE["user_id"]) && isset($_COOKIE["user_type"])) {
         $supplier = strcmp($_COOKIE["user_type"], "Fornitore") == 0 ? true : false;
-        $id = $_COOKIE["user_id"];
+        $userId = $_COOKIE["user_id"];
+    }
+    if (!$supplier) {
+        $query = "SELECT COUNT(*) as productsNumber FROM prodotto_in_carrello WHERE IDCliente = ?";
+        if ($stmt = $conn->prepare($query)) {
+            $stmt->bind_param("i", $userId);
+            if ($stmt->execute()) {
+                $res = $stmt->get_result();
+                if ($res->num_rows > 0) {
+                    $productsNumber = $res->fetch_assoc()["productsNumber"];
+                    $notificationNumber = computeNumberNotification($conn, 'IDCliente', $userId);
+                }
+            }
+        }
+    } else {
+        $notificationNumber = computeNumberNotification($conn, 'IDFornitore', $userId);
     }
 }
 ?>
@@ -28,14 +61,14 @@ if ($loggedInUser) {
             <?php
             if ($loggedInUser) {
                 ?>
-                <li class="nav-item"><a class="nav-link" href=<?php if ($supplier) { echo "/tecweb_project/FoodCampus/php/suppliers/php/supplier.php?id=".$id; } else {} ?>>Profilo</a></li>
+                <li class="nav-item"><a class="nav-link" href=<?php if ($supplier) { echo "/tecweb_project/FoodCampus/php/suppliers/php/supplier.php?id=".$userId; } else {} ?>>Profilo</a></li>
                 <?php
             }
             ?>
             <li class="nav-item"><a class="nav-link" href="<?php if (!$loggedInUser) { echo '/tecweb_project/FoodCampus/php/login/login.php'; } else { echo '/tecweb_project/FoodCampus/php/logout.php'; } ?>"><?php if (!$loggedInUser) { echo "Login"; } else { echo "Logout"; } ?></a></li>
             <?php
-            if (!$supplier) {
-                echo "<li class='nav-item'><span class='badge badge-light'>0</span><a id='notification' class='nav-link fas fa-bell' href='#'></a></li>";
+            if ($loggedInUser && !$supplier) {
+                echo "<li class='nav-item'><span class='badge badge-light'>$notificationNumber</span><a id='notification' class='nav-link fas fa-bell' href='#'></a></li>";
             }
             ?>
         </ul>
@@ -48,19 +81,17 @@ if ($loggedInUser) {
             </div>
         </div>
     </form>
-    <?php
-    if ($supplier) {
-        ?>
-        <ul class="navbar-nav">
-            <li class="nav-item"><span class="badge badge-light">0</span><a id="notification" class="nav-link fas fa-bell" href="#"></a></li>
-        </ul>
+    <ul class="navbar-nav">
         <?php
-    } else {
+        if ($loggedInUser && !$supplier) {
+            $value = $productsNumber;
+        } else if($loggedInUser && $supplier) {
+            $value = $notificationNumber;
+        } else {
+            $value = 0;
+            //value = impostare il numero di prodotti quando l utente non e loggato
+        }
         ?>
-        <ul class="navbar-nav">
-            <li class="nav-item"><span class="badge badge-light">0</span><a id="kart" class="nav-link fas fa-shopping-cart" href="#"></a></li>
-        </ul>
-        <?php
-    }
-    ?>
+        <li class="nav-item"><span class="badge badge-light"><?php echo $value;?></span><a id=<?php echo $supplier ? "notification" : "kart";?> class="nav-link <?php echo $supplier ? 'fas fa-bell' : 'fas fa-shopping-cart'?>" href="#"></a></li>
+    </ul>
 </nav>
