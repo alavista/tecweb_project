@@ -2,11 +2,57 @@
     margin-top: 100px;
 }
 
-h1{
+#filterSection {
+    margin-bottom: 15px;
+}
+
+#filterField {
+    margin-bottom: 25px;
+}
+
+#resultsField, #modalForm {
+    padding: 0px;
+}
+
+#result_content a {
+    font-weight: bold;
+    font-size: 1.75rem;
+}
+
+h1 {
     color: #F83442;
+    margin-bottom: 35px;
     text-align: center;
+}
+
+h2 {
+    color: #F83442;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
 label {
     font-weight: bold;
+}
+
+.noresult {
+    text-align: left;
+    font-weight: bold;
+    margin-top: 30px;
+    font-size: 1.2rem;
+}
+
+.rating-stars .star:first-child{
+    margin-left: 0px;
+}
+
+.zoom {
+  transition: transform 1s;
+}
+
+.zoom:hover {
+  -ms-transform: scale(1.1); /* IE 9 */
+  -webkit-transform: scale(1.1); /* Safari 3-8 */
+  transform: scale(1.1);
+  margin: 1.8%;
 }
