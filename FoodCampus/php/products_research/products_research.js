@@ -10,7 +10,7 @@ function searchProducts(category) {
     $(".category_error").remove();
     $("#result_content").hide();
 
-    $.post("products_research.php", {reqest:"products", category:category, vegan:$("#vegan_checkbox").is(':checked'), celiac:$("#celiac_checkbox").is(':checked'), sort:sorting})
+    $.post("products_research.php", {request:"products", category:category, vegan:$("#vegan_checkbox").is(':checked'), celiac:$("#celiac_checkbox").is(':checked'), sort:sorting})
         .done(function(data) {
 
             var products = JSON.parse(data);
@@ -60,8 +60,9 @@ function searchProducts(category) {
 }
 
 function loadCategories() {
-    $.post("products_research.php", {reqest:"categories"})
+    $.post("products_research.php", {request:"categories"})
         .done(function(data) {
+
             var categories = JSON.parse(data);
 
             if (categories.status.localeCompare("error") == 0) {
