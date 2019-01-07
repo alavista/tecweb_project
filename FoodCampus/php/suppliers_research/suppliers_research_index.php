@@ -18,7 +18,7 @@
 	<script src="suppliers_research.js"></script>
 	<script src="../suppliers/js/supplierFunctions.js"></script>
 
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="../../css/navbar.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="../navbar/navbar.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../suppliers/css/starReview.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="suppliers_research.css">
 </head>
