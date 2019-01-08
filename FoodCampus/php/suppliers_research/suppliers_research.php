@@ -31,19 +31,37 @@ function getSorting($sortQuery) {
 function getSuppliers($conn, $category, $vegan, $celiac, $sorting) {
 
     $sortingQuery = getSorting($sorting);
-    $veganQuery = ($vegan === "true") ? "AND p.vegano = 1" : "";
-    $celiacQuery = ($celiac === "true") ? "AND p.celiaco = 1" : "";
+    $veganQuery = ($vegan === "true") ? "HAVING SUM(p.vegano > 0)" : "";
+    $celiacQuery = ($celiac === "true") ? ($vegan === "true") ? " AND SUM(p.celiaco > 0)" : "HAVING SUM(p.celiaco > 0)" : "";
 
+    $categoryQuery = "";
+    $noCategoryQuery = "";
+    if ($category !== "none") {
+        if (count($category) > 0) {
+            $categoryQuery = ($celiac === "true" || $vegan === "true") ? "AND " : "HAVING ";
+            $categoryQuery .= "(";
+            foreach ($category as &$value) {
+                $categoryQuery .= "SUM(CASE WHEN c.nome='".$value."' then 1 else 0 end) OR ";
+            }
+            $categoryQuery = substr($categoryQuery, 0, -4);
+            $categoryQuery .= ")";
+        }
+    } else {
+        $noCategoryQuery = "AND c.nome in ('')";
+    }
 
-    if (!($stmt = $conn->prepare("SELECT f.IDFornitore, f.nome as fnome, f.immagine as fimmagine, AVG(r.valutazione) as valutazione_media, COUNT(DISTINCT r.IDRecensione) as nrec
+    $query = "SELECT f.IDFornitore, f.nome as fnome, f.immagine as fimmagine, AVG(r.valutazione) as valutazione_media, COUNT(DISTINCT r.IDRecensione) as nrec
                                     FROM categoria as c, prodotto as p, fornitore as f
-                                    RIGHT OUTER JOIN recensione r ON (r.IDFornitore = f.IDFornitore)
+                                    LEFT OUTER JOIN recensione r ON (r.IDFornitore = f.IDFornitore)
                                     WHERE c.IDCategoria = p.IDCategoria AND p.IDFornitore = f.IDFornitore
-
+                                    $noCategoryQuery
+                                    GROUP BY f.IDFornitore
                                     $veganQuery
                                     $celiacQuery
-                                    GROUP BY f.IDFornitore
-                                    $sortingQuery"))) {
+                                    $categoryQuery
+                                    $sortingQuery";
+
+    if (!($stmt = $conn->prepare($query))) {
 
         $GLOBALS["response"]["status"] = "error";
         $GLOBALS["response"]["data"] = $conn->error;
@@ -90,7 +108,7 @@ function getSuppliers($conn, $category, $vegan, $celiac, $sorting) {
 if (isset($_POST["request"]) && !empty($_POST["request"])) {
 	switch ($_POST["request"]) {
         case "suppliers":
-			if (!isset($_POST["category"]) || empty($_POST["category"])) {
+			if (!isset($_POST["category"])) {
 				$GLOBALS["response"]["status"] = "error";
 				$GLOBALS["response"]["data"] = "Error on category value";
 				print json_encode($GLOBALS["response"]);
