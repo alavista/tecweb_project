@@ -5,7 +5,9 @@
     echo $_SESSION["page"];
     $actual_link = !empty($_SESSION["page"]) ? $_SESSION["page"] : "http://localhost/tecweb_project/FoodCampus/php/home.php";
 
-    sec_session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        sec_session_start();
+    }
     // Elimina tutti i valori della sessione.
     $_SESSION = array();
     // Recupera i parametri di sessione.
