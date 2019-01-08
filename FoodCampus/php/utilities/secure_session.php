@@ -40,6 +40,7 @@ function login_check($mysqli) {
 
            if ($bannato === 1) {
                $GLOBALS["sqlError"] = "Questo utente è stato bloccato, impossibile accedere.";
+               $_SESSION["page"] = "http://localhost/tecweb_project/FoodCampus/php/login/login.php";
                $root = realpath($_SERVER["DOCUMENT_ROOT"]);
                require_once "$root/tecweb_project/FoodCampus/php/logout.php";
                return false;
