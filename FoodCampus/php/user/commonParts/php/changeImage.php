@@ -10,7 +10,7 @@
         $table = "";
         if (isset($_COOKIE["user_id"]) && isset($_COOKIE["user_type"])) {
             $userId = $_COOKIE["user_id"];
-            $table = $_COOKIE["user_type"];
+            $table = $_COOKIE["user_type"] == "Fornitore" ? "fornitore" : "cliente";
         } else if (!empty($_SESSION["user_id"]) && !empty($_SESSION["user_type"])) {
             $userId = $_SESSION["user_id"];
             $table = $_SESSION["user_type"] == "Fornitore" ? "fornitore" : "cliente";
