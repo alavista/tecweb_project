@@ -28,9 +28,10 @@ function checkUserBeforeCookieLogin($conn, $query, $email, $password) {
    $stmt->fetch();
 
    if (isset($blocked) && $blocked !== 0) {
-       $GLOBALS["sqlError"] = "Questo utente è stato bloccato, impossibile accedere.";
+       $GLOBALS["user_banned"] = true;
        return false;
    }
+   $GLOBALS["user_banned"] = false;
 
     if ($stmt->num_rows > 0) {
         //$password = hash('sha512', $password.$salt); // codifica la password usando una chiave univoca.
@@ -51,7 +52,7 @@ function isCookieDirectLogin($email, $password, $conn) {
 
     if (checkUserBeforeCookieLogin($conn, $query, $email, $password)) {
         return true;
-    } else if (strlen($GLOBALS["sqlError"]) === 0) {
+    } else if ($GLOBALS["user_banned"] === false && $GLOBALS["sqlError"] === "") {
 
         $query = "SELECT IDFornitore, password, salt, bloccato FROM fornitore WHERE email = ?";
 
@@ -68,7 +69,7 @@ function isUserLogged($conn) {
     if (isset($_COOKIE[$GLOBALS["cookie_user_email"]]) && isset($_COOKIE[$GLOBALS["cookie_user_email"]])) {
         if (isCookieDirectLogin($_COOKIE[$GLOBALS["cookie_user_email"]], $_COOKIE[$GLOBALS["cookie_user_password"]], $conn)) {
             return true;
-        } else if (strlen($GLOBALS["sqlError"]) !== 0) {
+        } else if ($GLOBALS["sqlError"] !== "") {
             //Sql error
             return false;
         }

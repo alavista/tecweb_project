@@ -149,6 +149,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						if(strlen($GLOBALS["sqlWarning"]) !== 0) {
 							echo("<div class='alert alert-warning' style='margin-top: 8px;'>".$GLOBALS["sqlWarning"]."</div>");
 						}
+						if ($GLOBALS["user_banned"]) {
+							echo("<div class='alert alert-danger' style='margin-top: 8px;'>Questo utente è stato bannato, impossibile accedere</div>");
+						}
 					?>
 				</form>
 				<br/>
