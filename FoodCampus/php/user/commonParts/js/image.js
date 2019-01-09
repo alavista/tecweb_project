@@ -27,11 +27,7 @@ $(function() {
                 } else if (response.status.localeCompare("OK") == 0) {
                     $("#image").attr("src", isClient ? "../../../res/clients/" + response.inf : "../../../../res/suppliers/" + response.inf);
                     removeError(newImage);
-                    if (isClient) {
-                        $("#newUserImage").hide("slow");
-                    } else {
-                        switchFromDivToDiv("newUserImage", "userImage");
-                    }
+                    $("#newUserImage").hide("slow");
                 }
             },
         });
