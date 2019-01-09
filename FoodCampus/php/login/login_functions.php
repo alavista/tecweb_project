@@ -1,7 +1,7 @@
 <?php
 
 require_once "../utilities/create_session.php";
-require_once "../suppliers/php/reviewFunction.php";
+require_once "../user/suppliers/php/reviewFunction.php";
 
 $GLOBALS["user_id"] = "";
 $GLOBALS["password"] = "";

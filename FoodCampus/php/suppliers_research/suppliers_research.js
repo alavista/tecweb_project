@@ -56,7 +56,7 @@ function loadSuppliers() {
                 } else {
                     var html_code = "";
                     for(var i = 0; i < suppliers.data.length; i++) {
-                    	html_code += "<div style='margin-bottom: 35px'><a href=/tecweb_project/FoodCampus/php/suppliers/php/supplier.php?id="
+                    	html_code += "<div style='margin-bottom: 35px'><a href=/tecweb_project/FoodCampus/php/user/suppliers/php/supplier.php?id="
                         + suppliers.data[i]["IDFornitore"] + ">"
                         + suppliers.data[i]["fnome"]
                         + "<img id='image" + i + "' class='zoom img-fluid img-thumbnail img-responsive' alt='' src='../../res/suppliers/" + (suppliers.data[i]["fimmagine"] != null ? suppliers.data[i]["fimmagine"] : 'default.jpg') + "'>" + "</a>"

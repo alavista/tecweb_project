@@ -16,10 +16,10 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
 	<script src="suppliers_research.js"></script>
-	<script src="../suppliers/js/supplierFunctions.js"></script>
+	<script src="../user/suppliers/js/supplierFunctions.js"></script>
 
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../navbar/navbar.css">
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="../suppliers/css/starReview.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="../user/suppliers/css/starReview.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="suppliers_research.css">
 </head>
 <body>
