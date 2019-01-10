@@ -22,7 +22,6 @@
             setcookie($name, '', time() - (86400 * 365 * 5), '/');
         }
     }
-
     // Cancella la sessione.
     session_destroy();
     header("Location: $actual_link");
