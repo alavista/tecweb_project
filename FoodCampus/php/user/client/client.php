@@ -26,9 +26,6 @@ function redirectToPageNotFound($conn) {
          <script src="../../../jquery/jquery.cookie.js"></script>
          <!-- Plugin JQuery for sessions-->
          <script src="../../../jquery/jquery.session.js"></script>
-         <!-- Plugin JQuery for alert-->
-         <script src="../../../jquery/jquery-confirm.min.js" type="text/javascript"></script>
-         <link rel="stylesheet" type="text/css" title="stylesheet" href="../../../css/jquery-confirm.min.css">
          <!--JavaScript-->
          <script src="../commonParts/js/user.js" type="text/javascript"></script>
          <script src="../commonParts/js/userFunctions.js" type="text/javascript"></script>
@@ -46,6 +43,7 @@ function redirectToPageNotFound($conn) {
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../../../css/utilities.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../commonParts/css/user.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="client.css">
+         <link rel="stylesheet" type="text/css" title="stylesheet" href="../../footer/footer.css">
     </head>
     <body>
         <div class="container">
@@ -146,9 +144,6 @@ function redirectToPageNotFound($conn) {
                                 </div>
                             </form>
                             </div>
-
-
-
                             <?php
                         }
                     }
@@ -158,5 +153,6 @@ function redirectToPageNotFound($conn) {
             }
             ?>
         </div>
+        <?php require_once "../../footer/footer.html"; ?>
     </body>
 </html>

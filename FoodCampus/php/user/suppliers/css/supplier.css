@@ -64,7 +64,3 @@
 #mediasReviews .media:not(:first-child) {
     margin-top: 15px;
 }
-
-#mediasReviews .media:last-child {
-    margin-bottom: 20px;
-}
