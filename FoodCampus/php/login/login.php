@@ -20,7 +20,7 @@ if (isSessionForReview()) {
 
 //Redirect to supplier page
 function redirectToSupplier($conn, $idSupplier) {
-	header("Location: /tecweb_project/FoodCampus/php/suppliers/php/supplier.php?id=".$idSupplier);
+	header("Location: /tecweb_project/FoodCampus/php/user/suppliers/php/supplier.php?id=".$idSupplier);
 	mysqli_close($conn);
 	exit();
 }
@@ -148,6 +148,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						}
 						if(strlen($GLOBALS["sqlWarning"]) !== 0) {
 							echo("<div class='alert alert-warning' style='margin-top: 8px;'>".$GLOBALS["sqlWarning"]."</div>");
+						}
+						if ($GLOBALS["user_banned"]) {
+							echo("<div class='alert alert-danger' style='margin-top: 8px;'>Questo utente è stato bannato, impossibile accedere</div>");
 						}
 					?>
 				</form>

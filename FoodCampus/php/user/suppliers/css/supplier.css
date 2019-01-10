@@ -1,0 +1,70 @@
+
+#numberReview {
+    font-size: 25px;
+}
+
+.validation {
+    font-size: 20px;
+}
+
+.container .jumbotron {
+    margin-top: 2%;
+}
+
+.btn-kart {
+    background-color: #F83442;
+}
+
+.addNewProduct {
+    background-color: #00cc66;
+    margin-bottom: 20px;
+}
+
+.btn-kart:hover {
+    background-color: #cc0000;
+}
+
+.addNewProduct:hover {
+    background-color: #00994d;
+}
+
+@media screen and (max-width: 576px) {
+    .container .jumbotron .row .col-sm-7 .btn {
+        margin-bottom: 14px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .deleteProduct {
+        margin-top: 15px;
+    }
+}
+
+#changeImage, #newSupplierImage {
+    margin-top: 8px;
+}
+
+.container .jumbotron .product {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.container .form-group .btn {
+    margin-top: 10px;
+}
+
+#addTitleReview {
+    margin-top: 3px;
+}
+
+#imageClient {
+    width: 60px;
+}
+
+#mediasReviews .media:not(:first-child) {
+    margin-top: 15px;
+}
+
+#mediasReviews .media:last-child {
+    margin-bottom: 20px;
+}

@@ -1,0 +1,33 @@
+.change, .changePlus {
+    width: 230px;
+}
+
+.changePlus {
+    background-color: #3399ff;
+}
+
+.changePlus:hover {
+    background-color: #007acc;
+}
+
+.notVisible {
+    display: none;
+}
+
+@media screen and (max-width: 490px) {
+    .cancelButton {
+        margin-top: 5px;
+    }
+}
+
+@media screen and (max-width: 541px) {
+    .cancelButton {
+        margin-top: 5px;
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px){
+    .cancelButton {
+        margin-top: 5px;
+    }
+}

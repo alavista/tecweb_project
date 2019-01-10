@@ -1,7 +1,7 @@
 <?php
 
 require_once "../utilities/create_session.php";
-require_once "../suppliers/php/reviewFunction.php";
+require_once "../user/suppliers/php/reviewFunction.php";
 
 $GLOBALS["user_id"] = "";
 $GLOBALS["password"] = "";
@@ -96,10 +96,10 @@ function isUserValid($mysqli, $email, $password, $query) {
 		if($stmt->num_rows == 1) {
 
             if ($blocked !== 0) {
-                $GLOBALS["sqlError"] = "Questo utente è stato bloccato, impossibile accedere.";
+                $GLOBALS["user_banned"] = true;
                 return false;
             }
-
+			$GLOBALS["user_banned"] = false;
 			return true;
 
         } else {
@@ -119,12 +119,12 @@ function login($mysqli, $email, $password, &$emailError) {
 
     if (!isUserValid($mysqli, $email, $password, $query)) {
 
-        if (strlen($GLOBALS["sqlError"]) === 0) {
+        if ($GLOBALS["sqlError"] === "") {
             $query = "SELECT IDFornitore, email, password, salt, bloccato FROM fornitore WHERE email = ? LIMIT 1";
 
             if (!isUserValid($mysqli, $email, $password, $query)) {
 
-                if (strlen($GLOBALS["sqlError"]) === 0) {
+                if ($GLOBALS["user_banned"] === false && $GLOBALS["sqlError"] === "") {
                     $emailError = "Nessun utente registrato con questo indirizzo email";
                 }
 

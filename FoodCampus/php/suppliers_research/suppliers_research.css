@@ -46,6 +46,10 @@ label {
     margin-left: 0px;
 }
 
+.modal-footer-left {
+    display: block;
+}
+
 .zoom {
   transition: transform 1s;
 }

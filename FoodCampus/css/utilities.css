@@ -1,0 +1,28 @@
+.startAfterNavbar {
+    margin-top: 60px;
+}
+
+.textBoxStartAfterNavbar {
+    margin-top: 70px;
+}
+
+.imageStartAfterNavbar {
+    margin-top: 70px;
+}
+
+@media screen and (max-width: 384px) {
+    .startAfterNavbar {
+        margin-top: 90px;
+    }
+
+    .textBoxStartAfterNavbar {
+        margin-top: 105px;
+    }
+}
+
+@media screen and (max-width: 394px) {
+    .imageStartAfterNavbar {
+        margin-top: 105px;
+    }
+
+}

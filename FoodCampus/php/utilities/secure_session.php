@@ -1,4 +1,7 @@
 <?php
+
+$GLOBALS["user_banned"] = false;
+
 function sec_session_start() {
     $session_name = 'sec_session_id'; // Imposta un nome di sessione
     $secure = false; // Imposta il parametro a true se vuoi usare il protocollo 'https'.
@@ -39,11 +42,13 @@ function login_check($mysqli) {
            $stmt->fetch();
 
            if ($bannato === 1) {
-               $GLOBALS["sqlError"] = "Questo utente è stato bloccato, impossibile accedere.";
+               $GLOBALS["user_banned"] = true;
+               $_SESSION["page"] = "http://localhost/tecweb_project/FoodCampus/php/login/login.php";
                $root = realpath($_SERVER["DOCUMENT_ROOT"]);
                require_once "$root/tecweb_project/FoodCampus/php/logout.php";
                return false;
            }
+           $GLOBALS["user_banned"] = false;
            $login_check = hash('sha512', $password.$user_browser);
            if($login_check == $login_string) {
               // Login eseguito!!!!

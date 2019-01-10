@@ -16,10 +16,10 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
 	<script src="suppliers_research.js"></script>
-	<script src="../suppliers/js/supplierFunctions.js"></script>
+	<script src="../user/suppliers/js/supplierFunctions.js"></script>
 
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../navbar/navbar.css">
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="../suppliers/css/starReview.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="../user/suppliers/css/starReview.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="suppliers_research.css">
 </head>
 <body>
@@ -40,9 +40,9 @@
 							<div class="col">
 								<div id="filterField">
 									<div id="modalForm" class="form-group form-check">
-										<label for="modalButton">Filtra per prodotti venduti</label>
+										<label for="modalButton">Categorie desiderate:</label>
 										<button type="button" id="modalButton" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-											Apri filtro
+											Imposta filtro
 										</button>
 										<!-- The Modal -->
 										<div class="modal fade" id="myModal">
@@ -50,17 +50,46 @@
 												<div class="modal-content">
 													<!-- Modal Header -->
 													<div class="modal-header">
-														<h4 class="modal-title">Filtro prodotti</h4>
+														<h4 class="modal-title">Filtra le categorie</h4>
 														<button type="button" class="close" data-dismiss="modal">&times;</button>
 													</div>
 													<!-- Modal body -->
 													<div class="modal-body">
-														Modal body..
+														<?php
+															$error = "";
+															if (!($stmt = $conn->prepare("SELECT c.nome FROM categoria c"))) {
+																$error = $conn->error;
+															}
+
+															if (!$stmt->execute()) {
+																$error = $stmt->error;
+															}
+
+															if (!($result = $stmt->get_result())) {
+																$error = $stmt->error;
+															}
+
+															if (strlen($error) !== 0) {
+																echo("<div class='alert alert-danger' style='margin-top: 8px;'>$error</div>");
+															} else {
+																echo "<div class='form-group form-check'>";
+																	while ($row = $result->fetch_assoc()) {
+																		echo "<input class='modal-checkbox form-check-input' type='checkbox' checked id='".$row["nome"]."' name='".$row["nome"]."'>";
+																		echo "<label for='".$row["nome"]."'>".$row["nome"]."</label>";
+																		echo "<br/>";
+																	}
+																echo "</div>";
+															}
+
+															$stmt->close();
+														?>
 													</div>
 													<!-- Modal footer -->
 													<div class="modal-footer">
-														<button type="button" id="savebutton" class="btn btn-primary" data-dismiss="modal">Salva</button>
-														<button type="button" class="btn btn-danger" data-dismiss="modal">Annulla</button>
+															<button type="button" id="outAllButton" class="btn btn-warning">Nessuno</button>
+															<button type="button" id="selectAllButton" class="btn btn-success">Tutti</button>
+															<button type="button" id="savebutton" class="btn btn-primary" data-dismiss="modal">Salva</button>
+															<button type="button" class="btn btn-danger" data-dismiss="modal">Annulla</button>
 													</div>
 												</div>
 											</div>
