@@ -58,6 +58,7 @@
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../../../../css/utilities.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../../commonParts/css/user.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../../../../css/utilities.css">
+         <link rel="stylesheet" type="text/css" title="stylesheet" href="../../../footer/footer.css">
     </head>
     <body>
         <div class="container">
@@ -94,5 +95,6 @@
             $conn->close();
             ?>
         </div>
+        <?php require_once "../../../footer/footer.html"; ?>
     </body>
 </html>

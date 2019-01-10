@@ -21,6 +21,7 @@
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../navbar/navbar.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../user/suppliers/css/starReview.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="suppliers_research.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="../footer/footer.css">
 </head>
 <body>
 	<?php require_once '../navbar/navbar.php';?>
@@ -127,5 +128,6 @@
 			</div>
 		</div>
 	</div>
+	<?php require_once "../footer/footer.html"; ?>
 </body>
 </html>
