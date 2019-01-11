@@ -25,8 +25,9 @@
                 if ($stmt->execute()) {
                     $res = $stmt->get_result();
                     if ($res->num_rows > 0) {
+                        $notification = '';
                         while($row = $res->fetch_assoc()) {
-                            $notification = '
+                            $notification .= '
                                         <li>
                                             <a href="#">
                                                 <strong>'.$notificationTitle.'</strong><br />
