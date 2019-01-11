@@ -76,27 +76,41 @@ if ($loggedInUser) {
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="/tecweb_project/FoodCampus/php/home.php">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="/tecweb_project/FoodCampus/php/products_research/products_research_index.php">Ricerca prodotti</a></li>
-            <li class="nav-item"><a class="nav-link" href="/tecweb_project/FoodCampus/php/suppliers_research/suppliers_research_index.php">Ricerca fornitori</a></li>
+            <li class="nav-item"><a class="nav-link item" href="/tecweb_project/FoodCampus/php/home.php">Home</a></li>
+            <li class="nav-item"><a class="nav-link item" href="/tecweb_project/FoodCampus/php/products_research/products_research_index.php">Ricerca prodotti</a></li>
+            <li class="nav-item"><a class="nav-link item" href="/tecweb_project/FoodCampus/php/suppliers_research/suppliers_research_index.php">Ricerca fornitori</a></li>
             <?php
             if ($loggedInUser) {
                 ?>
-                <li class="nav-item"><a class="nav-link" href=<?php if ($supplier) { echo "/tecweb_project/FoodCampus/php/user/suppliers/php/supplier.php?id=".$userId; } else {echo "/tecweb_project/FoodCampus/php/user/client/client.php?id=".$userId;} ?>>Profilo</a></li>
+                <li class="nav-item"><a class="nav-link item" href=<?php if ($supplier) { echo "/tecweb_project/FoodCampus/php/user/suppliers/php/supplier.php?id=".$userId; } else {echo "/tecweb_project/FoodCampus/php/user/client/client.php?id=".$userId;} ?>>Profilo</a></li>
                 <?php
             }
             ?>
-            <li class="nav-item"><a class="nav-link" href="<?php if (!$loggedInUser) { echo '/tecweb_project/FoodCampus/php/login/login.php'; } else { echo '/tecweb_project/FoodCampus/php/logout.php'; } ?>"><?php if (!$loggedInUser) { echo "Login"; } else { echo "Logout"; } ?></a></li>
+            <li class="nav-item"><a class="nav-link item" href="<?php if (!$loggedInUser) { echo '/tecweb_project/FoodCampus/php/login/login.php'; } else { echo '/tecweb_project/FoodCampus/php/logout.php'; } ?>"><?php if (!$loggedInUser) { echo "Login"; } else { echo "Logout"; } ?></a></li>
             <?php
-            if ($loggedInUser && !$supplier) {
+            if ($loggedInUser) {
                 ?>
                 <li class="nav-item dropdown">
                     <span id="numberNotification" class='badge badge-light'><?php echo $notificationNumber ?></span>
-                    <a class="nav-link fas fa-bell " href="#" id="notification" data-toggle="dropdown"></a>
+                    <a class="nav-link fas fa-bell item" href="#" id="notification" data-toggle="dropdown"></a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Link 1</a>
-                        <a class="dropdown-item" href="#">Link 2</a>
-                        <a class="dropdown-item" href="#">Link 3</a>
+                        <?php
+                        $fieldId = $supplier ? "IDFornitore" : "IDCliente";
+                        $notificationTitle = $fieldId == "IDFornitore" ? "Nuovo ordine" : "Ordine partito";
+                        $query = "SELECT * FROM notifica WHERE $fieldId = ? ORDER BY IDNotifica DESC LIMIT 5";
+                        if ($stmt = $conn->prepare($query)) {
+                            $stmt->bind_param("i", $userId);
+                            if ($stmt->execute()) {
+                                $res = $stmt->get_result();
+                                if ($res->num_rows > 0) {
+                                    $notification = '';
+                                    while($row = $res->fetch_assoc()) {
+                                        echo '<a class="dropdown-item" href="#"><strong>'.$notificationTitle.'</strong><br/><small><em>'.$row["testo"].'</em></small></a>';
+                                    }
+                                }
+                            }
+                        }
+                        ?>
                     </div>
                 </li>
                 <?php
@@ -123,20 +137,8 @@ if ($loggedInUser) {
             $value = 0;
             //value = impostare il numero di prodotti quando l utente non e loggato
         }
-        if ($supplier) {
-            ?>
-            <li class="nav-item dropdown">
-                <span id="numberNotification class='badge badge-light'><?php echo $notificationNumber ?></span>
-                <a class="nav-link fas fa-bell " href="#" id="notification" data-toggle="dropdown"></a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Link 1</a>
-                    <a class="dropdown-item" href="#">Link 2</a>
-                    <a class="dropdown-item" href="#">Link 3</a>
-                </div>
-            </li>
-            <?php
-        } else {
-            echo "<li class='nav-item'><span class='badge badge-light'>$value</span><a id='kart' class='nav-link fas fa-shopping-cart' href'#'></a></li>";
+        if (!$supplier) {
+            echo "<li class='nav-item'><span class='badge badge-light'>$value</span><a id='kart' class='nav-link fas fa-shopping-cart item' href'#'></a></li>";
         }
         ?>
     </ul>
