@@ -89,7 +89,17 @@ if ($loggedInUser) {
             <li class="nav-item"><a class="nav-link" href="<?php if (!$loggedInUser) { echo '/tecweb_project/FoodCampus/php/login/login.php'; } else { echo '/tecweb_project/FoodCampus/php/logout.php'; } ?>"><?php if (!$loggedInUser) { echo "Login"; } else { echo "Logout"; } ?></a></li>
             <?php
             if ($loggedInUser && !$supplier) {
-                echo "<li class='nav-item'><span class='badge badge-light'>$notificationNumber</span><a id='notification' class='nav-link fas fa-bell' href='#'></a></li>";
+                ?>
+                <li class="nav-item dropdown">
+                    <span id="numberNotification" class='badge badge-light'><?php echo $notificationNumber ?></span>
+                    <a class="nav-link fas fa-bell " href="#" id="notification" data-toggle="dropdown"></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Link 1</a>
+                        <a class="dropdown-item" href="#">Link 2</a>
+                        <a class="dropdown-item" href="#">Link 3</a>
+                    </div>
+                </li>
+                <?php
             }
             ?>
         </ul>
@@ -113,7 +123,21 @@ if ($loggedInUser) {
             $value = 0;
             //value = impostare il numero di prodotti quando l utente non e loggato
         }
+        if ($supplier) {
+            ?>
+            <li class="nav-item dropdown">
+                <span id="numberNotification class='badge badge-light'><?php echo $notificationNumber ?></span>
+                <a class="nav-link fas fa-bell " href="#" id="notification" data-toggle="dropdown"></a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Link 1</a>
+                    <a class="dropdown-item" href="#">Link 2</a>
+                    <a class="dropdown-item" href="#">Link 3</a>
+                </div>
+            </li>
+            <?php
+        } else {
+            echo "<li class='nav-item'><span class='badge badge-light'>$value</span><a id='kart' class='nav-link fas fa-shopping-cart' href'#'></a></li>";
+        }
         ?>
-        <li class="nav-item"><span class="badge badge-light"><?php echo $value;?></span><a id=<?php echo $supplier ? "notification" : "kart";?> class="nav-link <?php echo $supplier ? 'fas fa-bell' : 'fas fa-shopping-cart'?>" href="#"></a></li>
     </ul>
 </nav>
