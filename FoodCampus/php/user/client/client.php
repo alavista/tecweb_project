@@ -27,13 +27,13 @@ function redirectToPageNotFound($conn) {
          <!-- Plugin JQuery for sessions-->
          <script src="../../../jquery/jquery.session.js"></script>
          <!--JavaScript-->
-         <script src="../commonParts/js/user.js" type="text/javascript"></script>
          <script src="../commonParts/js/userFunctions.js" type="text/javascript"></script>
          <script src="../commonParts/js/name.js" type="text/javascript"></script>
          <script src="../commonParts/js/password.js" type="text/javascript"></script>
          <script src="../commonParts/js/image.js" type="text/javascript"></script>
          <script src="../commonParts/js/email.js" type="text/javascript"></script>
          <script src="surname.js" type="text/javascript"></script>
+         <script src="../../utilities/getIdSessionAndCookies.js" type="text/javascript"></script>
          <script src="../../../js/utilities/sha512.js" type="text/javascript"></script>
          <!--Font awesome-->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
