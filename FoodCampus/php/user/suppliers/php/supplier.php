@@ -23,17 +23,14 @@
          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
          <!-- Latest compiled JavaScript -->
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-         <!-- Plugin JQuery for cookies-->
-         <script src="../../../../jquery/jquery.cookie.js"></script>
-         <!-- Plugin JQuery for sessions-->
-         <script src="../../../../jquery/jquery.session.js"></script>
+         <!-- Notify -->
+         <?php require_once '../../../navbar/filesForNotify.html'; ?>
          <!-- Plugin JQuery for alert-->
          <script src="../../../../jquery/jquery-confirm.min.js" type="text/javascript"></script>
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../../../../css/jquery-confirm.min.css">
          <!--JavaScript-->
          <script src="../js/supplierFunctions.js" type="text/javascript"></script>
          <script src="../js/supplier.js" type="text/javascript"></script>
-         <script src="../../../utilities/getIdSessionAndCookies.js" type="text/javascript"></script>
          <script src="../../../../js/utilities/sha512.js" type="text/javascript"></script>
          <script src="../../commonParts/js/userFunctions.js" type="text/javascript"></script>
          <script src="../../commonParts/js/name.js" type="text/javascript"></script>
@@ -48,7 +45,6 @@
          <script src="../js/review.js" type="text/javascript"></script>
          <script src="../js/product.js" type="text/javascript"></script>
          <script src="../js/vatNumber.js" type="text/javascript"></script>
-         <script src="../../../navbar/notify.js" type="text/javascript"></script>
          <!--Font awesome-->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">

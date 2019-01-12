@@ -36,7 +36,7 @@ function getUserType() {
     var type = "";
     if (cookieClientOrSupplier) {
         type = cookieClientOrSupplier.localeCompare("Fornitore") == 0 ? "fornitore" : cookieClientOrSupplier.localeCompare("Cliente") == 0 ? "cliente" : "";
-    } else if (sessionClientOrSupplier.localeCompare("") != 0) {
+    } else if (sessionClientOrSupplier.localeCompare("notDefined") != 0) {
         type = sessionClientOrSupplier.localeCompare("fornitore") == 0 ? "fornitore" : sessionClientOrSupplier.localeCompare("cliente") == 0 ? "cliente" : "";
     }
     return type;

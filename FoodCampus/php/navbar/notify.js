@@ -1,23 +1,22 @@
-var fieldId = getUserType().localeCompare("fornitore") == 0 ? "IDFornitore" : getUserType().localeCompare("cliente") == 0 ? "IDCliente" : "";
-
 $(function() {
-    var userId = getId();
-    if (userId != NOT_PRESENT) {
-        load_unseen_notification();
-        $("#notification").click(function() {
-            $("#numberNotification").html("0");
-            load_unseen_notification("yes");
-        });
-        setInterval(function(){
-            load_unseen_notification();;
-        }, 5000);
-    }
+    setTimeout(function() {
+        if (getId() != NOT_PRESENT) {
+            $("#notification").click(function() {
+                $("#numberNotification").html("0");
+                load_unseen_notification("yes");
+            });
+            setInterval(function(){
+                load_unseen_notification();;
+            }, 5000);
+        }
+    }, 1000);
 });
 
 function load_unseen_notification(view = "") {
+    var userType = getUserType();
     $.post("/tecweb_project/FoodCampus/php/navbar/fetchNotifications.php", {
         userId: getId(),
-        fieldId: fieldId,
+        fieldId: userType.localeCompare("fornitore") == 0 ? "IDFornitore" : userType.localeCompare("cliente") == 0 ? "IDCliente" : "",
         view: view
     }, function(data, status) {
         data = JSON.parse(data);

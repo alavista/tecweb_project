@@ -30,13 +30,13 @@
                             $notification .= '<a class="dropdown-item" href="#"><strong>'.$notificationTitle.'</strong><br/><small><em>'.$row["testo"].'</em></small></a>';
                         }
                     } else {
-                        $queryError = true;
+                        $notification = '<li class="text-bold text-italic">Non hai nessuna notifica!</li>';
                     }
                 } else {
                     $queryError = true;
                 }
             } else {
-                $notification = '<li><a href="#" class="text-bold text-italic">Non hai nessuna notifica!</a></li>';
+                $queryError = true;
             }
             $query = "SELECT * FROM notifica WHERE $fieldId = ? AND visualizzata = 0";
             if ($stmt = $conn->prepare($query)) {

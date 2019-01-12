@@ -4,6 +4,6 @@
     if (!empty($_SESSION["user_type"])) {
         echo $_SESSION["user_type"] == "Fornitore" ? "fornitore" : "cliente";
     } else {
-        echo "";
+        echo "notDefined";
     }
 ?>
