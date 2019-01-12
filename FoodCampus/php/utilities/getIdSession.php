@@ -1,5 +1,5 @@
 <?php
-    require_once "../../../utilities/direct_login.php";
+    require_once "direct_login.php";
 
     if (!empty($_SESSION["user_id"])) {
         echo $_SESSION["user_id"];

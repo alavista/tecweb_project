@@ -2,10 +2,20 @@
     require_once '../../../database.php';
     require_once "../../../utilities/direct_login.php";
 
-    function redirectToPageNotFound($conn) {
-        header("Location: /tecweb_project/FoodCampus/php/pageNotFound.html");
-        $conn->close();
-        exit();
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
+            is_numeric($_GET["id"]) && ctype_digit($_GET["id"]) && $_GET["id"] >= 0) {
+        $query = "SELECT * FROM fornitore WHERE IDFornitore = ?";
+        if ($stmt = $conn->prepare($query)) {
+            $stmt->bind_param("s", $_GET["id"]);
+            if ($stmt->execute()) {
+                $res = $stmt->get_result();
+                if ($res->num_rows != 1) {
+                    redirectToPageNotFound($conn);
+                }
+            }
+        }
+    } else {
+        redirectToPageNotFound($conn);
     }
 ?>
 
@@ -23,10 +33,8 @@
          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
          <!-- Latest compiled JavaScript -->
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-         <!-- Plugin JQuery for cookies-->
-         <script src="../../../../jquery/jquery.cookie.js"></script>
-         <!-- Plugin JQuery for sessions-->
-         <script src="../../../../jquery/jquery.session.js"></script>
+         <!-- Notify -->
+         <?php require_once '../../../navbar/filesForNotify.html'; ?>
          <!-- Plugin JQuery for alert-->
          <script src="../../../../jquery/jquery-confirm.min.js" type="text/javascript"></script>
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../../../../css/jquery-confirm.min.css">
@@ -34,7 +42,6 @@
          <script src="../js/supplierFunctions.js" type="text/javascript"></script>
          <script src="../js/supplier.js" type="text/javascript"></script>
          <script src="../../../../js/utilities/sha512.js" type="text/javascript"></script>
-         <script src="../../commonParts/js/user.js" type="text/javascript"></script>
          <script src="../../commonParts/js/userFunctions.js" type="text/javascript"></script>
          <script src="../../commonParts/js/name.js" type="text/javascript"></script>
          <script src="../../commonParts/js/password.js" type="text/javascript"></script>
@@ -62,39 +69,23 @@
     </head>
     <body>
         <div class="container">
-        <?php
-            if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
-                    is_numeric($_GET["id"]) && ctype_digit($_GET["id"]) && $_GET["id"] >= 0) {
-                $query = "SELECT * FROM fornitore WHERE IDFornitore = ?";
-                if ($stmt = $conn->prepare($query)) {
-                    $stmt->bind_param("s", $_GET["id"]);
-                    if ($stmt->execute()) {
-                        $res = $stmt->get_result();
-                        if ($res->num_rows == 1) {
-                            require_once '../../../navbar/navbar.php';
-                            require_once 'notehead.php';
-                            ?>
-                            <section>
-                                <?php require_once 'informations.php'; ?>
-                            </section>
-                            <section>
-                                <?php require_once 'menu.php'; ?>
-                            </section>
-                            <section>
-                                <?php require_once 'reviews.php'; ?>
-                            </section>
-                            <?php
-                        } else {
-                            redirectToPageNotFound($conn);
-                        }
-                    }
-                }
-            } else {
-                redirectToPageNotFound($conn);
-            }
-            $conn->close();
+            <?php
+            require_once '../../../navbar/navbar.php';
+            require_once 'notehead.php';
             ?>
+            <section>
+                <?php require_once 'informations.php'; ?>
+            </section>
+            <section>
+                <?php require_once 'menu.php'; ?>
+            </section>
+            <section>
+                <?php require_once 'reviews.php'; ?>
+            </section>
         </div>
-        <?php require_once "../../../footer/footer.html"; ?>
+        <?php
+        require_once "../../../footer/footer.html";
+        $conn->close();
+        ?>
     </body>
 </html>
