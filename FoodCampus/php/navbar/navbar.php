@@ -105,8 +105,16 @@ if ($loggedInUser) {
                                 if ($res->num_rows > 0) {
                                     $notification = '';
                                     while($row = $res->fetch_assoc()) {
-                                        echo '<a class="dropdown-item" href="#"><strong>'.$notificationTitle.'</strong><br/><small><em>'.$row["testo"].'</em></small></a>';
+                                        if ($supplier) {
+                                            echo '<a class="dropdown-item"><strong>'.$notificationTitle.'</strong><br/><small><em>'.$row["testo"].'</em></small></a>';
+                                        } else {
+                                            echo '<span class="dropdown-item"><strong>'.$notificationTitle.'</strong><br/><small><em>'.$row["testo"].'</em></small></span>';
+                                        }
                                     }
+                                    $pathForSeeAllNotifications = "/tecweb_project/FoodCampus/php/notifications/notifications.php?id=$userId";
+                                    echo '<a class="dropdown-item" href="'.$pathForSeeAllNotifications.'"><strong>Tutte le notifiche</strong><br/><small><em>Clicca qui per vedere tutte le notifiche</em></small></a>';
+                                } else {
+                                    echo '<span class="dropdown-item text-bold text-italic">Non hai nessuna notifica!</span>';
                                 }
                             }
                         }
