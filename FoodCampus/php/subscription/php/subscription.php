@@ -202,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$GLOBALS["newFileName"] = $tempArrayName[0].uniqid(mt_rand(1, mt_getrandmax()), false).".".$tempArrayName[1];
 
 			if (!uploadFile($filePath, $GLOBALS["newFileName"], "filename", $fileError)) {
-				//$errors = true;
+				$errors = true;
 			}
 		}
 	}

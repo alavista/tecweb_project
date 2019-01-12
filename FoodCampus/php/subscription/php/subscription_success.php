@@ -16,12 +16,12 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 	<script src="../../../jquery/jquery-3.2.1.min.js"> </script>
 
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/css/navbar.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/php/navbar/navbar.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/php/subscription/css/subscription_success.css">
 </head>
 
 <body>
-	<?php require_once '../../navbar.php';?>
+	<?php require_once '../../navbar/navbar.php';?>
 	<div class="container">
 		<div class="row">
 			<div class="container col-6 jumbotron mx-auto" id="maindiv">
