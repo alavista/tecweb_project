@@ -56,22 +56,22 @@
                             } else {
                                 $notification = '<span class="dropdown-item text-bold text-italic">Non hai nessuna notifica!</span>';
                             }
-                        } else {
-                            $queryError = true;
-                        }
-                    } else {
-                        $queryError = true;
-                    }
-                    $query = "SELECT * FROM notifica WHERE $fieldId = ? AND visualizzata = 0";
-                    if ($stmt = $conn->prepare($query)) {
-                        $stmt->bind_param("i", $userId);
-                        if ($stmt->execute()) {
-                            $res = $stmt->get_result();
-                            $numberNotSeenNotification = $res->num_rows;
-                            $informationToSendClient["status"] = "OK";
-                            $informationToSendClient["inf"] = "OK";
-                            $informationToSendClient["notification"] = $notification;
-                            $informationToSendClient["numberNotSeenNotification"] = $numberNotSeenNotification;
+                            $query = "SELECT * FROM notifica WHERE $fieldId = ? AND visualizzata = 0";
+                            if ($stmt = $conn->prepare($query)) {
+                                $stmt->bind_param("i", $userId);
+                                if ($stmt->execute()) {
+                                    $res = $stmt->get_result();
+                                    $numberNotSeenNotification = $res->num_rows;
+                                    $informationToSendClient["status"] = "OK";
+                                    $informationToSendClient["inf"] = "OK";
+                                    $informationToSendClient["notification"] = $notification;
+                                    $informationToSendClient["numberNotSeenNotification"] = $numberNotSeenNotification;
+                                } else {
+                                    $queryError = true;
+                                }
+                            } else {
+                                $queryError = true;
+                            }
                         } else {
                             $queryError = true;
                         }
