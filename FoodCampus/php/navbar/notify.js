@@ -31,22 +31,25 @@ function load_unseen_notification(view = "", isPageAllNotifications = false) {
                 $("#numberNotification").html(data.numberNotSeenNotification);
             }
             if (data.newNotification.localeCompare("yes") == 0) {
-                Push.create(data.notificationTitle, {
-                    body: data.notificationBody,
-                    icon: "/tecweb_project/FoodCampus/res/other/icon.png",
-                    onClick: function() {
-                        if (userType.localeCompare("cliente") == 0) {
-                            window.focus();
-                            this.close();
-                        } else {
-                            window.location = "#";
-                            window.focus();
-                            this.close();
+                var i;
+                for (i = 0; i < data.numberNewNotifications; i++) {
+                    Push.create(data.notificationTitle, {
+                        body: data.newNotifications["notificationBody" + i],
+                        icon: "/tecweb_project/FoodCampus/res/other/icon.png",
+                        onClick: function() {
+                            if (userType.localeCompare("cliente") == 0) {
+                                window.focus();
+                                this.close();
+                            } else {
+                                window.location = "#";
+                                window.focus();
+                                this.close();
+                            }
                         }
+                    });
+                    if (isPageAllNotifications) {
+                        $("#medias").prepend("<div class='media border p-3'><div class='media-body'><h4>" + data.notificationTitle + "</h4><p>" + data.newNotifications["notificationBody" + i] + "</p>");
                     }
-                });
-                if (isPageAllNotifications) {
-                    $("#medias").prepend("<div class='media border p-3'><div class='media-body'><h4>" + data.notificationTitle + "</h4><p>" + data.notificationBody + "</p>");
                 }
             }
         }

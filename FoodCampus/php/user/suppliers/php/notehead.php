@@ -8,7 +8,7 @@ if ($stmt = $conn->prepare($query)) {
         if ($res->num_rows == 1) {
             $supplier = $res->fetch_assoc();
             ?>
-            <div class="text-center startAfterNavbar" id="userName">
+            <div class="text-center supplierStartAfterNavbar" id="userName">
                 <h1>
                     <span id="name"><?php echo strtoupper($supplier['nome']);?></span>
                     <?php
@@ -37,7 +37,7 @@ if ($stmt = $conn->prepare($query)) {
                 ?>
                 <span id="email" class="notVisible"><?php echo $supplier["email"]; ?></span>
                 <span id="vatNumber" class="notVisible"><?php echo $supplier["partita_iva"]; ?></span>
-                <form id="newUserName" class="text-center startAfterNavbar">
+                <form id="newUserName" class="text-center supplierTextBoxStartAfterNavbar">
                     <div class="form-group">
                         <label class="notVisible" for="newName">Nuovo nome</label>
                         <input type="text" id="newName" class='form-control' placeholder="Nuovo nome"/>
@@ -47,7 +47,7 @@ if ($stmt = $conn->prepare($query)) {
                         <button type='button' id="cancelChangeName" class='btn btn-danger change'>Annulla</button>
                     </div>
                 </form>
-                <form id="newUserEmail" class="text-center startAfterNavbar">
+                <form id="newUserEmail" class="text-center supplierTextBoxStartAfterNavbar">
                     <div class="form-group">
                         <label class="notVisible" for="newEmail">Nuova email</label>
                         <input type="email" id="newEmail" class='form-control' placeholder="Nuova email"/>
@@ -57,7 +57,7 @@ if ($stmt = $conn->prepare($query)) {
                         <button type='button' id="cancelChangeEmail" class='btn btn-danger change'>Annulla</button>
                     </div>
                 </form>
-                <form id="newUserPassword" class="text-center startAfterNavbar">
+                <form id="newUserPassword" class="text-center supplierTextBoxStartAfterNavbar">
                     <div class="form-group">
                         <label class="notVisible" for="oldPassword">Vecchia password</label>
                         <input type="password" id="oldPassword" class='form-control' placeholder="Vecchia password"/>
@@ -75,7 +75,7 @@ if ($stmt = $conn->prepare($query)) {
                         <button type='button' id="cancelChangePassword" class='btn btn-danger change'>Annulla</button>
                     </div>
                 </form>
-                <form id="newSupplierVatNumber" class="text-center startAfterNavbar">
+                <form id="newSupplierVatNumber" class="text-center supplierTextBoxStartAfterNavbar">
                     <div class="form-group">
                         <label class="notVisible" for="newVatNumber">Nuova partita iva</label>
                         <input type="number" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="newVatNumber" placeholder="Nuova partita iva"/>

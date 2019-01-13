@@ -22,14 +22,21 @@
         if (!$queryError) {
             $notificationTitle = $fieldId == "IDFornitore" ? "Nuovo ordine" : "Ordine partito";
             $numberNotification = (int)$_POST["numberNotification"];
-            $newNotification = false;
-            $query = "SELECT * FROM notifica WHERE $fieldId = ? AND visualizzata = 0";
+            $query = "SELECT * FROM notifica WHERE $fieldId = ? AND visualizzata = 0 ORDER BY IDNotifica DESC";
             if ($stmt = $conn->prepare($query)) {
                 $stmt->bind_param("i", $userId);
                 if ($stmt->execute()) {
                     $res = $stmt->get_result();
                     if ($res->num_rows > $numberNotification) {
-                        $newNotification = true;
+                        $numberNewNotifications = $res->num_rows - $numberNotification;
+                        $informationToSendClient["newNotification"] = "yes";
+                        $informationToSendClient["numberNewNotifications"] = $numberNewNotifications;
+                        $informationToSendClient["notificationTitle"] = $notificationTitle;
+                        $informationToSendClient["newNotifications"] = array();
+                        for ($i = 0; $i < $numberNewNotifications; $i++) {
+                            $row = $res->fetch_assoc();
+                            $informationToSendClient["newNotifications"]["notificationBody".$i] = $row["testo"];
+                        }
                     }
                     $query = "SELECT * FROM notifica WHERE $fieldId = ? ORDER BY IDNotifica DESC LIMIT 5";
                     if ($stmt = $conn->prepare($query)) {
@@ -43,12 +50,6 @@
                                         $notification .= '<span class="dropdown-item"><strong>'.$notificationTitle.'</strong><br/><small><em>'.$row["testo"].'</em></small></span>';
                                     } else {
                                         $notification .= '<a class="dropdown-item"><strong>'.$notificationTitle.'</strong><br/><small><em>'.$row["testo"].'</em></small></a>';
-                                    }
-                                    if ($newNotification) {
-                                        $informationToSendClient["newNotification"] = "yes";
-                                        $informationToSendClient["notificationTitle"] = $notificationTitle;
-                                        $informationToSendClient["notificationBody"] = $row["testo"];
-                                        $newNotification = false;
                                     }
                                 }
                                 $pathForSeeAllNotifications = "/tecweb_project/FoodCampus/php/notifications/notifications.php?id=$userId";

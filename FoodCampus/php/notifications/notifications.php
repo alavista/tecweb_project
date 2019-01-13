@@ -40,7 +40,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
             require_once '../navbar/navbar.php';
             $_SESSION["page"] = "http://localhost/tecweb_project/FoodCampus/php/home.php";
             ?>
-            <div class="jumbotron startAfterNavbar">
+            <div class="jumbotron <?php if ($supplier) { echo 'jumbotronSupplierStartAfterNavbar'; } else { echo 'jumbotronClientStartAfterNavbar'; } ?>">
                 <span class="text-center"><h1>NOTIFICHE</h1></span>
                 <div id = "medias">
                     <?php

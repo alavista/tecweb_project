@@ -58,20 +58,20 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
                     if ($res->num_rows == 1) {
                         $client = $res->fetch_assoc();
                         ?>
-                        <div class="text-center imageStartAfterNavbar" id="userImage">
+                        <div class="text-center clientImageStartAfterNavbar" id="userImage">
                             <img id="image" src="../../../res/clients/<?php echo $client["immagine"] != NULL ? $client["immagine"] : 'default.png';?>" class="img-fluid rounded-circle" alt="Logo cliente">
                         </div>
                         <div id="userImage" class="text-center">
                             <button type='button' class='btn btn-secondary changePlus' id='changeImage'>Modifica immagine</button>
                         </div>
-                        <form id="newUserImage" class="text-center imageStartAfterNavbar">
+                        <form id="newUserImage" class="text-center">
                             <div class="form-group">
                                 <label class="notVisible" for="newImage">Immagine del profilo</label>
                                 <input type="file" id="newImage" class="form-control-file" accept="image/*">
                             </div>
                             <div class="form-group">
                                 <button type='button' id="saveImage" class='btn btn-success change'>Salva</button>
-                                <button type='button' id="cancelChangeImage" class='btn btn-danger change'>Annulla</button>
+                                <button type='button' id="cancelChangeImage" class='btn btn-danger change cancelImageButton'>Annulla</button>
                             </div>
                         </form>
                         <div class="jumbotron">

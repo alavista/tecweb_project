@@ -18,20 +18,6 @@ function computeNumberNotification($conn, $field, $userId) {
     return 0;
 }
 
-/*function isStuck($conn, $table, $field, $userId) {
-    $query = "SELECT bloccato FROM $table WHERE $field = ?";
-    if ($stmt = $conn->prepare($query)) {
-        $stmt->bind_param("i", $userId);
-        if ($stmt->execute()) {
-            $res = $stmt->get_result();
-            if ($res->num_rows > 0) {
-                return $res->fetch_assoc()["bloccato"];
-            }
-        }
-    }
-    return false;
-}*/
-
 $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $_SESSION["page"] = $actual_link;
 
@@ -45,10 +31,6 @@ if ($loggedInUser) {
         $supplier = strcmp($_COOKIE["user_type"], "Fornitore") == 0 ? true : false;
         $userId = $_COOKIE["user_id"];
     }
-    /*if (isStuck($conn, $supplier ? "fornitore" : "cliente", $supplier ? "IDFornitore" : "IDCliente", $userId)) {
-        //echo "<script>alert('Success!');</script>";
-        //header("Location: $root/tecweb_project/FoodCampus/php/logout.php");
-    }*/
     if (!$supplier) {
         $notificationNumber = computeNumberNotification($conn, 'IDCliente', $userId);
         /*$query = "SELECT COUNT(*) as productsNumber FROM prodotto_in_carrello WHERE IDCliente = ?";
@@ -65,8 +47,6 @@ if ($loggedInUser) {
     } else {
         $notificationNumber = computeNumberNotification($conn, 'IDFornitore', $userId);
     }
-} else {
-    //header("Location: $root/tecweb_project/FoodCampus/php/logout.php");
 }
 ?>
 

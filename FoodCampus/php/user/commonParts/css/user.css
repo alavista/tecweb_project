@@ -15,19 +15,25 @@
 }
 
 @media screen and (max-width: 490px) {
-    .cancelButton {
+    .cancelButton, .cancelImageButton {
         margin-top: 5px;
     }
 }
 
 @media screen and (max-width: 541px) {
-    .cancelButton {
+    .cancelButton, .cancelImageButton {
         margin-top: 5px;
     }
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px){
-    .cancelButton {
+    .cancelButton, .cancelImageButton {
         margin-top: 5px;
+    }
+}
+
+@media screen and (min-width: 510px) {
+    .cancelImageButton {
+        margin-top: 0px;
     }
 }

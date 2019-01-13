@@ -19,11 +19,12 @@
          <link rel="stylesheet" type="text/css" title="stylesheet" href="navbar/navbar.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/home.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="footer/footer.css">
+         <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/utilities.css">
     </head>
     <body>
           <div class="container">
               <?php require_once 'navbar/navbar.php';?>
-              <div class = "text-center" id = "siteTitle">
+              <div class = "text-center <?php if ($supplier) { echo 'supplierStartAfterNavbar'; } else { echo 'clientStartAfterNavbar'; } ?>">
                   <h1>FOOD CAMPUS</h1>
               </div>
               <div id="foodCategories" class="carousel slide" data-ride="carousel">
