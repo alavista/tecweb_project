@@ -30,8 +30,24 @@ function load_unseen_notification(view = "", isPageAllNotifications = false) {
             if (data.numberNotSeenNotification > 0) {
                 $("#numberNotification").html(data.numberNotSeenNotification);
             }
-            if (isPageAllNotifications && data.newNotification.localeCompare("yes") == 0) {
-                $("#medias").prepend("<div class='media border p-3'><div class='media-body'><h4>" + data.notificationTitle + "</h4><p>" + data.notificationBody + "</p>");
+            if (data.newNotification.localeCompare("yes") == 0) {
+                Push.create(data.notificationTitle, {
+                    body: data.notificationBody,
+                    icon: "/tecweb_project/FoodCampus/res/other/icon.png",
+                    onClick: function() {
+                        if (userType.localeCompare("cliente") == 0) {
+                            window.focus();
+                            this.close();
+                        } else {
+                            window.location = "#";
+                            window.focus();
+                            this.close();
+                        }
+                    }
+                });
+                if (isPageAllNotifications) {
+                    $("#medias").prepend("<div class='media border p-3'><div class='media-body'><h4>" + data.notificationTitle + "</h4><p>" + data.notificationBody + "</p>");
+                }
             }
         }
     });
