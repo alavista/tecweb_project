@@ -61,6 +61,8 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
                                     </div>
                                     <?php
                                 }
+                            } else {
+                                echo "Non hai nessuna notifica!";
                             }
                         }
                     }
