@@ -1,5 +1,6 @@
 <?php
     require_once '../../../database.php';
+    require_once '../../../utilities/direct_login.php';
 
     $queryError = false;
     $informationToSendClient = array('status' => "", "inf" => "");
@@ -23,6 +24,12 @@
                         if ($stmt = $conn->prepare($query)) {
                             $stmt->bind_param("ss", $newEmail, $_POST["userId"]);
                             if ($stmt->execute()) {
+                                if (isset($_COOKIE[$GLOBALS["cookie_user_email"]])) {
+                                    setcookie($GLOBALS["cookie_user_email"], $newEmail, time() + (86400 * 365 * 5), "/");
+                                }
+                                if (!empty($_SESSION["email"])) {
+                                    $_SESSION['email'] = $newEmail;
+                                }
                                 $informationToSendClient["status"] = "OK";
                                 $informationToSendClient["inf"] = "$newEmail";
                             } else {
