@@ -24,6 +24,18 @@
 }
 
 @media screen and (max-width: 576px) {
+    .productCost {
+        float: none;
+    }
+}
+
+@media screen and (min-width: 577px) {
+    .productCost {
+        float: right;
+    }
+}
+
+@media screen and (max-width: 576px) {
     .container .jumbotron .row .col-sm-7 .btn {
         margin-bottom: 14px;
     }
