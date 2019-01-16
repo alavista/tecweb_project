@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 05, 2019 alle 17:17
+-- Creato il: Gen 16, 2019 alle 16:59
 -- Versione del server: 10.1.37-MariaDB
--- Versione PHP: 7.2.12
+-- Versione PHP: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -38,12 +38,13 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`IDCategoria`, `nome`) VALUES
-(5, 'dolce'),
-(2, 'piada'),
-(1, 'pizza'),
-(3, 'primo'),
-(4, 'secondo'),
-(6, 'sushi');
+(5, 'Dolce'),
+(7, 'Panino'),
+(2, 'Piada'),
+(1, 'Pizza'),
+(3, 'Primo'),
+(4, 'Secondo'),
+(6, 'Sushi');
 
 -- --------------------------------------------------------
 
@@ -70,7 +71,7 @@ INSERT INTO `cliente` (`IDCliente`, `nome`, `cognome`, `email`, `immagine`, `pas
 (1, 'Andrea', 'Lavista', 'andrea.lavista@foodcampus.it', NULL, '72531aa0b0c1013b040cf3096a6a1fab3871ad7cf056978178c214d526c60ad4a11cf04aef2c3a25d6c8918f0c9826351238022b2aa191e27f8c152cbbfc7443', 'c69d48dcdd2cf8470fe5d591a43de56f83afa8f40a94be3ac4ba56be309374ac7ebb5f55f594e8fb58ac0538f93e4e487db11f07dd8fa66adf834acc1188ab80', b'0'),
 (2, 'Ivan', 'Mazzanti', 'ivan.mazzanti@foodcampus.it', NULL, 'dc5cc79d08a9d9a9aff7a8479a369d0d115c0cad60c6e37fc3d09045e149bba2ebaba6634d7138bb078a4c52835259636fa2320bd051200091f2c49afe8184e3', '80244477758499b2f497c27a5230469555cee54485bddd0953a53d01b8a8b19bf678c5eed10860c02870a73e72c4c379d1620ac3f9c2b82960beafa62cb0f9ce', b'0'),
 (3, 'Davide', 'Conti', 'davide.conti@foodcampus.it', NULL, 'b6b0961c00ab90e110b032b2ae5fee1201e15bab1c1d966c71e9bfe6f314b49bbb8fa471c621dec8b6af403a35307fc29baf4f0a44b8bf2c8d8e94564582aa1a', 'd56fd21aa39d58f9903f2acb37db2bfb33500ca5d8a1b7db980b3e7f0f94bcb4ee9676b106717e049c9144d775f92702064c8a2da7591b495119a935c7333a44', b'0'),
-(8, 'asd', 'asd', 'asd@asd.it', 'Immagine.png', '66c510a986c893407187b7317f0a2552509c5862d3d4958ad57183e269526afdf482f767fd5767057e0c6f28f58179f482095fafb003a3119f1f0ac72722ac3c', '0ca700f882737a9057cbf059c2a1631093b6895b066dc2f4984080315af3a99ebd24d70911b5213a23aac1caaf037982153364219140671cdf4c934ce8bb9080', b'0');
+(8, 'asd', 'asd', 'asd@asd.it', 'Immagine.png', '66c510a986c893407187b7317f0a2552509c5862d3d4958ad57183e269526afdf482f767fd5767057e0c6f28f58179f482095fafb003a3119f1f0ac72722ac3c', '0ca700f882737a9057cbf059c2a1631093b6895b066dc2f4984080315af3a99ebd24d70911b5213a23aac1caaf037982153364219140671cdf4c934ce8bb9080', b'1');
 
 -- --------------------------------------------------------
 
@@ -101,10 +102,10 @@ CREATE TABLE `fornitore` (
 --
 
 INSERT INTO `fornitore` (`IDFornitore`, `nome`, `citta`, `indirizzo_via`, `indirizzo_numero_civico`, `costi_spedizione`, `soglia_spedizione_gratuita`, `abilitato`, `email`, `sito_web`, `partita_iva`, `immagine`, `password`, `salt`, `bloccato`) VALUES
-(1, 'La Malaghiotta', 'Cesena', 'piazza Fabbri', '5', '0.99', NULL, 1, 'lamalaghiotta@gmail.com', 'www.lamaghiotta.it', 1786610897, NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
+(1, 'La Malaghiotta', 'Cesena', 'piazza Fabbri', '5', '0.99', NULL, 1, 'lamalaghiotta@gmail.com', 'www.lamaghiotta.it', 1786610897, 'Immagine.png', '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
 (2, 'C\'entro', 'Cesena', 'contrada Uberti', '3', '0.99', '0.99', 1, 'centro@gmail.com', 'www.centro-cesena.it', 1993190741, NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
-(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', '185', '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.it', 2147483647, '', '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
-(7, 'asd', 'asd', 'asd', 'asd', '8.00', '10.00', 0, 'asd@asd.com', 'asdasda', 0, 'Immagine.png', '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
+(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', '185', '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.it', 2147483647, NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
+(7, 'asd', 'asd', 'asd', 'asd', '8.00', '10.00', 0, 'asd@asd.com', 'asdasda', 0, NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
 (8, 'DAVIDE33', 'Misano Adriatico', 'via po 3', '12345', '0.00', '0.00', 0, 'suppliertest@test.it', NULL, 12345678335, NULL, '30125410d38ca3cecd0241e22f0c95c53d04aa20f51de01d03648c88c07e2fee10260155b6e68a3ed8dc6716309745ffd7e648af7d2107c3436b2e6c77fc85a8', '6f3861a59e7a7163e4dd7c92e5b0fa9fa8272aaf132dbaa928ce088135c53458fc85f345f35c40153550b031bc13ed985e61d4e01796ce73dda600cf4ae70ac4', b'0'),
 (9, 'cacca', 'asd', 'asd', 'asd', '0.00', '0.00', 0, 'cacca@cacca.it', NULL, 0, NULL, '2f1ba791caa4b3595c593b0e1e962635b58855175beede207ee32a9d38c72fdb4ee5847bcb70ccc0108d99a942add0143f61690f9d620e6eec544bd35b5b9bd0', 'e75cef4a297e80dd2028e30c1046fa74b559e1c33791f17b6f00a3085fb0e16b259134aa8e3d3ce87dae7dd2a35a5f4870bc9138f1bcc53d87a11a0314d44b00', b'0');
 
@@ -127,7 +128,14 @@ CREATE TABLE `login_attempts` (
 INSERT INTO `login_attempts` (`id`, `email`, `time`) VALUES
 (1, 'ivan.mazzanti@foodcampus.it', '1545933977'),
 (2, 'centro@gmail.com', '1545934478'),
-(3, 'asd@asd.com', '1546626419');
+(3, 'asd@asd.com', '1546626419'),
+(4, 'davide.conti@foodcampus.it', '1547652697'),
+(5, 'davide.conti@foodcampus.it', '1547652699'),
+(6, 'davide.conti@foodcampus.it', '1547652703'),
+(7, 'davide.conti@foodcampus.it', '1547652706'),
+(8, 'davide.conti@foodcampus.it', '1547652711'),
+(9, 'davide.conti@foodcampus.it', '1547652732'),
+(10, 'davide.conti@foodcampus.it', '1547653041');
 
 -- --------------------------------------------------------
 
@@ -199,7 +207,7 @@ CREATE TABLE `prodotto_in_carrello` (
   `IDProdottoInCarrello` int(11) NOT NULL,
   `IDProdotto` int(11) NOT NULL,
   `IDCliente` int(11) NOT NULL,
-  `quantità` int(11) NOT NULL
+  `quantita` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -212,7 +220,7 @@ CREATE TABLE `prodotto_in_ordine` (
   `IDProdottoInOrdine` int(11) NOT NULL,
   `IDProdotto` int(11) NOT NULL,
   `IDOrdine` int(11) NOT NULL,
-  `quantità` int(11) NOT NULL
+  `quantita` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -238,6 +246,31 @@ INSERT INTO `recensione` (`IDRecensione`, `commento`, `valutazione`, `IDCliente`
 (1, 'Servizio ottimo!', 5, 1, 1, 'Consiglio!'),
 (2, 'Buoni i secondi piatti, i primi dipende dai giorni', 4, 3, 2, 'Consiglio per i primi piatti!'),
 (3, 'Buon rapporto qualità prezzo, buoni primi e secondi, sconsiglio i dolci', 4, 3, 2, 'Buon rapporto qualità/prezzo');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `richieste_cambio_password`
+--
+
+CREATE TABLE `richieste_cambio_password` (
+  `id` int(11) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `code` varchar(128) NOT NULL,
+  `timestamp` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `tentativi_inserimento_codice`
+--
+
+CREATE TABLE `tentativi_inserimento_codice` (
+  `id` int(11) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `timestamp` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indici per le tabelle scaricate
@@ -314,6 +347,18 @@ ALTER TABLE `recensione`
   ADD KEY `FKriceve` (`IDFornitore`);
 
 --
+-- Indici per le tabelle `richieste_cambio_password`
+--
+ALTER TABLE `richieste_cambio_password`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indici per le tabelle `tentativi_inserimento_codice`
+--
+ALTER TABLE `tentativi_inserimento_codice`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT per le tabelle scaricate
 --
 
@@ -321,13 +366,13 @@ ALTER TABLE `recensione`
 -- AUTO_INCREMENT per la tabella `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `IDCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `IDCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT per la tabella `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `IDCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `IDCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT per la tabella `fornitore`
@@ -339,7 +384,7 @@ ALTER TABLE `fornitore`
 -- AUTO_INCREMENT per la tabella `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT per la tabella `notifica`
@@ -376,6 +421,18 @@ ALTER TABLE `prodotto_in_ordine`
 --
 ALTER TABLE `recensione`
   MODIFY `IDRecensione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT per la tabella `richieste_cambio_password`
+--
+ALTER TABLE `richieste_cambio_password`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `tentativi_inserimento_codice`
+--
+ALTER TABLE `tentativi_inserimento_codice`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Limiti per le tabelle scaricate
