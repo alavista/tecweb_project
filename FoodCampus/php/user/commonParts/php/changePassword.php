@@ -20,10 +20,11 @@
                     $oldPassword = hash('sha512', $oldPassword.$inf["salt"]);
                     if (strcmp($oldPassword, $inf["password"]) == 0) {
                         if (strcmp($_POST["newEncryptedPassword"], $_POST["repetNewEncryptedPassword"]) == 0) {
-                            $newPassword = hash('sha512', $_POST["newEncryptedPassword"].$inf["salt"]);
-                            $query = "UPDATE $table SET password = ? WHERE $fieldId = ?";
+                            $random_salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
+                            $newPassword = hash('sha512', $_POST["newEncryptedPassword"].$random_salt);
+                            $query = "UPDATE $table SET password = ?, salt = ? WHERE $fieldId = ?";
                             if ($stmt = $conn->prepare($query)) {
-                                $stmt->bind_param("ss", $newPassword, $_POST["userId"]);
+                                $stmt->bind_param("sss", $newPassword, $random_salt, $_POST["userId"]);
                                 if ($stmt->execute()) {
                                     $informationToSendClient["status"] = "OK";
                                     $informationToSendClient["inf"] = "La password è stata cambiata con successo!";
