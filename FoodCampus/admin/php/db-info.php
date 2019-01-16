@@ -8,9 +8,10 @@
         "ordine" => "IDOrdine",
         "prodotto" => "IDProdotto",
         "recensione" => "IDRecensione",
+        "prodotto_in_ordine" => "IDProdottoInOrdine"
     );
 
-    $DB_TABLES = array("Clienti"=>"cliente", "Fornitori"=>"fornitore", "Categorie"=>"categoria", "Prodotti"=>"prodotto", "Ordini"=>"ordine", "Recensioni"=>"recensione", "Notifiche"=>"notifica");
+    $DB_TABLES = array("Clienti"=>"cliente", "Fornitori"=>"fornitore", "Categorie"=>"categoria", "Prodotti"=>"prodotto", "Ordini"=>"ordine", "Recensioni"=>"recensione", "Notifiche"=>"notifica", "Prodotti_in_ordine"=>"prodotto_in_ordine");
 
     $DB_NUMERIC_TYPES = array("int", "decimal", "bit", "float", "tinyint");
 
@@ -39,6 +40,9 @@
         	case "recensione":
 				$sql = "SELECT * FROM recensione WHERE IDRecensione = ".$id;
 				break;
+            case "prodotto_in_ordine":
+                $sql = "SELECT * FROM prodotto_in_ordine WHERE IDProdottoInOrdine = ".$id;
+                break;
 		}
 		return $sql;
     }
@@ -66,6 +70,9 @@
         	case "recensione":
 				$sql = "SELECT * FROM recensione";
 				break;
+            case "prodotto_in_ordine":
+                $sql = "SELECT * FROM prodotto_in_ordine";
+                break;
 		}
 		return $sql;
     }
@@ -93,6 +100,9 @@
         	case "recensione":
 				$sql = "SELECT IDRecensione, titolo, valutazione FROM recensione";
 				break;
+            case "prodotto_in_ordine":
+                $sql = "SELECT IDProdottoInOrdine FROM prodotto_in_ordine";
+                break;
 		}
 		return $sql;
     }

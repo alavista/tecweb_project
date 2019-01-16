@@ -6,16 +6,28 @@
     	$table = $_POST["table"];
     	$sql = "INSERT INTO ".$table."(";
     	$first = true;
+        if($table == "cliente" || $table == "fornitore") {
+            $random_salt = "";
+            $password = "";
+        }
     	foreach($_POST as $key => $value) {
     		if($first == true) {
     			$first = false;
     		} else {
-    			$sql = $sql.$key.",";
+                if(($table == "cliente" || $table == "fornitore") && $key == "password") {
+                    // Crea una chiave casuale
+                    $random_salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
+                    // Crea una password usando la chiave appena creata.
+                    $password = hash('sha512', $value.$random_salt);
+                    $sql = $sql."salt,";
+                }
+                $sql = $sql.$key.",";
     		} 
     	}
     	$first = true;
     	$sql = substr($sql, 0, -1).") VALUES (";
-    	foreach($_POST as $value) {
+        
+    	foreach($_POST as $key => $value) {
     		if($first == true) {
     			$first = false;
     		} else {
@@ -24,7 +36,11 @@
 					$sql = $sql.$value.",";
 					$plus = -1;
 	    		} else {
-		    		$sql = $sql."'".$value."',"; 
+                    if(($table == "cliente" || $table == "fornitore") && $key == "password") {
+                        $sql = $sql."'".$random_salt."',"; 
+                        $value = $password;
+                    }
+                    $sql = $sql."'".$value."',"; 
 		    		$plus = -1;
 		    	}
 		    }

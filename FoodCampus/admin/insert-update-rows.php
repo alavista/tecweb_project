@@ -26,6 +26,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 		<!--Font awesome-->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+		<script src="../js/utilities/sha512.js"></script>
 		<script src="js/insert-update-rows.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
@@ -66,41 +67,46 @@
 				            }
 
 						    foreach($columnsName as $key => $value) {
-								if(!in_array($key, $PRIMARY_KEYS)) {
-									echo "<div class='form-group'><label for='".$key."'>".$key."&nbsp;</label>";
-									if($key == "immagine") {
-										echo "<input type='file' name='".$key."'";
-									} else {
-										if(in_array($value, $DB_NUMERIC_TYPES)) {
-											echo "<input type='number' name='".$key."' ";
-											if(in_array($value, $DB_FLOAT_TYPES)) {
-												echo "step='0.01' ";
-											}
+						    	if($key != "salt") {
+									if(!in_array($key, $PRIMARY_KEYS)) {
+										echo "<div class='form-group'><label for='".$key."'>".$key."&nbsp;</label>";
+										if($key == "immagine") {
+											echo "<input type='file' name='".$key."' ";
 										} else {
-											echo "<input type='text' name='".$key."'";
+											if(in_array($value, $DB_NUMERIC_TYPES)) {
+												echo "<input type='number' name='".$key."' ";
+												if(in_array($value, $DB_FLOAT_TYPES)) {
+													echo "step='0.01' ";
+												}
+											} else {
+												echo "<input type='text' name='".$key."' ";
+											}
 										}
-									}
-									if($update) {
-										echo "value='".$rowToUpdate[$key]."'";
-									}
-									echo "/></div>";
-								} else {
-									//se vero sono nel caso delle chiavi esterne
-									if($key != $PRIMARY_KEYS[$table]) {
-										$extern_table = array_search($key, $PRIMARY_KEYS);
-										echo "<div class='form-group'><label for='".$key."'>".$extern_table."&nbsp;</label>";
-										$sql2 = getQuerySearchExtern($extern_table);
-										$result2 = $GLOBALS["conn"]->query($sql2);
-										if($result2->num_rows != 0) {
-									        echo "<select name='".$key."'>";
-									        while($row2 = mysqli_fetch_array($result2)) {
-									        	echo "<option value='".$row2[$key]."'";
-									        	if($rowToUpdate[$key] == $row2[$key]) {
-									        		echo " selected";
-									        	}
-									        	echo ">".implode(",", array_unique($row2))."</option>";
-									        }
-									        echo "</select></div>";
+										if($update) {
+											echo "value='".$rowToUpdate[$key]."'";
+										}
+										echo "/></div>";
+									} else {
+										//se vero sono nel caso delle chiavi esterne
+										if($key != $PRIMARY_KEYS[$table]) {
+											$extern_table = array_search($key, $PRIMARY_KEYS);
+											echo "<div class='form-group'><label for='".$key."'>".$extern_table."&nbsp;</label>";
+											$sql2 = getQuerySearchExtern($extern_table);
+											$result2 = $GLOBALS["conn"]->query($sql2);
+											if($result2->num_rows != 0) {
+										        echo "<select name='".$key."' required>";
+										        if(!$update) {
+										        	echo "<option value='' disabled='disabled' selected='selected'>Scegli tra le opzioni</option>";			
+										        }
+										        while($row2 = mysqli_fetch_array($result2)) {
+										        	echo "<option value='".$row2[$key]."'";
+										        	if($update && $rowToUpdate[$key] == $row2[$key]) {
+										        		echo " selected";
+										        	}
+										        	echo ">".implode(",", array_unique($row2))."</option>";
+										        }
+										        echo "</select></div>";
+											}
 										}
 									}
 								}
