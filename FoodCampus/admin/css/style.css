@@ -1,0 +1,11 @@
+.container > nav {
+	padding: 2% 0;
+}
+
+table th {
+	padding: 0 15px;
+}
+
+#result-op {
+	padding: 15px;
+}

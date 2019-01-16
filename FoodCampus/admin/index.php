@@ -1,3 +1,8 @@
+<?php
+	if(isset($_SESSION["admin"])) {
+		header("Location: manage-database.php");
+	}
+?>
 <!DOCTYPE html>
 <html lang="it-IT">
 	<head>
@@ -8,13 +13,12 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 		<!-- jQuery library -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<!-- Popper JS
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> -->
+		<!-- Popper JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 		<!-- Latest compiled JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 		<!--Font awesome-->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-		<script src="index.js"></script>
 	</head>
 
 	<body>
@@ -24,7 +28,7 @@
 				<div class="col-xs-12">
 					<h1>Pannello amministratore</h1>
 				
-					<form action="login-admin.php" method="post">
+					<form action="php/login-admin.php" method="post">
 					  <div class="form-group">
 					    <label for="name">Nome</label>
 					    <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
