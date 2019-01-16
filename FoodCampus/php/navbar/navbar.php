@@ -56,7 +56,7 @@ if ($loggedInUser) {
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link item" href="/tecweb_project/FoodCampus/php/home.php">Home</a></li>
+            <li class="nav-item"><a class="nav-link item" href="/tecweb_project/FoodCampus/php/home/home.php">Home</a></li>
             <li class="nav-item"><a class="nav-link item" href="/tecweb_project/FoodCampus/php/products_research/products_research_index.php">Ricerca prodotti</a></li>
             <li class="nav-item"><a class="nav-link item" href="/tecweb_project/FoodCampus/php/suppliers_research/suppliers_research_index.php">Ricerca fornitori</a></li>
             <?php

@@ -27,7 +27,7 @@ function redirectToSupplier($conn, $idSupplier) {
 
 //Redirect to home page
 function redirectToHome($conn) {
-	header("Location: ../home.php");
+	header("Location: ../home/home.php");
 	mysqli_close($conn);
 	exit();
 }
