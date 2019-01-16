@@ -12,16 +12,19 @@
          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
          <!-- Latest compiled JavaScript -->
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+         <!-- Notify -->
+         <?php require_once 'navbar/filesForNotify.html'; ?>
          <!--Font awesome-->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="navbar/navbar.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/home.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="footer/footer.css">
+         <link rel="stylesheet" type="text/css" title="stylesheet" href="../css/utilities.css">
     </head>
     <body>
           <div class="container">
               <?php require_once 'navbar/navbar.php';?>
-              <div class = "text-center" id = "siteTitle">
+              <div class = "text-center <?php if ($supplier) { echo 'supplierStartAfterNavbar'; } else { echo 'clientStartAfterNavbar'; } ?>">
                   <h1>FOOD CAMPUS</h1>
               </div>
               <div id="foodCategories" class="carousel slide" data-ride="carousel">

@@ -1,28 +1,26 @@
-.startAfterNavbar {
+.clientStartAfterNavbar, .supplierStartAfterNavbar {
     margin-top: 60px;
 }
 
-.textBoxStartAfterNavbar {
+.clientImageStartAfterNavbar, .supplierImageStartAfterNavbar {
     margin-top: 70px;
 }
 
-.imageStartAfterNavbar {
+.jumbotronClientStartAfterNavbar, .jumbotronSupplierStartAfterNavbar {
     margin-top: 70px;
 }
 
-@media screen and (max-width: 384px) {
-    .startAfterNavbar {
-        margin-top: 90px;
-    }
-
-    .textBoxStartAfterNavbar {
-        margin-top: 105px;
-    }
+.supplierTextBoxStartAfterNavbar {
+    margin-top: 75px;
 }
 
 @media screen and (max-width: 394px) {
-    .imageStartAfterNavbar {
+
+    .jumbotronClientStartAfterNavbar, .clientStartAfterNavbar {
         margin-top: 105px;
     }
 
+    .clientImageStartAfterNavbar {
+        margin-top: 105px;
+    }
 }
