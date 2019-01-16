@@ -1,5 +1,6 @@
 <?php
     require_once '../../../database.php';
+    require_once '../../../utilities/direct_login.php';
 
     $queryError = false;
     $informationToSendClient = array('status' => "", "inf" => "");
@@ -26,6 +27,12 @@
                             if ($stmt = $conn->prepare($query)) {
                                 $stmt->bind_param("sss", $newPassword, $random_salt, $_POST["userId"]);
                                 if ($stmt->execute()) {
+                                    if (isset($_COOKIE[$GLOBALS["cookie_user_password"]])) {
+                                        setcookie($GLOBALS["cookie_user_password"], $newPassword, time() + (86400 * 365 * 5), "/");
+                                    }
+                                    if (!empty($_SESSION["login_string"])) {
+                                        $_SESSION['login_string'] = hash('sha512', $newPassword.$_SERVER['HTTP_USER_AGENT']);
+                                    }
                                     $informationToSendClient["status"] = "OK";
                                     $informationToSendClient["inf"] = "La password è stata cambiata con successo!";
                                 } else {
