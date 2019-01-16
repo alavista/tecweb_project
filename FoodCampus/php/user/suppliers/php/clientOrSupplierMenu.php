@@ -55,7 +55,6 @@ if ($stmt = $conn->prepare($query)) {
                                                         <button type="button" class="btn btn-deafult btn-kart" <?php if ($isSupplier) { echo "style='pointer-events: none;' disabled"; } ?>><i class="fas fa-cart-plus"></i></button>
                                                     </span>
                                                 </div>
-                                                <!--<br/>-->
                                             </div>
                                             <?php
                                         }
