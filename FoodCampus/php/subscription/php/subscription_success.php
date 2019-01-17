@@ -31,7 +31,7 @@
 				<p class="info">Ora puoi effettuare acquisti e scrivere recensioni!</p>
 				<p class="info">Puoi modificare le tue informazioni personali in qualsiasi momento nella pagina del tuo profilo.</p>
 				<div class="row justify-content-center">
-					<button type="submit" id="continuebtn" class="btn btn-primary btn-lg" onclick="location.href = '../../home.php';">Continua</button>
+					<button type="submit" id="continuebtn" class="btn btn-primary btn-lg" onclick="location.href = '../../home/home.php';">Continua</button>
 				</div>
 				<noscript>
 					<div class='alert alert-warning' style='margin-top: 8px;'>

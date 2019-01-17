@@ -25,7 +25,7 @@ if ($stmt = $conn->prepare($query)) {
                                         while ($product = $res2->fetch_assoc()) {
                                         ?>
                                             <div class="row product">
-                                                <span class="col-lg-9">
+                                                <div class="col-sm-7">
                                                     <?php
                                                     echo $product["nome"];
                                                     if ($product["vegano"] || $product["celiaco"] || $product["surgelato"]) {
@@ -46,14 +46,15 @@ if ($stmt = $conn->prepare($query)) {
                                                         <?php
                                                     }
                                                     ?>
-                                                </span>
-                                                <span class="col-lg-3">
-                                                    <span><?php echo $product["costo"]; ?> €</span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span class="productCost"><?php echo $product["costo"]; ?> €</span>
+                                                </div>
+                                                <div class="col-sm-2">
                                                     <span <?php if ($isSupplier) { echo "data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'"; } ?>>
                                                         <button type="button" class="btn btn-deafult btn-kart" <?php if ($isSupplier) { echo "style='pointer-events: none;' disabled"; } ?>><i class="fas fa-cart-plus"></i></button>
                                                     </span>
-                                                </span>
-                                                <br/>
+                                                </div>
                                             </div>
                                             <?php
                                         }

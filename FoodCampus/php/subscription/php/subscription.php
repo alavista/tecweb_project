@@ -37,7 +37,7 @@ function redirect($conn, $page) {
 
 // If user is already logged in, redirect
 if (isUserLogged($conn)) {
-	redirect($conn, "../../home.php");
+	redirect($conn, "../../home/home.php");
 }
 
 // Starts a session

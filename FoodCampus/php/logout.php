@@ -3,7 +3,7 @@
     require_once "$root/tecweb_project/FoodCampus/php/utilities/direct_login.php";
     echo "<br/><br/><br/><br/><br/><br/><br/>";
     echo $_SESSION["page"];
-    $actual_link = !empty($_SESSION["page"]) ? $_SESSION["page"] : "http://localhost/tecweb_project/FoodCampus/php/home.php";
+    $actual_link = !empty($_SESSION["page"]) ? $_SESSION["page"] : "http://localhost/tecweb_project/FoodCampus/php/home/home.php";
 
     if (session_status() == PHP_SESSION_NONE) {
         sec_session_start();
