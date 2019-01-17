@@ -27,6 +27,12 @@
     }
 }
 
+@media screen and (max-width: 540.9px) {
+    .fixCancelChangeProduct {
+        display: inline-block !important;
+    }
+}
+
 .btn-kart:hover {
     background-color: #cc0000;
 }
