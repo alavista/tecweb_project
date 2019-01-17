@@ -320,8 +320,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	<script src="../../../js/utilities/sha512.js"></script>
 	<script src="../../../js/utilities/form_password_encoder.js"></script>
 
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/php/navbar/navbar.css">
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/php/subscription/css/subscription.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="../../navbar/navbar.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="../css/subscription.css">
 </head>
 
 <body>

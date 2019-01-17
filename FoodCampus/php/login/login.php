@@ -20,7 +20,7 @@ if (isSessionForReview()) {
 
 //Redirect to supplier page
 function redirectToSupplier($conn, $idSupplier) {
-	header("Location: /tecweb_project/FoodCampus/php/user/suppliers/php/supplier.php?id=".$idSupplier);
+	header("Location: ../user/suppliers/php/supplier.php?id=".$idSupplier);
 	mysqli_close($conn);
 	exit();
 }
