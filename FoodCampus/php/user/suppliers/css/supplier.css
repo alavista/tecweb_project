@@ -15,6 +15,18 @@
     margin-bottom: 20px;
 }
 
+@media screen and (min-width: 768px) {
+    .fixCancelChangeProduct {
+        margin-left: 4px;
+    }
+}
+
+@media screen and (max-width: 576px) and (min-width: 541px) {
+    .fixCancelChangeProduct {
+        margin-left: 4px;
+    }
+}
+
 .btn-kart:hover {
     background-color: #cc0000;
 }

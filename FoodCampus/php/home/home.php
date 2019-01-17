@@ -96,6 +96,16 @@
                   </div>
                   <div class="validation" id="carouselError"></div>
               </div>
+              <div class="text-center">
+                  <h1>Chi siamo</h1>
+                  <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lorem sapien, fermentum at tincidunt nec, vehicula commodo ipsum. Aliquam maximus ex odio. Donec pretium lacus id molestie rhoncus. Ut tempus dapibus sapien vitae suscipit. Donec id ante non metus dictum convallis. Nulla viverra aliquam ipsum id ultricies. Nulla facilisi. Donec sit amet scelerisque lacus. In porta, eros at venenatis vehicula, mi risus tristique nibh, ac sollicitudin ligula neque et enim. Nam a tincidunt lorem, non placerat nisl. Morbi ac nisi eleifend, pretium orci nec, varius ex. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </p>
+                  <h1>I nostri obiettivi</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lorem sapien, fermentum at tincidunt nec, vehicula commodo ipsum. Aliquam maximus ex odio. Donec pretium lacus id molestie rhoncus. Ut tempus dapibus sapien vitae suscipit. Donec id ante non metus dictum convallis. Nulla viverra aliquam ipsum id ultricies. Nulla facilisi. Donec sit amet scelerisque lacus. In porta, eros at venenatis vehicula, mi risus tristique nibh, ac sollicitudin ligula neque et enim. Nam a tincidunt lorem, non placerat nisl. Morbi ac nisi eleifend, pretium orci nec, varius ex. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+              </div>
           </div>
           <?php require_once "../footer/footer.html"; ?>
       </body>
