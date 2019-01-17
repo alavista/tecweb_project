@@ -30,7 +30,7 @@ $(function() {
                     if (data.status.localeCompare("ERROR") == 0) {
                         managmentGeneralError($("#titleReview"), data.inf);
                     } else if (data.status.localeCompare("OK") == 0) {
-                        window.location = "../../login/login.php";
+                        window.location = "../../../login/login.php";
                     }
                 });
             } else {

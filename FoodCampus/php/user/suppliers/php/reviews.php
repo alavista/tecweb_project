@@ -2,18 +2,16 @@
 <?php
 if (!$isSupplier) {
     ?>
-    <div>
-        <form id="newReview" class="form-group">
-            <div class="pt-2">
-                <input name="stars" id="valutationReview" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" value="4" data-size="lg">
-            </div>
-            <label for="commentReview" class="font-weight-bold">Scrivi la tua recensione</label>
-            <textarea class="form-control" rows="5" id="commentReview" name="comment" placeholder="Che cosa ti è piaciuto e cosa non ti è piaciuto?" required></textarea>
-            <label for="titleReview" class="font-weight-bold" id="addTitleReview">Aggiungi un titolo</label>
-            <input type="text" class="form-control" id="titleReview" name="title" placeholder="Quali sono le cose più importanti da sapere?" required>
-            <button type="submit" id="submitReview" class="btn btn-primary">Invia</button>
-        </form>
-    </div>
+    <form id="newReview" class="form-group">
+        <div class="pt-2">
+            <input name="stars" id="valutationReview" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" value="4" data-size="lg">
+        </div>
+        <label for="commentReview" class="font-weight-bold">Scrivi la tua recensione</label>
+        <textarea class="form-control" rows="5" id="commentReview" name="comment" placeholder="Che cosa ti è piaciuto e cosa non ti è piaciuto?" required></textarea>
+        <label for="titleReview" class="font-weight-bold" id="addTitleReview">Aggiungi un titolo</label>
+        <input type="text" class="form-control" id="titleReview" name="title" placeholder="Quali sono le cose più importanti da sapere?" required>
+        <button type="submit" id="submitReview" class="btn btn-primary">Invia</button>
+    </form>
     <?php
 }
 ?>
