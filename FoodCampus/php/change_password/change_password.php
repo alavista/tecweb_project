@@ -18,54 +18,11 @@ if ($conn->connect_errno) {
 require_once "../login/login_functions.php";
 require_once "../utilities/direct_login.php";
 
-//Redirect to home page
-function redirectToHome($conn) {
-	header("Location: ../home.php");
-	mysqli_close($conn);
-	exit();
-}
-
-// If user is already logged in, redirect
-if (isUserLogged($conn) || !isset($_SESSION['email_with_code']) || !isset($_SESSION['user_type_with_code'])) {
-	redirectToHome($conn);
-}
-
-function deleteUserRequests($conn) {
-
-	$query = "DELETE FROM tentativi_inserimento_codice WHERE email = ?";
-
-	if ($stmt = $conn->prepare($query)) {
-		$stmt->bind_param('s', $_SESSION['email_with_code']);
-
-		// Esegui la query ottenuta.
-		if ($stmt->execute()) {
-			// code...
-		} else {
-			die($stmt->error);
-		}
-	} else {
-		die($conn->error);
-	}
-
-	$query = "DELETE FROM richieste_cambio_password WHERE email = ?";
-
-	if ($stmt = $conn->prepare($query)) {
-		$stmt->bind_param('s', $_SESSION['email_with_code']);
-
-		// Esegui la query ottenuta.
-		if ($stmt->execute()) {
-			// code...
-		} else {
-			die($stmt->error);
-		}
-	} else {
-		die($conn->error);
-	}
-
-}
+$session_mail = $_SESSION['email_with_code'];
+$session_user_type = $_SESSION['user_type_with_code'];
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
+	$_SESSION['operation_allowed'] = true;
 	if (!isset($_POST["p"]) || empty($_POST["p"])) {
 		if (!isset($_POST["pswd"]) || empty($_POST["pswd"])) {
 			$errors = true;
@@ -101,19 +58,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		// Crea una password usando la chiave appena creata.
 		$password = hash('sha512', $password.$random_salt);
 
-		$query = "UPDATE ".$_SESSION['user_type_with_code']." SET password = ?, salt = ? WHERE email = ?";
+		$query = "UPDATE ".$session_user_type." SET password = ?, salt = ? WHERE email = ?";
 
 		if ($insert_stmt = $conn->prepare($query)) {
 
-			$insert_stmt->bind_param('sss', $password, $random_salt, $_SESSION['email_with_code']);
+			$insert_stmt->bind_param('sss', $password, $random_salt, $session_mail);
 
 			// Esegui la query ottenuta.
 	 	   if (!$insert_stmt->execute()) {
 	 		   array_push($queryErrors, $insert_stmt->error);
 	 	   } else {
 	 		   // Successo !!!
-			   deleteUserRequests($conn);
-
 			   if (session_status() == PHP_SESSION_NONE) {
 		           sec_session_start();
 		       }
@@ -131,6 +86,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 }
 
+//Redirect to home page
+function redirectToHome($conn) {
+	header("Location: ../home/home.php");
+	mysqli_close($conn);
+	exit();
+}
+
+if (isUserLogged($conn) || !isset($_SESSION['operation_allowed']) || $_SESSION['operation_allowed'] === false) {
+	unset($_SESSION['email_with_code']);
+	unset($_SESSION['user_type_with_code']);
+	unset($_SESSION['operation_allowed']);
+
+	redirectToHome($conn);
+}
+
+$_SESSION['operation_allowed'] = false;
 ?>
 
 <!DOCTYPE html>
@@ -195,6 +166,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							Per favore, riabilita JavaScript nel tuo Browser e ricarica la pagina.
 						</div>
 					</noscript>
+					<div class='alert alert-warning' style='margin-top: 8px;'><strong>ATTENZIONE: </strong>
+						<br/><strong>NON</strong> ricaricare e <strong>NON</strong> uscire da questa pagina o dovrai chiedere un nuovo codice!
+					</div>
 					<?php
 						if(count($queryErrors) > 0) {
 							foreach ($queryErrors as &$value) {

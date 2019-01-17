@@ -10,16 +10,63 @@ require_once "../utilities/direct_login.php";
 
 $GLOBALS["errors"] = "";
 
+$session_mail = $_SESSION['email_with_code'];
+$session_user_type = $_SESSION['user_type_with_code'];
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+	$_SESSION['operation_allowed'] = true;
+	if (isset($_POST["codice"])) {
+		if (checkBruteAttempts($conn, $session_mail)) {
+		} else {
+			if (checkCode($conn, $session_mail)) {
+
+				mysqli_close($conn);
+
+				$conn = new mysqli("localhost", "root", "", "foodcampus");
+
+				if ($conn->connect_errno) {
+					die("Failed to connect to MySQL: (" . $conn->connect_errno . ") " . $conn->connect_error);
+				}
+
+				deleteUserRequests($conn, $session_mail);
+
+				// Cancella la sessione.
+				session_destroy();
+
+				if (session_status() == PHP_SESSION_NONE) {
+					sec_session_start();
+				}
+
+				$_SESSION['email_with_code'] = $session_mail;
+				$_SESSION['user_type_with_code'] = $session_user_type;
+				$_SESSION['operation_allowed'] = true;
+
+				header("Location: ../change_password/change_password.php");
+				mysqli_close($conn);
+				exit();
+			}
+		}
+	} else {
+		$GLOBALS["errors"] = "Codice non valido";
+	}
+}
+
 //Redirect to home page
 function redirectToHome($conn) {
-	header("Location: ../home.php");
+	header("Location: ../home/home.php");
 	mysqli_close($conn);
 	exit();
 }
 
-if (isUserLogged($conn) || !isset($_SESSION['email_with_code']) || !isset($_SESSION['user_type_with_code'])) {
+if (isUserLogged($conn) || !isset($_SESSION['operation_allowed']) || $_SESSION['operation_allowed'] === false) {
+	unset($_SESSION['email_with_code']);
+	unset($_SESSION['user_type_with_code']);
+	unset($_SESSION['operation_allowed']);
+
 	redirectToHome($conn);
 }
+
+$_SESSION['operation_allowed'] = false;
 
 function checkCode($conn, $email) {
 	$valid_attempts = time() - (60 * 3);
@@ -27,7 +74,7 @@ function checkCode($conn, $email) {
 
 	// Usando statement sql 'prepared' non sarà possibile attuare un attacco di tipo SQL injection.
 	if ($stmt = $conn->prepare($query)) {
-		$stmt->bind_param('ss', $_SESSION['email_with_code'], $valid_attempts); // esegue il bind del parametro '$email'.
+		$stmt->bind_param('ss', $email, $valid_attempts); // esegue il bind del parametro '$email'.
 		// esegue la query appena creata.
 		if (!$stmt->execute()) {
 			$GLOBALS["sqlError"] = $conn->error;
@@ -44,7 +91,7 @@ function checkCode($conn, $email) {
 			} else {
 				$GLOBALS["errors"] = "Codice non valido";
 				$now = time();
-		        if (!$conn->query("INSERT INTO tentativi_inserimento_codice (email, timestamp) VALUES ('".$_SESSION["email_with_code"]."', '$now')")) {
+		        if (!$conn->query("INSERT INTO tentativi_inserimento_codice (email, timestamp) VALUES ('".$email."', '$now')")) {
 		            $GLOBALS["sqlWarning"] = $mysqli->error;
 		            return false;
 		        }
@@ -57,13 +104,13 @@ function checkCode($conn, $email) {
 	}
 }
 
-function checkBruteAttempts($conn) {
+function checkBruteAttempts($conn, $email) {
 	$valid_attempts = time() - (60 * 5);
 	$query = "SELECT id FROM tentativi_inserimento_codice WHERE email = ? and timestamp > ?";
 
 	// Usando statement sql 'prepared' non sarà possibile attuare un attacco di tipo SQL injection.
 	if ($stmt = $conn->prepare($query)) {
-		$stmt->bind_param('ss', $_SESSION['email_with_code'], $valid_attempts); // esegue il bind del parametro '$email'.
+		$stmt->bind_param('ss', $email, $valid_attempts); // esegue il bind del parametro '$email'.
 		// esegue la query appena creata.
 		if (!$stmt->execute()) {
 			$GLOBALS["sqlError"] = $conn->error;
@@ -83,18 +130,36 @@ function checkBruteAttempts($conn) {
 	return false;
 }
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-	if (isset($_POST["codice"])) {
-		if (checkBruteAttempts($conn)) {
+function deleteUserRequests($conn, $email) {
+
+	$query = "DELETE FROM tentativi_inserimento_codice WHERE email = ?";
+
+	if ($stmt = $conn->prepare($query)) {
+		$stmt->bind_param('s', $email);
+
+		// Esegui la query ottenuta.
+		if ($stmt->execute()) {
+			// code...
 		} else {
-			if (checkCode($conn, $_POST["codice"])) {
-				header("Location: ../change_password/change_password.php");
-				mysqli_close($conn);
-				exit();
-			}
+			die($stmt->error);
 		}
 	} else {
-		$GLOBALS["errors"] = "Codice non valido";
+		die($conn->error);
+	}
+
+	$query = "DELETE FROM richieste_cambio_password WHERE email = ?";
+
+	if ($stmt = $conn->prepare($query)) {
+		$stmt->bind_param('s', $email);
+
+		// Esegui la query ottenuta.
+		if ($stmt->execute()) {
+			// code...
+		} else {
+			die($stmt->error);
+		}
+	} else {
+		die($conn->error);
 	}
 }
 ?>
@@ -128,7 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			<div class="col-lg-6 jumbotron" id="change_password_form">
 				<h1 class="form-title">Inserisci il codice</h1>
 				<p class="important-text">Inserisci qui sotto il codice che hai ricevuo via email.<br/>
-					<strong>ATTENZIONE: </strong> il codice ha una durata di 3 minuti.
+					<strong style="color: red;">ATTENZIONE: </strong> il codice ha una durata di 3 minuti.
 				</p>
 				<form action="password_code_checker.php" method="post">
 					<div class="form-group">
@@ -155,6 +220,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						}
 					?>
 				</form>
+				<div class='alert alert-warning' style='margin-top: 8px;'><strong>ATTENZIONE: </strong>
+					<br/><strong>NON</strong> ricaricare e <strong>NON</strong> uscire da questa pagina o dovrai chiedere un nuovo codice!
+				</div>
 			</div>
 		</div>
 	</div>

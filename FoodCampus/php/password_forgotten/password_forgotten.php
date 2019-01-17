@@ -15,7 +15,7 @@ $emailError = "";
 
 //Redirect to home page
 function redirectToHome($conn) {
-	header("Location: ../home.php");
+	header("Location: ../home/home.php");
 	mysqli_close($conn);
 	exit();
 }
@@ -105,9 +105,14 @@ function sendMail($email, $code) {
 	<title>HTML email</title>
 	</head>
 	<body>
-		<p>Il tuo codice per reimpostare la password &egrave;: </p>"
+		<p>Il tuo codice per reimpostare la password &egrave;: <strong>"
 	.$code.
-	"</body>
+	"</strong></p>
+	<p>
+		Se <strong>NON</strong> hai richiesto il cambio della password, contatta immediatamente il supporto all'indirizzo:<br/>
+		<strong>foodcampus.cesena@gmail.com</strong>
+	</p>
+	</body>
 	</html>
 	";
 
@@ -124,7 +129,7 @@ function checkBruteAttempts($conn) {
 
 	// Usando statement sql 'prepared' non sarà possibile attuare un attacco di tipo SQL injection.
 	if ($stmt = $conn->prepare($query)) {
-		$stmt->bind_param('ss', $_SESSION['email_with_code'], $valid_attempts); // esegue il bind del parametro '$email'.
+		$stmt->bind_param('ss', $_POST["email"], $valid_attempts); // esegue il bind del parametro '$email'.
 		// esegue la query appena creata.
 		if (!$stmt->execute()) {
 			$GLOBALS["sqlError"] = $conn->error;
@@ -144,46 +149,74 @@ function checkBruteAttempts($conn) {
 	return false;
 }
 
+function checkBruteCodeRequests($conn) {
+	$valid_attempts = time() - (60 * 5);
+	$query = "SELECT id FROM richieste_cambio_password WHERE email = ? and timestamp > ?";
+
+	// Usando statement sql 'prepared' non sarà possibile attuare un attacco di tipo SQL injection.
+	if ($stmt = $conn->prepare($query)) {
+		$stmt->bind_param('ss', $_POST["email"], $valid_attempts); // esegue il bind del parametro '$email'.
+		// esegue la query appena creata.
+		if (!$stmt->execute()) {
+			$GLOBALS["sqlError"] = $conn->error;
+			return false;
+		}
+
+		$stmt->store_result();
+		$stmt->bind_result($code); // recupera il risultato della query e lo memorizza nelle relative variabili.
+		$stmt->fetch();
+
+		if($stmt->num_rows > 9) {
+			$GLOBALS["errors"] = "Hai richiesto il codice troppe volte, riprova pi&ugrave; tardi.";
+			return true;
+		}
+	}
+
+	return false;
+}
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	if (isset($_POST["email"]) && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 		if (checkUser($conn, $_POST["email"], $emailError)) {
-			if (checkBruteAttempts($conn)) {
+			if (checkBruteCodeRequests($conn)) {
 			} else {
-				$code = substr(md5(uniqid(mt_rand(), true)) , 0, 8);
-				if (sendMail($_POST["email"], $code)) {
-					$now = time();
-			        if ($stmt = $conn->prepare("INSERT INTO richieste_cambio_password (email, code, timestamp) VALUES (?, ?, ?)")) {
-						if ($stmt->bind_param('sss', $_POST["email"], $code, $now)) {
-							if ($stmt->execute()) {
-								// Successo !!!
-								if (session_status() == PHP_SESSION_NONE) {
-								   sec_session_start();
+				if (checkBruteAttempts($conn)) {
+				} else {
+					$code = substr(md5(uniqid(mt_rand(), true)) , 0, 8);
+					if (sendMail($_POST["email"], $code)) {
+						$now = time();
+				        if ($stmt = $conn->prepare("INSERT INTO richieste_cambio_password (email, code, timestamp) VALUES (?, ?, ?)")) {
+							if ($stmt->bind_param('sss', $_POST["email"], $code, $now)) {
+								if ($stmt->execute()) {
+									// Successo !!!
+									session_destroy();
+
+									if (session_status() == PHP_SESSION_NONE) {
+										sec_session_start();
+									}
+
+									$_SESSION['email_with_code'] = $_POST["email"];
+									$_SESSION['user_type_with_code'] = $GLOBALS["user"];
+									$_SESSION['operation_allowed'] = true;
+
+									header("Location: ../password_code_checker/password_code_checker.php");
+									mysqli_close($conn);
+									exit();
+								} else {
+									$GLOBALS["sqlError"] = $stmt->error;
 								}
-								// Cancella la sessione.
-								session_destroy();
-
-								 sec_session_start();
-
-								$_SESSION['email_with_code'] = $_POST["email"];
-								$_SESSION['user_type_with_code'] = $GLOBALS["user"];
-
-								header("Location: ../password_code_checker/password_code_checker.php");
-								mysqli_close($conn);
-								exit();
 							} else {
 								$GLOBALS["sqlError"] = $stmt->error;
 							}
-						} else {
-							$GLOBALS["sqlError"] = $stmt->error;
-						}
-			        } else {
-			        	$GLOBALS["sqlError"] = $conn->error;
-			        }
-				} else {
-					$emailError = "Errore durante l'invio dell'email.<br/>
-									Se il problema persiste, contattare il supporto all'indirizzio:
-									<strong>foodcampus.cesena@gmail.com</strong>";
+				        } else {
+				        	$GLOBALS["sqlError"] = $conn->error;
+				        }
+					} else {
+						$emailError = "Errore durante l'invio dell'email.<br/>
+										Se il problema persiste, contattare il supporto all'indirizzio:
+										<strong>foodcampus.cesena@gmail.com</strong>";
+					}
 				}
 			}
 		}
