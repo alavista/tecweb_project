@@ -49,7 +49,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
         <div class="container">
             <?php
             require_once '../../navbar/navbar.php';
-            $_SESSION["page"] = "http://localhost/tecweb_project/FoodCampus/php/home.php";
+            $_SESSION["page"] = "http://localhost/tecweb_project/FoodCampus/php/home/home.php";
             $query = "SELECT * FROM cliente WHERE IDCliente = ?";
             if ($stmt = $conn->prepare($query)) {
                 $stmt->bind_param("s", $_GET["id"]);
