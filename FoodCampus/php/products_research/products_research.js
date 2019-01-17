@@ -85,7 +85,9 @@ function loadCategories() {
                     $(this).addClass("btn-danger");
                 });
 
-                $("#" + buttonId).focus();
+                if (buttonId !== null && buttonId !== "") {
+                    $("#" + buttonId).focus();
+                }
             }
         })
         .fail(function(xhr, textStatus, errorThrown) {
