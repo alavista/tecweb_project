@@ -6,6 +6,7 @@ $(function() {
         var idSupplier = getIdSupplier();
         var idClient = getId();
         var inputWithfocus = false;
+        event.preventDefault();
         $(":input[required]").each(function() {
             var elem = $(this);
             showOrRemoveError(elem, STANDARD_ERROR_MESSAGGE);

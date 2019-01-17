@@ -3,7 +3,7 @@
 if (!$isSupplier) {
     ?>
     <div>
-        <div id="newReview" class="form-group">
+        <form id="newReview" class="form-group">
             <div class="pt-2">
                 <input name="stars" id="valutationReview" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" value="4" data-size="lg">
             </div>
@@ -12,7 +12,7 @@ if (!$isSupplier) {
             <label for="titleReview" class="font-weight-bold" id="addTitleReview">Aggiungi un titolo</label>
             <input type="text" class="form-control" id="titleReview" name="title" placeholder="Quali sono le cose più importanti da sapere?" required>
             <button type="submit" id="submitReview" class="btn btn-primary">Invia</button>
-        </div>
+        </form>
     </div>
     <?php
 }
