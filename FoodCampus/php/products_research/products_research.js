@@ -20,6 +20,11 @@ function searchProducts(category) {
                                                 +products.data+"</div>");
             } else if (products.status.localeCompare("ok") == 0) {
 
+                $(".category-btn").removeClass("btn-danger");
+                $(".category-btn").addClass("btn-primary");
+                $("#" + category).removeClass("btn-primary");
+                $("#" + category).addClass("btn-danger");
+
                 $("table").removeAttr("hidden");
                 $("#result_content").removeAttr("hidden");
 
@@ -31,7 +36,7 @@ function searchProducts(category) {
                     var html_code = "";
                     for(var i = 0; i < products.data.length; i++){
                     	html_code += '<tr><td>'+products.data[i]["pnome"]
-                                                            +'</td><td>'+"€ " + products.data[i]["costo"]+'</td><td><a href=/tecweb_project/FoodCampus/php/suppliers/php/supplier.php?id='+products.data[i]["IDFornitore"]+'>'+products.data[i]["fnome"]
+                                                            +'</td><td>'+"€ " + products.data[i]["costo"]+'</td><td><a href=../user/suppliers/php/supplier.php?id='+products.data[i]["IDFornitore"]+'>'+products.data[i]["fnome"]
                                                             +"</a></td><td>" + ((products.data[i]["valutazione_media"] === null) ? "/" : "<strong>" + products.data[i]["valutazione_media"].toFixed(1) + "</strong><br/>" + " ("+products.data[i]["nrec"] + " voto/i)")
                                                             +"<td><span data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' class='btn btn-deafult btn-kart'><i class='fas fa-cart-plus'></i></button></span>"
                                                             +'</td></tr>';
@@ -76,13 +81,6 @@ function loadCategories() {
                         searchProducts($("#" + categories.data[i].nome).text());
                     });
                 });
-
-                $(".category-btn").focus(function() {
-                    $(".category-btn").removeClass("btn-danger");
-                    $(".category-btn").addClass("btn-primary");
-                    $(this).removeClass("btn-primary");
-                    $(this).addClass("btn-danger");
-            	});
             }
         })
         .fail(function(xhr, textStatus, errorThrown) {
@@ -106,5 +104,10 @@ $(document).ready(function() {
     $('#celiac_checkbox').on('change', function() {
 		searchProducts(currentCategory);
 	});
+
+    if (buttonId !== null && buttonId !== "") {
+        console.log(buttonId);
+        searchProducts(buttonId);
+    }
 
 });

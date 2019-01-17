@@ -91,6 +91,7 @@ function getProducts($conn, $category, $vegan, $celiac, $sorting) {
                                     LEFT OUTER JOIN recensione r ON (r.IDFornitore = f.IDFornitore)
                                     WHERE c.IDCategoria = p.IDCategoria AND p.IDFornitore = f.IDFornitore
                                     AND c.nome = '$category'
+                                    AND f.bloccato = 0 AND f.abilitato = 1
                                     $veganQuery
                                     $celiacQuery
                                     GROUP BY f.IDFornitore, p.IDProdotto

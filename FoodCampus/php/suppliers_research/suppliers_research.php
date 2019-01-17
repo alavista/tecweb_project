@@ -54,6 +54,7 @@ function getSuppliers($conn, $category, $vegan, $celiac, $sorting) {
                                     FROM categoria as c, prodotto as p, fornitore as f
                                     LEFT OUTER JOIN recensione r ON (r.IDFornitore = f.IDFornitore)
                                     WHERE c.IDCategoria = p.IDCategoria AND p.IDFornitore = f.IDFornitore
+                                    AND f.bloccato = 0 AND f.abilitato = 1
                                     $noCategoryQuery
                                     GROUP BY f.IDFornitore
                                     $veganQuery

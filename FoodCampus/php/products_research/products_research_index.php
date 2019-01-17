@@ -1,3 +1,6 @@
+<?php
+	require_once "../utilities/direct_login.php"
+?>
 <!DOCTYPE html>
 <html lang="it-IT">
 <head>
@@ -89,6 +92,17 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">buttonId="";</script>
+	<?php
+		if (isset($_SESSION["food"])) {
+	?>
+			<script type="text/javascript">
+				buttonId = <?php echo json_encode($_SESSION["food"]); ?>;
+			</script>
+	<?php
+			unset($_SESSION["food"]);
+		}
+	?>
 	<?php require_once "../footer/footer.html"; ?>
 </body>
 </html>
