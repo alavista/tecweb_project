@@ -1,16 +1,22 @@
 <?php
 
-$checkClientError="";
-$emailError = "";
-$passwordError = "";
+$errors = false;
 
-require_once "../database.php";
+$passwordError = "";
+$confirmPasswordError = "";
+
+$slqError = "";
+$queryErrors = array();
+
+$conn = new mysqli("localhost", "root", "", "foodcampus");
+// Se ti stai connettendo usando il protocollo TCP/IP, invece di usare un socket UNIX, ricordati di aggiungere il parametro corrispondente al numero di porta.
+
+if ($conn->connect_errno) {
+	die("Failed to connect to MySQL: (" . $conn->connect_errno . ") " . $conn->connect_error);
+}
+
 require_once "../login/login_functions.php";
 require_once "../utilities/direct_login.php";
-
-$GLOBALS["user"] = "Cliente";
-$GLOBALS["banned"] = false;
-$emailError = "";
 
 //Redirect to home page
 function redirectToHome($conn) {
@@ -19,96 +25,118 @@ function redirectToHome($conn) {
 	exit();
 }
 
-if (isUserLogged($conn)) {
+// If user is already logged in, redirect
+if (isUserLogged($conn) || !isset($_SESSION['email_with_code']) || !isset($_SESSION['user_type_with_code'])) {
 	redirectToHome($conn);
 }
 
-function isUserAllowed($mysqli, $email, $query) {
-    $sentEmail = $email;
+function deleteUserRequests($conn) {
 
-    // Usando statement sql 'prepared' non sarà possibile attuare un attacco di tipo SQL injection.
-    if ($stmt = $mysqli->prepare($query)) {
-        $stmt->bind_param('s', $sentEmail); // esegue il bind del parametro '$email'.
-        // esegue la query appena creata.
-        if (!$stmt->execute()) {
-            $GLOBALS["sqlError"] = $mysqli->error;
-            return false;
-        }
-        $stmt->store_result();
-        $stmt->bind_result($user_id, $email, $db_password, $salt, $blocked); // recupera il risultato della query e lo memorizza nelle relative variabili.
-        $stmt->fetch();
+	$query = "DELETE FROM tentativi_inserimento_codice WHERE email = ?";
 
-		if($stmt->num_rows == 1) {
+	if ($stmt = $conn->prepare($query)) {
+		$stmt->bind_param('s', $_SESSION['email_with_code']);
 
-            if ($blocked !== 0) {
-                $GLOBALS["banned"] = true;
-                return false;
-            }
-			$GLOBALS["banned"] = false;
-			return true;
+		// Esegui la query ottenuta.
+		if ($stmt->execute()) {
+			// code...
+		} else {
+			die($stmt->error);
+		}
+	} else {
+		die($conn->error);
+	}
 
-        } else {
-            $GLOBALS["sqlError"] = $mysqli->error;
-            return false;
-        }
-    } else {
-        $GLOBALS["sqlError"] = $mysqli->error;
-        return false;
-    }
+	$query = "DELETE FROM richieste_cambio_password WHERE email = ?";
 
-    return false;
-}
+	if ($stmt = $conn->prepare($query)) {
+		$stmt->bind_param('s', $_SESSION['email_with_code']);
 
-function checkUser($conn, $email, &$emailError) {
-	$password = "";
-	$query = "SELECT IDCliente, email, password, salt, bloccato FROM cliente WHERE email = ? LIMIT 1";
+		// Esegui la query ottenuta.
+		if ($stmt->execute()) {
+			// code...
+		} else {
+			die($stmt->error);
+		}
+	} else {
+		die($conn->error);
+	}
 
-    if (!isUserAllowed($conn, $email, $query)) {
-
-        if ($GLOBALS["sqlError"] === "") {
-            $query = "SELECT IDFornitore, email, password, salt, bloccato FROM fornitore WHERE email = ? LIMIT 1";
-
-            if (!isUserAllowed($conn, $email, $query)) {
-
-                if ($GLOBALS["banned"] === false && $GLOBALS["sqlError"] === "") {
-                    $emailError = "Nessun utente registrato con questo indirizzo email";
-                }
-
-                return false;
-            } else {
-                $GLOBALS["user"] = "Fornitore";
-            }
-
-        } else {
-            return false;
-        }
-    } else {
-        $GLOBALS["user"] = "Cliente";
-    }
-
-    if (checkbrute($email, $conn)) {
-        $emailError = "Questo utente è stato bloccato temporaneamente a causa dei troppi tentativi di accesso.<br/>Riprovare pi&ugrave; tardi.";
-        return false;
-    }
-
-	return true;
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-	if (isset($_POST["email"]) && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-		if (checkUser($conn, $_POST["email"], $emailError)) {
-			// code...
+	if (!isset($_POST["p"]) || empty($_POST["p"])) {
+		if (!isset($_POST["pswd"]) || empty($_POST["pswd"])) {
+			$errors = true;
+			$passwordError = "Inserire una password";
 		}
-	} else {
-		$emailError = "Inserire un indirizzo email valido";
 	}
+
+	if (!isset($_POST["c-p"]) || empty($_POST["c-p"])) {
+		if (!isset($_POST["confirm-pwd"]) || empty($_POST["confirm-pwd"])) {
+			$confirmPasswordError = "Reinserisci qui la password";
+			$errors = true;
+		} else if (!isset($_POST["pswd"]) || !isset($_POST["confirm-pwd"]) || $_POST["pswd"] != $_POST["confirm-pwd"]) {
+			$confirmPasswordError = "Le due password non corrispondono";
+			$errors = true;
+		}
+	} else if (!isset($_POST["p"]) || !isset($_POST["c-p"]) || $_POST["p"] != $_POST["c-p"]) {
+		$confirmPasswordError = "Le due password non corrispondono";
+		$errors = true;
+	}
+
+	if (!$errors) {
+		// Recupero la password criptata dal form di inserimento.
+		if (!isset($_POST["p"]) || empty($_POST["p"])) {
+			if (isset($_POST["pswd"]) && !empty($_POST["pswd"])) {
+				$password = $_POST["pswd"];
+			}
+		} else {
+			$password = $_POST["p"];
+		}
+
+		// Crea una chiave casuale
+		$random_salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
+		// Crea una password usando la chiave appena creata.
+		$password = hash('sha512', $password.$random_salt);
+
+		$query = "UPDATE ".$_SESSION['user_type_with_code']." SET password = ?, salt = ? WHERE email = ?";
+
+		if ($insert_stmt = $conn->prepare($query)) {
+
+			$insert_stmt->bind_param('sss', $password, $random_salt, $_SESSION['email_with_code']);
+
+			// Esegui la query ottenuta.
+	 	   if (!$insert_stmt->execute()) {
+	 		   array_push($queryErrors, $insert_stmt->error);
+	 	   } else {
+	 		   // Successo !!!
+			   deleteUserRequests($conn);
+
+			   if (session_status() == PHP_SESSION_NONE) {
+		           sec_session_start();
+		       }
+			   // Cancella la sessione.
+		       session_destroy();
+
+			   header("Location: success.php");
+			   mysqli_close($conn);
+			   exit();
+	 	   }
+		} else {
+			array_push($queryErrors, $conn->error);
+		}
+	}
+
 }
+
 ?>
+
 <!DOCTYPE html>
 <html lang="it-IT">
 <head>
-	<title>Password dimenticata</title>
+	<title>Reimposta Password</title>
 	<metacharset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Latest compiled and minified CSS -->
@@ -127,7 +155,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	<script src="../../js/utilities/sha512.js"></script>
 	<script src="../../js/utilities/form_password_encoder.js"></script>
 	<script src="change_password.js"></script>
-
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../navbar/navbar.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="change_password.css">
 </head>
@@ -136,33 +163,43 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	<?php require_once '../navbar/navbar.php';?>
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-lg-6 jumbotron" id="loginform">
-				<h1 class="form-title">Password dimenticata</h1>
-				<p class="important-text">Inserisci qui sotto il tuo indirizzo email.</br>
-					Ti invieremo un codice per reimpostare la tua password.
-				</p>
-				<form action="change_password.php" method="post">
-					<div class="form-group">
-						<label for="email">Indirizzo Email:</label>
-						<input type="email" required class="form-control" id="email"  placeholder="Inserisci email" name="email">
-						<?php
-							if(strlen($emailError) !== 0) {
-								echo("<div class='alert alert-danger' style='margin-top: 8px;'>$emailError</div>");
-							}
-						?>
+			<div class="col-xl-6 jumbotron" id="change_password_form">
+				<h1 class="form-title">Reimposta password</h1>
+				<form action="change_password.php" method="post" enctype="multipart/form-data">
+					<div class="form-input-group">
+						<div class="form-group">
+							<label for="pwd">Nuova Password:</label>
+							<input type="password" class="form-control" id="pwd" required placeholder="Inserisci password" name="pswd">
+							<?php
+								if(strlen($passwordError) !== 0) {
+									echo("<div class='alert alert-danger' style='margin-top: 8px;'>$passwordError</div>");
+								}
+							?>
+						</div>
+						<div class="form-group">
+							<label for="confirm-pwd">Conferma Password:</label>
+							<input type="password" class="form-control" id="confirm-pwd" required placeholder="Conferma password" name="confirm-pwd">
+							<?php
+								if(strlen($confirmPasswordError) !== 0) {
+									echo("<div class='alert alert-danger' style='margin-top: 8px;'>$confirmPasswordError</div>");
+								}
+							?>
+						</div>
 					</div>
-					<div class="d-flex justify-content-center form-group">
-						<button type="submit" id="submitbtn" class="btn btn-primary btn-lg">Invia</button>
+					<div class="d-flex justify-content-center">
+						<button type="submit" class="btn btn-primary btn-lg" id="submitbtn">Conferma</button>
 					</div>
+					<noscript>
+						<div class='alert alert-warning' style='margin-top: 8px;'>
+							<strong>ATTENZIONE:</strong> Questa pagina potrebbe non funzionare correttamente senza JavaScript.
+							Per favore, riabilita JavaScript nel tuo Browser e ricarica la pagina.
+						</div>
+					</noscript>
 					<?php
-						if(strlen($GLOBALS["sqlError"]) !== 0) {
-							echo("<div class='alert alert-danger' style='margin-top: 8px;'>".$GLOBALS["sqlError"]."</div>");
-						}
-						if(strlen($GLOBALS["sqlWarning"]) !== 0) {
-							echo("<div class='alert alert-warning' style='margin-top: 8px;'>".$GLOBALS["sqlWarning"]."</div>");
-						}
-						if ($GLOBALS["banned"]) {
-							echo("<div class='alert alert-danger' style='margin-top: 8px;'>Questo utente è stato bannato, impossibile procedere.</div>");
+						if(count($queryErrors) > 0) {
+							foreach ($queryErrors as &$value) {
+							    echo("<div class='alert alert-danger text-center' style='margin-top: 8px;'>$value</div>");
+							}
 						}
 					?>
 				</form>
@@ -170,5 +207,4 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		</div>
 	</div>
 </body>
-
 </html>

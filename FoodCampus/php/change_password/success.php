@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="it-IT">
 <head>
-	<title>Iscrizione completata</title>
+	<title>Password aggiornata</title>
 	<metacharset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Latest compiled and minified CSS -->
@@ -16,22 +16,21 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 	<script src="../../../jquery/jquery-3.2.1.min.js"> </script>
 
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="../../navbar/navbar.css">
-	<link rel="stylesheet" type="text/css" title="stylesheet" href="../../subscription/css/subscription_success.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="../navbar/navbar.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="success.css">
 </head>
 
 <body>
-	<?php require_once '../../navbar/navbar.php';?>
+	<?php require_once '../navbar/navbar.php';?>
 	<div class="container">
 		<div class="row">
 			<div class="container col-6 jumbotron mx-auto" id="maindiv">
 				<div class="col-10 mx-auto">
-				<h1 class="text-primary" id="first_title">Account creato!</h1>
-				<p class="info">Congratulazioni, account creato correttamente!</p>
-				<p class="info">Ora puoi effettuare acquisti e scrivere recensioni!</p>
-				<p class="info">Puoi modificare le tue informazioni personali in qualsiasi momento nella pagina del tuo profilo.</p>
+				<h1 class="text-primary" id="first_title">Password aggiornata!</h1>
+				<p class="info">Congratulazioni, password aggiornata correttamente!</p>
+				<p class="info">Ora puoi procedere con il login!</p>
 				<div class="row justify-content-center">
-					<button type="submit" id="continuebtn" class="btn btn-primary btn-lg" onclick="location.href = '../../home/home.php';">Continua</button>
+					<button type="submit" id="continuebtn" class="btn btn-primary btn-lg" onclick="location.href = '../Login/login.php';">Vai al Login</button>
 				</div>
 				<noscript>
 					<div class='alert alert-warning' style='margin-top: 8px;'>

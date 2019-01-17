@@ -1,0 +1,30 @@
+#maindiv{
+    margin-top: 165px;
+}
+
+#first_title{
+    margin-top: 5px;
+    margin-bottom: 35px;
+}
+
+.form-title{
+    margin-bottom: 15px;
+    color: #F83442;
+}
+
+.form-input-group{
+    margin-bottom: 30px;
+}
+
+.jumbotron{
+    padding: 1rem 2rem;
+}
+
+.info {
+    font-size: 1.3rem;
+}
+
+#continuebtn {
+    margin-top: 35px;
+    margin-bottom: 5px;
+}

@@ -7,22 +7,50 @@ function showError(element, errorTag, errorMessage) {
     event.preventDefault();
 }
 
-function checkEmail() {
-    var regex = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
-    var emailTag = $("#email");
-    var errorTagId = "alertemail";
+function checkPasswordValidity() {
+    var pwd = $("#pwd");
+    var errorTagId = "alertpwd";
+    var message = "";
 
-    $("#" + errorTagId).remove();
-
-    if (regex.test((emailTag).val()) === false && $("#" + errorTagId).val() !== "") {
-        showError(emailTag, errorTagId, "Indirizzo Email non valido");
+    if (pwd.val().length < 6) {
+        message = "La password deve essere lunga almeno 6 caratteri";
+        showError(pwd, errorTagId, message);
         return false;
     }
+
+    return true;
+}
+
+function checkPasswords() {
+    var pwd = $("#pwd");
+    var pwdconfirm = $("#confirm-pwd");
+    var errorTagId = "alertpwd";
+    var message = "";
+
+    if (pwd.val() !== pwdconfirm.val()) {
+        message = "Le due password non sono uguali";
+        showError(pwdconfirm, errorTagId, message);
+        return false;
+    }
+
     return true;
 }
 
 $(document).ready(function() {
     $("#submitbtn").on("click", function() {
-        checkEmail();
+        if ($("#pwd").val() !== "" && $("#confirm-pwd").val()) {
+            if (checkPasswordValidity() && checkPasswords()) {
+                var p = document.createElement("input");
+                $("form").append(p);
+                p.name = "c-p";
+                p.type = "hidden"
+                p.value = hex_sha512($("#confirm-pwd").val());
+                // Assicurati che la password non venga inviata in chiaro.
+                $("#confirm-pwd").removeAttr("required");
+                $("#confirm-pwd").val("");
+
+                formhash($("form"), $("#pwd"));
+            }
+        }
     });
 });
