@@ -1,30 +1,30 @@
 $(function() {
     $("#pizza").click(function() {
-        setFoodSession("pizza")
+        setFoodSession("Pizza")
     });
 
     $("#sandwich").click(function() {
-        setFoodSession("sandwich")
+        setFoodSession("Panino")
     });
 
     $("#piada").click(function() {
-        setFoodSession("piada")
+        setFoodSession("Piada")
     });
 
     $("#sushi").click(function() {
-        setFoodSession("sushi")
+        setFoodSession("Sushi")
     });
 
     $("#firstDish").click(function() {
-        setFoodSession("firstDish")
+        setFoodSession("Primo")
     });
 
     $("#secondDish").click(function() {
-        setFoodSession("secondDish")
+        setFoodSession("Secondo")
     });
 
     $("#sweet").click(function() {
-        setFoodSession("sweet")
+        setFoodSession("Dolce")
     });
 });
 
