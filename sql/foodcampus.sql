@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 16, 2019 alle 16:59
+-- Creato il: Gen 17, 2019 alle 02:18
 -- Versione del server: 10.1.37-MariaDB
 -- Versione PHP: 7.3.0
 
@@ -69,7 +69,7 @@ CREATE TABLE `cliente` (
 
 INSERT INTO `cliente` (`IDCliente`, `nome`, `cognome`, `email`, `immagine`, `password`, `salt`, `bloccato`) VALUES
 (1, 'Andrea', 'Lavista', 'andrea.lavista@foodcampus.it', NULL, '72531aa0b0c1013b040cf3096a6a1fab3871ad7cf056978178c214d526c60ad4a11cf04aef2c3a25d6c8918f0c9826351238022b2aa191e27f8c152cbbfc7443', 'c69d48dcdd2cf8470fe5d591a43de56f83afa8f40a94be3ac4ba56be309374ac7ebb5f55f594e8fb58ac0538f93e4e487db11f07dd8fa66adf834acc1188ab80', b'0'),
-(2, 'Ivan', 'Mazzanti', 'ivan.mazzanti@foodcampus.it', NULL, 'dc5cc79d08a9d9a9aff7a8479a369d0d115c0cad60c6e37fc3d09045e149bba2ebaba6634d7138bb078a4c52835259636fa2320bd051200091f2c49afe8184e3', '80244477758499b2f497c27a5230469555cee54485bddd0953a53d01b8a8b19bf678c5eed10860c02870a73e72c4c379d1620ac3f9c2b82960beafa62cb0f9ce', b'0'),
+(2, 'Ivan', 'Mazzanti', 'ivan.mazzantix@gmail.com', NULL, '01803711b7517a3d4f0d3a5c0cd80fd3b78638daea271862f9f5d1b838991ece73e6f67694c9b29ae7b735f310fa64844a296c806f0f7e5a7e9fa6c753f2f296', '95d798847370cd5aa834e12c777bb66d004fb3403414c85c91ce0ab1dfa74283ff4d1afa48b12e8423a36fcd849cf13f9e187e59dd6046cc74c326f040dc7377', b'0'),
 (3, 'Davide', 'Conti', 'davide.conti@foodcampus.it', NULL, 'b6b0961c00ab90e110b032b2ae5fee1201e15bab1c1d966c71e9bfe6f314b49bbb8fa471c621dec8b6af403a35307fc29baf4f0a44b8bf2c8d8e94564582aa1a', 'd56fd21aa39d58f9903f2acb37db2bfb33500ca5d8a1b7db980b3e7f0f94bcb4ee9676b106717e049c9144d775f92702064c8a2da7591b495119a935c7333a44', b'0'),
 (8, 'asd', 'asd', 'asd@asd.it', 'Immagine.png', '66c510a986c893407187b7317f0a2552509c5862d3d4958ad57183e269526afdf482f767fd5767057e0c6f28f58179f482095fafb003a3119f1f0ac72722ac3c', '0ca700f882737a9057cbf059c2a1631093b6895b066dc2f4984080315af3a99ebd24d70911b5213a23aac1caaf037982153364219140671cdf4c934ce8bb9080', b'1');
 
@@ -135,7 +135,8 @@ INSERT INTO `login_attempts` (`id`, `email`, `time`) VALUES
 (7, 'davide.conti@foodcampus.it', '1547652706'),
 (8, 'davide.conti@foodcampus.it', '1547652711'),
 (9, 'davide.conti@foodcampus.it', '1547652732'),
-(10, 'davide.conti@foodcampus.it', '1547653041');
+(10, 'davide.conti@foodcampus.it', '1547653041'),
+(11, 'ivan.mazzantix@gmail.com', '1547687184');
 
 -- --------------------------------------------------------
 
@@ -372,7 +373,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT per la tabella `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `IDCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `IDCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT per la tabella `fornitore`
@@ -384,7 +385,7 @@ ALTER TABLE `fornitore`
 -- AUTO_INCREMENT per la tabella `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT per la tabella `notifica`
@@ -402,7 +403,7 @@ ALTER TABLE `ordine`
 -- AUTO_INCREMENT per la tabella `prodotto`
 --
 ALTER TABLE `prodotto`
-  MODIFY `IDProdotto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `IDProdotto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT per la tabella `prodotto_in_carrello`
@@ -426,13 +427,13 @@ ALTER TABLE `recensione`
 -- AUTO_INCREMENT per la tabella `richieste_cambio_password`
 --
 ALTER TABLE `richieste_cambio_password`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT per la tabella `tentativi_inserimento_codice`
 --
 ALTER TABLE `tentativi_inserimento_codice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Limiti per le tabelle scaricate
