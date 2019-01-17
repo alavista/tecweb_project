@@ -20,11 +20,6 @@ function searchProducts(category) {
                                                 +products.data+"</div>");
             } else if (products.status.localeCompare("ok") == 0) {
 
-                $(".category-btn").removeClass("btn-danger");
-                $(".category-btn").addClass("btn-primary");
-                $("#" + category).removeClass("btn-primary");
-                $("#" + category).addClass("btn-danger");
-
                 $("table").removeAttr("hidden");
                 $("#result_content").removeAttr("hidden");
 
@@ -81,6 +76,16 @@ function loadCategories() {
                         searchProducts($("#" + categories.data[i].nome).text());
                     });
                 });
+
+                $(".category-btn").focus(function() {
+                    $(".category-btn").removeClass("btn-danger");
+                    $(".category-btn").removeClass("btn-primary");
+                    $(".category-btn").addClass("btn-primary");
+                    $(this).removeClass("btn-primary");
+                    $(this).addClass("btn-danger");
+                });
+
+                $("#" + buttonId).focus();
             }
         })
         .fail(function(xhr, textStatus, errorThrown) {
@@ -106,8 +111,6 @@ $(document).ready(function() {
 	});
 
     if (buttonId !== null && buttonId !== "") {
-        console.log(buttonId);
         searchProducts(buttonId);
     }
-
 });
