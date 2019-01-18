@@ -36,7 +36,7 @@ if ($stmt = $conn->prepare($query)) {
                                                                 echo " (vegano)";
                                                             }
                                                             if ($product["celiaco"]) {
-                                                                echo " (celiaco)";
+                                                                echo " (no glutine)";
                                                             }
                                                             if ($product["surgelato"]) {
                                                                 echo " (surgelato)";
