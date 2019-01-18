@@ -53,7 +53,7 @@ function searchProductsAndSuppliers(str) {
                                                 + "<div class='col search-item' style='font-size: 1.2rem'>"
                                                 + "<strong>€ " + products.data[i]["prezzo"] + "</strong> "
                                                 + "</div>"
-                                                + "<div class='col search-btn'><span style='float: right' data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' class='btn btn-deafult btn-kart'><i class='fas fa-cart-plus'></i></button></span>"
+                                                + "<div class='col search-btn'><span style='float: right' data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' id='" + products.data[i]["pid"] + "' class='add-cart btn btn-deafult btn-kart'><i class='fas fa-cart-plus'></i></button></span>"
                                                 + "</div>"
                                                 + "</div></li>");
                     }
