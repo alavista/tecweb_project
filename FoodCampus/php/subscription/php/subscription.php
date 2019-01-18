@@ -115,7 +115,7 @@ function do_Subscription($conn, $query, &$queryErrors, $isSupplier) {
 
 			$enabled = 0;
 
-			$insert_stmt->bind_param('ssssiiissssssi', $name, $city, $address, $crossNumber, $shipping, $shippingLimit, $enabled, $email, $web_site, $piva, $image, $password, $random_salt, $blocked);
+			$insert_stmt->bind_param('ssssddissssssi', $name, $city, $address, $crossNumber, $shipping, $shippingLimit, $enabled, $email, $web_site, $piva, $image, $password, $random_salt, $blocked);
 		} else {
 			$insert_stmt->bind_param('ssssssi', $name, $surname, $email, $image, $password, $random_salt, $blocked);
 		}
@@ -459,7 +459,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							      <div class="input-group-prepend">
 							        <span class="input-group-text">€</span>
 							      </div>
-							      <input type="number" value="0.00" max= "10.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="costo-spedizione" name="shippingcost">
+							      <input type="number" value="0.00" max="10.00" min="0" step=".01" data-number-to-fixed="2" class="form-control spedition" id="costo-spedizione" name="shippingcost">
 							    </div>
 								<?php
 								  if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($shippingError) !== 0) {
@@ -473,7 +473,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							      <div class="input-group-prepend">
 							        <span class="input-group-text">€</span>
 							      </div>
-							      <input type="number" value="0.00" max= "10.00" min="0" step="0.01" data-number-to-fixed="2" class="form-control spedition" id="soglia-spedizione" name="shippinglimit">
+							      <input type="number" value="0.00" max="10.00" min="0" step=".01" data-number-to-fixed="2" class="form-control spedition" id="soglia-spedizione" name="shippinglimit">
 							    </div>
 								<?php
 								  if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($shippingLimitError) !== 0) {
