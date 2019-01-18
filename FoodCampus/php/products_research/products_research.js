@@ -31,6 +31,9 @@ function searchProducts(category) {
                     var html_code = "";
                     for(var i = 0; i < products.data.length; i++){
                     	html_code += '<tr><td>'+products.data[i]["pnome"]
+                                                            + "<br/>"
+                                                            + ((products.data[i]["vegano"] === 1) ? " (vegano) " : "")
+                                                            + ((products.data[i]["celiaco"] === 1) ? " (no glutine) " : "")
                                                             +'</td><td>'+"€ " + products.data[i]["costo"]+'</td><td><a href=../user/suppliers/php/supplier.php?id='+products.data[i]["IDFornitore"]+'>'+products.data[i]["fnome"]
                                                             +"</a></td><td>" + ((products.data[i]["valutazione_media"] === null) ? "/" : "<strong>" + products.data[i]["valutazione_media"].toFixed(1) + "</strong><br/>" + " ("+products.data[i]["nrec"] + " voto/i)")
                                                             +"<td><span data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' class='btn btn-deafult btn-kart'><i class='fas fa-cart-plus'></i></button></span>"

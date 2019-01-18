@@ -114,7 +114,7 @@ if ($loggedInUser) {
            <script src="/tecweb_project/FoodCampus/php/user/suppliers/js/supplierFunctions.js"></script>
            <link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/php/user/suppliers/css/starReview.css">
 
-            <input id="navbar-search" class="form-control" type="text" placeholder="Cerca...">
+            <input id="navbar-search" class="form-control searchit" type="text" placeholder="Cerca...">
             <style>
                 #result {
                     position: absolute;
@@ -135,7 +135,7 @@ if ($loggedInUser) {
                     background-color: #F83442;
                 }
             </style>
-            <ul class="list-group" id="result"></ul>
+            <ul class="list-group searchit" id="result"></ul>
         </div>
     </form>
 

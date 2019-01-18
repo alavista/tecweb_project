@@ -71,8 +71,21 @@ function searchProductsAndSuppliers(str) {
     });
 }
 
+function checkFocus() {
+    $(".list-group-item.link-class").remove();
+}
+
 $(document).ready(function() {
     $("#navbar-search").on("keyup", function() {
 		searchProductsAndSuppliers(this.value);
 	});
+
+    $(document).click(function(e) {
+        var container = $(".searchit");
+
+        if (!container.is(e.target) && container.has(e.target).length === 0)
+        {
+            $(".list-group-item.link-class").remove();
+        }
+    });
 });
