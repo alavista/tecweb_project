@@ -36,7 +36,7 @@ if ($stmt = $conn->prepare($query)) {
                                                     <?php
                                                     if($product["celiaco"]) {
                                                         ?>
-                                                        <span class="font-italic"> (celiaco)</span>
+                                                        <span class="font-italic"> (no glutine)</span>
                                                         <?php
                                                     }
                                                     ?>
@@ -85,7 +85,7 @@ if ($stmt = $conn->prepare($query)) {
                                         <div class="form-check-inline">
                                             <div class="form-check">
                                                 <label class="form-check-label" for="newProductCeliac_<?php echo $product['IDProdotto']; ?>">
-                                                    <input type="checkbox" class="form-check-input" id="newProductCeliac_<?php echo $product['IDProdotto']; ?>" name="celiac" <?php if($product["celiaco"]) { echo "checked"; } ?>>Celiaco
+                                                    <input type="checkbox" class="form-check-input" id="newProductCeliac_<?php echo $product['IDProdotto']; ?>" name="celiac" <?php if($product["celiaco"]) { echo "checked"; } ?>>No glutine
                                                 </label>
                                             </div>
                                         </div>
@@ -131,7 +131,7 @@ if ($stmt = $conn->prepare($query)) {
                                 <div class="form-check-inline">
                                     <div class="form-check">
                                         <label class="form-check-label" for="newProductCeliacInCategory_<?php echo $category['IDCategoria']; ?>">
-                                            <input type="checkbox" class="form-check-input" id="newProductCeliacInCategory_<?php echo $category['IDCategoria']; ?>" name="celiac" <?php if($product["celiaco"]) { echo "checked"; } ?>>Celiaco
+                                            <input type="checkbox" class="form-check-input" id="newProductCeliacInCategory_<?php echo $category['IDCategoria']; ?>" name="celiac" <?php if($product["celiaco"]) { echo "checked"; } ?>>No glutine
                                         </label>
                                     </div>
                                 </div>
