@@ -11,6 +11,14 @@
                 $res = $stmt->get_result();
                 if ($res->num_rows != 1) {
                     redirectToPageNotFound($conn);
+                } else if (!($res->fetch_assoc()["abilitato"]) && (!isUserLogged($conn) ||
+                        ((!empty($_SESSION["user_type"]) && $_SESSION["user_type"] != "Fornitore") ||
+                        (isset($_COOKIE["user_type"]) && $_COOKIE["user_type"] != "Fornitore")) &&
+                        ((!empty($_SESSION["user_id"]) && $_SESSION["user_id"] != $_GET["id"]) ||
+                        (isset($_COOKIE["user_id"]) && $_COOKIE["user_id"] != $_GET["id"])))) {
+                    header("Location: ../../../home/home.php");
+                    $conn->close();
+                    exit();
                 }
             }
         }
