@@ -80,7 +80,7 @@ function isUserLogged($conn) {
 }
 
 function redirectToPageNotFound($conn) {
-    header("Location: ../pageNotFound.html");
+    header("Location: /tecweb_project/FoodCampus/php/pageNotFound.html");
     $conn->close();
     exit();
 }
