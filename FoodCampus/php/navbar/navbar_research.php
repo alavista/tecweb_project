@@ -7,9 +7,12 @@ $GLOBALS["response"] = array("status" => "", "data" => "", "isSupplier" => "fals
 
 function getSuppliers($conn, $string) {
 
-    if (!($stmt = $conn->prepare("SELECT f.nome as fnome, f.IDFornitore as fid
-                                    FROM fornitore as f
-                                    WHERE f.bloccato = 0 AND f.abilitato = 1"))) {
+    if (!($stmt = $conn->prepare("SELECT f.IDFornitore as fid, f.nome as fnome, AVG(r.valutazione) as valutazione_media
+                                    FROM prodotto as p, fornitore as f
+                                    LEFT OUTER JOIN recensione r ON (r.IDFornitore = f.IDFornitore)
+                                    WHERE p.IDFornitore = f.IDFornitore
+                                    AND f.bloccato = 0 AND f.abilitato = 1
+                                    GROUP BY f.IDFornitore"))) {
 
         $GLOBALS["response"]["status"] = "error";
         $GLOBALS["response"]["data"] = $conn->error;
@@ -53,7 +56,7 @@ function getSuppliers($conn, $string) {
 
 function getProducts($conn, $string) {
 
-    if (!($stmt = $conn->prepare("SELECT p.nome as pnome, p.costo as prezzo, p.vegano as vegano, p.celiaco as celiaco, f.nome as fnome
+    if (!($stmt = $conn->prepare("SELECT p.nome as pnome, p.costo as prezzo, p.vegano as vegano, p.celiaco as celiaco, f.nome as fnome, f.IDFornitore as fid
                                     FROM prodotto as p, fornitore as f
                                     WHERE p.IDFornitore = f.IDFornitore
                                     AND f.bloccato = 0 AND f.abilitato = 1
