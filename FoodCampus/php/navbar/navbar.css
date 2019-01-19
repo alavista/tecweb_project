@@ -1,9 +1,43 @@
+#collapsibleNavbar {
+    flex-grow: 0 !important;
+}
+
+.navbar {
+    z-index: 1 !important;
+}
+
+#search-form {
+    flex-grow: 1 !important;
+}
+
 .navbar-custom {
     background-color: #F83442;
 }
 
+.search-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-review {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-btn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 .item {
     color: white !important;
+}
+
+.p-list {
+    margin-bottom: 0px;
 }
 
 .navbar-custom .form-inline .input-group .form-control .input-group-prepend .btn,

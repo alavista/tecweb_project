@@ -6,6 +6,7 @@ $(function() {
     setTimeout(function() {
         if (getId() != NOT_PRESENT) {
             $("#notification").click(function() {
+                $(".list-group-item.link-class").remove();
                 $("#numberNotification").html("0");
                 load_unseen_notification("yes", isPageAllNotifications);
             });

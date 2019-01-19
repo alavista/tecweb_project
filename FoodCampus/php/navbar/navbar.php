@@ -108,22 +108,23 @@ if ($loggedInUser) {
             ?>
         </ul>
     </div>
-    <form class="form-inline" action="#">
-        <div class="input-group abs-center-x">
-            <script src="/tecweb_project/FoodCampus/php/navbar/navbar_research.js"></script>
-            <div class="container">
-                <input id="navbar-search" class="form-control" type="text" placeholder="Cerca...">
-                <ul class="list-group" id="result"></ul>
-            </div>
+
+    <form class="mx-2 my-auto form-inline w-50" id="search-form">
+       <div style="width: 75%" class="input-group">
+           <script src="/tecweb_project/FoodCampus/php/navbar/navbar_research.js"></script>
+           <script src="/tecweb_project/FoodCampus/php/user/suppliers/js/supplierFunctions.js"></script>
+           <link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/php/user/suppliers/css/starReview.css">
+
+            <input id="navbar-search" class="form-control searchit" type="text" placeholder="Cerca...">
             <style>
                 #result {
-                     position: absolute;
-                     width: 100%;
-                     max-width:870px;
-                     overflow-y: auto;
-                     max-height: 400px;
-                     box-sizing: border-box;
-                     z-index: 1001;
+                    position: absolute;
+                    width: 100%;
+                    overflow-y: auto;
+                    max-height: 400px;
+                    box-sizing: border-box;
+                    z-index: 1001;
+                    top: 40px;
                 }
                 .link-class:hover {
                     background-color:#f1f1f1;
@@ -131,14 +132,15 @@ if ($loggedInUser) {
                 .changePlus {
                     background-color: #3399ff;
                 }
-
                 .btn-kart {
                     background-color: #F83442;
                 }
             </style>
+            <ul class="list-group searchit" id="result"></ul>
         </div>
     </form>
-    <ul class="navbar-nav">
+
+    <ul id="cart" class="navbar-nav">
         <?php
         if ($loggedInUser && $supplier) {
             $value = $notificationNumber;

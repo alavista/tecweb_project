@@ -126,6 +126,7 @@ $_SESSION['operation_allowed'] = false;
 	<script src="../../js/utilities/sha512.js"></script>
 	<script src="../../js/utilities/form_password_encoder.js"></script>
 	<script src="change_password.js"></script>
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="../footer/footer.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../navbar/navbar.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="change_password.css">
 </head>
@@ -180,5 +181,6 @@ $_SESSION['operation_allowed'] = false;
 			</div>
 		</div>
 	</div>
+	<?php require_once "../footer/footer.html"; ?>
 </body>
 </html>

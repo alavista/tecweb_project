@@ -31,9 +31,16 @@ function searchProducts(category) {
                     var html_code = "";
                     for(var i = 0; i < products.data.length; i++){
                     	html_code += '<tr><td>'+products.data[i]["pnome"]
+                                                            + "<br/>"
+                                                            + ((products.data[i]["vegano"] === 1) ? " (vegano) " : "")
+                                                            + ((products.data[i]["celiaco"] === 1) ? " (no glutine) " : "")
                                                             +'</td><td>'+"€ " + products.data[i]["costo"]+'</td><td><a href=../user/suppliers/php/supplier.php?id='+products.data[i]["IDFornitore"]+'>'+products.data[i]["fnome"]
                                                             +"</a></td><td>" + ((products.data[i]["valutazione_media"] === null) ? "/" : "<strong>" + products.data[i]["valutazione_media"].toFixed(1) + "</strong><br/>" + " ("+products.data[i]["nrec"] + " voto/i)")
+<<<<<<< HEAD
                                                             +"<td><span data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' id ="+products.data[i]["IDProdotto"]+" class='btn btn-deafult btn-kart add-cart'><i class='fas fa-cart-plus'></i></button></span>"
+=======
+                                                            +"<td><span data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' id='" + products.data[i]["pid"] + "' class='btn btn-deafult btn-kart add-cart'><i class='fas fa-cart-plus'></i></button></span>"
+>>>>>>> e063e2b51a6f5e6d19953b3b9aeb5cbf0b75f99a
                                                             +'</td></tr>';
                     }
 
