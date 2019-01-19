@@ -40,7 +40,7 @@
 
 				<div class="col-xs-12">
 					<h1>Inserimento <?php echo $table; ?></h1>
-					<form>
+					<form id="insert-update-form">
 						<input type="text" name="table" class="invisible" value=<?php echo "'".$table."'"; ?>/>
 
 						<?php
@@ -112,7 +112,7 @@
 								}
 							}
 							?>
-						<input id="submit" type="button" class="btn" value=<?php echo "'Inserisci ".$table."'";?>/>
+						<input id="submit" type="submit" class="btn" value=<?php if(!$update) echo "'Inserisci ".$table."'"; else echo "'Modifica ".$table."'";?>/>
 					</form><br/>
 					<div id="result"></div>
 				</div>

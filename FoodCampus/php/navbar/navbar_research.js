@@ -48,7 +48,7 @@ function searchProductsAndSuppliers(str) {
                                                 + "<span>"
                                                 + products.data[i]["fnome"] + " "
                                                 + "</span>"
-                                                + "<span data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' class='btn btn-deafult btn-kart'><i class='fas fa-cart-plus'></i></button></span>"
+                                                + "<span data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' id ="+products.data[i]["IDProdotto"]+" class='btn btn-deafult btn-kart add-cart'><i class='fas fa-cart-plus'></i></button></span>"
                                                 + "</li>");
                     }
 

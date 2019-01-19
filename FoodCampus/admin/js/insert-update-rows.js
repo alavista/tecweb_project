@@ -1,16 +1,30 @@
-$(document).ready(function(){
+$(document).ready(function() {
 
-	$("#submit").click(function() {
+	$("form").on("submit", function(e) {
 		var url = window.location.href;
 		if($("input[name='password']").length) {
 			$("input[name='password']").val(hex_sha512($("input[name='password']").val()));
 		}
+		var action = "";
+		/*
+		if(url.indexOf("id") >= 0) {
+			action = "php/update-row-request.php?id=" + $.urlParam('id');
+		} else {
+			action = "php/insert-row-request.php";
+		}
+		$("#insert-update-form").attr("action", url);
+		*/
+		
+		var formData = new FormData($("#insert-update-form")[0]);
+        var img = $("input[name=immagine]")[0].files[0];
+        formData.append("image", img);
 		if(url.indexOf("id") >= 0) {
 			$.ajax({
 				type: "POST",
 				url: "php/update-row-request.php?id=" + $.urlParam('id'),
-				data: $("form").serialize(),
-				dataType: "html",
+				processData: false,
+                contentType: false,
+				data: formData,
 				success: function(msg)
 				{
 					$("#result").html(msg);
@@ -24,8 +38,9 @@ $(document).ready(function(){
 			$.ajax({
 				type: "POST",
 				url: "php/insert-row-request.php",
-				data: $("form").serialize(),
-				dataType: "html",
+				processData: false,
+                contentType: false,
+				data: formData,
 				success: function(msg)
 				{
 					$("#result").html(msg);
@@ -36,35 +51,8 @@ $(document).ready(function(){
 				}
 			});
 		}
+		e.preventDefault();
 	});
-
-	$("#profileImage").click(function() {
-        var newImage= $("#profileImage");
-        var fd = new FormData();
-        var files = $('#newImage')[0].files[0];
-        var isClient = $("input[name='table']").val() == "cliente"
-        fd.append('file',files);
-        removeError(newImage);
-        console.log(getUserType());
-        console.log(getId());
-        $.ajax({
-            url: '../php/user/commonParts/php/changeImage.php',
-            type: 'post',
-            data: fd,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                response = JSON.parse(response);
-                if (response.status.localeCompare("ERROR") == 0) {
-                    showError(newImage, response.inf);
-                } else if (response.status.localeCompare("OK") == 0) {
-                    $("#image").attr("src", isClient ? "../../../res/clients/" + response.inf : "../../../../res/suppliers/" + response.inf);
-                    removeError(newImage);
-                    $("#newUserImage").hide("slow");
-                }
-            },
-        });
-    });
 
 });
 

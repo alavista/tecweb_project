@@ -1,8 +1,9 @@
-<?php
+<?php   
 $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 require_once "$root/tecweb_project/FoodCampus/php/database.php";
 require_once "$root/tecweb_project/FoodCampus/php/utilities/direct_login.php";
 require_once "$root/tecweb_project/FoodCampus/php/navbar/navbar_research.php";
+
 
 function computeNumberNotification($conn, $field, $userId) {
     $query = "SELECT COUNT(*) as notificationNumber FROM notifica WHERE $field = ? AND visualizzata = ?";
@@ -139,14 +140,18 @@ if ($loggedInUser) {
     </form>
     <ul class="navbar-nav">
         <?php
-        if ($loggedInUser && !$supplier) {
-            //NUMERO PRODOTTI DELL UTENTE NEL CARRELO....DA VERIFICARE NEI COOKIE/SESSIONE
-            $value = 0;
-        } else if($loggedInUser && $supplier) {
+        if ($loggedInUser && $supplier) {
             $value = $notificationNumber;
         } else {
             $value = 0;
-            //value = impostare il numero di prodotti quando l utente non e loggato
+            if(isset($_SESSION["cart_filled"])) {
+                echo "<br><br><br><br><br><p>ciao</p>";
+                foreach ($_SESSION["cart"] as $n) {
+                    $value += $n;
+                }
+            } else {
+                echo "<br><br><br><br><br><p>arrivederci</p>";
+            }
         }
         if (!$supplier) {
             echo "<li class='nav-item'><span class='badge badge-light'>$value</span><a id='kart' class='nav-link fas fa-shopping-cart item' href'#'></a></li>";

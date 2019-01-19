@@ -1,9 +1,19 @@
 <?php
     require_once("../../php/database.php");
     require_once("db-info.php");
+    require_once("../../php/utilities/file_uploader.php");
 
     if(isset($_POST["table"])) {
     	$table = $_POST["table"];
+
+        if(isset($_FILES["image"])) {
+            $filePath = $table == "fornitore" ? "../../res/suppliers/" : "../../res/clients/";
+            $fileName =  basename($_FILES["image"]["name"]);
+            $tempArrayName = explode(".", $fileName);
+            $GLOBALS["newFileName"] = $tempArrayName[0].uniqid(mt_rand(1, mt_getrandmax()), false).".".$tempArrayName[1];
+            $image_uploaded =uploadFile($filePath, $GLOBALS["newFileName"], "image", $fileError);
+        }
+
     	$sql = "INSERT INTO ".$table."(";
     	$first = true;
         if($table == "cliente" || $table == "fornitore") {
@@ -24,9 +34,12 @@
                 $sql = $sql.$key.",";
     		} 
     	}
-    	$first = true;
+        if($image_uploaded) {
+            $sql = $sql."immagine,";
+        }
+    	
     	$sql = substr($sql, 0, -1).") VALUES (";
-        
+        $first = true;
     	foreach($_POST as $key => $value) {
     		if($first == true) {
     			$first = false;
@@ -45,12 +58,17 @@
 		    	}
 		    }
     	}
+        if($image_uploaded) {
+            $sql = $sql."'".$GLOBALS["newFileName"]."',"; 
+        }
     	$sql = substr($sql, 0, $plus).");";
-    	$result = $GLOBALS["conn"]->query($sql);
+        $result = $GLOBALS["conn"]->query($sql);
     	if($result) {
-    		echo "<div class='alert alert-success' role='alert'>Inserimento effettuato con successo</div>";
+    		echo "<div class='alert alert-success' role='alert'>".$sql."<BR>Inserimento effettuato con successo</div>";
     	} else {
     		echo "<div class='alert alert-danger' role='alert'>Errore: ".$conn->error."<br/>".$sql."</div>";
     	}
+    } else {
+        echo "<div class='alert alert-success' role='alert'>MERDA!</div>";
     }
 ?>

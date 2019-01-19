@@ -86,7 +86,7 @@ function getProducts($conn, $category, $vegan, $celiac, $sorting) {
     $celiacQuery = ($celiac === "true") ? "AND p.celiaco = 1" : "";
 
 
-    if (!($stmt = $conn->prepare("SELECT p.nome as pnome, p.costo, c.nome as cnome, f.IDFornitore as IDFornitore, f.nome as fnome, AVG(r.valutazione) as valutazione_media, COUNT(r.IDRecensione) as nrec
+    if (!($stmt = $conn->prepare("SELECT p.IDProdotto as IDProdotto, p.nome as pnome, p.costo, c.nome as cnome, f.IDFornitore as IDFornitore, f.nome as fnome, AVG(r.valutazione) as valutazione_media, COUNT(r.IDRecensione) as nrec
                                     FROM categoria as c, prodotto as p, fornitore as f
                                     LEFT OUTER JOIN recensione r ON (r.IDFornitore = f.IDFornitore)
                                     WHERE c.IDCategoria = p.IDCategoria AND p.IDFornitore = f.IDFornitore
