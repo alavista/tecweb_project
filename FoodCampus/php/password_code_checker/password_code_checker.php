@@ -182,6 +182,7 @@ function deleteUserRequests($conn, $email) {
 	<!--Font awesome-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="../footer/footer.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../navbar/navbar.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="password_code_checker.css">
 </head>
@@ -226,6 +227,6 @@ function deleteUserRequests($conn, $email) {
 			</div>
 		</div>
 	</div>
+	<?php require_once "../footer/footer.html"; ?>
 </body>
-
 </html>

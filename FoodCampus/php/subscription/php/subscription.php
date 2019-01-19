@@ -322,6 +322,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../../navbar/navbar.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../css/subscription.css">
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="../../footer/footer.css">
 </head>
 
 <body>
@@ -512,6 +513,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			</div>
 		</div>
 	</div>
+	<?php require_once "../../footer/footer.html"; ?>
 </body>
-
 </html>

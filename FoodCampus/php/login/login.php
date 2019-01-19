@@ -98,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	<script src="../../js/utilities/form_password_encoder.js"></script>
 	<script src="login.js"></script>
 
+	<link rel="stylesheet" type="text/css" title="stylesheet" href="../footer/footer.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../navbar/navbar.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="login.css">
 </head>
@@ -161,6 +162,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			</div>
 		</div>
 	</div>
+	<?php require_once "../footer/footer.html"; ?>
 </body>
-
 </html>
