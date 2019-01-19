@@ -56,11 +56,7 @@ function getSuppliers($conn, $string) {
 
 function getProducts($conn, $string) {
 
-<<<<<<< HEAD
-    if (!($stmt = $conn->prepare("SELECT p.IDProdotto as IDProdotto, p.nome as pnome, p.costo as prezzo, p.vegano as vegano, p.celiaco as celiaco, f.nome as fnome
-=======
     if (!($stmt = $conn->prepare("SELECT p.IDProdotto as pid, p.nome as pnome, p.costo as prezzo, p.vegano as vegano, p.celiaco as celiaco, f.nome as fnome, f.IDFornitore as fid
->>>>>>> e063e2b51a6f5e6d19953b3b9aeb5cbf0b75f99a
                                     FROM prodotto as p, fornitore as f
                                     WHERE p.IDFornitore = f.IDFornitore
                                     AND f.bloccato = 0 AND f.abilitato = 1

@@ -49,11 +49,6 @@ function searchProductsAndSuppliers(str) {
                                                 + "</p>"
                                                 + "<a href='/tecweb_project/FoodCampus/php/user/suppliers/php/supplier.php?id=" + products.data[i]["fid"] + "' class='list-group-item-text'>"
                                                 + products.data[i]["fnome"] + " "
-<<<<<<< HEAD
-                                                + "</span>"
-                                                + "<span data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' id ="+products.data[i]["IDProdotto"]+" class='btn btn-deafult btn-kart add-cart'><i class='fas fa-cart-plus'></i></button></span>"
-                                                + "</li>");
-=======
                                                 + "</a></div>"
                                                 + "<div class='col search-item' style='font-size: 1.2rem'>"
                                                 + "<strong>€ " + products.data[i]["prezzo"] + "</strong> "
@@ -61,7 +56,6 @@ function searchProductsAndSuppliers(str) {
                                                 + "<div class='col search-btn'><span style='float: right' data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' id='" + products.data[i]["pid"] + "' class='add-cart btn btn-deafult btn-kart'><i class='fas fa-cart-plus'></i></button></span>"
                                                 + "</div>"
                                                 + "</div></li>");
->>>>>>> e063e2b51a6f5e6d19953b3b9aeb5cbf0b75f99a
                     }
 
                     if (products.isSupplier) {
