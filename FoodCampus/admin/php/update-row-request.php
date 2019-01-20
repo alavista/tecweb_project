@@ -8,16 +8,19 @@
         $id = $_GET["id"];
     	$table = $_POST["table"];
 
-        if(isset($_FILES["image"])) {
+        if(isset($_FILES["image"]) && !empty($_FILES["image"])) {
             $filePath = $table == "fornitore" ? "../../res/suppliers/" : "../../res/clients/";
             $fileName =  basename($_FILES["image"]["name"]);
             $tempArrayName = explode(".", $fileName);
             $GLOBALS["newFileName"] = $tempArrayName[0].uniqid(mt_rand(1, mt_getrandmax()), false).".".$tempArrayName[1];
-            $image_uploaded =uploadFile($filePath, $GLOBALS["newFileName"], "image", $fileError);
+            $image_uploaded = uploadFile($filePath, $GLOBALS["newFileName"], "image", $fileError);
+        } else {
+            $image_uploaded = false;
         }
 
     	$sql = "UPDATE ".$table." SET ";
     	$first = true;
+        $no_password = false;
     	foreach($_POST as $key => $value) {
     		if($first == true) {
     			$first = false;
@@ -26,13 +29,26 @@
                     $sql = $sql.$key." = ".$value.",";
                 } else {
                     if(($table == "cliente" || $table == "fornitore") && $key == "password") {
-                        // Crea una chiave casuale
-                        $random_salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
-                        // Crea una password usando la chiave appena creata.
-                        $value = hash('sha512', $value.$random_salt);
-                        $sql = $sql."salt = '".$random_salt."',";
+                        //check if password is chaged
+                        $stmt = $conn->prepare("SELECT password FROM ".$table." WHERE ".$PRIMARY_KEYS[$table]." = ".$id);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            if($row['password'] != $value) {
+                                // Crea una chiave casuale
+                                $random_salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
+                                // Crea una password usando la chiave appena creata.
+                                $value = hash('sha512', $value.$random_salt);
+                                $sql = $sql."salt = '".$random_salt."',";
+                            } else {
+                                $no_password = true;
+                            }
+                        }   
                     }
-                    $sql = $sql.$key." = '".$value."',";
+                    if(!($key == "password" && $no_password)) {
+                        $sql = $sql.$key." = '".$value."',";
+                    }
                 }
     		} 
     	}

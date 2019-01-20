@@ -3,21 +3,20 @@
 	require_once("../database.php");
 
 	$product_list = "";
-	if(!isset($_SESSION) || isset($_SESSION["cart_filled"])) {
+	if(isset($_SESSION["cart_filled"]) && isset($_SESSION["cart"])) {
         foreach ($_SESSION["cart"] as $key => $value) {
             $product_list .= $key.","; 
         }
-    }
 
-    $product_list = substr($product_list, 0, -1);
-    $stmt = $conn->prepare("SELECT p.IDProdotto as pid, p.nome as pnome, p.costo as costo, f.nome as fnome
-                                    FROM prodotto as p, fornitore as f
-                                    WHERE p.IDFornitore = f.IDFornitore
-                                    AND f.bloccato = 0 
-                                    AND f.abilitato = 1
-                                    AND p.IDProdotto in(".$product_list.")");
-	$stmt->execute();
-	$result = $stmt->get_result();
+	    $product_list = substr($product_list, 0, -1);
+	    $stmt = $conn->prepare("SELECT p.IDProdotto as pid, p.nome as pnome, p.costo as costo, f.nome as fnome
+	                                    FROM prodotto as p, fornitore as f
+	                                    WHERE p.IDFornitore = f.IDFornitore
+	                                    AND f.bloccato = 0 
+	                                    AND f.abilitato = 1
+	                                    AND p.IDProdotto in(".$product_list.")");
+		$stmt->execute();
+		$result = $stmt->get_result();
 
 ?>
 <!DOCTYPE html>
@@ -66,5 +65,13 @@
 		</div>
 	</div>
 	<?php require_once "../footer/footer.html"; ?>
+
+	<?php
+
+	} else {
+		header("location: ../home/home.php");
+	}
+	
+	?>
 </body>
 </html>

@@ -147,7 +147,7 @@ if ($loggedInUser) {
             
             if (!$supplier) {
                 $value = 0;
-                if(!isset($_SESSION) || isset($_SESSION["cart_filled"])) {
+                if(isset($_SESSION["cart_filled"]) && isset($_SESSION["cart"])) {
                     foreach ($_SESSION["cart"] as $n) {
                         $value += $n;
                     }

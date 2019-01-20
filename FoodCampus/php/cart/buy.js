@@ -32,8 +32,7 @@ $(document).ready(function() {
 		        contentType: true,
 				success: function(msg)
 				{
-					$("input[type=submit]").fadeOut();
-					console.log(msg);
+					window.location.href = "../home/home.php?order_success=1";
 				},
 				error: function()
 				{

@@ -2,22 +2,18 @@ $(document).ready(function() {
 
 	$("form").on("submit", function(e) {
 		var url = window.location.href;
-		if($("input[name='password']").length) {
-			$("input[name='password']").val(hex_sha512($("input[name='password']").val()));
-		}
+		$pwd_input = $("input[name='password']");
+		if(!($pwd_input.val() === $pwd_input.attr("defaultValue"))) {
+            $pwd_input.val(hex_sha512($pwd_input.val()));
+            $pwd_input.attr("defaultValue", $pwd_input.val());
+        }
 		var action = "";
-		/*
-		if(url.indexOf("id") >= 0) {
-			action = "php/update-row-request.php?id=" + $.urlParam('id');
-		} else {
-			action = "php/insert-row-request.php";
-		}
-		$("#insert-update-form").attr("action", url);
-		*/
 		
 		var formData = new FormData($("#insert-update-form")[0]);
-        var img = $("input[name=immagine]")[0].files[0];
-        formData.append("image", img);
+		if($("input[name=immagine]").val()) {
+	        var img = $("input[name=immagine]")[0].files[0];
+	        formData.append("image", img);
+	    }
 		if(url.indexOf("id") >= 0) {
 			$.ajax({
 				type: "POST",

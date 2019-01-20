@@ -83,6 +83,9 @@
 											}
 										}
 										if($update) {
+											if($key == "password") {
+												echo "defaultValue='".$rowToUpdate[$key]."' ";  
+											}
 											echo "value='".$rowToUpdate[$key]."'";
 										}
 										echo "/></div>";
@@ -94,7 +97,11 @@
 											$sql2 = getQuerySearchExtern($extern_table);
 											$result2 = $GLOBALS["conn"]->query($sql2);
 											if($result2->num_rows != 0) {
-										        echo "<select name='".$key."' required>";
+										        echo "<select name='".$key."'"; 
+										        if($table != "notifica") {
+										        	echo "required";
+										        }
+										        echo ">";
 										        if(!$update) {
 										        	echo "<option value='' disabled='disabled' selected='selected'>Scegli tra le opzioni</option>";			
 										        }
