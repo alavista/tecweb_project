@@ -1,5 +1,7 @@
 <?php
-	session_start();
+	$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+	require_once "$root/tecweb_project/FoodCampus/php/utilities/secure_session.php";
+	sec_session_start();
 	if(isset($_GET["product_added"]) && isset($_GET["quantity"])) {
 		$id = $_GET["product_added"];
 		if(!isset($_SESSION["cart_filled"])) {

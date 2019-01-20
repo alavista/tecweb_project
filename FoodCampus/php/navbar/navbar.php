@@ -2,7 +2,9 @@
 $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 require_once "$root/tecweb_project/FoodCampus/php/database.php";
 require_once "$root/tecweb_project/FoodCampus/php/utilities/direct_login.php";
+require_once "$root/tecweb_project/FoodCampus/php/utilities/secure_session.php";
 require_once "$root/tecweb_project/FoodCampus/php/navbar/navbar_research.php";
+sec_session_start();
 
 
 function computeNumberNotification($conn, $field, $userId) {
@@ -142,22 +144,16 @@ if ($loggedInUser) {
 
     <ul id="cart" class="navbar-nav">
         <?php
-        if ($loggedInUser && $supplier) {
-            $value = $notificationNumber;
-        } else {
-            $value = 0;
-            if(isset($_SESSION["cart_filled"])) {
-                echo "<br><br><br><br><br><p>ciao</p>";
-                foreach ($_SESSION["cart"] as $n) {
-                    $value += $n;
+            
+            if (!$supplier) {
+                $value = 0;
+                if(!isset($_SESSION) || isset($_SESSION["cart_filled"])) {
+                    foreach ($_SESSION["cart"] as $n) {
+                        $value += $n;
+                    }
                 }
-            } else {
-                echo "<br><br><br><br><br><p>arrivederci</p>";
+                echo "<li class='nav-item'><span id='prod-num' class='badge badge-light'>$value</span><a role='button' href='/tecweb_project/FoodCampus/php/cart/cart.php'  id='kart' class='btn fas fa-shopping-cart item' href'#'></a></li>";
             }
-        }
-        if (!$supplier) {
-            echo "<li class='nav-item'><span class='badge badge-light'>$value</span><a id='kart' class='nav-link fas fa-shopping-cart item' href'#'></a></li>";
-        }
         ?>
     </ul>
 </nav>
