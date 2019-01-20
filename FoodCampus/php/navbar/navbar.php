@@ -1,4 +1,4 @@
-<?php   
+<?php
 $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 require_once "$root/tecweb_project/FoodCampus/php/database.php";
 require_once "$root/tecweb_project/FoodCampus/php/utilities/direct_login.php";
@@ -118,33 +118,14 @@ if ($loggedInUser) {
            <link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/php/user/suppliers/css/starReview.css">
 
             <input id="navbar-search" class="form-control searchit" type="text" placeholder="Cerca...">
-            <style>
-                #result {
-                    position: absolute;
-                    width: 100%;
-                    overflow-y: auto;
-                    max-height: 400px;
-                    box-sizing: border-box;
-                    z-index: 1001;
-                    top: 40px;
-                }
-                .link-class:hover {
-                    background-color:#f1f1f1;
-                }
-                .changePlus {
-                    background-color: #3399ff;
-                }
-                .btn-kart {
-                    background-color: #F83442;
-                }
-            </style>
+            <label class='hidden' for="navbar-search">Ricerca globale</label>
             <ul class="list-group searchit" id="result"></ul>
         </div>
     </form>
 
     <ul id="cart" class="navbar-nav">
         <?php
-            
+
             if (!$supplier) {
                 $value = 0;
                 if(!isset($_SESSION) || isset($_SESSION["cart_filled"])) {

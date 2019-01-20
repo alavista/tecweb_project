@@ -256,7 +256,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		<div class="row justify-content-center">
 			<div class="col-lg-6 jumbotron" id="forgotten_password_form">
 				<h1 class="form-title">Password dimenticata</h1>
-				<p class="important-text">Inserisci qui sotto il tuo indirizzo email.</br>
+				<p class="important-text">Inserisci qui sotto il tuo indirizzo email.<br/>
 					Ti invieremo un codice per reimpostare la tua password.
 				</p>
 				<form action="password_forgotten.php" method="post">

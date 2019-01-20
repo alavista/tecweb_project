@@ -43,7 +43,7 @@
 							<div class="col">
 								<div id="filterField">
 									<div id="modalForm" class="form-group form-check">
-										<label for="modalButton">Categorie desiderate:</label>
+										<label for="modalButton">Categorie desiderate:&nbsp;&nbsp;</label>
 										<button type="button" id="modalButton" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
 											Imposta filtro
 										</button>
@@ -77,7 +77,8 @@
 															} else {
 																echo "<div class='form-group form-check'>";
 																	while ($row = $result->fetch_assoc()) {
-																		echo "<input class='modal-checkbox form-check-input' type='checkbox' checked id='".$row["nome"]."' name='".$row["nome"]."'>";
+																		echo "<input class='big-checkbox  modal-checkbox form-check-input' type='checkbox' checked id='".$row["nome"]."' name='".$row["nome"]."'>";
+																		echo "&nbsp;&nbsp;";
 																		echo "<label for='".$row["nome"]."'>".$row["nome"]."</label>";
 																		echo "<br/>";
 																	}
@@ -89,21 +90,25 @@
 													</div>
 													<!-- Modal footer -->
 													<div class="modal-footer">
-															<button type="button" id="outAllButton" class="btn btn-warning">Nessuno</button>
-															<button type="button" id="selectAllButton" class="btn btn-success">Tutti</button>
-															<button type="button" id="savebutton" class="btn btn-primary" data-dismiss="modal">Salva</button>
-															<button type="button" class="btn btn-danger" data-dismiss="modal">Annulla</button>
+														<div class="row d-flex">
+															<div class="col">
+																<button type="button" id="outAllButton" class="btn btn-warning">Nessuno</button>
+																<button type="button" id="selectAllButton" class="btn btn-success">Tutti</button>
+																<button type="button" id="savebutton" class="btn btn-primary" data-dismiss="modal">Salva</button>
+																<button type="button" class="btn btn-danger" data-dismiss="modal">Annulla</button>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="form-group form-check">
-										<input class="form-check-input" type="checkbox" id="vegan_checkbox" name="vegan_checkbox">
+										<input class="big-checkbox form-check-input" type="checkbox" id="vegan_checkbox" name="vegan_checkbox">
 										<label for="vegan_checkbox">Solo fornitori con prodotti vegani</label>
 									</div>
 									<div class="form-group form-check">
-										<input class="form-check-input" type="checkbox" id="celiac_checkbox" name="celiac_checkbox">
+										<input class="big-checkbox form-check-input" type="checkbox" id="celiac_checkbox" name="celiac_checkbox">
 										<label for="celiac_checkbox">Solo fornitori con prodotti per celiaci</label>
 									</div>
 									<div class="form-group">

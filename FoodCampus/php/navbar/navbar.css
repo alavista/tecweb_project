@@ -40,6 +40,35 @@
     margin-bottom: 0px;
 }
 
+#result {
+    position: absolute;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 400px;
+    box-sizing: border-box;
+    z-index: 1001;
+    top: 40px;
+}
+
+.hidden
+{
+    position:absolute;
+    left:-10000px;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+}
+.link-class:hover {
+    background-color:#f1f1f1;
+}
+.changePlus {
+    background-color: #3399ff;
+}
+.btn-kart {
+    background-color: #F83442;
+}
+
 .navbar-custom .form-inline .input-group .form-control .input-group-prepend .btn,
 .navbar-custom .form-inline .abs-center-x .input-group-prepend .btn {
     background-color: white;

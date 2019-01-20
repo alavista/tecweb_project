@@ -1,3 +1,12 @@
+body {
+    font-size: 1.1rem;
+}
+
+.big-checkbox {
+    width: 15px;
+    height: 15px;
+}
+
 #loginform{
     margin-top: 165px;
     margin-left: 50px;
