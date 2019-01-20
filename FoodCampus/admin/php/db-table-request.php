@@ -37,12 +37,16 @@
                 echo "<td><a href='insert-update-rows.php?table=".$table."&id=".$id."' role='button' class='btn btn-warning modify-row-button' value='".$id."'>Modifica</button></td><td><button class='btn btn-danger delete-row-button' value='".$id."'>Cancella</button></td>";
                 foreach($columnsName as $columnName) {
                     if($columnName != $PRIMARY_KEYS[$table] && in_array($columnName, $PRIMARY_KEYS)) {
-                        $extern_table = array_search($columnName, $PRIMARY_KEYS);
-                        $sql2 = getQuerySearchExternByID($extern_table, $row[$columnName]);
-                        $result2 = $GLOBALS["conn"]->query($sql2);
-                        if($result2->num_rows != 0) {
-                            $row2 = mysqli_fetch_array($result2);
-                            echo "<td>".implode(", ", array_unique($row2))."</td>";
+                        if(is_null($row[$columnName])) {
+                            echo "<td>NULL</td>";
+                        } else {
+                            $extern_table = array_search($columnName, $PRIMARY_KEYS);
+                            $sql2 = getQuerySearchExternByID($extern_table, $row[$columnName]);
+                            $result2 = $GLOBALS["conn"]->query($sql2);
+                            if($result2->num_rows > 0) {
+                                $row2 = mysqli_fetch_array($result2);
+                                echo "<td>".implode(", ", array_unique($row2))."</td>";
+                            }
                         }
                     } else {
                         echo "<td>".$row[$columnName]."</td>";

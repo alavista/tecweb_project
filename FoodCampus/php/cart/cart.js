@@ -1,4 +1,3 @@
-
 $(document).on("click", ".add-cart", function(e){
 	$.ajax({
 		type: "GET",
