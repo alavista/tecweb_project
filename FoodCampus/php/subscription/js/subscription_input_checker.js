@@ -69,7 +69,7 @@ function checkInputs() {
             inputFields.push(elem);
 
             if (elem.next(".validation").length === 0) {
-                elem.after("<div class='text-danger validation'>Questo campo è obbligatorio</div>");
+                elem.after("<div class='text-danger validation'><strong>Questo campo è obbligatorio</strong></div>");
             }
         }
         else {

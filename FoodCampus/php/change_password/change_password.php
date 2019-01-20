@@ -107,7 +107,7 @@ $_SESSION['operation_allowed'] = false;
 <!DOCTYPE html>
 <html lang="it-IT">
 <head>
-	<title>Reimposta Password</title>
+	<title>Cambio password</title>
 	<metacharset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Latest compiled and minified CSS -->

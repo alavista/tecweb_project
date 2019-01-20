@@ -45,17 +45,19 @@
 								<div id="categoryField">
 								</div>
 								<div class="form-group form-check">
-									<input class="form-check-input" type="checkbox" id="vegan_checkbox" name="vegan_checkbox">
+									<input class="big-checkbox form-check-input" type="checkbox" id="vegan_checkbox" name="vegan_checkbox">
 									<label for="vegan_checkbox">Solo prodotti vegani</label>
 								</div>
 								<div class="form-group form-check">
-									<input class="form-check-input" type="checkbox" id="celiac_checkbox" name="celiac_checkbox">
+									<input class="big-checkbox form-check-input" type="checkbox" id="celiac_checkbox" name="celiac_checkbox">
 									<label for="celiac_checkbox">Solo prodotti per celiaci</label>
 								</div>
+							</div>
+						</div>
 							</section>
 							<section id="resultsSection">
 								<div id="resultsField" class="container-fluid">
-									<h2 hidden>Risulati ricerca</h2>
+									<h2 hidden>Risultati ricerca</h2>
 									<div hidden class="form-group">
 										<label for="sort_selection">Ordina risultati per:</label>
 										<select class="form-control" id="sort_selection" name="sort_selection">
@@ -71,6 +73,7 @@
 									</div>
 									<div hidden id="result_content">
 										<table class="table table-hover table-sm table-responsive-sm">
+											<caption>Elenco dei prodotti trovati</caption>
 											<thead>
 												<tr>
 													<th scope="col">Prodotto</th>
@@ -90,8 +93,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+
 	<script type="text/javascript">buttonId="";</script>
 	<?php
 		if (isset($_SESSION["food"])) {

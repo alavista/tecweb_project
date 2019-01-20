@@ -14,6 +14,11 @@
     padding: 0px;
 }
 
+.big-checkbox {
+    width: 15px;
+    height: 15px;
+}
+
 .footer-distributed {
     margin-top: 220px !important;
 }
@@ -32,6 +37,7 @@ h2 {
 
 label {
     font-weight: bold;
+    font-size: 17px;
 }
 
 table {
