@@ -4,6 +4,10 @@
 	require_once("../database.php");
 	
 	if(isset($_GET['products']) && isset($_GET['quantities']) && isset($_GET['customer']) && isset($_GET['supplier']) && isset($_GET['payment']) && isset($_GET['hour']) && isset($_GET['minute'])) {
+
+		unset($_SESSION['cart']);
+		unset($_SESSION["cart_filled"]);
+
 		$products = explode(",", $_GET['products']);
 		$quantities = explode(",", $_GET['quantities']);
 

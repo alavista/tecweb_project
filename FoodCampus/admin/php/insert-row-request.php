@@ -6,12 +6,14 @@
     if(isset($_POST["table"])) {
     	$table = $_POST["table"];
 
-        if(isset($_FILES["image"])) {
+        if(isset($_FILES["image"]) && !empty($_FILES["image"])) {
             $filePath = $table == "fornitore" ? "../../res/suppliers/" : "../../res/clients/";
             $fileName =  basename($_FILES["image"]["name"]);
             $tempArrayName = explode(".", $fileName);
             $GLOBALS["newFileName"] = $tempArrayName[0].uniqid(mt_rand(1, mt_getrandmax()), false).".".$tempArrayName[1];
             $image_uploaded =uploadFile($filePath, $GLOBALS["newFileName"], "image", $fileError);
+        } else {
+            $image_uploaded = false;
         }
 
     	$sql = "INSERT INTO ".$table."(";
@@ -64,11 +66,9 @@
     	$sql = substr($sql, 0, $plus).");";
         $result = $GLOBALS["conn"]->query($sql);
     	if($result) {
-    		echo "<div class='alert alert-success' role='alert'>".$sql."<BR>Inserimento effettuato con successo</div>";
+    		echo "<div class='alert alert-success' role='alert'>Inserimento effettuato con successo</div>";
     	} else {
     		echo "<div class='alert alert-danger' role='alert'>Errore: ".$conn->error."<br/>".$sql."</div>";
     	}
-    } else {
-        echo "<div class='alert alert-success' role='alert'>MERDA!</div>";
     }
 ?>
