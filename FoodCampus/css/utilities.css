@@ -14,13 +14,3 @@
     margin-top: 75px;
 }
 
-@media screen and (max-width: 394px) {
-
-    .jumbotronClientStartAfterNavbar, .clientStartAfterNavbar {
-        margin-top: 105px;
-    }
-
-    .clientImageStartAfterNavbar {
-        margin-top: 105px;
-    }
-}
