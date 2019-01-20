@@ -12,6 +12,7 @@
 
 .navbar-custom {
     background-color: #F83442;
+    z-index: 100 !important;
 }
 
 .search-item {
