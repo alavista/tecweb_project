@@ -60,6 +60,7 @@
     height:1px;
     overflow:hidden;
 }
+
 .link-class:hover {
     background-color:#f1f1f1;
 }

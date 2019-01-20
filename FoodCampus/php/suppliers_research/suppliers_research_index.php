@@ -32,7 +32,7 @@
 			<div class="col-lg-6">
 				<div id="mainForm">
 					<section id="filterSection">
-						<h1>RICERCA FORNITORI</h1>
+						<h2>RICERCA FORNITORI</h2>
 						<noscript>
 							<div class='alert alert-danger' style='margin-top: 8px;'>
 								<strong>ATTENZIONE:</strong> Questa pagina NON funziona senza JavaScript.
@@ -53,7 +53,7 @@
 												<div class="modal-content">
 													<!-- Modal Header -->
 													<div class="modal-header">
-														<h4 class="modal-title">Filtra le categorie</h4>
+														<h3 class="modal-title">Filtra le categorie</h3>
 														<button type="button" class="close" data-dismiss="modal">&times;</button>
 													</div>
 													<!-- Modal body -->
@@ -76,12 +76,12 @@
 																echo("<div class='alert alert-danger' style='margin-top: 8px;'>$error</div>");
 															} else {
 																echo "<div class='form-group form-check'>";
-																	while ($row = $result->fetch_assoc()) {
-																		echo "<input class='big-checkbox  modal-checkbox form-check-input' type='checkbox' checked id='".$row["nome"]."' name='".$row["nome"]."'>";
-																		echo "&nbsp;&nbsp;";
-																		echo "<label for='".$row["nome"]."'>".$row["nome"]."</label>";
-																		echo "<br/>";
-																	}
+																while ($row = $result->fetch_assoc()) {
+																	echo "<input class='big-checkbox  modal-checkbox form-check-input' type='checkbox' checked id='".$row["nome"]."' name='".$row["nome"]."'>";
+																	echo "&nbsp;&nbsp;";
+																	echo "<label for='".$row["nome"]."'>".$row["nome"]."</label>";
+																	echo "<br/>";
+																}
 																echo "</div>";
 															}
 
@@ -121,16 +121,16 @@
 										</select>
 									</div>
 								</div>
-							</section>
-							<section id="resultsSection">
-								<div id="resultsField" class="container-fluid">
-									<h2 >Risulati ricerca</h2>
-									<div id="result_content">
-									</div>
-								</div>
-							</section>
+							</div>
 						</div>
-					</div>
+					</section>
+					<section id="resultsSection">
+						<div id="resultsField" class="container-fluid">
+							<h3>Risultati ricerca</h3>
+							<div id="result_content">
+							</div>
+						</div>
+					</section>
 				</div>
 			</div>
 		</div>
