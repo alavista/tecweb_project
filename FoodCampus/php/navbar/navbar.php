@@ -126,7 +126,11 @@ if ($loggedInUser) {
     <ul id="cart" class="navbar-nav">
         <?php
 
-            if (!$supplier) {
+            if ($supplier) {
+                ?>
+                    <li class="nav-item"><a class="nav-link item" href="/tecweb_project/FoodCampus/php/supplier_orders/supplier-orders.php?id=<?php echo $userId; ?>">I miei ordini</a></li>
+                <?php
+            } else {
                 $value = 0;
                 if(isset($_SESSION["cart_filled"]) && isset($_SESSION["cart"])) {
                     foreach ($_SESSION["cart"] as $n) {
