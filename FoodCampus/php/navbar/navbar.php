@@ -4,7 +4,7 @@ require_once "$root/tecweb_project/FoodCampus/php/database.php";
 require_once "$root/tecweb_project/FoodCampus/php/utilities/direct_login.php";
 require_once "$root/tecweb_project/FoodCampus/php/utilities/secure_session.php";
 require_once "$root/tecweb_project/FoodCampus/php/navbar/navbar_research.php";
-sec_session_start();
+//sec_session_start();
 
 
 function computeNumberNotification($conn, $field, $userId) {
