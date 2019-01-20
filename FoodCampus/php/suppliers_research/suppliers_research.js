@@ -51,8 +51,7 @@ function loadSuppliers() {
             } else if (suppliers.status.localeCompare("ok") == 0) {
 
                 if (suppliers.data.length === 0) {
-                    $("#result_content").append("<div class='noresult'>Nessun fornitore trovato con i parametri di ricerca forniti</div>");
-                    $(".noresult").hide().fadeIn(250);
+                    $("#result_content").html("<div class='noresult'>Nessun fornitore trovato con i parametri di ricerca forniti</div>").fadeIn(250);
                 } else {
                     var html_code = "";
                     for(var i = 0; i < suppliers.data.length; i++) {

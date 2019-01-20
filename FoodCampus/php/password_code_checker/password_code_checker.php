@@ -199,7 +199,7 @@ function deleteUserRequests($conn, $email) {
 				<form action="password_code_checker.php" method="post">
 					<div class="form-group">
 						<label for="codice">Codice:</label>
-						<input type="text" required required class="form-control" id="codice"  placeholder="Inserisci il codice" name="codice">
+						<input type="text" required class="form-control" id="codice"  placeholder="Inserisci il codice" name="codice">
 						<?php
 							if(strlen($emailError) !== 0) {
 								echo("<div class='alert alert-danger' style='margin-top: 8px;'>$emailError</div>");

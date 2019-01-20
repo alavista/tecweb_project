@@ -20,7 +20,6 @@
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="../navbar/navbar.css">
 	<link rel="stylesheet" type="text/css" title="stylesheet" href="success.css">
 </head>
-
 <body>
 	<?php require_once '../navbar/navbar.php';?>
 	<div class="container">
