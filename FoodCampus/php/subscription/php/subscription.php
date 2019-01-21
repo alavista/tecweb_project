@@ -385,7 +385,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						</div>
 						<div class="form-group">
 							<label for="myFile">Immagine del profilo (facoltativo):</label>
-							<input type="file" id="myFile" name="filename" class="border" accept="image/*" value="<?php echo isset($_FILES["filename"]) ?  $_FILES["filename"] : '' ?>">
+							<input type="file" id="myFile" name="filename" class="border" accept="image/*">
 							<?php
 								if(strlen($fileError) !== 0) {
 									echo("<div class='alert alert-warning' style='margin-top: 8px;'>$fileError</div>");

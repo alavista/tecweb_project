@@ -40,8 +40,8 @@ if (!isUserLogged($conn)) {
 <body>
 	<?php require_once '../../navbar/navbar.php';?>
 	<div class="container">
-		<div class="row">
-			<div class="container col-6 jumbotron mx-auto" id="maindiv">
+		<div class="row justify-content-center">
+			<div class="col-lg-6 jumbotron" id="maindiv">
 				<div class="col-10 mx-auto">
 				<h1 class="text-primary" id="first_title">Account creato!</h1>
 				<p class="info">Congratulazioni, account creato correttamente!</p>
