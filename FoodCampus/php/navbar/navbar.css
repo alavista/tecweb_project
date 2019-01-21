@@ -15,6 +15,12 @@
     z-index: 100 !important;
 }
 
+.search-product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .search-item {
     display: flex;
     justify-content: center;
@@ -74,6 +80,12 @@
 .navbar-custom .form-inline .input-group .form-control .input-group-prepend .btn,
 .navbar-custom .form-inline .abs-center-x .input-group-prepend .btn {
     background-color: white;
+}
+
+@media (max-width: 475px) {
+    .rating-container {
+        display: none !important;
+    }
 }
 
 @media (min-width: 768px) {
