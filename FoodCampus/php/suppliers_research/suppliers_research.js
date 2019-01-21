@@ -60,7 +60,7 @@ function loadSuppliers() {
                         + suppliers.data[i]["fnome"]
                         + "<img id='image" + i + "' class='zoom img-fluid img-thumbnail img-responsive' alt='Foto profilo del fornitore' src='../../res/suppliers/" + (suppliers.data[i]["fimmagine"] != null ? suppliers.data[i]["fimmagine"] : 'default.jpg') + "'>" + "</a>"
                         + "<div id='starAverageRating" +  i  +"'><label for='voto" + i +"' class='hidden'>Stelle voto fornitore</label><input input id='voto" + i + "' class='rating rating-loading' data-min='0' data-max='5' data-step='1' value='" + ((suppliers.data[i]["valutazione_media"] === null) ? 0.0 : suppliers.data[i]["valutazione_media"].toFixed(1)) + "' data-size='lg' data-showcaption=false disabled/></div>"
-                        + "<p id='averageRating" + i + "'><strong>" + ((suppliers.data[i]["valutazione_media"] === null) ? "/" : suppliers.data[i]["valutazione_media"].toFixed(1)) + "</strong> su 5 stelle (" + suppliers.data[i]["nrec"] + " voti)</p>"
+                        + "<p id='averageRating" + i + "'><span style='font-weight: bold;'>" + ((suppliers.data[i]["valutazione_media"] === null) ? "/" : suppliers.data[i]["valutazione_media"].toFixed(1)) + "</span> su 5 stelle (" + suppliers.data[i]["nrec"] + " voti)</p>"
                         + "</div>";
                     }
 

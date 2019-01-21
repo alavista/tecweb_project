@@ -85,8 +85,7 @@ function getProducts($conn, $category, $vegan, $celiac, $sorting) {
     $veganQuery = ($vegan === "true") ? "AND p.vegano = 1" : "";
     $celiacQuery = ($celiac === "true") ? "AND p.celiaco = 1" : "";
 
-
-    if (!($stmt = $conn->prepare("SELECT p.IDProdotto as pid, p.nome as pnome, p.costo, p.vegano as vegano, p.celiaco as celiaco, c.nome as cnome, f.IDFornitore as IDFornitore, f.nome as fnome, AVG(r.valutazione) as valutazione_media, COUNT(r.IDRecensione) as nrec
+    $query = "SELECT p.IDProdotto as pid, p.nome as pnome, p.costo, p.vegano as vegano, p.celiaco as celiaco, c.nome as cnome, f.IDFornitore as IDFornitore, f.nome as fnome, AVG(r.valutazione) as valutazione_media, COUNT(r.IDRecensione) as nrec
                                     FROM categoria as c, prodotto as p, fornitore as f
                                     LEFT OUTER JOIN recensione r ON (r.IDFornitore = f.IDFornitore)
                                     WHERE c.IDCategoria = p.IDCategoria AND p.IDFornitore = f.IDFornitore
@@ -95,7 +94,9 @@ function getProducts($conn, $category, $vegan, $celiac, $sorting) {
                                     $veganQuery
                                     $celiacQuery
                                     GROUP BY f.IDFornitore, p.IDProdotto
-                                    $sortingQuery"))) {
+                                    $sortingQuery";
+
+    if (!($stmt = $conn->prepare($query))) {
 
         $GLOBALS["response"]["status"] = "error";
         $GLOBALS["response"]["data"] = $conn->error;

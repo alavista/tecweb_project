@@ -42,6 +42,9 @@
 			</div>
 		</div>
 	</div>
-	<?php require_once "../footer/footer.html"; ?>
+	<?php
+		require_once "../cookie/cookie.php";
+		require_once "../footer/footer.html";
+	?>
 </body>
 </html>

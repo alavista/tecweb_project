@@ -105,12 +105,12 @@ function sendMail($email, $code) {
 	<title>HTML email</title>
 	</head>
 	<body>
-		<p>Il tuo codice per reimpostare la password &egrave;: <strong>"
+		<p>Il tuo codice per reimpostare la password &egrave;: <span style='font-weight: bold;'>"
 	.$code.
-	"</strong></p>
+	"</span></p>
 	<p>
 		Se <strong>NON</strong> hai richiesto il cambio della password, contatta immediatamente il supporto all'indirizzo:<br/>
-		<strong>foodcampus.cesena@gmail.com</strong>
+		<span style='font-weight: bold;'>foodcampus.cesena@gmail.com</span>
 	</p>
 	</body>
 	</html>
@@ -215,7 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					} else {
 						$emailError = "Errore durante l'invio dell'email.<br/>
 										Se il problema persiste, contattare il supporto all'indirizzio:
-										<strong>foodcampus.cesena@gmail.com</strong>";
+										<span style='font-weight: bold;'>foodcampus.cesena@gmail.com</span>";
 					}
 				}
 			}
@@ -290,6 +290,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			</div>
 		</div>
 	</div>
-	<?php require_once "../footer/footer.html"; ?>
+	<?php
+		require_once "../cookie/cookie.php";
+		require_once "../footer/footer.html";
+	?>
 </body>
 </html>

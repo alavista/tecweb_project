@@ -35,7 +35,7 @@ function searchProducts(category) {
                                                             + ((products.data[i]["vegano"] === 1) ? " (vegano) " : "")
                                                             + ((products.data[i]["celiaco"] === 1) ? " (no glutine) " : "")
                                                             +'</td><td>'+"€ " + products.data[i]["costo"]+'</td><td><a href=../user/suppliers/php/supplier.php?id='+products.data[i]["IDFornitore"]+'>'+products.data[i]["fnome"]
-                                                            +"</a></td><td>" + ((products.data[i]["valutazione_media"] === null) ? "/" : "<strong>" + products.data[i]["valutazione_media"].toFixed(1) + "</strong><br/>" + " ("+products.data[i]["nrec"] + " voto/i)")
+                                                            +"</a></td><td>" + ((products.data[i]["valutazione_media"] === null) ? "/" : "<span style='font-weight: bold;'>" + products.data[i]["valutazione_media"].toFixed(1) + "</span><br/>" + " ("+products.data[i]["nrec"] + " voto/i)")
                                                             +"<td><span data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' id='" + products.data[i]["pid"] + "' class='btn btn-deafult btn-kart add-cart'><i class='fas fa-cart-plus'></i></button></span>"
                                                             +'</td></tr>';
                     }
