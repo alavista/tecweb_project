@@ -1,5 +1,6 @@
 var sorting = "Voto Fornitore (decrescente)";
 var currentCategory="";
+var productsFound = false;
 
 function searchProducts(category) {
 
@@ -54,6 +55,8 @@ function searchProducts(category) {
                         scrollTop: $("table").offset().top
                     }, 1000);*/
                 }
+
+                productsFound = true;
             }
         })
         .fail(function(xhr, textStatus, errorThrown) {
@@ -99,20 +102,26 @@ function loadCategories() {
         });
 }
 
+function doSearchProducts() {
+    if (productsFound === true && currentCategory.value != "" && (typeof currentCategory !== 'undefined')
+            && currentCategory !== null) {
+        searchProducts(currentCategory);
+    }
+}
 $(document).ready(function() {
     loadCategories();
 
     $("#sort_selection").on('change', function() {
         sorting = $(this).val();
-		searchProducts(currentCategory);
+        doSearchProducts();
 	});
 
     $('#vegan_checkbox').on('change', function() {
-		searchProducts(currentCategory);
+		doSearchProducts();
 	});
 
     $('#celiac_checkbox').on('change', function() {
-		searchProducts(currentCategory);
+		doSearchProducts();
 	});
 
     if (buttonId !== null && buttonId !== "") {
