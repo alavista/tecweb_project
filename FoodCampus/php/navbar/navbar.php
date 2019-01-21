@@ -90,7 +90,7 @@ if ($loggedInUser) {
                                     $notification = '';
                                     while($row = $res->fetch_assoc()) {
                                         if ($supplier) {
-                                            echo '<a class="dropdown-item"><strong>'.$notificationTitle.'</strong><br/><small><em>'.$row["testo"].'</em></small></a>';
+                                            echo '<a class="dropdown-item" href=/tecweb_project/FoodCampus/php/supplier_orders/supplier-orders.php?id='.$userId.'><strong>'.$notificationTitle.'</strong><br/><small><em>'.$row["testo"].'</em></small></a>';
                                         } else {
                                             echo '<span class="dropdown-item"><strong>'.$notificationTitle.'</strong><br/><small><em>'.$row["testo"].'</em></small></span>';
                                         }

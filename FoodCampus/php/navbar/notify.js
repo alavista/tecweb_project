@@ -42,7 +42,9 @@ function load_unseen_notification(view = "", isPageAllNotifications = false) {
                                 window.focus();
                                 this.close();
                             } else {
-                                window.location = "#";
+                                if (getUserType().localeCompare("fornitore") == 0) {
+                                    window.location = "/tecweb_project/FoodCampus/php/supplier_orders/supplier-orders.php?id=" + getId();
+                                }
                                 window.focus();
                                 this.close();
                             }

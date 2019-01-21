@@ -1,7 +1,6 @@
 <?php
     require_once '../../../database.php';
     require_once "../../../utilities/direct_login.php";
-    
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
             is_numeric($_GET["id"]) && ctype_digit($_GET["id"]) && $_GET["id"] >= 0) {
@@ -93,6 +92,7 @@
             </section>
         </div>
         <?php
+        require_once "../../../cookie/cookie.php";
         require_once "../../../footer/footer.html";
         $conn->close();
         ?>
