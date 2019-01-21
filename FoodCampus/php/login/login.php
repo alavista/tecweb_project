@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				<form action="login.php" method="post">
 					<div class="form-group">
 						<label for="email">Indirizzo Email:</label>
-						<input type="email" required class="form-control" id="email"  placeholder="Inserisci email" name="email">
+						<input type="email" required class="form-control" id="email"  placeholder="Inserisci email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>">
 						<?php
 							if(strlen($emailError) !== 0) {
 								echo("<div class='alert alert-danger' style='margin-top: 8px;'>$emailError</div>");
@@ -132,6 +132,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					<div id="remember_me" class="form-group form-check">
 						<input class="big-checkbox form-check-input" type="checkbox" id="rimanicollegato" name="rimanicollegato">
 						<label for="rimanicollegato">Rimani collegato</label>
+						<?php
+							if (isset($_POST["rimanicollegato"]) && !empty($_POST["rimanicollegato"])) {
+						?>
+								<script type="text/javascript">
+									$('#rimanicollegato').prop('checked', true);
+								</script>
+						<?php
+							}
+						?>
 					</div>
 					<br/>
 					<div class="d-flex justify-content-center form-group">
