@@ -162,6 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			</div>
 		</div>
 	</div>
+	<?php require_once "../cookie/cookie.php"; ?>
 	<?php require_once "../footer/footer.html"; ?>
 </body>
 </html>
