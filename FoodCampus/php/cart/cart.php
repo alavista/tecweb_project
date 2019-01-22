@@ -7,16 +7,16 @@
         foreach ($_SESSION["cart"] as $key => $value) {
             $product_list .= $key.","; 
         }
-
-	    $product_list = substr($product_list, 0, -1);
-	    $stmt = $conn->prepare("SELECT p.IDProdotto as pid, p.nome as pnome, p.costo as costo, f.nome as fnome
-	                                    FROM prodotto as p, fornitore as f
-	                                    WHERE p.IDFornitore = f.IDFornitore
-	                                    AND f.bloccato = 0 
-	                                    AND f.abilitato = 1
-	                                    AND p.IDProdotto in(".$product_list.")");
-		$stmt->execute();
-		$result = $stmt->get_result();
+        if($product_list != "") {
+		    $product_list = substr($product_list, 0, -1);
+		    $stmt = $conn->prepare("SELECT p.IDProdotto as pid, p.nome as pnome, p.costo as costo, f.nome as fnome
+		                                    FROM prodotto as p, fornitore as f
+		                                    WHERE p.IDFornitore = f.IDFornitore
+		                                    AND f.bloccato = 0 
+		                                    AND f.abilitato = 1
+		                                    AND p.IDProdotto in(".$product_list.")");
+			$stmt->execute();
+			$result = $stmt->get_result();
 
 ?>
 <!DOCTYPE html>
@@ -54,7 +54,7 @@
 						<?php
 
 							while ($row = $result->fetch_assoc()) {
-								echo "<tr id='".$row['pid']."''><td>".$row['pnome']."</td><td>".$row['costo']."</td><td>".$row['fnome']."</td><td><input class='quantity-input' type='number' name='quantity' min='1' step='1' product=".$row['pid']." value='".$_SESSION['cart'][$row['pid']]."'></td><td><button type='button' value=".$row['pid']." class='btn btn-danger remove-product'>Rimuovi</button></td></tr>";
+								echo "<tr id='".$row['pid']."''><td>".$row['pnome']."</td><td>".$row['costo']."</td><td>".$row['fnome']."</td><td><input class='quantity-input' type='number' name='quantity' min='1' step='1' product=".$row['pid']." value='".$_SESSION['cart'][$row['pid']]."' pattern='\d*'></td><td><button type='button' value=".$row['pid']." class='btn btn-danger remove-product'>Rimuovi</button></td></tr>";
 							}
 
 						?>
@@ -67,7 +67,9 @@
 	<?php require_once "../footer/footer.html"; ?>
 
 	<?php
-
+		} else {
+			header("location: ../home/home.php");
+		}
 	} else {
 		header("location: ../home/home.php");
 	}

@@ -8,10 +8,11 @@
         "ordine" => "IDOrdine",
         "prodotto" => "IDProdotto",
         "recensione" => "IDRecensione",
-        "prodotto_in_ordine" => "IDProdottoInOrdine"
+        "prodotto_in_ordine" => "IDProdottoInOrdine",
+        "prodotto_in_carrello" => "IDProdottoInCarrello"
     );
 
-    $DB_TABLES = array("Clienti"=>"cliente", "Fornitori"=>"fornitore", "Categorie"=>"categoria", "Prodotti"=>"prodotto", "Ordini"=>"ordine", "Recensioni"=>"recensione", "Notifiche"=>"notifica", "Prodotti_in_ordine"=>"prodotto_in_ordine");
+    $DB_TABLES = array("Clienti"=>"cliente", "Fornitori"=>"fornitore", "Categorie"=>"categoria", "Prodotti"=>"prodotto", "Ordini"=>"ordine", "Recensioni"=>"recensione", "Notifiche"=>"notifica", "Prodotti_in_ordine"=>"prodotto_in_ordine", "Prodotti_in_carrello"=>"prodotto_in_carrello");
 
     $DB_NUMERIC_TYPES = array("int", "decimal", "bit", "float", "tinyint");
 
@@ -72,6 +73,9 @@
 				break;
             case "prodotto_in_ordine":
                 $sql = "SELECT * FROM prodotto_in_ordine";
+                break;
+            case "prodotto_in_carrello":
+                $sql = "SELECT * FROM prodotto_in_carrello";
                 break;
 		}
 		return $sql;

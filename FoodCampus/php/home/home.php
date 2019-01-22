@@ -25,11 +25,6 @@
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../footer/footer.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../../css/utilities.css">
 
-         <script type="text/javascript">
-          $(document).ready(function(){
-              $('#order-success').modal('show');
-          });
-          </script>
     </head>
     <body>
           <div class="container">

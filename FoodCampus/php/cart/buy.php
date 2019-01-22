@@ -79,6 +79,7 @@
 				?>
 
 				<form>
+
 					<label>Seleziona metodo di pagamento:</label>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" id="payment-method1" name="payment-method" value="Contrassegno" checked>
@@ -92,7 +93,12 @@
 						Carta di credito
 						</label>
 					</div>
-					<label for="delivery-time">Seleziona l'orario di consegna:&nbsp;&nbsp;</label><input type="time" id="delivery-time" name="delivery-time" required><br/><br/>
+					<label for="delivery-place">Seleziona il luogo di consegna:</label>
+   					<select class="form-control col-lg-5 col-md-7" name="delivery-place" id="delivery-place">
+					  <option value="Ingresso+Campus+via+Macchiavelli" selected>Ingresso Campus via Macchiavelli</option>
+					  <option value="Ingresso+Campus+via+Pavese">Ingresso Campus via Pavese</option>
+					</select>
+					<label for="delivery-time">Seleziona l'orario di consegna:&nbsp;&nbsp;</label><input class="form-control col-lg-2 col-md-2" type="time" id="delivery-time" name="delivery-time" required><br/><br/>
 					<input role="button" type="submit" class='btn btn-success buy-button' value='Acquista'></a>
 				</form>
 					

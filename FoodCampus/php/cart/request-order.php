@@ -3,7 +3,12 @@
 	require_once("../utilities/direct_login.php");
 	require_once("../database.php");
 	
-	if(isset($_GET['products']) && isset($_GET['quantities']) && isset($_GET['customer']) && isset($_GET['supplier']) && isset($_GET['payment']) && isset($_GET['hour']) && isset($_GET['minute'])) {
+	if(isset($_GET['products']) && isset($_GET['quantities']) && isset($_GET['customer']) && isset($_GET['supplier']) && isset($_GET['payment']) && isset($_GET['delivery-place']) && isset($_GET['hour']) && isset($_GET['minute'])) {
+
+		$stmt2 = $conn->prepare("DELETE FROM prodotto_in_carrello WHERE IDCliente = ?");
+		$stmt2->bind_param("i", $user);
+		$user = $_GET['customer'];
+		$stmt2->execute();
 
 		unset($_SESSION['cart']);
 		unset($_SESSION["cart_filled"]);
@@ -27,10 +32,11 @@
 			$tot_price += $prod_price * $quantities[$i];
 		}
 
-		if($stmt = $conn->prepare("INSERT INTO ordine(IDCliente, tipo_pagamento, prezzo, orario_consegna_ora, orario_consegna_minuti, consegnato) VALUES(?, ?, ?, ?, ?, FALSE)")) {
-			$stmt->bind_param("isdii", $IDCliente, $payment_method, $price, $time_hour, $time_minute);
+		if($stmt = $conn->prepare("INSERT INTO ordine(IDCliente, tipo_pagamento, prezzo, luogo_consegna, orario_consegna_ora, orario_consegna_minuti, consegnato) VALUES(?, ?, ?, ?, ?, ?, FALSE)")) {
+			$stmt->bind_param("isdsii", $IDCliente, $payment_method, $price, $delivery_place, $time_hour, $time_minute);
 			$IDCliente = $_GET["customer"];
 			$payment_method = $_GET["payment"];
+			$delivery_place = str_replace("+", " ", $_GET["delivery-place"]);
 			$price = $tot_price;
 			$time_hour = $_GET["hour"];
 			$time_minute = $_GET["minute"];
@@ -54,8 +60,6 @@
 			$testo = "Hai ricevuto un nuovo ordine (".number_format($price, 2)." €)";
 			$IDFornitore = $_GET['supplier'];
 			$stmt->execute();
-		} else {
-			var_dump($conn->error_list);
 		}
 	}
 ?>

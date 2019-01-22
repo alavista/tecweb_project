@@ -32,6 +32,37 @@ function redirectToHome($conn) {
 	exit();
 }
 
+//reefresh cart in session and database
+function refreshCart($conn) {
+	$stmt = $conn->prepare("SELECT * FROM prodotto_in_carrello WHERE IDCliente = ?");
+	$stmt->bind_param("i", $user);
+	$user = $_SESSION['user_id'];
+	$stmt->execute();
+	$result = $stmt->get_result();
+	while ($row = $result->fetch_assoc()) {
+		if(!isset($_SESSION["cart_filled"]) && !isset($_SESSION["cart"])) {
+			$_SESSION["cart_filled"] = "true";
+			$_SESSION["cart"] = array();
+			$_SESSION["cart"][$row["IDProdotto"]] = $row["quantita"];
+		} else {
+			if(!isset($_SESSION["cart"][$row["IDProdotto"]])) {
+				$_SESSION["cart"][$row["IDProdotto"]] = $row["quantita"];
+			} else {
+				$_SESSION["cart"][$row["IDProdotto"]] += $row["quantita"];
+			}
+		}
+	}
+	$stmt = $conn->prepare("INSERT INTO prodotto_in_carrello (IDCliente, IDProdotto, quantita) VALUES(?, ? ,?)");
+	$stmt->bind_param("iii", $user, $product, $quantity);
+	$stmt2 = $conn->prepare("DELETE FROM prodotto_in_carrello WHERE IDCliente = ? && IDProdotto = ?");
+	$stmt2->bind_param("ii", $user, $product);
+	foreach($_SESSION["cart"] as $prod => $quant) {
+		$product = $prod;
+		$quantity = $quant;
+		$stmt2->execute();
+		$stmt->execute();
+	}
+}
 
 if (isUserLogged($conn)) {
 	redirectToHome($conn);
@@ -55,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 			if (login($conn, $_POST["email"], $password, $emailError)) {
 				// login successfull
+				refreshCart($conn);
 				if (isset($_POST["rimanicollegato"]) && !empty($_POST["rimanicollegato"])) {
 					setcookie($GLOBALS["cookie_user_id"], $GLOBALS["user_id"], time() + (86400 * 365 * 5), "/"); // 5 years
 					setcookie($GLOBALS["cookie_user_email"], $_POST["email"], time() + (86400 * 365 * 5), "/"); // 5 years

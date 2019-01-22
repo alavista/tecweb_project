@@ -7,7 +7,7 @@ $(document).on("click", ".add-cart", function(e){
 		success: function(msg)
 		{
 			var data = jQuery.parseJSON(msg);
-			$("#prod-num").text(data['num_prod']); 
+			$("#prod-num").text(data['num_prod']);
 		},
 		error: function()
 		{
@@ -26,21 +26,26 @@ function refresh_product_number() {
 
 $(document).ready(function(){
 	$(".quantity-input").change(function() {
-		$id = $(this).attr('product');
-		$.ajax({
-			type: "GET",
-			url: "change-quantity-product.php?product=" + $id + "&quantity=" + $(this).val(),
-			processData: true,
-	        contentType: true,
-			success: function(msg)
-			{
-				refresh_product_number();
-			},
-			error: function()
-			{
-				console.log("chiamata ajax fallita");
-			}
-		});
+		if($.isNumeric($(this).val())) {
+			$(".buy-button").removeClass("disabled");
+			$id = $(this).attr('product');
+			$.ajax({
+				type: "GET",
+				url: "change-quantity-product.php?product=" + $id + "&quantity=" + $(this).val(),
+				processData: true,
+		        contentType: true,
+				success: function(msg)
+				{
+					refresh_product_number();
+				},
+				error: function()
+				{
+					console.log("chiamata ajax fallita");
+				}
+			});
+		} else {
+			$(".buy-button").addClass("disabled");
+		}
 	});
 
 	$(".remove-product").click(function(e){
@@ -52,6 +57,10 @@ $(document).ready(function(){
 	        contentType: true,
 			success: function(msg)
 			{
+				var data = jQuery.parseJSON(msg);
+				if(data['empty_cart'] == true) {
+					window.location.href = "../home/home.php";
+				}
 				$("#"+$id).fadeOut();
 				$("#"+$id+" .quantity-input").val(0);
 				refresh_product_number();

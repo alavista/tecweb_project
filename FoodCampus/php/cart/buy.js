@@ -6,6 +6,7 @@ $(document).ready(function() {
 		var time = $("input[name=delivery-time]").val().split(':');
 		var generalParam = "&customer=" + $("#IDCustomer").attr("value") +
 			"&payment=" + $("input[name='payment-method']:checked").val() +
+			"&delivery-place=" + $("select[name=delivery-place] option:selected").attr("value") +
 			"&hour=" + time[0] + 
 			"&minute=" + time[1];
 
@@ -23,8 +24,6 @@ $(document).ready(function() {
 			orderParam = orderParam.slice(0,-1);
 			orderParam += "&supplier=" + $(this).attr("id");
 
-			console.log("request-order.php" + orderParam + generalParam);
-
 			$.ajax({
 				type: "GET",
 				url: "request-order.php" + orderParam + generalParam,
@@ -37,7 +36,6 @@ $(document).ready(function() {
 				error: function()
 				{
 					console.log("errore comletamento ordine");
-					$("#result-order-request").append("<div class='alert alert-danger' role='alert'>Ordine non completato con successo</div>");
 				}
 			});
 		});
