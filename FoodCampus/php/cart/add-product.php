@@ -6,9 +6,11 @@
 	
 	if(isset($_GET["product_added"]) && isset($_GET["quantity"])) {
 		$id = $_GET["product_added"];
-		if(!isset($_SESSION["cart_filled"]) || !isset($_SESSION["cart"]) || !isset($_SESSION["cart"][$id])) {
+		if(!isset($_SESSION["cart_filled"]) || !isset($_SESSION["cart"])) {
 			$_SESSION["cart_filled"] = "true";
 			$_SESSION["cart"] = array();
+		}
+		if(!isset($_SESSION["cart"][$id])) {
 			$_SESSION["cart"][$id] = intval($_GET["quantity"]);
 			if(isUserLogged($conn)) {
 		  		$stmt = $conn->prepare("INSERT INTO prodotto_in_carrello (IDCliente, IDProdotto, quantita) VALUES(?, ? ,?)");
