@@ -1,7 +1,6 @@
 <?php
 
 $errors = false;
-$supplierErrors = false;
 
 $nameError = "";
 $surnameError = "";
@@ -17,6 +16,7 @@ $supplierNameError = "";
 $shippingError = "";
 $shippingLimitError = "";
 $fileError = "";
+$urlError = "";
 
 $GLOBALS["newFileName"] = "";
 
@@ -107,7 +107,7 @@ function do_Subscription($conn, $query, &$queryErrors, $isSupplier) {
 			$shipping = $_POST['shippingcost'];
 			$shippingLimit = $_POST['shippinglimit'];
 
-			if (isset($_POST['sitoweb']) && !empty($_POST['filename'])) {
+			if (isset($_POST['sitoweb']) && !empty($_POST['sitoweb'])) {
 				$web_site = $_POST['sitoweb'];
 			} else {
 				$web_site = NULL;
@@ -160,6 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	if (!isset($_POST["email"]) || !filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 		$emailError = "Inserire un indirizzo email valido";
+		$errors = true;
 	}
 
 	if (!isset($_POST["p"]) || empty($_POST["p"])) {
@@ -211,43 +212,43 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		if (!isset($_POST["indirizzo"]) || empty($_POST["indirizzo"])) {
 			$addressError = "Inserire un indirizzo";
 			$errors = true;
-			$supplierErrors = true;
 		}
 
 		if (!isset($_POST["ncivico"]) || empty($_POST["ncivico"])) {
 			$crossNumberError = "Inserire un numero civico";
 			$errors = true;
-			$supplierErrors = true;
 		}
 
 		if (!isset($_POST["piva"]) || empty($_POST["piva"])) {
 			$pivaError = "Inserire una partita IVA";
 			$errors = true;
-			$supplierErrors = true;
 		}
 
 		if (!isset($_POST["citta"]) || empty($_POST["citta"])) {
 			$cityError = "Inserire una citt&agrave;";
 			$errors = true;
-			$supplierErrors = true;
 		}
 
 		if (!isset($_POST["nomefornitore"]) || empty($_POST["nomefornitore"])) {
 			$supplierNameError = "Inserire il vostro nome fornitore";
 			$errors = true;
-			$supplierErrors = true;
 		}
 
 		if (!isset($_POST["shippingcost"]) || is_null($_POST["shippingcost"]) || $_POST["shippingcost"] < 0 || $_POST["shippingcost"] > 10 || !is_numeric($_POST["shippingcost"])) {
 			$shippingError = "Inserire un costo di spedizione compreso tra 0 e 10";
 			$errors = true;
-			$supplierErrors = true;
 		}
 
 		if (!isset($_POST["shippinglimit"]) || is_null($_POST["shippinglimit"]) || $_POST["shippinglimit"] < 0 || $_POST["shippinglimit"] > 10 || !is_numeric($_POST["shippinglimit"])) {
 			$shippingLimitError = "Inserire un limite di spedizione gratuita compreso tra 0 e 10";
 			$errors = true;
-			$supplierErrors = true;
+		}
+
+		if (isset($_POST['sitoweb']) && !is_null($_POST["sitoweb"]) && !empty($_POST['sitoweb'])) {
+			if (!filter_var($_POST['sitoweb'], FILTER_VALIDATE_URL)) {
+				$urlError = "Inserire un URL valido";
+				$errors = true;
+			}
 		}
 
 	}
@@ -336,7 +337,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						<h2 class="form-title">Dati personali</h2>
 						<div class="form-group">
 							<label for="nome">Nome:</label>
-							<input type="text" class="form-control" id="nome" required placeholder="Inserisci il nome" name="name">
+							<input type="text" class="form-control" id="nome" required placeholder="Inserisci il nome" name="name" value="<?php echo isset($_POST['name']) ? $_POST['name'] : '' ?>">
 							<?php
 								if(strlen($nameError) !== 0) {
 									echo("<div class='alert alert-danger' style='margin-top: 8px;'>$nameError</div>");
@@ -345,7 +346,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						</div>
 						<div class="form-group">
 							<label for="cognome">Cognome:</label>
-							<input type="text" class="form-control" id="cognome" required placeholder="Inserisci il cognome" name="surname">
+							<input type="text" class="form-control" id="cognome" required placeholder="Inserisci il cognome" name="surname" value="<?php echo isset($_POST['surname']) ? $_POST['surname'] : '' ?>">
 							<?php
 								if(strlen($surnameError) !== 0) {
 									echo("<div class='alert alert-danger' style='margin-top: 8px;'>$surnameError</div>");
@@ -357,7 +358,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						<h2 class="form-title">Email & Password</h2>
 						<div class="form-group">
 							<label for="email">Indirizzo Email:</label>
-							<input type="email" class="form-control" id="email" required placeholder="Inserisci email" name="email">
+							<input type="email" class="form-control" id="email" required placeholder="Inserisci email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>">
 							<?php
 								if(strlen($emailError) !== 0) {
 									echo("<div class='alert alert-danger' style='margin-top: 8px;'>$emailError</div>");
@@ -401,6 +402,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						        <option>Fornitore</option>
 							</select>
 							<?php
+								if (isset($_POST['account_selection']) && $_POST['account_selection'] === "Fornitore") {
+							?>
+								<script type="text/javascript">
+									document.getElementById('sel').value= "Fornitore";
+								</script>
+							<?php
+								}
+							?>
+							<?php
 								if(strlen($selectAccountError) !== 0) {
 									echo("<div class='alert alert-danger' style='margin-top: 8px;'>$selectAccountError</div>");
 								}
@@ -411,7 +421,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						<h2 class="form-title">Dati Fornitore</h2>
 							<div class="form-group">
 								<label for="indirizzo">Indirizzo:</label>
-								<input type="text" class="form-control" id="indirizzo" placeholder="Inserisci il tuo indirizzo" name="indirizzo">
+								<input type="text" class="form-control" id="indirizzo" placeholder="Inserisci il tuo indirizzo" name="indirizzo" value="<?php echo isset($_POST['indirizzo']) ? $_POST['indirizzo'] : '' ?>">
 								<?php
 									if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($addressError) !== 0) {
 										echo("<div class='alert alert-danger' style='margin-top: 8px;'>$addressError</div>");
@@ -420,7 +430,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							</div>
 							<div class="form-group">
 								<label for="ncivico">Numero Civico:</label>
-								<input type="text" class="form-control" id="ncivico" placeholder="Inserisci il numero civico" name="ncivico">
+								<input type="text" class="form-control" id="ncivico" placeholder="Inserisci il numero civico" name="ncivico" value="<?php echo isset($_POST['ncivico']) ? $_POST['ncivico'] : '' ?>">
 								<?php
 									if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($crossNumberError) !== 0) {
 										echo("<div class='alert alert-danger' style='margin-top: 8px;'>$crossNumberError</div>");
@@ -429,7 +439,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							</div>
 							<div class="form-group">
 								<label for="piva">Partita IVA:</label>
-								<input type="text" class="form-control" id="piva" placeholder="Inserisci la Partita IVA" name="piva">
+								<input type="text" class="form-control" id="piva" placeholder="Inserisci la Partita IVA" name="piva" value="<?php echo isset($_POST['piva']) ? $_POST['piva'] : '' ?>">
 								<?php
 									if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($pivaError) !== 0) {
 										echo("<div class='alert alert-danger' style='margin-top: 8px;'>$pivaError</div>");
@@ -438,7 +448,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							</div>
 							<div class="form-group">
 								<label for="citta">Citt&agrave;:</label>
-								<input type="text" class="form-control" id="citta" placeholder="Inserisci la tua citt&agrave;" name="citta">
+								<input type="text" class="form-control" id="citta" placeholder="Inserisci la tua citt&agrave;" name="citta" value="<?php echo isset($_POST['citta']) ? $_POST['citta'] : '' ?>">
 								<?php
 									if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($cityError) !== 0) {
 										echo("<div class='alert alert-danger' style='margin-top: 8px;'>$cityError</div>");
@@ -447,7 +457,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							</div>
 							<div class="form-group">
 								<label for="nomefornitore">Nome Fornitore:</label>
-								<input type="text" class="form-control" id="nomefornitore" placeholder="Inserisci il nome della tua attivit&agrave;" name="nomefornitore">
+								<input type="text" class="form-control" id="nomefornitore" placeholder="Inserisci il nome della tua attivit&agrave;" name="nomefornitore" value="<?php echo isset($_POST['nomefornitore']) ? $_POST['nomefornitore'] : '' ?>">
 								<?php
 									if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($supplierNameError) !== 0) {
 										echo("<div class='alert alert-danger' style='margin-top: 8px;'>$supplierNameError</div>");
@@ -460,7 +470,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							      <div class="input-group-prepend">
 							        <span class="input-group-text">€</span>
 							      </div>
-							      <input type="number" value="0.00" max="10.00" min="0" step=".01" data-number-to-fixed="2" class="form-control spedition" id="costo-spedizione" name="shippingcost">
+							      <input type="number" max="10.00" min="0" step=".01" data-number-to-fixed="2" class="form-control spedition" id="costo-spedizione" name="shippingcost" value="<?php echo isset($_POST['shippingcost']) ? $_POST['shippingcost'] : '0.00' ?>">
 							    </div>
 								<?php
 								  if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($shippingError) !== 0) {
@@ -474,7 +484,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							      <div class="input-group-prepend">
 							        <span class="input-group-text">€</span>
 							      </div>
-							      <input type="number" value="0.00" max="10.00" min="0" step=".01" data-number-to-fixed="2" class="form-control spedition" id="soglia-spedizione" name="shippinglimit">
+							      <input type="number" max="10.00" min="0" step=".01" data-number-to-fixed="2" class="form-control spedition" id="soglia-spedizione" name="shippinglimit" value="<?php echo isset($_POST['shippinglimit']) ? $_POST['shippinglimit'] : '0.00' ?>">
 							    </div>
 								<?php
 								  if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($shippingLimitError) !== 0) {
@@ -484,7 +494,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							</div>
 							<div class="form-group">
 								<label for="sitoweb">Sito Web (facoltativo):</label>
-								<input type="text" class="form-control" id="sitoweb" placeholder="Inserisci la URL del tuo sito Web" name="sitoweb">
+								<input type="url" class="form-control" id="sitoweb" placeholder="Inserisci la URL del tuo sito Web" name="sitoweb" value="<?php echo isset($_POST['sitoweb']) ? $_POST['sitoweb'] : '' ?>">
+								<?php
+								  if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($urlError) !== 0) {
+									  echo("<div class='alert alert-danger' style='margin-top: 8px;'>$urlError</div>");
+								  }
+							  ?>
 							</div>
 						</div>
 
@@ -498,11 +513,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						</div>
 					</noscript>
 					<?php
-						if(strlen($supplierErrors) !== 0) {
-							echo("<div class='alert alert-danger' style='margin-top: 8px;'>
-								Dati del fornitore non inseriti correttamente.<br/>Selezionare tipo di Account: Fornitore per vedere gli errori
-							</div>");
-						}
 						if(count($queryErrors) > 0) {
 							foreach ($queryErrors as &$value) {
 							    echo("<div class='alert alert-danger text-center' style='margin-top: 8px;'>$value</div>");
@@ -513,6 +523,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			</div>
 		</div>
 	</div>
-	<?php require_once "../../footer/footer.html"; ?>
+	<?php
+		require_once "../../cookie/cookie.php";
+		require_once "../../footer/footer.html";
+	?>
 </body>
 </html>

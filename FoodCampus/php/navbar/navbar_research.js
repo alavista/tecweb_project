@@ -15,10 +15,10 @@ function searchProductsAndSuppliers(str) {
                     //No results
                 } else {
                     for (var i = 0; i < suppliers.data.length; i++) {
-                        $("#result").append("<li class='list-group-item link-class'><div class='row'><div class='col search-item'><a style='font-size: 1.3rem' href=/tecweb_project/FoodCampus/php/user/suppliers/php/supplier.php?id=" + suppliers.data[i]["fid"] +"><strong>" + suppliers.data[i]["fnome"] + "</strong></a></div>"
+                        $("#result").append("<li class='list-group-item link-class'><div class='row'><div class='col search-item'><a style='font-size: 1.3rem' href=/tecweb_project/FoodCampus/php/user/suppliers/php/supplier.php?id=" + suppliers.data[i]["fid"] +"><span style='font-weight: bold;'>" + suppliers.data[i]["fnome"] + "</span></a></div>"
                         + "<div class='col search-review'>"
                         + "<div id='starAverageRating" +  i  +"'><label for='voto" + i +"' class='hidden'>Stelle voto fornitore</label><input id='voto" + i +"' class='rating rating-loading' data-min='0' data-max='5' data-step='1' value='" + ((suppliers.data[i]["valutazione_media"] === null) ? 0.0 : suppliers.data[i]["valutazione_media"].toFixed(1)) + "' data-size='lg' data-showcaption=false disabled/></div>"
-                        + "<p id='averageRating" + i + "'><strong>" + ((suppliers.data[i]["valutazione_media"] === null) ? "/" : suppliers.data[i]["valutazione_media"].toFixed(1)) + "</strong> su 5 stelle</p>"
+                        + "<p id='averageRating" + i + "'><span style='font-weight: bold;'>" + ((suppliers.data[i]["valutazione_media"] === null) ? "/" : suppliers.data[i]["valutazione_media"].toFixed(1)) + "</span> su 5 stelle</p>"
                         + "</div></div></li>");
                     }
                     loadStars();
@@ -42,7 +42,12 @@ function searchProductsAndSuppliers(str) {
                     //No results
                 } else {
                     for (var i = 0; i < products.data.length; i++){
-                        $('#result').append('<li class="list-group-item link-class"><div class="row"><div class="col-5"><p style="font-size: 1.2rem" class="p-list list-group-item-heading">'
+                        $('#result').append('<li class="list-group-item link-class">'
+
+                                                + '<div class="row">'
+                                                + "<div class='col-2'>"
+                                                + "</div>"
+                                                + '<div class="col"><p style="font-size: 1.2rem" class="p-list list-group-item-heading">'
                                                 + products.data[i]["pnome"] + "<br/>"
                                                 + ((products.data[i]["vegano"] === 1) ? " (vegano) " : "")
                                                 + ((products.data[i]["celiaco"] === 1) ? " (no glutine) " : "")
@@ -50,10 +55,7 @@ function searchProductsAndSuppliers(str) {
                                                 + "<a href='/tecweb_project/FoodCampus/php/user/suppliers/php/supplier.php?id=" + products.data[i]["fid"] + "' class='list-group-item-text'>"
                                                 + products.data[i]["fnome"] + " "
                                                 + "</a></div>"
-                                                + "<div class='col search-item' style='font-size: 1.2rem'>"
-                                                + "<strong>€ " + products.data[i]["prezzo"] + "</strong> "
-                                                + "</div>"
-                                                + "<div class='col search-btn'><span style='float: right' data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' id='" + products.data[i]["pid"] + "' class='add-cart btn btn-deafult btn-kart'><em class='fas fa-cart-plus'></em></button></span>"
+                                                + "<div class='col search-item'>" + "<span style='margin-right: 10px; margin-left: 3px; font-weight: bold;'>€ " + products.data[i]["prezzo"] + "</span> "+"<span style='float: right' data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' id='" + products.data[i]["pid"] + "' class='add-cart btn btn-deafult btn-kart'><em class='fas fa-cart-plus'></em></button></span>"
                                                 + "</div>"
                                                 + "</div></li>");
                     }

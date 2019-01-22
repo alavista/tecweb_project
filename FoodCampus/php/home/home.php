@@ -112,13 +112,14 @@
                   </p>
               </div>
           </div>
-          <?php 
+          <?php
             if(isset($_GET['order_success'])) {
               require_once "order-success.html";
             }
-            require_once "../footer/footer.html"; 
+            require_once "../cookie/cookie.php";
+            require_once "../footer/footer.html";
           ?>
       </body>
 
-      
+
 </html>

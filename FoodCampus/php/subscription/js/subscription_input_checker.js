@@ -99,7 +99,7 @@ function checkInputs() {
             }
         }
     });
-
+    
     if(!valid) {
         focusOnField(inputFields[0]);
         return false;

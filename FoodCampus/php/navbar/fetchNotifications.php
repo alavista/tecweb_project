@@ -49,7 +49,7 @@
                                     if ($fieldId == "IDCliente") {
                                         $notification .= '<span class="dropdown-item"><strong>'.$notificationTitle.'</strong><br/><small><em>'.$row["testo"].'</em></small></span>';
                                     } else {
-                                        $notification .= '<a class="dropdown-item"><strong>'.$notificationTitle.'</strong><br/><small><em>'.$row["testo"].'</em></small></a>';
+                                        $notification .= '<a class="dropdown-item" href="/tecweb_project/FoodCampus/php/supplier_orders/supplier-orders.php?id='.$userId.'"><strong>'.$notificationTitle.'</strong><br/><small><em>'.$row["testo"].'</em></small></a>';
                                     }
                                 }
                                 $pathForSeeAllNotifications = "/tecweb_project/FoodCampus/php/notifications/notifications.php?id=$userId";

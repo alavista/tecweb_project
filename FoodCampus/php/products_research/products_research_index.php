@@ -105,6 +105,9 @@
 			unset($_SESSION["food"]);
 		}
 	?>
-	<?php require_once "../footer/footer.html"; ?>
+	<?php
+		require_once "../cookie/cookie.php";
+		require_once "../footer/footer.html";
+	?>
 </body>
 </html>
