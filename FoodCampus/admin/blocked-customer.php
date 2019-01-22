@@ -43,7 +43,7 @@
 
 			<div class="row">
 
-				<div id="blocked-customer">
+				<div id="blocked-customer" class="col-lg-12">
 					<?php
 						if($resultRows->num_rows == 0) {
 							echo "<div class='alert alert-primary' role='alert'>Nessun cliente bloccato</div>";

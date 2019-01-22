@@ -43,7 +43,7 @@
 			
 			<div class="row">
 
-				<div id="enable-supplier">
+				<div id="enable-supplier" class="col-lg-12">
 					<?php
 						if($resultRows->num_rows == 0) {
 							echo "<div class='alert alert-primary' role='alert'>Nessun fornitore da abilitare</div>";
