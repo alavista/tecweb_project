@@ -1,11 +1,13 @@
 $(document).on("click", ".add-cart", function(e){
+	console.log("request: " + "/tecweb_project/FoodCampus/php/cart/add-product.php?product_added=" + $(this).attr("value") + "&quantity=1");
 	$.ajax({
 		type: "GET",
-		url: "/tecweb_project/FoodCampus/php/cart/add-product.php?product_added=" + e.target.id + "&quantity=1",
+		url: "/tecweb_project/FoodCampus/php/cart/add-product.php?product_added=" + $(this).attr("value") + "&quantity=1",
 		processData: true,
         contentType: true,
 		success: function(msg)
 		{
+			console.log("response" + msg);
 			var data = jQuery.parseJSON(msg);
 			$("#prod-num").text(data['num_prod']);
 		},

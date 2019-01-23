@@ -5,9 +5,11 @@
 	$product_list = "";
 	if(isset($_SESSION["cart_filled"]) && isset($_SESSION["cart"])) {
         foreach ($_SESSION["cart"] as $key => $value) {
-            $product_list .= $key.","; 
+        	if(!empty($key)) {
+            	$product_list .= $key.",";
+            } 
         }
-        if($product_list != "") {
+        if(!empty($product_list)) {
 		    $product_list = substr($product_list, 0, -1);
 		    $stmt = $conn->prepare("SELECT p.IDProdotto as pid, p.nome as pnome, p.costo as costo, f.nome as fnome
 		                                    FROM prodotto as p, fornitore as f

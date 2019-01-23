@@ -133,8 +133,10 @@ if ($loggedInUser) {
             } else {
                 $value = 0;
                 if(isset($_SESSION["cart_filled"]) && isset($_SESSION["cart"])) {
-                    foreach ($_SESSION["cart"] as $n) {
-                        $value += $n;
+                    foreach ($_SESSION["cart"] as $key => $n) {
+                        if(!empty($key)) {
+                            $value += $n;
+                        }
                     }
                 }
                 echo "<li class='nav-item'><span id='prod-num' class='badge badge-light'>$value</span><a role='button' href='/tecweb_project/FoodCampus/php/cart/cart.php'  id='kart' class='btn fas fa-shopping-cart item' href'#'></a></li>";
