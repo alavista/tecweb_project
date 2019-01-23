@@ -77,10 +77,8 @@
 															} else {
 																echo "<div class='form-group form-check'>";
 																while ($row = $result->fetch_assoc()) {
-																	echo "<input class='big-checkbox  modal-checkbox form-check-input' type='checkbox' checked id='".$row["nome"]."' name='".$row["nome"]."'>";
-																	echo "&nbsp;&nbsp;";
-																	echo "<label for='".$row["nome"]."'>".$row["nome"]."</label>";
-																	echo "<br/>";
+																	echo "<div><input class='big-checkbox-style big-checkbox  modal-checkbox form-check-input' type='checkbox' checked id='".$row["nome"]."' name='".$row["nome"]."'>";
+																	echo "<label for='".$row["nome"]."'>".$row["nome"]."</label></div>";
 																}
 																echo "</div>";
 															}

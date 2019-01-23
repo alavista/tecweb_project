@@ -174,7 +174,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							}
 						?>
 					</div>
-					<br/>
 					<div class="d-flex justify-content-center form-group">
 						<button type="submit" id="loginbtn" class="btn btn-primary btn-lg">Accedi</button>
 					</div>
@@ -196,7 +195,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						}
 					?>
 				</form>
-				<br/>
 				<div class="d-flex justify-content-center">
 					<a class="align-middle" href="../subscription/php/subscription.php">Non hai un account? Clicca qui per iscriverti!</a>
 				</div>
