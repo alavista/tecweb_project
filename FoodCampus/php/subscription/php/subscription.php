@@ -340,7 +340,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							<input type="text" class="form-control" id="nome" required placeholder="Inserisci il nome" name="name" value="<?php echo isset($_POST['name']) ? $_POST['name'] : '' ?>">
 							<?php
 								if(strlen($nameError) !== 0) {
-									echo("<div class='alert alert-danger' style='margin-top: 8px;'>$nameError</div>");
+									echo("<div class='alert alert-danger errorElement'>$nameError</div>");
 								}
 							?>
 						</div>
@@ -349,7 +349,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							<input type="text" class="form-control" id="cognome" required placeholder="Inserisci il cognome" name="surname" value="<?php echo isset($_POST['surname']) ? $_POST['surname'] : '' ?>">
 							<?php
 								if(strlen($surnameError) !== 0) {
-									echo("<div class='alert alert-danger' style='margin-top: 8px;'>$surnameError</div>");
+									echo("<div class='alert alert-danger errorElement'>$surnameError</div>");
 								}
 							?>
 						</div>
@@ -361,7 +361,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							<input type="email" class="form-control" id="email" required placeholder="Inserisci email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>">
 							<?php
 								if(strlen($emailError) !== 0) {
-									echo("<div class='alert alert-danger' style='margin-top: 8px;'>$emailError</div>");
+									echo("<div class='alert alert-danger errorElement'>$emailError</div>");
 								}
 							?>
 						</div>
@@ -370,7 +370,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							<input type="password" class="form-control" id="pwd" required placeholder="Inserisci password" name="pswd">
 							<?php
 								if(strlen($passwordError) !== 0) {
-									echo("<div class='alert alert-danger' style='margin-top: 8px;'>$passwordError</div>");
+									echo("<div class='alert alert-danger errorElement'>$passwordError</div>");
 								}
 							?>
 						</div>
@@ -379,7 +379,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							<input type="password" class="form-control" id="confirm-pwd" required placeholder="Conferma password" name="confirm-pwd">
 							<?php
 								if(strlen($confirmPasswordError) !== 0) {
-									echo("<div class='alert alert-danger' style='margin-top: 8px;'>$confirmPasswordError</div>");
+									echo("<div class='alert alert-danger errorElement'>$confirmPasswordError</div>");
 								}
 							?>
 						</div>
@@ -388,7 +388,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							<input type="file" id="myFile" name="filename" class="border" accept="image/*">
 							<?php
 								if(strlen($fileError) !== 0) {
-									echo("<div class='alert alert-warning' style='margin-top: 8px;'>$fileError</div>");
+									echo("<div class='alert alert-warning errorElement'>$fileError</div>");
 								}
 							?>
 						</div>
@@ -412,7 +412,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							?>
 							<?php
 								if(strlen($selectAccountError) !== 0) {
-									echo("<div class='alert alert-danger' style='margin-top: 8px;'>$selectAccountError</div>");
+									echo("<div class='alert alert-danger errorElement'>$selectAccountError</div>");
 								}
 							?>
 						</div>
@@ -424,7 +424,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 								<input type="text" class="form-control" id="indirizzo" placeholder="Inserisci il tuo indirizzo" name="indirizzo" value="<?php echo isset($_POST['indirizzo']) ? $_POST['indirizzo'] : '' ?>">
 								<?php
 									if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($addressError) !== 0) {
-										echo("<div class='alert alert-danger' style='margin-top: 8px;'>$addressError</div>");
+										echo("<div class='alert alert-danger errorElement'>$addressError</div>");
 									}
 								?>
 							</div>
@@ -433,7 +433,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 								<input type="text" class="form-control" id="ncivico" placeholder="Inserisci il numero civico" name="ncivico" value="<?php echo isset($_POST['ncivico']) ? $_POST['ncivico'] : '' ?>">
 								<?php
 									if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($crossNumberError) !== 0) {
-										echo("<div class='alert alert-danger' style='margin-top: 8px;'>$crossNumberError</div>");
+										echo("<div class='alert alert-danger errorElement'>$crossNumberError</div>");
 									}
 								?>
 							</div>
@@ -442,7 +442,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 								<input type="text" class="form-control" id="piva" placeholder="Inserisci la Partita IVA" name="piva" value="<?php echo isset($_POST['piva']) ? $_POST['piva'] : '' ?>">
 								<?php
 									if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($pivaError) !== 0) {
-										echo("<div class='alert alert-danger' style='margin-top: 8px;'>$pivaError</div>");
+										echo("<div class='alert alert-danger errorElement'>$pivaError</div>");
 									}
 								?>
 							</div>
@@ -451,7 +451,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 								<input type="text" class="form-control" id="citta" placeholder="Inserisci la tua citt&agrave;" name="citta" value="<?php echo isset($_POST['citta']) ? $_POST['citta'] : '' ?>">
 								<?php
 									if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($cityError) !== 0) {
-										echo("<div class='alert alert-danger' style='margin-top: 8px;'>$cityError</div>");
+										echo("<div class='alert alert-danger errorElement'>$cityError</div>");
 									}
 								?>
 							</div>
@@ -460,7 +460,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 								<input type="text" class="form-control" id="nomefornitore" placeholder="Inserisci il nome della tua attivit&agrave;" name="nomefornitore" value="<?php echo isset($_POST['nomefornitore']) ? $_POST['nomefornitore'] : '' ?>">
 								<?php
 									if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($supplierNameError) !== 0) {
-										echo("<div class='alert alert-danger' style='margin-top: 8px;'>$supplierNameError</div>");
+										echo("<div class='alert alert-danger errorElement'>$supplierNameError</div>");
 									}
 								?>
 							</div>
@@ -474,7 +474,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							    </div>
 								<?php
 								  if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($shippingError) !== 0) {
-									  echo("<div class='alert alert-danger' style='margin-top: 8px;'>$shippingError</div>");
+									  echo("<div class='alert alert-danger errorElement'>$shippingError</div>");
 								  }
 							  ?>
 							</div>
@@ -488,7 +488,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							    </div>
 								<?php
 								  if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($shippingLimitError) !== 0) {
-									  echo("<div class='alert alert-danger' style='margin-top: 8px;'>$shippingLimitError</div>");
+									  echo("<div class='alert alert-danger errorElement'>$shippingLimitError</div>");
 								  }
 							  ?>
 							</div>
@@ -497,7 +497,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 								<input type="url" class="form-control" id="sitoweb" placeholder="Inserisci la URL del tuo sito Web" name="sitoweb" value="<?php echo isset($_POST['sitoweb']) ? $_POST['sitoweb'] : '' ?>">
 								<?php
 								  if(isset($_POST["account_selection"]) && $_POST["account_selection"] === "Fornitore" && strlen($urlError) !== 0) {
-									  echo("<div class='alert alert-danger' style='margin-top: 8px;'>$urlError</div>");
+									  echo("<div class='alert alert-danger errorElement'>$urlError</div>");
 								  }
 							  ?>
 							</div>
@@ -507,7 +507,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						<button type="submit" class="btn btn-primary btn-lg" id="submitbtn">Iscriviti</button>
 					</div>
 					<noscript>
-						<div class='alert alert-warning' style='margin-top: 8px;'>
+						<div class='alert alert-warning errorElement'>
 							<strong>ATTENZIONE:</strong> Questa pagina potrebbe non funzionare correttamente senza JavaScript.
 							Per favore, riabilita JavaScript nel tuo Browser e ricarica la pagina.
 						</div>
@@ -515,7 +515,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					<?php
 						if(count($queryErrors) > 0) {
 							foreach ($queryErrors as &$value) {
-							    echo("<div class='alert alert-danger text-center' style='margin-top: 8px;'>$value</div>");
+							    echo("<div class='alert alert-danger text-center errorElement'>$value</div>");
 							}
 						}
 					?>

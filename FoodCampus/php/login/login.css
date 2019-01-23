@@ -38,3 +38,7 @@ body {
 label {
     font-weight: bold;
 }
+
+.errorElement {
+    margin-top: 8px;
+}

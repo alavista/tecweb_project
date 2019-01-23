@@ -34,7 +34,7 @@
 					<section id="filterSection">
 						<h2>RICERCA FORNITORI</h2>
 						<noscript>
-							<div class='alert alert-danger' style='margin-top: 8px;'>
+							<div class='alert alert-danger errorElement'>
 								<strong>ATTENZIONE:</strong> Questa pagina NON funziona senza JavaScript.
 								Per favore, riabilita JavaScript nel tuo Browser e ricarica la pagina.
 							</div>
@@ -73,7 +73,7 @@
 															}
 
 															if (strlen($error) !== 0) {
-																echo("<div class='alert alert-danger' style='margin-top: 8px;'>$error</div>");
+																echo("<div class='alert alert-danger errorElement'>$error</div>");
 															} else {
 																echo "<div class='form-group form-check'>";
 																while ($row = $result->fetch_assoc()) {

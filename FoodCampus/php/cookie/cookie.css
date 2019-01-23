@@ -25,3 +25,7 @@
   z-index: 1001;
   font-size: 1.1rem;
 }
+
+#cookie-btn {
+    font-weight: bold !important;
+}

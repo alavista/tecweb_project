@@ -102,15 +102,20 @@ function sendMail($email, $code) {
 	$message = "
 	<html>
 	<head>
-	<title>HTML email</title>
+		<title>HTML email</title>
+		<style>
+			.importantText {
+				font-weight: bold;
+			}
+		</style>
 	</head>
 	<body>
-		<p>Il tuo codice per reimpostare la password &egrave;: <span style='font-weight: bold;'>"
+		<p>Il tuo codice per reimpostare la password &egrave;: <span class='importantText'>"
 	.$code.
 	"</span></p>
 	<p>
 		Se <strong>NON</strong> hai richiesto il cambio della password, contatta immediatamente il supporto all'indirizzo:<br/>
-		<span style='font-weight: bold;'>foodcampus.cesena@gmail.com</span>
+		<span class='importantText'>foodcampus.cesena@gmail.com</span>
 	</p>
 	</body>
 	</html>
@@ -215,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					} else {
 						$emailError = "Errore durante l'invio dell'email.<br/>
 										Se il problema persiste, contattare il supporto all'indirizzio:
-										<span style='font-weight: bold;'>foodcampus.cesena@gmail.com</span>";
+										<span class='errorElement'>foodcampus.cesena@gmail.com</span>";
 					}
 				}
 			}
@@ -265,7 +270,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						<input type="email" required class="form-control" id="email" placeholder="Inserisci email" name="email">
 						<?php
 							if(strlen($emailError) !== 0) {
-								echo("<div class='alert alert-danger' style='margin-top: 8px;'>$emailError</div>");
+								echo("<div class='alert alert-danger errorElement'>$emailError</div>");
 							}
 						?>
 					</div>
@@ -274,16 +279,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					</div>
 					<?php
 						if(strlen($GLOBALS["sqlError"]) !== 0) {
-							echo("<div class='alert alert-danger' style='margin-top: 8px;'>".$GLOBALS["sqlError"]."</div>");
+							echo("<div class='alert alert-danger errorElement'>".$GLOBALS["sqlError"]."</div>");
 						}
 						if(strlen($GLOBALS["sqlWarning"]) !== 0) {
-							echo("<div class='alert alert-warning' style='margin-top: 8px;'>".$GLOBALS["sqlWarning"]."</div>");
+							echo("<div class='alert alert-warning errorElement'>".$GLOBALS["sqlWarning"]."</div>");
 						}
 						if ($GLOBALS["banned"]) {
-							echo("<div class='alert alert-danger' style='margin-top: 8px;'>Questo utente è stato bannato, impossibile procedere.</div>");
+							echo("<div class='alert alert-danger errorElement'>Questo utente è stato bannato, impossibile procedere.</div>");
 						}
 						if (strlen($GLOBALS["errors"]) !== 0) {
-							echo("<div class='alert alert-danger' style='margin-top: 8px;'>".$GLOBALS["errors"]."</div>");
+							echo("<div class='alert alert-danger errorElement'>".$GLOBALS["errors"]."</div>");
 						}
 					?>
 				</form>

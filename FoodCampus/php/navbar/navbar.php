@@ -112,7 +112,7 @@ if ($loggedInUser) {
     </div>
 
     <form class="mx-2 my-auto form-inline w-50" id="search-form">
-       <div style="width: 75%" class="input-group">
+       <div class="input-group global-research">
            <script src="/tecweb_project/FoodCampus/php/navbar/navbar_research.js"></script>
            <script src="/tecweb_project/FoodCampus/php/user/suppliers/js/supplierFunctions.js"></script>
            <link rel="stylesheet" type="text/css" title="stylesheet" href="/tecweb_project/FoodCampus/php/user/suppliers/css/starReview.css">
