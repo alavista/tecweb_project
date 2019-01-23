@@ -5,7 +5,12 @@
 	
 	if(isset($_GET['products']) && isset($_GET['quantities']) && isset($_GET['customer']) && isset($_GET['supplier']) && isset($_GET['payment']) && isset($_GET['delivery-place']) && isset($_GET['hour']) && isset($_GET['minute'])) {
 
-		$stmt2 = $conn->prepare("DELETE FROM prodotto_in_carrello WHERE IDCliente = ?");
+		$conn2 = new mysqli("localhost", "root", "", "foodcampus");
+		if ($conn2->connect_errno) {
+			die("Failed to connect to MySQL: (" . $conn2->connect_errno . ") " . $conn2->connect_error);
+		}
+
+		$stmt2 = $conn2->prepare("DELETE FROM prodotto_in_carrello WHERE IDCliente = ?");
 		$stmt2->bind_param("i", $user);
 		$user = $_GET['customer'];
 		$stmt2->execute();

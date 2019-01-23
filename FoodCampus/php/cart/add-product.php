@@ -32,8 +32,6 @@
 	  		}
 	  	}
 
-	  	
-
 	  	$num_prod = 0;
 	  	foreach ($_SESSION["cart"] as $value) {
 	  		$num_prod += $value;

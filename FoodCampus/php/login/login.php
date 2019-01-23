@@ -31,7 +31,7 @@ function redirectToHome($conn) {
 	mysqli_close($conn);
 	exit();
 }
-
+/*
 //reefresh cart in session and database
 function refreshCart($conn) {
 	$stmt = $conn->prepare("SELECT * FROM prodotto_in_carrello WHERE IDCliente = ?");
@@ -63,7 +63,7 @@ function refreshCart($conn) {
 		$stmt->execute();
 	}
 }
-
+*/
 if (isUserLogged($conn)) {
 	redirectToHome($conn);
 }

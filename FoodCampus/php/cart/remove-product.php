@@ -8,7 +8,11 @@
 		$id = $_GET["product_removed"];
 		unset($_SESSION["cart"][$id]);
 		if(isUserLogged($conn)) {
-	  		$stmt = $conn->prepare("DELETE FROM prodotto_in_carrello WHERE IDCliente = ? && IDProdotto = ?");
+			$conn2 = new mysqli("localhost", "root", "", "foodcampus");
+			if ($conn2->connect_errno) {
+				die("Failed to connect to MySQL: (" . $conn2->connect_errno . ") " . $conn2->connect_error);
+			}
+	  		$stmt = $conn2->prepare("DELETE FROM prodotto_in_carrello WHERE IDCliente = ? && IDProdotto = ?");
 	  		$stmt->bind_param("ii", $user, $product);
 	  		$user = $_SESSION['user_id'];
 	  		$product = $_GET["product_removed"];

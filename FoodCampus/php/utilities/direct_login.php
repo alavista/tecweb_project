@@ -63,11 +63,63 @@ function isCookieDirectLogin($email, $password, $conn) {
     return false;
 }
 
+//reefresh cart in session and database
+function refreshCart($conn) {
+  $stmt = $conn->prepare("SELECT * FROM prodotto_in_carrello WHERE IDCliente = ?");
+  $stmt->bind_param("i", $user);
+  $user = $_SESSION['user_id'];
+  $stmt->execute();
+  $result = $stmt->get_result();
+  while ($row = $result->fetch_assoc()) {
+    if(!isset($_SESSION["cart_filled"]) || !isset($_SESSION["cart"])) {
+      $_SESSION["cart_filled"] = "true";
+      $_SESSION["cart"] = array();
+      $_SESSION["cart"][$row["IDProdotto"]] = $row["quantita"];
+    } else {
+      if(!isset($_SESSION["cart"][$row["IDProdotto"]])) {
+        $_SESSION["cart"][$row["IDProdotto"]] = $row["quantita"];
+      } else {
+        $_SESSION["cart"][$row["IDProdotto"]] += $row["quantita"];
+      }
+    }
+  }
+
+  $stmt = $conn->prepare("INSERT INTO prodotto_in_carrello (IDCliente, IDProdotto, quantita) VALUES(?, ? ,?)");
+  $stmt->bind_param("iii", $user, $product, $quantity);
+  $conn2 = new mysqli("localhost", "root", "", "foodcampus");
+  if ($conn2->connect_errno) {
+    die("Failed to connect to MySQL: (" . $conn2->connect_errno . ") " . $conn2->connect_error);
+  }
+  $stmt2 = $conn2->prepare("DELETE FROM prodotto_in_carrello WHERE IDCliente = ? && IDProdotto = ?");
+  $stmt2->bind_param("ii", $user, $product);
+  if(isset($_SESSION["cart_filled"]) && isset($_SESSION["cart"])) {
+    foreach($_SESSION["cart"] as $prod => $quant) {
+      $product = $prod;
+      $quantity = $quant;
+      $stmt2->execute();
+      $stmt->execute();
+    }
+  }
+}
+
+function getIDClienteByEmail($conn, $email) {
+  $stmt = $conn->prepare("SELECT IDCliente FROM cliente WHERE email = ?");
+  $stmt->bind_param("s", $email);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $row = $result->fetch_assoc();
+  return $row["IDCliente"];
+}
+
 // Checks if user is already logged by cookies or by session.
 function isUserLogged($conn) {
     //Try direct login with cookie first
     if (isset($_COOKIE[$GLOBALS["cookie_user_email"]]) && isset($_COOKIE[$GLOBALS["cookie_user_email"]])) {
         if (isCookieDirectLogin($_COOKIE[$GLOBALS["cookie_user_email"]], $_COOKIE[$GLOBALS["cookie_user_password"]], $conn)) {
+            if(!isset($_SESSION['cart_filled'])) {
+              $_SESSION['user_id'] = getIDClienteByEmail($conn, $_COOKIE[$GLOBALS["cookie_user_email"]]);
+              refreshCart($conn);
+            }
             return true;
         } else if ($GLOBALS["sqlError"] !== "") {
             //Sql error
