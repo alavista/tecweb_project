@@ -13,6 +13,11 @@ body {
     margin-right: 50px;
 }
 
+#loginbtn {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .btn {
     white-space: normal;
 }
@@ -37,4 +42,8 @@ body {
 
 label {
     font-weight: bold;
+}
+
+.errorElement {
+    margin-top: 8px;
 }

@@ -144,7 +144,7 @@ $_SESSION['operation_allowed'] = false;
 							<input type="password" class="form-control" id="pwd" required placeholder="Inserisci password" name="pswd">
 							<?php
 								if(strlen($passwordError) !== 0) {
-									echo("<div class='alert alert-danger' style='margin-top: 8px;'>$passwordError</div>");
+									echo("<div class='alert alert-danger errorElement'>$passwordError</div>");
 								}
 							?>
 						</div>
@@ -153,7 +153,7 @@ $_SESSION['operation_allowed'] = false;
 							<input type="password" class="form-control" id="confirm-pwd" required placeholder="Conferma password" name="confirm-pwd">
 							<?php
 								if(strlen($confirmPasswordError) !== 0) {
-									echo("<div class='alert alert-danger' style='margin-top: 8px;'>$confirmPasswordError</div>");
+									echo("<div class='alert alert-danger errorElement'>$confirmPasswordError</div>");
 								}
 							?>
 						</div>
@@ -162,18 +162,18 @@ $_SESSION['operation_allowed'] = false;
 						<button type="submit" class="btn btn-primary btn-lg" id="submitbtn">Conferma</button>
 					</div>
 					<noscript>
-						<div class='alert alert-warning' style='margin-top: 8px;'>
+						<div class='alert alert-warning errorElement'>
 							<strong>ATTENZIONE:</strong> Questa pagina potrebbe non funzionare correttamente senza JavaScript.
 							Per favore, riabilita JavaScript nel tuo Browser e ricarica la pagina.
 						</div>
 					</noscript>
-					<div class='alert alert-warning' style='margin-top: 8px;'><strong>ATTENZIONE: </strong>
+					<div class='alert alert-warning errorElement'><strong>ATTENZIONE: </strong>
 						<br/><strong>NON</strong> ricaricare e <strong>NON</strong> uscire da questa pagina o dovrai chiedere un nuovo codice!
 					</div>
 					<?php
 						if(count($queryErrors) > 0) {
 							foreach ($queryErrors as &$value) {
-							    echo("<div class='alert alert-danger text-center' style='margin-top: 8px;'>$value</div>");
+							    echo("<div class='alert alert-danger text-center errorElement'>$value</div>");
 							}
 						}
 					?>

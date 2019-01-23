@@ -35,7 +35,7 @@
 					<section id="categoriesSection">
 						<h1>RICERCA PRODOTTI</h1>
 						<noscript>
-							<div class='alert alert-danger' style='margin-top: 8px;'>
+							<div class='alert alert-danger errorElement'>
 								<strong>ATTENZIONE:</strong> Questa pagina NON funziona senza JavaScript.
 								Per favore, riabilita JavaScript nel tuo Browser e ricarica la pagina.
 							</div>

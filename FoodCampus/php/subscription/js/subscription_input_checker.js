@@ -6,7 +6,7 @@ function focusOnField(field) {
 
 function showError(element, errorTag, errorMessage){
     if (($("#" + errorTag)).length === 0) {
-        element.after("<div id=" + errorTag + " class='alert alert-danger' style='margin-top: 8px;'>"
+        element.after("<div id=" + errorTag + " class='alert alert-danger errorElement'>"
                         + errorMessage + "</div>");
     }
 }
@@ -99,7 +99,7 @@ function checkInputs() {
             }
         }
     });
-    
+
     if(!valid) {
         focusOnField(inputFields[0]);
         return false;

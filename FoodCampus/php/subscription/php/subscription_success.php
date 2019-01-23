@@ -47,7 +47,7 @@ if (!isUserLogged($conn)) {
 				<p class="info">Congratulazioni, account creato correttamente!</p>
 				<?php
 					if ($_SESSION['user_type'] === "Fornitore") {
-						echo "<p class='info'><strong style='color: red'>ATTENZIONE:</strong> devi attendere che il tuo account venga abilitato per poter essere visibile nel nostro sito.</p>";
+						echo "<p class='info'><strong class='importantText'>ATTENZIONE:</strong> devi attendere che il tuo account venga abilitato per poter essere visibile nel nostro sito.</p>";
 						echo "<p class='info'>Riceverai una notifica ed una email appena il tuo account verr&agrave; abilitato.</p>";
 						echo "<p class='info'>Intanto, puoi visitare la pagina del tuo profilo per aggiungere i prodotti che desideri vendere!</p>";
 					} else {
@@ -59,7 +59,7 @@ if (!isUserLogged($conn)) {
 					<button type="submit" id="continuebtn" class="btn btn-primary btn-lg" onclick="location.href = '../../home/home.php';">Continua</button>
 				</div>
 				<noscript>
-					<div class='alert alert-warning' style='margin-top: 8px;'>
+					<div class='alert alert-warning errorElement'>
 						<strong>ATTENZIONE:</strong> Questa pagina potrebbe non funzionare correttamente senza JavaScript.
 						Per favore, riabilita JavaScript nel tuo Browser e ricarica la pagina.
 					</div>

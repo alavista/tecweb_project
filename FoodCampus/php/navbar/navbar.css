@@ -10,6 +10,28 @@
     flex-grow: 1 !important;
 }
 
+.global-research {
+    width: 75% !important;
+}
+
+.a-searchSupplier {
+    font-size: 1.3rem;
+}
+
+.p-result {
+    font-size: 1.2rem;
+}
+
+.price-result {
+    margin-right: 10px;
+    margin-left: 3px;
+    font-weight: bold;
+}
+
+.supplierSearchInfo {
+    font-weight: bold;
+}
+
 .navbar-custom {
     background-color: #F83442;
     z-index: 100 !important;
@@ -55,6 +77,10 @@
     box-sizing: border-box;
     z-index: 1001;
     top: 40px;
+}
+
+.popInfo {
+    float: right;
 }
 
 .hidden

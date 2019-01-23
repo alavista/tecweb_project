@@ -194,7 +194,7 @@ function deleteUserRequests($conn, $email) {
 			<div class="col-lg-6 jumbotron" id="change_password_form">
 				<h1 class="form-title">Inserisci il codice</h1>
 				<p class="important-text">Inserisci qui sotto il codice che hai ricevuo via email.<br/>
-					<strong style="color: red;">ATTENZIONE: </strong> il codice ha una durata di 3 minuti.
+					<strong id="warningMessage">ATTENZIONE: </strong> il codice ha una durata di 3 minuti.
 				</p>
 				<form action="password_code_checker.php" method="post">
 					<div class="form-group">
@@ -202,7 +202,7 @@ function deleteUserRequests($conn, $email) {
 						<input type="text" required class="form-control" id="codice"  placeholder="Inserisci il codice" name="codice">
 						<?php
 							if(strlen($emailError) !== 0) {
-								echo("<div class='alert alert-danger' style='margin-top: 8px;'>$emailError</div>");
+								echo("<div class='errorElement alert alert-danger'>$emailError</div>");
 							}
 						?>
 					</div>
@@ -211,17 +211,17 @@ function deleteUserRequests($conn, $email) {
 					</div>
 					<?php
 						if(strlen($GLOBALS["sqlError"]) !== 0) {
-							echo("<div class='alert alert-danger' style='margin-top: 8px;'>".$GLOBALS["sqlError"]."</div>");
+							echo("<div class='errorElement alert alert-danger'>".$GLOBALS["sqlError"]."</div>");
 						}
 						if(strlen($GLOBALS["sqlWarning"]) !== 0) {
-							echo("<div class='alert alert-warning' style='margin-top: 8px;'>".$GLOBALS["sqlWarning"]."</div>");
+							echo("<div class='errorElement alert alert-warning'>".$GLOBALS["sqlWarning"]."</div>");
 						}
 						if (strlen($GLOBALS["errors"]) !== 0) {
-							echo("<div class='alert alert-danger' style='margin-top: 8px;'>".$GLOBALS["errors"]."</div>");
+							echo("<div class='errorElement alert alert-danger'>".$GLOBALS["errors"]."</div>");
 						}
 					?>
 				</form>
-				<div class='alert alert-warning' style='margin-top: 8px;'><strong>ATTENZIONE: </strong>
+				<div class='alert alert-warning errorElement'><strong>ATTENZIONE: </strong>
 					<br/><strong>NON</strong> ricaricare e <strong>NON</strong> uscire da questa pagina o dovrai chiedere un nuovo codice!
 				</div>
 			</div>

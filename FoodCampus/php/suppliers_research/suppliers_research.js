@@ -46,7 +46,7 @@ function loadSuppliers() {
         .done(function(data) {
             var suppliers = JSON.parse(data);
             if (suppliers.status.localeCompare("error") == 0) {
-                $("#result_content").append("<div class='suppliers_error alert alert-danger' style='margin-top: 8px;text-align: center;'><strong>Errore: </strong>"
+                $("#result_content").append("<div class='suppliers_error alert alert-danger'><strong>Errore: </strong>"
                                                 +suppliers.data+"</div>");
             } else if (suppliers.status.localeCompare("ok") == 0) {
 
@@ -55,12 +55,12 @@ function loadSuppliers() {
                 } else {
                     var html_code = "";
                     for(var i = 0; i < suppliers.data.length; i++) {
-                    	html_code += "<div style='margin-bottom: 35px'><a href=../user/suppliers/php/supplier.php?id="
+                    	html_code += "<div class='suppliersInfoStyle'><a href=../user/suppliers/php/supplier.php?id="
                         + suppliers.data[i]["IDFornitore"] + ">"
                         + suppliers.data[i]["fnome"]
                         + "<img id='image" + i + "' class='zoom img-fluid img-thumbnail img-responsive' alt='Foto profilo del fornitore' src='../../res/suppliers/" + (suppliers.data[i]["fimmagine"] != null ? suppliers.data[i]["fimmagine"] : 'default.jpg') + "'>" + "</a>"
                         + "<div id='starAverageRating" +  i  +"'><label for='voto" + i +"' class='hidden'>Stelle voto fornitore</label><input input id='voto" + i + "' class='rating rating-loading' data-min='0' data-max='5' data-step='1' value='" + ((suppliers.data[i]["valutazione_media"] === null) ? 0.0 : suppliers.data[i]["valutazione_media"].toFixed(1)) + "' data-size='lg' data-showcaption=false disabled/></div>"
-                        + "<p id='averageRating" + i + "'><span style='font-weight: bold;'>" + ((suppliers.data[i]["valutazione_media"] === null) ? "/" : suppliers.data[i]["valutazione_media"].toFixed(1)) + "</span> su 5 stelle (" + suppliers.data[i]["nrec"] + " voti)</p>"
+                        + "<p id='averageRating" + i + "'><span class='resultReviewValue'>" + ((suppliers.data[i]["valutazione_media"] === null) ? "/" : suppliers.data[i]["valutazione_media"].toFixed(1)) + "</span> su 5 stelle (" + suppliers.data[i]["nrec"] + " voti)</p>"
                         + "</div>";
                     }
 
@@ -75,7 +75,7 @@ function loadSuppliers() {
             }
         })
         .fail(function(xhr, textStatus, errorThrown) {
-            $("#result_content").html("<div class='alert alert-danger' style='margin-top: 8px;'><strong>ATTENZIONE:</strong>"
+            $("#result_content").html("<div class='alert alert-danger errorElement'><strong>ATTENZIONE:</strong>"
                                         + xhr.responseText + "</div>");
         });
 }

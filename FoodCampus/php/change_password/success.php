@@ -33,7 +33,7 @@
 					<button type="submit" id="continuebtn" class="btn btn-primary btn-lg" onclick="location.href = '../Login/login.php';">Vai al Login</button>
 				</div>
 				<noscript>
-					<div class='alert alert-warning' style='margin-top: 8px;'>
+					<div class='alert alert-warning errorElement'>
 						<strong>ATTENZIONE:</strong> Questa pagina potrebbe non funzionare correttamente senza JavaScript.
 						Per favore, riabilita JavaScript nel tuo Browser e ricarica la pagina.
 					</div>

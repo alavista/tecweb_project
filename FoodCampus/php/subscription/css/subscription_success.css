@@ -9,6 +9,14 @@
     margin-bottom: 35px;
 }
 
+.errorElement {
+    margin-top: 8px;
+}
+
+.importantText {
+    color: red;
+}
+
 .form-title{
     margin-bottom: 15px;
     color: #F83442;

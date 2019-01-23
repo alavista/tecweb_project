@@ -19,6 +19,23 @@
     font-size: 1.75rem;
 }
 
+.errorElement {
+    margin-top: 8px;
+}
+
+.suppliers_error {
+    margin-top: 8px;
+    text-align: center;
+}
+
+.suppliersInfoStyle {
+    margin-bottom: 35px;
+}
+
+.resultReviewValue {
+    font-weight: bold;
+}
+
 .footer-distributed {
     margin-top: 113px !important;
 }
@@ -39,6 +56,10 @@ h3 {
 label {
     font-size: 17px;
     font-weight: bold;
+}
+
+.big-checkbox-style {
+    
 }
 
 .hidden

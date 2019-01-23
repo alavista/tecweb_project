@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						<input type="email" required class="form-control" id="email"  placeholder="Inserisci email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>">
 						<?php
 							if(strlen($emailError) !== 0) {
-								echo("<div class='alert alert-danger' style='margin-top: 8px;'>$emailError</div>");
+								echo("<div class='alert alert-danger errorElement'>$emailError</div>");
 							}
 						?>
 					</div>
@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						<input type="password" class="form-control" required id="password"  placeholder="Inserisci password" name="password">
 						<?php
 							if(strlen($passwordError) !== 0) {
-								echo("<div class='alert alert-danger' style='margin-top: 8px;'>$passwordError</div>");
+								echo("<div class='alert alert-danger errorElement'>$passwordError</div>");
 							}
 						?>
 					</div>
@@ -174,29 +174,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							}
 						?>
 					</div>
-					<br/>
 					<div class="d-flex justify-content-center form-group">
 						<button type="submit" id="loginbtn" class="btn btn-primary btn-lg">Accedi</button>
 					</div>
 					<noscript>
-						<div class='alert alert-warning' style='margin-top: 8px;'>
+						<div class='alert alert-warning errorElement'>
 							<strong>ATTENZIONE:</strong> Questa pagina potrebbe non funzionare correttamente senza JavaScript.
 							Per favore, riabilita JavaScript nel tuo Browser e ricarica la pagina.
 						</div>
 					</noscript>
 					<?php
 						if(strlen($GLOBALS["sqlError"]) !== 0) {
-							echo("<div class='alert alert-danger' style='margin-top: 8px;'>".$GLOBALS["sqlError"]."</div>");
+							echo("<div class='alert alert-danger errorElement'>".$GLOBALS["sqlError"]."</div>");
 						}
 						if(strlen($GLOBALS["sqlWarning"]) !== 0) {
-							echo("<div class='alert alert-warning' style='margin-top: 8px;'>".$GLOBALS["sqlWarning"]."</div>");
+							echo("<div class='alert alert-warning errorElement'>".$GLOBALS["sqlWarning"]."</div>");
 						}
 						if ($GLOBALS["user_banned"]) {
-							echo("<div class='alert alert-danger' style='margin-top: 8px;'>Questo utente è stato bannato, impossibile accedere</div>");
+							echo("<div class='alert alert-danger errorElement'>Questo utente è stato bannato, impossibile accedere</div>");
 						}
 					?>
 				</form>
-				<br/>
 				<div class="d-flex justify-content-center">
 					<a class="align-middle" href="../subscription/php/subscription.php">Non hai un account? Clicca qui per iscriverti!</a>
 				</div>
