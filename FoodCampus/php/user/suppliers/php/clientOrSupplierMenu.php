@@ -52,7 +52,7 @@ if ($stmt = $conn->prepare($query)) {
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <span <?php if ($isSupplier) { echo "data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'"; } ?>>
-                                                        <button type="button" id="<?php echo $product['IDProdotto'];?>" class="btn btn-deafult btn-kart add-cart" <?php if ($isSupplier) { echo "style='pointer-events: none;' disabled"; } ?>><i class="fas fa-cart-plus"></i></button>
+                                                        <button type="button" value="<?php echo $product['IDProdotto'];?>" class="btn btn-deafult btn-kart add-cart" <?php if ($isSupplier) { echo "style='pointer-events: none;' disabled"; } ?>><i class="fas fa-cart-plus"></i></button>
                                                     </span>
                                                 </div>
                                             </div>

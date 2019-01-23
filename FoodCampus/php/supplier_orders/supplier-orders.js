@@ -2,6 +2,7 @@ $(document).ready(function() {
 
 	$(".deliver-order").click(function(e) {
 		$this = $(this);
+		console.log("deliver-order.php?id=" + $(this).attr("value"));
 		$.ajax({
 			type: "GET",
 			url: "deliver-order.php?id=" + $(this).attr("value"),

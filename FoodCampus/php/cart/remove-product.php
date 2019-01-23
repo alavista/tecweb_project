@@ -6,6 +6,7 @@
 	
 	if(isset($_GET["product_removed"])) {
 		$id = $_GET["product_removed"];
+		$_SESSION["cart"][$id] = 0;
 		unset($_SESSION["cart"][$id]);
 		if(isUserLogged($conn)) {
 			$conn2 = new mysqli("localhost", "root", "", "foodcampus");

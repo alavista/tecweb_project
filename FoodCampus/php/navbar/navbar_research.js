@@ -55,7 +55,7 @@ function searchProductsAndSuppliers(str) {
                                                 + "<a href='/tecweb_project/FoodCampus/php/user/suppliers/php/supplier.php?id=" + products.data[i]["fid"] + "' class='list-group-item-text'>"
                                                 + products.data[i]["fnome"] + " "
                                                 + "</a></div>"
-                                                + "<div class='col search-item'>" + "<span class='price-result'>€ " + products.data[i]["prezzo"] + "</span> "+"<span class='popInfo' data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' id='" + products.data[i]["pid"] + "' class='add-cart btn btn-deafult btn-kart'><em class='fas fa-cart-plus'></em></button></span>"
+                                                + "<div class='col search-item'>" + "<span class='price-result'>€ " + products.data[i]["prezzo"] + "</span> "+"<span class='popInfo' data-toggle='popover' data-trigger='hover' data-content='I fornitori non possono acquistare'> <button type='button' value='" + products.data[i]["pid"] + "' class='add-cart btn btn-deafult btn-kart'><em class='fas fa-cart-plus'></em></button></span>"
                                                 + "</div>"
                                                 + "</div></li>");
                     }

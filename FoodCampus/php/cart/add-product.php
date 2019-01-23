@@ -33,8 +33,10 @@
 	  	}
 
 	  	$num_prod = 0;
-	  	foreach ($_SESSION["cart"] as $value) {
-	  		$num_prod += $value;
+	  	foreach ($_SESSION["cart"] as $key => $value) {
+	  		if(!empty($key)) {
+	  			$num_prod += $value;
+	  		}
 	  	}
 	  	$return = array("num_prod" => $num_prod);
 		echo json_encode($return);
