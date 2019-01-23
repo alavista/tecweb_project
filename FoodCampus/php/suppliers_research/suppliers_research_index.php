@@ -53,7 +53,7 @@
 												<div class="modal-content">
 													<!-- Modal Header -->
 													<div class="modal-header">
-														<h3 class="modal-title">Filtra le categorie</h3>
+														<h3 class="modal-title">Mostra i fornitori che vendono...</h3>
 														<button type="button" class="close" data-dismiss="modal">&times;</button>
 													</div>
 													<!-- Modal body -->
