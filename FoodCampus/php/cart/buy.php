@@ -26,7 +26,7 @@
 <!DOCTYPE html>
 <html lang="it-IT">
 <head>
-	<title>Acquista prodotti</title>
+	<title>Pagamento e consegna</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Latest compiled and minified CSS -->
@@ -55,8 +55,9 @@
 		<div class="row justify-content-center">
 			<div class="col-xs-12 col-md-10 col-lg-8">
 				<div style="display: none" id="IDCustomer" value="<?php echo $_SESSION['user_id']; ?>"></div>
-				<h1 class="clientStartAfterNavbar">Ordini</h1>       
-				
+				<h1 class="clientStartAfterNavbar">Pagamento e consegna</h1>
+				<h2>Riepilogo Ordini</h2>    
+				<div class="table-responsive">  
 				<?php
 					$supplier = 0;
 					$num_order = 1;
@@ -76,7 +77,7 @@
 						}
 						echo "<tr id='".$row['pid']."' class='product-row'><td>".$row['pnome']."</td><td >".$row['costo']." €</td><td class='quantity' value='".$_SESSION['cart'][$row['pid']]."'>x".$_SESSION['cart'][$row['pid']]."</td></tr>";
 					}
-					echo "</tbody></table>";
+					echo "</tbody></table></div>";
 					echo "<p value='".number_format($tot_price, 2)."'>Prezzo totale: ".number_format($tot_price, 2)." €</p>"
 				?>
 
@@ -101,7 +102,7 @@
 					  <option value="Ingresso+Campus+via+Macchiavelli" selected>Ingresso Campus via Macchiavelli</option>
 					  <option value="Ingresso+Campus+via+Pavese">Ingresso Campus via Pavese</option>
 					</select>
-					<label for="delivery-time">Seleziona l'orario di consegna:&nbsp;&nbsp;</label><input class="form-control col-lg-2 col-md-2" type="time" id="delivery-time" name="delivery-time" required><br/><br/>
+					<label for="delivery-time">Seleziona l'orario di consegna:&nbsp;&nbsp;</label><input class="form-control col-lg-2 col-md-2" type="time" id="delivery-time" min="09:00:00" max="18:00:00" name="delivery-time" required><br/><br/>
 					<input type="submit" class='btn btn-success buy-button' value='Acquista'/>
 				</form>
 					

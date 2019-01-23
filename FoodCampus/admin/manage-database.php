@@ -37,9 +37,9 @@
 
 			<div id="manager-db" class="row">
 
-				<div class="hidden-sm-down col-md-2">
-					<div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-					  	<div class="btn-group-vertical tables-list" role="group" aria-label="First group">
+				<div class="col-xs-12 col-sm-12 col-md-">
+					<div class="hidden-sm hidden-xs btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+					  	<div class="btn-group-vertical tables-list hidden-sm-down" role="group" aria-label="First group">
 				            <?php
 				            	foreach($DB_TABLES as $key => $value) {
 					                echo "<button type='button' class='btn btn-primary table-request-button' value='".$value."'>".$key."</button>";
@@ -48,7 +48,7 @@
 			        	</div>
 			    	</div>
 			    </div>
-		        <div id="result" class="col-sm-12 col-md-10"></div>
+		        <div id="result" class="col-sm-12 col-md-9"></div>
 		        <div id="result-op" class="offset-md-2"></div>
 			</div>
 		</div>

@@ -49,19 +49,21 @@
 	<?php require_once '../navbar/navbar.php';?>
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-xs-12 col-md-10 col-lg-8">
-			<h1 class="clientStartAfterNavbar">Carrello</h1>       
-				<table class="table table-striped">
-					<tbody>
-						<?php
+			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+			<h1 class="clientStartAfterNavbar">Carrello</h1>  
+				<div class="table-responsive">     
+					<table class="table table-striped">
+						<tbody>
+							<?php
 
-							while ($row = $result->fetch_assoc()) {
-								echo "<tr id='".$row['pid']."''><td><label for='quantity".$_SESSION['cart'][$row['pid']]."'>".$row['pnome']."</label></td><td>".$row['costo']."</td><td>".$row['fnome']."</td><td><input class='quantity-input' type='number' name='quantity' min='1' step='1' product=".$row['pid']." id='quantity".$_SESSION['cart'][$row['pid']]."' value='".$_SESSION['cart'][$row['pid']]."' pattern='\d*'></td><td><button type='button' value=".$row['pid']." class='btn btn-danger remove-product'>Rimuovi</button></td></tr>";
-							}
+								while ($row = $result->fetch_assoc()) {
+									echo "<tr id='".$row['pid']."''><td><label for='quantity".$_SESSION['cart'][$row['pid']]."'>".$row['pnome']."</label></td><td>".$row['costo']."€</td><td>".$row['fnome']."</td><td class='col-xs-6'><input class='quantity-input' type='number' name='quantity' min='1' step='1' product=".$row['pid']." id='quantity".$_SESSION['cart'][$row['pid']]."' value='".$_SESSION['cart'][$row['pid']]."' pattern='\d*'></td><td><button type='button' value=".$row['pid']." class='btn btn-danger remove-product'>Rimuovi</button></td></tr>";
+								}
 
-						?>
-					</tbody>
-				</table>
+							?>
+						</tbody>
+					</table>
+				</div>
 				<a role='button' href="buy.php" class='btn btn-success buy-button'>Acquista</a>
 			</div>
 		</div>
