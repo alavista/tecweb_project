@@ -110,12 +110,12 @@ function sendMail($email, $code) {
 		</style>
 	</head>
 	<body>
-		<p>Il tuo codice per reimpostare la password &egrave;: <span class='importantText'>"
+		<p>Il tuo codice per reimpostare la password &egrave;: <strong class='importantText'>"
 	.$code.
-	"</span></p>
+	"</strong></p>
 	<p>
 		Se <strong>NON</strong> hai richiesto il cambio della password, contatta immediatamente il supporto all'indirizzo:<br/>
-		<span class='importantText'>foodcampus.cesena@gmail.com</span>
+		<strong class='importantText'>foodcampus.cesena@gmail.com</strong>
 	</p>
 	</body>
 	</html>
