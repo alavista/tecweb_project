@@ -76,7 +76,7 @@ if ($loggedInUser) {
                 ?>
                 <li class="nav-item dropdown">
                     <span id="numberNotification" class='badge badge-light'><?php echo $notificationNumber ?></span>
-                    <a class="nav-link fas fa-bell item" href="#" id="notification" data-toggle="dropdown"></a>
+                    <a class="nav-link fas fa-bell item" href="#" id="notification" title="notification" data-toggle="dropdown"></a>
                     <div class="dropdown-menu">
                         <?php
                         $fieldId = $supplier ? "IDFornitore" : "IDCliente";
@@ -139,7 +139,7 @@ if ($loggedInUser) {
                         }
                     }
                 }
-                echo "<li class='nav-item'><span id='prod-num' class='badge badge-light'>$value</span><a role='button' href='/tecweb_project/FoodCampus/php/cart/cart.php'  id='kart' class='btn fas fa-shopping-cart item' href'#'></a></li>";
+                echo "<li class='nav-item'><span id='prod-num' class='badge badge-light'>$value</span><a role='button' href='/tecweb_project/FoodCampus/php/cart/cart.php' title='cart' id='kart' class='btn fas fa-shopping-cart item' href'#'></a></li>";
             }
         ?>
     </ul>

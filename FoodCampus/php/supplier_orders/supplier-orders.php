@@ -12,7 +12,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
 <!DOCTYPE html>
 <html lang="it-IT">
     <head>
-        <title>FOOD CAMPUS</title>
+        <title>I miei ordini</title>
          <meta charset="UTF-8">
          <meta name="viewport" content="width=device-width, initial-scale=1">
          <!-- Latest compiled and minified CSS -->
@@ -57,7 +57,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
 		                                    ?>
 		                                    <div class="media border p-3">
 		                                        <div class="media-body">
-		                                            <h4><?php echo "Ordine n.".$row["IDOrdine"]; ?></h4>
+		                                            <h2 style="font-size: 24px"><?php echo "Ordine n.".$row["IDOrdine"]; ?></h4>
 		                                            <ul class="list-unstyled">
 		                                            <?php
 		                                            	$query2 = "SELECT * FROM prodotto_in_ordine AS P_O, prodotto AS P WHERE P_O.IDProdotto = P.IDProdotto && P_O.IDOrdine = ?";

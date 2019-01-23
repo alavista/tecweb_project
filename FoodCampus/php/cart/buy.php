@@ -7,7 +7,9 @@
 		if(isset($_SESSION["cart_filled"]) && isset($_SESSION["cart"])) {
 
 	        foreach ($_SESSION["cart"] as $key => $value) {
-	            $product_list .= $key.","; 
+	        	if(!empty($key)) {
+	            	$product_list .= $key.",";
+	            } 
 	        }	    
 
 		    $product_list = substr($product_list, 0, -1);
@@ -24,8 +26,8 @@
 <!DOCTYPE html>
 <html lang="it-IT">
 <head>
-	<title>Ricerca Prodotti</title>
-	<metacharset="UTF-8">
+	<title>Acquista prodotti</title>
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -72,34 +74,35 @@
 								echo "<thead><tr><th>#".$num_order." ".$row['fnome']."</th></tr></thead>";
 							}
 						}
-						echo "<tr id=".$row['pid']." class='product-row'><td>".$row['pnome']."</td><td >".$row['costo']." €</td><td class='quantity' value=".$_SESSION['cart'][$row['pid']].">x".$_SESSION['cart'][$row['pid']]."</td></tr>";
+						echo "<tr id='".$row['pid']."' class='product-row'><td>".$row['pnome']."</td><td >".$row['costo']." €</td><td class='quantity' value='".$_SESSION['cart'][$row['pid']]."'>x".$_SESSION['cart'][$row['pid']]."</td></tr>";
 					}
 					echo "</tbody></table>";
 					echo "<p value='".number_format($tot_price, 2)."'>Prezzo totale: ".number_format($tot_price, 2)." €</p>"
 				?>
 
 				<form>
-
-					<label>Seleziona metodo di pagamento:</label>
-					<div class="form-check">
-						<input class="form-check-input" type="radio" id="payment-method1" name="payment-method" value="Contrassegno" checked>
-						<label class="form-check-label" for="payment-method1">
-						Contrassegno
-						</label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="radio" id="payment-method2" name="payment-method" value="Carta di credito">
-						<label class="form-check-label" for="payment-method2">
-						Carta di credito
-						</label>
-					</div>
+					<fieldset>
+						<legend>Seleziona metodo di pagamento:</legend>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" id="payment-method1" name="payment-method" value="Contrassegno" checked>
+							<label class="form-check-label" for="payment-method1">
+							Contrassegno
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" id="payment-method2" name="payment-method" value="Carta di credito">
+							<label class="form-check-label" for="payment-method2">
+							Carta di credito
+							</label>
+						</div>
+					</fieldset>
 					<label for="delivery-place">Seleziona il luogo di consegna:</label>
    					<select class="form-control col-lg-5 col-md-7" name="delivery-place" id="delivery-place">
 					  <option value="Ingresso+Campus+via+Macchiavelli" selected>Ingresso Campus via Macchiavelli</option>
 					  <option value="Ingresso+Campus+via+Pavese">Ingresso Campus via Pavese</option>
 					</select>
 					<label for="delivery-time">Seleziona l'orario di consegna:&nbsp;&nbsp;</label><input class="form-control col-lg-2 col-md-2" type="time" id="delivery-time" name="delivery-time" required><br/><br/>
-					<input role="button" type="submit" class='btn btn-success buy-button' value='Acquista'></a>
+					<input type="submit" class='btn btn-success buy-button' value='Acquista'/>
 				</form>
 					
 				<div id="result-order-request"></div>

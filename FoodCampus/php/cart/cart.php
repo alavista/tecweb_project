@@ -24,8 +24,8 @@
 <!DOCTYPE html>
 <html lang="it-IT">
 <head>
-	<title>Ricerca Prodotti</title>
-	<metacharset="UTF-8">
+	<title>Carrello</title>
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -56,7 +56,7 @@
 						<?php
 
 							while ($row = $result->fetch_assoc()) {
-								echo "<tr id='".$row['pid']."''><td>".$row['pnome']."</td><td>".$row['costo']."</td><td>".$row['fnome']."</td><td><input class='quantity-input' type='number' name='quantity' min='1' step='1' product=".$row['pid']." value='".$_SESSION['cart'][$row['pid']]."' pattern='\d*'></td><td><button type='button' value=".$row['pid']." class='btn btn-danger remove-product'>Rimuovi</button></td></tr>";
+								echo "<tr id='".$row['pid']."''><td><label for='quantity".$_SESSION['cart'][$row['pid']]."'>".$row['pnome']."</label></td><td>".$row['costo']."</td><td>".$row['fnome']."</td><td><input class='quantity-input' type='number' name='quantity' min='1' step='1' product=".$row['pid']." id='quantity".$_SESSION['cart'][$row['pid']]."' value='".$_SESSION['cart'][$row['pid']]."' pattern='\d*'></td><td><button type='button' value=".$row['pid']." class='btn btn-danger remove-product'>Rimuovi</button></td></tr>";
 							}
 
 						?>
