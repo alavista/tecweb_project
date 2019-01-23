@@ -6,3 +6,7 @@
 .media:last-child {
     margin-bottom: 0px;
 }
+
+.footer-distributed {
+    margin-top: 220px !important;
+}
