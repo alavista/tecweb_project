@@ -59,7 +59,8 @@ label {
 }
 
 .big-checkbox-style {
-    
+    width: 15px;
+    height: 15px;
 }
 
 .hidden
