@@ -332,7 +332,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		<div class="row justify-content-center">
 			<div class="col-xl-6 jumbotron" id="loginform">
 				<h1 id="first_title">Crea un Account</h1>
-				<form action="subscription.php" method="post" enctype="multipart/form-data">
+				<form id="subscriptionMainForm" action="subscription.php" method="post" enctype="multipart/form-data">
 					<div class="form-input-group">
 						<h2 class="form-title">Dati personali</h2>
 						<div class="form-group">

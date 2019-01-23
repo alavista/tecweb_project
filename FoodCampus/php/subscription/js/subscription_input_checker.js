@@ -124,7 +124,7 @@ $(document).ready(function() {
 
         if (checkInputs()) {
             var p = document.createElement("input");
-            $("form").append(p);
+            $("#subscriptionMainForm").append(p);
             p.name = "c-p";
             p.type = "hidden"
             p.value = hex_sha512($("#confirm-pwd").val());
@@ -132,7 +132,7 @@ $(document).ready(function() {
             $("#confirm-pwd").removeAttr("required");
             $("#confirm-pwd").val("");
 
-            formhash($("form"), $("#pwd"));
+            formhash($("#subscriptionMainForm"), $("#pwd"));
         } else {
             event.preventDefault();
         }

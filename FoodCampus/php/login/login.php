@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		<div class="row justify-content-center">
 			<div class="col-lg-6 jumbotron" id="loginform">
 				<h1 class="form-title">Login</h1>
-				<form action="login.php" method="post">
+				<form id="loginMainForm" action="login.php" method="post">
 					<div class="form-group">
 						<label for="email">Indirizzo Email:</label>
 						<input type="email" required class="form-control" id="email"  placeholder="Inserisci email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>">

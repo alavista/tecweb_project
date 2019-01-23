@@ -38,7 +38,7 @@ $(document).ready(function() {
     $("#loginbtn").on("click", function() {
         $(".alert.alert-danger").remove();
         if (checkEmail() && checkPasswordValidity()) {
-            formhash($("form"), $("#password"));
+            formhash($("#loginMainForm"), $("#password"));
         }
     });
 });
