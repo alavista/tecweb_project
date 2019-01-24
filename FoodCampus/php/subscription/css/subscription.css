@@ -36,3 +36,8 @@ input[type="file"]{
 .errorElement {
     margin-top: 8px;
 }
+
+#privacy {
+    font-size: 1.1rem;
+    margin-top: 25px;
+}

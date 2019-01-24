@@ -100,11 +100,33 @@
               <div class="text-center">
                   <h1>Chi siamo</h1>
                   <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lorem sapien, fermentum at tincidunt nec, vehicula commodo ipsum. Aliquam maximus ex odio. Donec pretium lacus id molestie rhoncus. Ut tempus dapibus sapien vitae suscipit. Donec id ante non metus dictum convallis. Nulla viverra aliquam ipsum id ultricies. Nulla facilisi. Donec sit amet scelerisque lacus. In porta, eros at venenatis vehicula, mi risus tristique nibh, ac sollicitudin ligula neque et enim. Nam a tincidunt lorem, non placerat nisl. Morbi ac nisi eleifend, pretium orci nec, varius ex. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Food Campus 
                   </p>
                   <h1>I nostri obiettivi</h1>
                   <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lorem sapien, fermentum at tincidunt nec, vehicula commodo ipsum. Aliquam maximus ex odio. Donec pretium lacus id molestie rhoncus. Ut tempus dapibus sapien vitae suscipit. Donec id ante non metus dictum convallis. Nulla viverra aliquam ipsum id ultricies. Nulla facilisi. Donec sit amet scelerisque lacus. In porta, eros at venenatis vehicula, mi risus tristique nibh, ac sollicitudin ligula neque et enim. Nam a tincidunt lorem, non placerat nisl. Morbi ac nisi eleifend, pretium orci nec, varius ex. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      <b>Sei uno studente di Cesena?</b>
+                      <br/>
+                      Food Campus ti permette di ordinare il tuo piatto preferito che ti sar&agrave; consegnato direttamente al nuovo campus!
+                      <br/>
+                      Scegli il cibo che preferisci dai nostri fornitori, troverai una grande variet&agrave; di pietanze, inclusi cibi vegani e per celiaci.
+                      <br/>
+                      Dai un'occhiata ai nostri prodotti <a href="../products_research/products_research_index.php">qui</a>!
+                      <br/>
+                      Inoltre, potrai votare ogni fornitore e lasciare delle recensioni!
+                      <br/>
+                      Puoi vedere i nostri fornitori in base alle tue preferenze <a href="../suppliers_research/suppliers_research_index.php">qui</a>!
+                      <br/>
+                      <br/>
+                       <b>Sei un fornitore? </b>
+                      <br/>
+                      Con Food Campus puoi vendere in modo efficace e veloce tutti i tuoi prodotti!
+                      <br/>
+                      Grazie al sistema di notifiche in tempo reale, sarai avvertito appena riceverai un ordine e ogni cliente sapr&agrave; quando l'ordine &egrave; in consegna!
+                      <br/>
+                      <br/>
+                      Infine, ogni utente ha un profilo personale che pu&ograve; personalizzare come preferisce!
+                      <br/>
+                      Che aspetti? <a href="../subscription/php/subscription.php">Iscriviti ora!</a>
                   </p>
                   <h1>Come contattarci</h1>
                   <p>

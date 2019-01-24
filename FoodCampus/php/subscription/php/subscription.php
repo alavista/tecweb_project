@@ -506,6 +506,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 					<div class="d-flex justify-content-center">
 						<button type="submit" class="btn btn-primary btn-lg" id="submitbtn">Iscriviti</button>
 					</div>
+					<div class="">
+						<p id="privacy">
+							Iscrivendoti dichiari di accettare i nostri <a href="#">Termini d'uso</a>
+							<br/>e la <a href="#">Privacy Policy</a>.
+						</p>
+					</div>
 					<noscript>
 						<div class='alert alert-warning errorElement'>
 							<strong>ATTENZIONE:</strong> Questa pagina potrebbe non funzionare correttamente senza JavaScript.
