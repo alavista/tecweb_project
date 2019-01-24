@@ -100,7 +100,7 @@
               <div class="text-center">
                   <h1>Chi siamo</h1>
                   <p>
-                      Food Campus 
+                      Food Campus &egrave; una piattaforma online che nasce per semplificare la vita agli studenti universitari del campus di Cesena. Un progetto sviluppato da Andrea Lavista, Davide Conti e Ivan Mazzanti, tre studenti di Ingegneria e scienze informatiche che, quasi per gioco, si sono cimentati nello sviluppo di questa applicazione. Essa non solo è stata consegnata come progetto per l'esame di tecnologie web ma si &egrave; anche rivelata davvero utile agli studenti universitari, ai ricercatori e ai professori del campus.
                   </p>
                   <h1>I nostri obiettivi</h1>
                   <p>
