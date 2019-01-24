@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 22, 2019 alle 14:01
--- Versione del server: 10.1.36-MariaDB
--- Versione PHP: 7.2.10
+-- Creato il: Gen 24, 2019 alle 10:34
+-- Versione del server: 10.1.37-MariaDB
+-- Versione PHP: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -90,7 +90,7 @@ CREATE TABLE `fornitore` (
   `abilitato` tinyint(1) NOT NULL,
   `email` varchar(30) NOT NULL,
   `sito_web` varchar(60) DEFAULT NULL,
-  `partita_iva` bigint(11) NOT NULL,
+  `partita_iva` varchar(30) NOT NULL,
   `immagine` varchar(128) DEFAULT NULL,
   `password` varchar(128) NOT NULL,
   `salt` char(128) NOT NULL,
@@ -102,11 +102,11 @@ CREATE TABLE `fornitore` (
 --
 
 INSERT INTO `fornitore` (`IDFornitore`, `nome`, `citta`, `indirizzo_via`, `indirizzo_numero_civico`, `costi_spedizione`, `soglia_spedizione_gratuita`, `abilitato`, `email`, `sito_web`, `partita_iva`, `immagine`, `password`, `salt`, `bloccato`) VALUES
-(1, 'La Malaghiotta', 'Cesena', 'piazza Fabbri', '5', '0.99', '0.00', 1, 'lamalaghiotta@gmail.com', 'www.lamaghiotta.it', 1786610897, 'Immagine.png', '8af51af82522ad632d7e1f0f638f4219b6e6379f3a3dbb08b7cbdae8b443d90b942ca644c7dd86140972ca24db019d4fd0cbfe3a737f00d95819eb74963fb5b5', '6dbe889c9f4c64b462252621f66aaa589ee26cc7321cc748da7770dd20feda5dd1fb748addf51776f2bf06964b904d81793493587e6d9684ab6ee1b080d6d07f', b'0'),
-(2, 'C\'entro', 'Cesena', 'contrada Uberti', '3', '0.99', '0.99', 1, 'centro@gmail.com', 'www.centro-cesena.it', 1993190741, NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
-(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', '185', '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.it', 2147483647, NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
-(7, 'asd', 'asd', 'asd', 'asd', '8.00', '10.00', 0, 'asd@asd.com', 'asdasda', 0, NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
-(8, 'DAVIDE33', 'Misano Adriatico', 'via po 3', '12345', '0.00', '0.00', 0, 'suppliertest@test.it', '', 12345678335, NULL, '30125410d38ca3cecd0241e22f0c95c53d04aa20f51de01d03648c88c07e2fee10260155b6e68a3ed8dc6716309745ffd7e648af7d2107c3436b2e6c77fc85a8', '6f3861a59e7a7163e4dd7c92e5b0fa9fa8272aaf132dbaa928ce088135c53458fc85f345f35c40153550b031bc13ed985e61d4e01796ce73dda600cf4ae70ac4', b'1');
+(1, 'La Malaghiotta', 'Cesena', 'piazza Fabbri', '5', '0.99', '0.00', 1, 'lamalaghiotta@gmail.com', 'www.lamaghiotta.it', '1786610897', 'Immagine.png', '8af51af82522ad632d7e1f0f638f4219b6e6379f3a3dbb08b7cbdae8b443d90b942ca644c7dd86140972ca24db019d4fd0cbfe3a737f00d95819eb74963fb5b5', '6dbe889c9f4c64b462252621f66aaa589ee26cc7321cc748da7770dd20feda5dd1fb748addf51776f2bf06964b904d81793493587e6d9684ab6ee1b080d6d07f', b'0'),
+(2, 'C\'entro', 'Cesena', 'contrada Uberti', '3', '0.99', '0.99', 1, 'centro@gmail.com', 'www.centro-cesena.it', '1993190741', NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
+(3, 'Buttterfly', 'Cesena', 'via Cesare Battisti', '185', '0.99', '0.99', 1, 'butterfly@gmail.com', 'http://www.japaneserestaurantbutterfly.it', '2147483647', NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
+(7, 'asd', 'asd', 'asd', 'asd', '8.00', '10.00', 0, 'asd@asd.com', 'asdasda', '0', NULL, '9b3634a5368b48ff6bacb473d169cfc07265cedd041cb80f332823d1908ce86c4db4c221870cbf6409669daebf569d6e2633d93c78d14582f8dd9e0a265b0397', 'a9dcc91bc4d2e60237f163c83612a74ac5d7c2a9903f801e03c1f26dd8d399ed1aafdfbfcd99e98e0610ca85f26f8b2acdd7f1e567021c49a717b1cfb90c08f3', b'0'),
+(8, 'DAVIDE33', 'Misano Adriatico', 'via po 3', '12345', '0.00', '0.00', 0, 'suppliertest@test.it', '', '12345678335', NULL, '30125410d38ca3cecd0241e22f0c95c53d04aa20f51de01d03648c88c07e2fee10260155b6e68a3ed8dc6716309745ffd7e648af7d2107c3436b2e6c77fc85a8', '6f3861a59e7a7163e4dd7c92e5b0fa9fa8272aaf132dbaa928ce088135c53458fc85f345f35c40153550b031bc13ed985e61d4e01796ce73dda600cf4ae70ac4', b'1');
 
 -- --------------------------------------------------------
 
@@ -142,7 +142,8 @@ INSERT INTO `login_attempts` (`id`, `email`, `time`) VALUES
 (15, 'andrealavista97@gmail.com', '1548001230'),
 (16, 'andrealavista97@gmail.com', '1548001250'),
 (17, 'andrea.lavista@foodcampus.it', '1548001390'),
-(18, 'andrea.lavista@foodcampus.it', '1548002267');
+(18, 'andrea.lavista@foodcampus.it', '1548002267'),
+(19, 'ivan.mazzantix@gmail.com', '1548322000');
 
 -- --------------------------------------------------------
 
@@ -163,35 +164,37 @@ CREATE TABLE `notifica` (
 --
 
 INSERT INTO `notifica` (`IDNotifica`, `testo`, `visualizzata`, `IDCliente`, `IDFornitore`) VALUES
-(63, 'Hai ricevuto un nuovo ordine (9.50 â‚¬)', 0, NULL, 3),
+(63, 'Hai ricevuto un nuovo ordine (9.50 â‚¬)', 1, NULL, 3),
 (64, 'Hai ricevuto un nuovo ordine (3.50 â‚¬)', 0, NULL, 2),
 (65, 'Hai ricevuto un nuovo ordine (3.50 â‚¬)', 1, NULL, 1),
-(66, 'Hai ricevuto un nuovo ordine (9.50 â‚¬)', 0, NULL, 3),
+(66, 'Hai ricevuto un nuovo ordine (9.50 â‚¬)', 1, NULL, 3),
 (67, 'Hai ricevuto un nuovo ordine (3.50 â‚¬)', 0, NULL, 2),
 (68, 'Hai ricevuto un nuovo ordine (3.50 â‚¬)', 1, NULL, 1),
-(69, 'Hai ricevuto un nuovo ordine (3.50 â‚¬)', 0, NULL, 3),
+(69, 'Hai ricevuto un nuovo ordine (3.50 â‚¬)', 1, NULL, 3),
 (70, 'Hai ricevuto un nuovo ordine (3.50 â‚¬)', 1, NULL, 1),
 (71, 'ciao', 1, 1, NULL),
 (72, 'ciao', 1, 1, NULL),
-(73, 'Hai ricevuto un nuovo ordine (4.50 â‚¬)', 0, NULL, 3),
-(74, 'Hai ricevuto un nuovo ordine (4.50 â‚¬)', 0, NULL, 3),
-(75, 'Hai ricevuto un nuovo ordine (5.00 â‚¬)', 0, NULL, 3),
-(76, 'Hai ricevuto un nuovo ordine (7.50 â‚¬)', 0, NULL, 3),
-(77, 'Hai ricevuto un nuovo ordine (2.50 â‚¬)', 0, NULL, 3),
-(86, 'Hai ricevuto un nuovo ordine (22.50 â‚¬)', 0, NULL, 3),
-(87, 'Hai ricevuto un nuovo ordine (22.50 â‚¬)', 0, NULL, 3),
-(88, 'Hai ricevuto un nuovo ordine (7.50 â‚¬)', 0, NULL, 3),
+(73, 'Hai ricevuto un nuovo ordine (4.50 â‚¬)', 1, NULL, 3),
+(74, 'Hai ricevuto un nuovo ordine (4.50 â‚¬)', 1, NULL, 3),
+(75, 'Hai ricevuto un nuovo ordine (5.00 â‚¬)', 1, NULL, 3),
+(76, 'Hai ricevuto un nuovo ordine (7.50 â‚¬)', 1, NULL, 3),
+(77, 'Hai ricevuto un nuovo ordine (2.50 â‚¬)', 1, NULL, 3),
+(86, 'Hai ricevuto un nuovo ordine (22.50 â‚¬)', 1, NULL, 3),
+(87, 'Hai ricevuto un nuovo ordine (22.50 â‚¬)', 1, NULL, 3),
+(88, 'Hai ricevuto un nuovo ordine (7.50 â‚¬)', 1, NULL, 3),
 (89, 'Hai ricevuto un nuovo ordine (10.50 â‚¬)', 0, NULL, 1),
-(90, 'Hai ricevuto un nuovo ordine (19.00 â‚¬)', 0, NULL, 3),
-(91, 'Hai ricevuto un nuovo ordine (22.50 â‚¬)', 0, NULL, 3),
-(92, 'Hai ricevuto un nuovo ordine (5.00 â‚¬)', 0, NULL, 3),
+(90, 'Hai ricevuto un nuovo ordine (19.00 â‚¬)', 1, NULL, 3),
+(91, 'Hai ricevuto un nuovo ordine (22.50 â‚¬)', 1, NULL, 3),
+(92, 'Hai ricevuto un nuovo ordine (5.00 â‚¬)', 1, NULL, 3),
 (93, 'Hai ricevuto un nuovo ordine (7.00 â‚¬)', 0, NULL, 2),
 (94, 'Hai ricevuto un nuovo ordine (7.00 â‚¬)', 0, NULL, 2),
 (95, 'Hai ricevuto un nuovo ordine (7.00 â‚¬)', 0, NULL, 1),
 (96, 'Hai ricevuto un nuovo ordine (7.00 â‚¬)', 0, NULL, 1),
 (97, 'Hai ricevuto un nuovo ordine (7.00 â‚¬)', 0, NULL, 2),
-(98, 'Hai ricevuto un nuovo ordine (7.50 â‚¬)', 0, NULL, 3),
-(99, 'Hai ricevuto un nuovo ordine (7.50 â‚¬)', 0, NULL, 3);
+(98, 'Hai ricevuto un nuovo ordine (7.50 â‚¬)', 1, NULL, 3),
+(99, 'Hai ricevuto un nuovo ordine (7.50 â‚¬)', 1, NULL, 3),
+(100, 'Hai ricevuto un nuovo ordine (8.50 â‚¬)', 1, NULL, 3),
+(101, 'Ã‰ partita la consegna del tuo ordine (n.100)', 0, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -241,7 +244,8 @@ INSERT INTO `ordine` (`IDOrdine`, `prezzo`, `tipo_pagamento`, `luogo_consegna`, 
 (96, '7.00', 'Contrassegno', 'Ingresso Campus via Macchiavelli', 12, 0, 1, 0),
 (97, '7.00', 'Contrassegno', 'Ingresso Campus via Macchiavelli', 12, 0, 1, 0),
 (98, '7.50', 'Carta di credito', 'Ingresso Campus via Pavese', 13, 30, 1, 0),
-(99, '7.50', 'Carta di credito', 'Ingresso Campus via Macchiavelli', 11, 0, 1, 0);
+(99, '7.50', 'Carta di credito', 'Ingresso Campus via Macchiavelli', 11, 0, 1, 0),
+(100, '8.50', 'Contrassegno', 'Ingresso Campus via Macchiavelli', 9, 0, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -339,7 +343,9 @@ INSERT INTO `prodotto_in_ordine` (`IDProdottoInOrdine`, `IDProdotto`, `IDOrdine`
 (111, 7, 98, 1),
 (112, 8, 98, 1),
 (113, 7, 99, 1),
-(114, 8, 99, 1);
+(114, 8, 99, 1),
+(115, 2, 100, 1),
+(116, 7, 100, 1);
 
 -- --------------------------------------------------------
 
@@ -502,19 +508,19 @@ ALTER TABLE `fornitore`
 -- AUTO_INCREMENT per la tabella `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT per la tabella `notifica`
 --
 ALTER TABLE `notifica`
-  MODIFY `IDNotifica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `IDNotifica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT per la tabella `ordine`
 --
 ALTER TABLE `ordine`
-  MODIFY `IDOrdine` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `IDOrdine` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT per la tabella `prodotto`
@@ -526,13 +532,13 @@ ALTER TABLE `prodotto`
 -- AUTO_INCREMENT per la tabella `prodotto_in_carrello`
 --
 ALTER TABLE `prodotto_in_carrello`
-  MODIFY `IDProdottoInCarrello` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `IDProdottoInCarrello` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT per la tabella `prodotto_in_ordine`
 --
 ALTER TABLE `prodotto_in_ordine`
-  MODIFY `IDProdottoInOrdine` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `IDProdottoInOrdine` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT per la tabella `recensione`
