@@ -28,13 +28,13 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
          <!-- Notify -->
          <?php require_once '../../navbar/filesForNotify.html'; ?>
          <!--JavaScript-->
-         <script src="../commonParts/js/userFunctions.js" type="text/javascript"></script>
-         <script src="../commonParts/js/name.js" type="text/javascript"></script>
-         <script src="../commonParts/js/password.js" type="text/javascript"></script>
-         <script src="../commonParts/js/image.js" type="text/javascript"></script>
-         <script src="../commonParts/js/email.js" type="text/javascript"></script>
-         <script src="surname.js" type="text/javascript"></script>
-         <script src="../../../js/utilities/sha512.js" type="text/javascript"></script>
+         <script src="../commonParts/js/userFunctions.js"></script>
+         <script src="../commonParts/js/name.js"></script>
+         <script src="../commonParts/js/password.js"></script>
+         <script src="../commonParts/js/image.js"></script>
+         <script src="../commonParts/js/email.js"></script>
+         <script src="surname.js"></script>
+         <script src="../../../js/utilities/sha512.js"></script>
          <!--Font awesome-->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">

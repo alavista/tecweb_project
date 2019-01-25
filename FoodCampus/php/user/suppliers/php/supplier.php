@@ -43,25 +43,25 @@
          <!-- Notify -->
          <?php require_once '../../../navbar/filesForNotify.html'; ?>
          <!-- Plugin JQuery for alert-->
-         <script src="../../../../jquery/jquery-confirm.min.js" type="text/javascript"></script>
+         <script src="../../../../jquery/jquery-confirm.min.js"></script>
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../../../../css/jquery-confirm.min.css">
          <!--JavaScript-->
-         <script src="../js/supplierFunctions.js" type="text/javascript"></script>
-         <script src="../js/supplier.js" type="text/javascript"></script>
-         <script src="../../../../js/utilities/sha512.js" type="text/javascript"></script>
-         <script src="../../commonParts/js/userFunctions.js" type="text/javascript"></script>
-         <script src="../../commonParts/js/name.js" type="text/javascript"></script>
-         <script src="../../commonParts/js/password.js" type="text/javascript"></script>
-         <script src="../../commonParts/js/image.js" type="text/javascript"></script>
-         <script src="../../commonParts/js/email.js" type="text/javascript"></script>
-         <script src="../js/city.js" type="text/javascript"></script>
-         <script src="../js/addressVia.js" type="text/javascript"></script>
-         <script src="../js/addressHouseNumber.js" type="text/javascript"></script>
-         <script src="../js/shippingCosts.js" type="text/javascript"></script>
-         <script src="../js/webSite.js" type="text/javascript"></script>
-         <script src="../js/review.js" type="text/javascript"></script>
-         <script src="../js/product.js" type="text/javascript"></script>
-         <script src="../js/vatNumber.js" type="text/javascript"></script>
+         <script src="../js/supplierFunctions.js"></script>
+         <script src="../js/supplier.js"></script>
+         <script src="../../../../js/utilities/sha512.js"></script>
+         <script src="../../commonParts/js/userFunctions.js"></script>
+         <script src="../../commonParts/js/name.js"></script>
+         <script src="../../commonParts/js/password.js"></script>
+         <script src="../../commonParts/js/image.js"></script>
+         <script src="../../commonParts/js/email.js"></script>
+         <script src="../js/city.js"></script>
+         <script src="../js/addressVia.js"></script>
+         <script src="../js/addressHouseNumber.js"></script>
+         <script src="../js/shippingCosts.js"></script>
+         <script src="../js/webSite.js"></script>
+         <script src="../js/review.js"></script>
+         <script src="../js/product.js"></script>
+         <script src="../js/vatNumber.js"></script>
          <!--Font awesome-->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
