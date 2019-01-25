@@ -18,19 +18,20 @@ if ($stmt = $conn->prepare($query)) {
                             ($_SESSION["user_type"] == "Fornitore") && ($_SESSION["user_id"] == $idSupplier))) {
                         $supplierPage = true;
                     }
-                    if ($supplierPage) {
-                        ?>
-                        <br/>
-                        <div class="row">
-                            <div class="col-lg-3"><button type="button" class="btn btn-secondary changePlus" id="changeName">Modifica nome</button></div>
-                            <div class="col-lg-3"><button type="button" class="btn btn-secondary changePlus" id="changeEmail">Modifica email</button></div>
-                            <div class="col-lg-3"><button type='button' class='btn btn-secondary changePlus' id='changePassword'>Modifica password</button></div>
-                            <div class="col-lg-3"><button type='button' class='btn btn-secondary changePlus' id='changeVatNumber'>Modifica partita iva</button></div>
-                        </div>
-                        <?php
-                    }
                     ?>
                 </h1>
+                <?php
+                if ($supplierPage) {
+                    ?>
+                    <div class="form-group row">
+                        <div class="col-lg-3"><button type="button" class="btn btn-secondary changePlus" id="changeName">Modifica nome</button></div>
+                        <div class="col-lg-3"><button type="button" class="btn btn-secondary changePlus" id="changeEmail">Modifica email</button></div>
+                        <div class="col-lg-3"><button type='button' class='btn btn-secondary changePlus' id='changePassword'>Modifica password</button></div>
+                        <div class="col-lg-3"><button type='button' class='btn btn-secondary changePlus' id='changeVatNumber'>Modifica partita iva</button></div>
+                    </div>
+                    <?php
+                }
+                ?>
             </div>
             <?php
             if ($supplierPage) {

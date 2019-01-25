@@ -1,5 +1,5 @@
 <div class="jumbotron">
-    <span class="text-center"><h2>Informazioni</h2></span>
+    <h2 class="text-center">Informazioni</h2>
     <div id="supplierCity">
         <div class="row">
             <div class="col-sm-5">
@@ -133,7 +133,7 @@
         <div class="row">
             <div class="col-sm-5">
                 <span class="font-weight-bold">Sito web:</span><br/>
-                <a id="webSite" href="<?php echo $supplier["sito_web"];?>"><?php echo $supplier["sito_web"];?></a></p>
+                <a id="webSite" href="<?php echo $supplier["sito_web"];?>"><?php echo $supplier["sito_web"];?></a>
             </div>
             <?php
             if ($supplierPage) {

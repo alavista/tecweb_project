@@ -1,5 +1,5 @@
 <div class="jumbotron" id="menu">
-    <span class="text-center"><h2>Menù</h2></span>
+    <h2 class="text-center">Menù</h2>
     <h3>Listino<i class="fas fa-utensils"></i></h3>
     <?php
     $isSupplier = false;

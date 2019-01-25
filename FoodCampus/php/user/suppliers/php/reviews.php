@@ -1,4 +1,4 @@
-<span class="text-center"><h2>Recensioni</h2></span>
+<h2 class="text-center">Recensioni</h2>
 <?php
 if (!$isSupplier) {
     ?>
