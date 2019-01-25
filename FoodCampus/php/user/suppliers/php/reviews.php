@@ -27,7 +27,7 @@ if ($stmt = $conn->prepare($query)) {
             ?>
             <p id="numberReview" class="font-weight-bold"><?php echo $row["numberReview"];?> recensioni clienti</p>
             <div id="starAverageRating">
-                <input class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="<?php echo $row['averageRating'];?>" data-size="lg" data-showcaption=false disabled/>
+                <label class="notVisible" for="averageStars">Numero di stelle medie</label><input id="averageStars" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="<?php echo $row['averageRating'];?>" data-size="lg" data-showcaption=false disabled/>
             </div>
             <p id="averageRating"><?php echo number_format($row['averageRating'], 1);?> su 5 stelle</p>
             <?php

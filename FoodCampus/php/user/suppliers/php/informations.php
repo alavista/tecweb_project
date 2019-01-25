@@ -133,7 +133,15 @@
         <div class="row">
             <div class="col-sm-5">
                 <span class="font-weight-bold">Sito web:</span><br/>
-                <a id="webSite" href="<?php echo $supplier["sito_web"];?>"><?php echo $supplier["sito_web"];?></a>
+                <span id="webSite">
+                <?php
+                if(!empty($supplier["sito_web"])) {
+                    ?>
+                    <a id="linkWebSite" href="<?php echo $supplier["sito_web"];?>"><?php echo $supplier["sito_web"];?></a>
+                    <?php
+                }
+                ?>
+                </span><br/>
             </div>
             <?php
             if ($supplierPage) {

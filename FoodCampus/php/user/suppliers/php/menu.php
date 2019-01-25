@@ -1,6 +1,6 @@
 <div class="jumbotron" id="menu">
     <h2 class="text-center">Menù</h2>
-    <h3>Listino<i class="fas fa-utensils"></i></h3>
+    <h3>Listino<strong class="fas fa-utensils"></strong></h3>
     <?php
     $isSupplier = false;
     if (isset($_COOKIE["user_email"])) {

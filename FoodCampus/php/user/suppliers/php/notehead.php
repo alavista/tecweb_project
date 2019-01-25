@@ -68,7 +68,7 @@ if ($stmt = $conn->prepare($query)) {
                         <input type="password" id="newPassword" class='form-control' placeholder="Nuova password"/>
                     </div>
                     <div class="form-group">
-                        <label class="notVisible" for="oldPassword">Ripeti nuova password</label>
+                        <label class="notVisible" for="repetNewPassword">Ripeti nuova password</label>
                         <input type="password" id="repetNewPassword" class='form-control' placeholder="Ripeti nuova password"/>
                     </div>
                     <div class="form-group">
