@@ -24,7 +24,6 @@
          <link rel="stylesheet" type="text/css" title="stylesheet" href="home.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../footer/footer.css">
          <link rel="stylesheet" type="text/css" title="stylesheet" href="../../css/utilities.css">
-
     </head>
     <body>
           <div class="container">
@@ -142,6 +141,4 @@
             require_once "../footer/footer.html";
           ?>
       </body>
-
-
 </html>

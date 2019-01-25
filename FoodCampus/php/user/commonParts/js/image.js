@@ -12,8 +12,6 @@ $(function() {
         var isClient = getUserType().localeCompare("cliente") == 0;
         fd.append('file',files);
         removeError(newImage);
-        console.log(getUserType());
-        console.log(getId());
         $.ajax({
             url: isClient ? '../commonParts/php/changeImage.php' : '../../commonParts/php/changeImage.php',
             type: 'post',

@@ -26,7 +26,6 @@
         redirectToPageNotFound($conn);
     }
 ?>
-
 <!DOCTYPE html>
 <html lang="it-IT">
     <head>

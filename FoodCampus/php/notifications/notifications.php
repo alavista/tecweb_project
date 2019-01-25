@@ -41,7 +41,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
             $_SESSION["page"] = "http://localhost/tecweb_project/FoodCampus/php/home/home.php";
             ?>
             <div class="jumbotron <?php if ($supplier) { echo 'jumbotronSupplierStartAfterNavbar'; } else { echo 'jumbotronClientStartAfterNavbar'; } ?>">
-                <span class="text-center"><h1>NOTIFICHE</h1></span>
+                <h1 class="text-center">NOTIFICHE</h1>
                 <div id = "medias">
                     <?php
                     $query = "SELECT * FROM notifica WHERE $fieldId = ? ORDER BY IDNotifica DESC";
@@ -67,11 +67,11 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
                         }
                     }
                 ?>
-            </div>
+                </div>
             </div>
         </div>
         <?php
-        require_once "../cookie/cookie.php"; 
+        require_once "../cookie/cookie.php";
         require_once "../footer/footer.html";
         ?>
     </body>

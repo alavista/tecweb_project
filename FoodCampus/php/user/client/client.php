@@ -58,7 +58,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
                     if ($res->num_rows == 1) {
                         $client = $res->fetch_assoc();
                         ?>
-                        <div class="text-center clientImageStartAfterNavbar" id="userImage">
+                        <div class="text-center clientImageStartAfterNavbar">
                             <img id="image" src="../../../res/clients/<?php echo $client["immagine"] != NULL ? $client["immagine"] : 'default.png';?>" class="img-fluid rounded-circle" alt="Logo cliente">
                         </div>
                         <div id="userImage" class="text-center">
@@ -75,7 +75,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
                             </div>
                         </form>
                         <div class="jumbotron">
-                            <span class="text-center"><h2>Informazioni</h2></span>
+                            <h2 class="text-center">Informazioni</h2>
                             <div id="userName">
                                 <span class="font-weight-bold">Cognome e nome:</span>
                                 <span id="surname"><?php echo ucfirst($client['cognome']);?></span>
@@ -98,7 +98,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
                             </form>
                             <form id="newUserSurname" class="text-center">
                                 <div class="form-group">
-                                    <label class="notVisible" for="newName">Nuovo cognome</label>
+                                    <label class="notVisible" for="newSurname">Nuovo cognome</label>
                                     <input type="text" id="newSurname" class='form-control' placeholder="Nuovo cognome"/>
                                 </div>
                                 <div class="form-group">
@@ -116,7 +116,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
                                     <input type="password" id="newPassword" class='form-control' placeholder="Nuova password"/>
                                 </div>
                                 <div class="form-group">
-                                    <label class="notVisible" for="oldPassword">Ripeti nuova password</label>
+                                    <label class="notVisible" for="repetNewPassword">Ripeti nuova password</label>
                                     <input type="password" id="repetNewPassword" class='form-control' placeholder="Ripeti nuova password"/>
                                 </div>
                                 <div class="form-group">
@@ -147,7 +147,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
         ?>
         </div>
         <?php
-        require_once "../../cookie/cookie.php"; 
+        require_once "../../cookie/cookie.php";
         require_once "../../footer/footer.html";
         ?>
     </body>

@@ -4,7 +4,7 @@ if (!$isSupplier) {
     ?>
     <form id="newReview" class="form-group">
         <div class="pt-2">
-            <input name="stars" id="valutationReview" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" value="4" data-size="lg">
+            <label class="notVisible" for="valutationReview">Numero di stelle</label><input name="stars" id="valutationReview" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" value="4" data-size="lg">
         </div>
         <label for="commentReview" class="font-weight-bold">Scrivi la tua recensione</label>
         <textarea class="form-control" rows="5" id="commentReview" name="comment" placeholder="Che cosa ti è piaciuto e cosa non ti è piaciuto?" required></textarea>
