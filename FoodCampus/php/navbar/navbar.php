@@ -66,7 +66,7 @@ if ($loggedInUser) {
             <?php
             if ($loggedInUser) {
                 ?>
-                <li class="nav-item"><a class="nav-link item" href=<?php if ($supplier) { echo "/tecweb_project/FoodCampus/php/user/suppliers/php/supplier.php?id=".$userId; } else {echo "/tecweb_project/FoodCampus/php/user/client/client.php?id=".$userId;} ?>>Profilo</a></li>
+                <li class="nav-item"><a class="nav-link item" href="<?php if ($supplier) { echo "/tecweb_project/FoodCampus/php/user/suppliers/php/supplier.php?id=$userId"; } else { echo "/tecweb_project/FoodCampus/php/user/client/client.php?id=$userId"; } ?>">Profilo</a></li>
                 <?php
             }
             ?>
