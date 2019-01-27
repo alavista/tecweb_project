@@ -7,6 +7,11 @@ function checkAccountSelect(option){
 		});
 
 		inputElements.fadeOut();
+
+		$("#ClientBasic, #ClientBasic *").each(function(){
+			$(this).prop("required", true);
+		});
+		$("#ClientBasic").fadeIn();
 	}
 	else {
 		$("#form-fornitore  input").each(function(){
@@ -15,6 +20,11 @@ function checkAccountSelect(option){
 
 		$("#sitoweb").prop("required", false);
 		inputElements.fadeIn();
+
+		$("#ClientBasic, #ClientBasic *").each(function(){
+			$(this).prop("required", false);
+		});
+		$("#ClientBasic").fadeOut();
 	}
 }
 

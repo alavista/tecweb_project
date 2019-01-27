@@ -98,7 +98,7 @@ function do_Subscription($conn, $query, &$queryErrors, $isSupplier) {
 	if ($insert_stmt = $conn->prepare($query)) {
 
 		if ($isSupplier) {
-
+			$name = $_POST['nomefornitore'];
 			$address = $_POST['indirizzo'];
 			$crossNumber = $_POST['ncivico'];
 			$piva = $_POST['piva'];
@@ -333,7 +333,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			<div class="col-xl-6 jumbotron" id="loginform">
 				<h1 id="first_title">Crea un Account</h1>
 				<form id="subscriptionMainForm" action="subscription.php" method="post" enctype="multipart/form-data">
-					<div class="form-input-group">
+					<div class="form-input-group" id="ClientBasic">
 						<h2 class="form-title">Dati personali</h2>
 						<div class="form-group">
 							<label for="nome">Nome:</label>
