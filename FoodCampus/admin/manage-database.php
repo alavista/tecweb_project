@@ -37,7 +37,7 @@
 
 			<div id="manager-db" class="row">
 
-				<div class="col-xs-12 col-sm-12 col-md-">
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
 					<div class="hidden-sm hidden-xs btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
 					  	<div class="btn-group-vertical tables-list hidden-sm-down" role="group" aria-label="First group">
 				            <?php
@@ -48,7 +48,7 @@
 			        	</div>
 			    	</div>
 			    </div>
-		        <div id="result" class="col-sm-12 col-md-9"></div>
+		        <div id="result" class="col-sm-12 col-md-9 col-lg-9" style="margin-top: 20px"></div>
 		        <div id="result-op" class="offset-md-2"></div>
 			</div>
 		</div>
