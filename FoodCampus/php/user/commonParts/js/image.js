@@ -8,7 +8,7 @@ $(function() {
     $("#saveImage").click(function() {
         var newImage= $("#newImage");
         var fd = new FormData();
-        var files = $('input[name=immagine]')[0].files[0];
+        var files = $('input[name=newImage]')[0].files[0];
         var isClient = getUserType().localeCompare("cliente") == 0;
         fd.append('file',files);
         removeError(newImage);

@@ -67,7 +67,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
                         <form id="newUserImage" class="text-center">
                             <div class="form-group">
                                 <label class="notVisible" for="newImage">Immagine del profilo</label>
-                                <input type="file" id="newImage" class="form-control-file" accept="image/*">
+                                <input type="file" name="newImage" id="newImage" class="form-control-file" accept="image/*">
                             </div>
                             <div class="form-group">
                                 <button type='button' id="saveImage" class='btn btn-success change'>Salva</button>
