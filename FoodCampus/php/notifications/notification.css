@@ -10,3 +10,7 @@
 .jumbotron > h3:first-child {
     font-size: 40px;
 }
+
+.footer-distributed {
+    margin-top: 220px !important;
+}
