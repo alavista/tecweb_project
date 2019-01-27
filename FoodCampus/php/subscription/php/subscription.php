@@ -148,12 +148,13 @@ function subscript($conn, &$queryErrors) {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-	if (!isset($_POST["name"]) || empty($_POST["name"])) {
+	if ($_POST["account_selection"] !== "Fornitore" && (!isset($_POST["name"]) || empty($_POST["name"]))) {
 		$nameError = "Inserire un nome";
 		$errors = true;
+		die($_POST["account_selection"]);
 	}
 
-	if (!isset($_POST["surname"]) || empty($_POST["surname"])) {
+	if ($_POST["account_selection"] !== "Fornitore" && (!isset($_POST["surname"]) || empty($_POST["surname"]))) {
 		$surnameError = "Inserire un cognome";
 		$errors = true;
 	}
