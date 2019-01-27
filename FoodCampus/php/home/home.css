@@ -16,3 +16,14 @@
 .h1Size {
     font-size: 40px;
 }
+
+#title {
+    margin-top: 80px;
+    margin-bottom: 25px;
+    color: #F83442;
+    font-size: 50px;
+}
+
+.carousel-inner {
+    margin-bottom: 15px;
+}

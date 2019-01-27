@@ -29,7 +29,7 @@
           <div class="container">
               <?php require_once '../navbar/navbar.php';?>
                   <div class = "text-center <?php if ($supplier) { echo 'supplierStartAfterNavbar'; } else { echo 'clientStartAfterNavbar'; } ?>">
-                      <h2 class="h1Size">FOOD CAMPUS</h2>
+                      <h2 id="title">FOOD CAMPUS</h2>
                   </div>
                   <div id="foodCategories" class="carousel slide" data-ride="carousel">
                       <!-- Indicators -->
