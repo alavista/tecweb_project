@@ -6,3 +6,7 @@
 .media:last-child {
     margin-bottom: 0px;
 }
+
+.jumbotron > h3:first-child {
+    font-size: 40px;
+}

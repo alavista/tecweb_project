@@ -41,7 +41,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET["id"]) &&
             $_SESSION["page"] = "http://localhost/tecweb_project/FoodCampus/php/home/home.php";
             ?>
             <div class="jumbotron <?php if ($supplier) { echo 'jumbotronSupplierStartAfterNavbar'; } else { echo 'jumbotronClientStartAfterNavbar'; } ?>">
-                <h1 class="text-center">NOTIFICHE</h1>
+                <h3 class="text-center">NOTIFICHE</h3>
                 <div id = "medias">
                     <?php
                     $query = "SELECT * FROM notifica WHERE $fieldId = ? ORDER BY IDNotifica DESC";

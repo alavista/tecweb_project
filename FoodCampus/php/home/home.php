@@ -29,7 +29,7 @@
           <div class="container">
               <?php require_once '../navbar/navbar.php';?>
                   <div class = "text-center <?php if ($supplier) { echo 'supplierStartAfterNavbar'; } else { echo 'clientStartAfterNavbar'; } ?>">
-                      <h1>FOOD CAMPUS</h1>
+                      <h2 class="h1Size">FOOD CAMPUS</h2>
                   </div>
                   <div id="foodCategories" class="carousel slide" data-ride="carousel">
                       <!-- Indicators -->
@@ -128,7 +128,7 @@
                           <br/>
                           Che aspetti? <a href="../subscription/php/subscription.php">Iscriviti ora!</a>
                       </p>
-                      <h1>Come contattarci</h1>
+                      <h2 class="h1Size">Come contattarci</h2>
                       <p>
                           Se hai dubbi o hai bisogno di ulteriori informazioni puoi contattarci al nostro indirizzo email: <span class="font-weight-bold">foodcampus.cesena@gmail.com</span>
                       </p>
