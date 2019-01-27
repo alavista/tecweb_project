@@ -37,17 +37,6 @@ if ($loggedInUser) {
     }
     if (!$supplier) {
         $notificationNumber = computeNumberNotification($conn, 'IDCliente', $userId);
-        /*$query = "SELECT COUNT(*) as productsNumber FROM prodotto_in_carrello WHERE IDCliente = ?";
-        if ($stmt = $conn->prepare($query)) {
-            $stmt->bind_param("i", $userId);
-            if ($stmt->execute()) {
-                $res = $stmt->get_result();
-                if ($res->num_rows > 0) {
-                    $productsNumber = $res->fetch_assoc()["productsNumber"];
-                    $notificationNumber = computeNumberNotification($conn, 'IDCliente', $userId);
-                }
-            }
-        }*/
     } else {
         $notificationNumber = computeNumberNotification($conn, 'IDFornitore', $userId);
     }
